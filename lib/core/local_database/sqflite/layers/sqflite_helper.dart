@@ -1,11 +1,10 @@
-import 'package:flutter/services.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../../../util/logger.dart';
 import '../contracts/base_sqflite_model.dart';
 import '../info/database_creator_info.dart';
 import 'sqflite_database_manager.dart';
 import 'sqflite_decoder.dart';
-import 'package:sqflite/sqflite.dart';
 
 class SqfliteHelper {
   late Database database; //* For detailed executions
@@ -18,7 +17,6 @@ class SqfliteHelper {
       {required SqfliteDatabaseCreatorInfo sqfliteDatabaseCreatorInfo}) async {
     database = await SqfliteDatabaseManager.shared
         .getDataBase(sqfliteDatabaseCreatorInfo: sqfliteDatabaseCreatorInfo);
-    
   }
 
   Future<int> insert<T extends BaseSqfliteModel>(
