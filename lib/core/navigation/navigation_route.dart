@@ -14,7 +14,7 @@ class NavigationRoute {
         return _getRoute(const HomePage());
 
       case KRoute.createResumePage:
-        return _getRoute(const CreateResumePage());
+        return _getRoute( CreateResumePage());
 
       default:
         return MaterialPageRoute(
