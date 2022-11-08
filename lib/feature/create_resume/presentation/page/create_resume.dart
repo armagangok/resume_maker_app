@@ -18,35 +18,44 @@ class CreateResumePage extends StatelessWidget {
         separatorBuilder: (context, index) => SizedBox(
           height: context.height(0.03),
         ),
-        itemBuilder: (context, index) => items[index],
+        itemBuilder: (context, index) => InkWell(
+          onTap: () {},
+          child: items[index],
+        ),
       ),
     );
   }
 
   final items = [
-    const ResumeItem(
+    ResumeItem(
       text: "Personal Data",
       iconData: Icons.person,
+      onTap: () {},
     ),
-    const ResumeItem(
+    ResumeItem(
       text: "Academic",
       iconData: Icons.electric_bolt,
+      onTap: () {},
     ),
-    const ResumeItem(
+    ResumeItem(
       text: "Experience",
       iconData: Icons.star_purple500_outlined,
+      onTap: () {},
     ),
-    const ResumeItem(
+    ResumeItem(
       text: "Reference",
       iconData: Icons.explore_outlined,
+      onTap: () {},
     ),
-    const ResumeItem(
+    ResumeItem(
       text: "Skills",
       iconData: Icons.settings_accessibility_outlined,
+      onTap: () {},
     ),
-    const ResumeItem(
+    ResumeItem(
       text: "Language",
       iconData: Icons.language,
+      onTap: () {},
     ),
   ];
 }
