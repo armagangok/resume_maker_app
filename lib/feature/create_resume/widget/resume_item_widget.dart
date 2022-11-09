@@ -18,7 +18,7 @@ class ResumeItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap(),
+      onTap: () => onTap(),
       child: Container(
         padding: context.lowPadding,
         width: context.width(1),

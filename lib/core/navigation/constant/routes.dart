@@ -4,4 +4,6 @@ class KRoute {
   static const onboard = "/onboard";
   static const home = "/home";
   static const createResumePage = "/createResume";
+  static const languagePage = "/languagePage";
+  static const skillsPage = "/skilsPage";
 }

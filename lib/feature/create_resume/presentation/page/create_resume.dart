@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/extension/context_extension.dart';
+import '../../../../core/navigation/constant/routes.dart';
+import '../../../../core/navigation/navigation_service.dart';
 import '../../widget/resume_item_widget.dart';
 
 class CreateResumePage extends StatelessWidget {
   CreateResumePage({super.key});
+
+  // final navigation = getIt<NavigationService>();
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +22,7 @@ class CreateResumePage extends StatelessWidget {
         separatorBuilder: (context, index) => SizedBox(
           height: context.height(0.03),
         ),
-        itemBuilder: (context, index) => InkWell(
-          onTap: () {},
-          child: items[index],
-        ),
+        itemBuilder: (context, index) => items[index],
       ),
     );
   }
@@ -30,7 +31,7 @@ class CreateResumePage extends StatelessWidget {
     ResumeItem(
       text: "Personal Data",
       iconData: Icons.person,
-      onTap: () {},
+      onTap: () => NavigationService.instance.navigateTo(path: KRoute.languagePage),
     ),
     ResumeItem(
       text: "Academic",
@@ -50,12 +51,12 @@ class CreateResumePage extends StatelessWidget {
     ResumeItem(
       text: "Skills",
       iconData: Icons.settings_accessibility_outlined,
-      onTap: () {},
+      onTap: () => NavigationService.instance.navigateTo(path: KRoute.skillsPage),
     ),
-    ResumeItem(
+    ResumeItem( 
       text: "Language",
       iconData: Icons.language,
-      onTap: () {},
+      onTap: () => NavigationService.instance.navigateTo(path: KRoute.languagePage),
     ),
   ];
 }
