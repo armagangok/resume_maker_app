@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:resume_maker_app/feature/create_resume/presentation/page/create_resume.dart';
-import 'package:resume_maker_app/feature/home/presentation/page/home.dart';
-import 'package:resume_maker_app/feature/language/presentation/page/language.dart';
-import 'package:resume_maker_app/feature/skills/presentation/page/skills.dart';
+import 'package:resume_maker_app/feature/academic/presentation/page/academic.dart';
 
+import '../../feature/create_resume/presentation/page/create_resume.dart';
+import '../../feature/home/presentation/page/home.dart';
+import '../../feature/language/presentation/page/language.dart';
+import '../../feature/personal_details.dart/presentation/page/personal_detail.dart';
+import '../../feature/skills/presentation/page/skills.dart';
 import 'constant/routes.dart';
 
 class NavigationRoute {
@@ -23,6 +25,12 @@ class NavigationRoute {
 
       case KRoute.skillsPage:
         return _getRoute(const SkillsPage());
+
+      case KRoute.personalDetailPage:
+        return _getRoute(const PersonalDetailPage());
+
+      case KRoute.academicPage:
+        return _getRoute(const AcademicPage());
 
       default:
         return MaterialPageRoute(

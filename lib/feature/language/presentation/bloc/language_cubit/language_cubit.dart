@@ -8,13 +8,11 @@ class LanguageCubit extends Cubit<LanguageState> {
   List<String> languages = [];
 
   void addLanguage(String language) {
-    emit(LanguageAdding());
     languages.add(language);
     emit(LanguageAdded());
   }
 
   void removeLanguage(int index) {
-    emit(LanguageRemoving());
     languages.removeAt(index);
     emit(LanguageRemoved());
   }

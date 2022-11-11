@@ -6,4 +6,6 @@ class KRoute {
   static const createResumePage = "/createResume";
   static const languagePage = "/languagePage";
   static const skillsPage = "/skilsPage";
+  static const personalDetailPage = "/personalPage";
+  static const academicPage = "/academicPage";
 }

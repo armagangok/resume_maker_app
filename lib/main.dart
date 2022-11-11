@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:resume_maker_app/injection_container.dart';
 
 import 'core/navigation/navigation_route.dart';
 import 'core/navigation/navigation_service.dart';
 import 'feature/home/presentation/page/home.dart';
+import 'injection_container.dart';
 
 void main() {
   initDependencies();

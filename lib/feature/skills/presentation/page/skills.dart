@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/extension/context_extension.dart';
 import '../../../../global/widget/global_widget_export.dart';
+import '../../../../global/widget/snackbar.dart';
 import '../../../../injection_container.dart';
 import '../cubit/skill_cubit.dart';
 
@@ -30,11 +32,13 @@ class _SkillsPageState extends State<SkillsPage> {
     );
   }
 
-  Widget get _addSkillButton {
-    return CustomFloationgButton(onTap: () {});
-  }
+  Widget get _addSkillButton => CustomFloationgButton(
+        onTap: () => bottomSheet(context),
+      );
 
-  AppBar get _buildAppBar => AppBar();
+  AppBar get _buildAppBar => AppBar(
+        title: const Text("Skills"),
+      );
 
   Widget get _buildBody => BlocBuilder<SkillCubit, SkillState>(
         bloc: getIt<SkillCubit>.call(),
@@ -50,5 +54,41 @@ class _SkillsPageState extends State<SkillsPage> {
             ),
           );
         },
+      );
+
+  Future<dynamic> bottomSheet(BuildContext context) => showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Padding(
+            padding: context.normalPadding,
+            child: ListView(
+              children: [
+                _skillTextField,
+                _addLanguageButton,
+              ],
+            ),
+          );
+        },
+      );
+
+  Widget get _skillTextField => TextField(
+        controller: skillController,
+        decoration: const InputDecoration(
+          hintText: "Add your skills",
+        ),
+      );
+
+  Widget get _addLanguageButton => SizedBox(
+        width: double.infinity,
+        child: ElevatedButton(
+          onPressed: () {
+            var text = skillController.text;
+            (text.isNotEmpty)
+                ? getIt<SkillCubit>().addSkill(text)
+                : getSnackBar(context, "Skill cannot be empty");
+            skillController.clear();
+          },
+          child: const Text("Add Skill"),
+        ),
       );
 }
