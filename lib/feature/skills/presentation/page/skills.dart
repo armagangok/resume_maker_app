@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/extension/context_extension.dart';
-import '../../../../global/widget/global_appbar.dart';
+import '../../../../global/widget/custom_appbar.dart';
 import '../../../../global/widget/global_widget_export.dart';
 import '../../../../global/widget/snackbar.dart';
 import '../../../../injection_container.dart';

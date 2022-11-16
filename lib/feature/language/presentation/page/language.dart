@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/extension/context_extension.dart';
 import '../../../../global/widget/floating_action_button.dart';
-import '../../../../global/widget/global_appbar.dart';
+import '../../../../global/widget/custom_appbar.dart';
 import '../../../../global/widget/list_item_widget.dart';
 import '../../../../global/widget/snackbar.dart';
 import '../../../../injection_container.dart';
-import '../cubit/language_cubit/language_cubit.dart';
+import '../bloc/language_cubit/language_cubit.dart';
 
 class LanguagePage extends StatefulWidget {
   const LanguagePage({super.key});

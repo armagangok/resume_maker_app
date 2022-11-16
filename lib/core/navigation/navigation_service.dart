@@ -23,4 +23,6 @@ class NavigationService extends BaseNavigationService {
       arguments: data,
     );
   }
+
+  void getBack() => navigatorKey.currentState!.pop();
 }
