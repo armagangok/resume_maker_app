@@ -18,7 +18,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: const Color.fromARGB(255, 47, 52, 205),
+          // or from RGB
+        ),
+        // primarySwatch: const Color.fromARGB(255, 17, 119, 203),
+        scaffoldBackgroundColor: Colors.grey[300],
       ),
       navigatorKey: NavigationService.instance.navigatorKey,
       onGenerateRoute: NavigationRoute.instance.generateRoute,

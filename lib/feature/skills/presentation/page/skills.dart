@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/extension/context_extension.dart';
+import '../../../../global/widget/global_appbar.dart';
 import '../../../../global/widget/global_widget_export.dart';
 import '../../../../global/widget/snackbar.dart';
 import '../../../../injection_container.dart';
@@ -36,7 +37,8 @@ class _SkillsPageState extends State<SkillsPage> {
         onTap: () => bottomSheet(context),
       );
 
-  AppBar get _buildAppBar => AppBar(
+  CustomAppBar get _buildAppBar => CustomAppBar(
+        onTapText: () {},
         title: const Text("Skills"),
       );
 
