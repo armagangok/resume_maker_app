@@ -38,7 +38,7 @@ class _SkillsPageState extends State<SkillsPage> {
       );
 
   CustomAppBar get _buildAppBar => CustomAppBar(
-        onTapText: () {},
+        onTapUpdate: () {},
         title: const Text("Skills"),
       );
 

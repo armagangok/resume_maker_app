@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/extension/context_extension.dart';
-import '../../../global/constant/shape_constant.dart';
+import '../../../../core/extension/context_extension.dart';
+import '../../../../global/constant/shape_constant.dart';
 
 class ResumeItem extends StatelessWidget {
   final String text;
@@ -23,9 +23,9 @@ class ResumeItem extends StatelessWidget {
         padding: context.lowPadding,
         width: context.width(1),
         height: context.height(0.15),
-        decoration: const BoxDecoration(
-          color: Colors.blue,
-          borderRadius: BorderRadius.all(radius16),
+        decoration: BoxDecoration(
+          color: context.colors.primary,
+          borderRadius: const BorderRadius.all(radius16),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

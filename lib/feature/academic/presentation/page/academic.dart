@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resume_maker_app/global/widget/custom_appbar.dart';
 
 class AcademicPage extends StatelessWidget {
   const AcademicPage({super.key});
@@ -15,10 +16,10 @@ class AcademicPage extends StatelessWidget {
         children: const [],
       );
 
-  AppBar get _buildAppBar {
-    return AppBar(
+  CustomAppBar get _buildAppBar {
+    return CustomAppBar(
       title: const Text("Academic"),
+      onTapUpdate: () {},
     );
   }
 }
-  

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resume_maker_app/global/widget/custom_appbar.dart';
 
 import '../../../../core/extension/context_extension.dart';
 
@@ -89,7 +90,8 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         decoration: const InputDecoration(hintText: "Phone Number"),
       );
 
-  AppBar get _buildAppBar => AppBar(
+  CustomAppBar get _buildAppBar => CustomAppBar(
         title: const Text("Personal Details"),
+        onTapUpdate: () {},
       );
 }

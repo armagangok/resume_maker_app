@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:resume_maker_app/feature/academic/presentation/page/academic.dart';
 
+import '../../feature/academic/presentation/page/academic.dart';
 import '../../feature/create_resume/presentation/page/create_resume.dart';
 import '../../feature/home/presentation/page/home.dart';
 import '../../feature/language/presentation/page/language.dart';
-import '../../feature/personal_details.dart/presentation/page/personal_detail.dart';
+import '../../feature/personal_details/presentation/page/personal_detail.dart';
 import '../../feature/skills/presentation/page/skills.dart';
 import 'constant/routes.dart';
 

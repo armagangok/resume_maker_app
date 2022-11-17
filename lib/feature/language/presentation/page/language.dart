@@ -51,7 +51,7 @@ class _LanguagePageState extends State<LanguagePage> {
 
   CustomAppBar get _buildAppBar => CustomAppBar(
         title: const Text("Languages"),
-        onTapText: () {},
+        onTapUpdate: () {},
       );
 
   Widget _addLanguageButton() {

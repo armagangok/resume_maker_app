@@ -11,10 +11,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.height = kToolbarHeight,
     this.onTap,
     this.action,
-    required this.onTapText,
+    required this.onTapUpdate,
   }) : super(key: key);
 
-  final Function onTapText;
+  final Function onTapUpdate;
   final Widget? title;
   final bool enableBackButton;
   final double? height;
@@ -26,7 +26,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       actions: [
         TextButton(
-          onPressed: () => onTapText(),
+          onPressed: () => onTapUpdate(),
           child: const Text(
             "Update",
             style: TextStyle(
