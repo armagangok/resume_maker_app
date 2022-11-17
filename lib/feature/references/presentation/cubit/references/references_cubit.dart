@@ -16,6 +16,6 @@ class ReferencesCubit extends Cubit<ReferencesState> {
 
   void removeReference(int index) {
     referencesList.removeAt(index);
-    emit(RemoveReference());
+    referencesList.isEmpty ? emit(ReferenceInitial()) : emit(RemoveReference());
   }
 }

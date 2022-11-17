@@ -13,6 +13,7 @@ class ReferenceItemWidget extends StatelessWidget {
     required this.recentCompany,
     required this.email,
     required this.phoneNumber,
+    required this.onLongTap,
   });
 
   final String thReference;
@@ -21,31 +22,35 @@ class ReferenceItemWidget extends StatelessWidget {
   final String recentCompany;
   final String email;
   final String phoneNumber;
+  final Function onLongTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: _decoration,
-      width: context.width(1),
-      // height: context.height(0.08),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          padding(Text(
-            "$thReference. Reference",
-            style: context.textTheme.headline5,
-          )),
-          const CustomDivider(),
-          padding(Text("Name: $name")),
-          const CustomDivider(),
-          padding(Text("Profession: $profession")),
-          const CustomDivider(),
-          padding(Text("Recent Company: $recentCompany")),
-          const CustomDivider(),
-          padding(Text("Email: $email")),
-          const CustomDivider(),
-          padding(Text("Phone Number: $phoneNumber")),
-        ],
+    return InkWell(
+      onLongPress: () => onLongTap(),
+      child: Container(
+        decoration: _decoration,
+        width: context.width(1),
+        // height: context.height(0.08),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            padding(Text(
+              "$thReference. Reference",
+              style: context.textTheme.headline5,
+            )),
+            const CustomDivider(),
+            padding(Text("Name: $name")),
+            const CustomDivider(),
+            padding(Text("Profession: $profession")),
+            const CustomDivider(),
+            padding(Text("Recent Company: $recentCompany")),
+            const CustomDivider(),
+            padding(Text("Email: $email")),
+            const CustomDivider(),
+            padding(Text("Phone Number: $phoneNumber")),
+          ],
+        ),
       ),
     );
   }

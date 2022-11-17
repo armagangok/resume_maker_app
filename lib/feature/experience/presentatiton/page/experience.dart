@@ -11,25 +11,31 @@ class ExperiencesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
-      body: BlocBuilder<ExperienceCubit, ExperienceState>(
-        bloc: getIt<ExperienceCubit>.call(),
-        builder: (context, state) {
-          if (state is ExperienceInitial) {
-            return const InitialStateWidget(
-              text: "Add experiences that you have into resume.",
-            );
-          } else {}
-          return Column();
-        },
-      ),
+      appBar: _buildAppBar,
+      body: _buildBody,
+      floatingActionButton: _addExperienceButton,
     );
   }
 
-  CustomAppBar _buildAppBar() {
-    return CustomAppBar(
-      title: const Text("Experiences"),
-      onTapUpdate: () {},
-    );
-  }
+  Widget get _addExperienceButton => CustomFloationgButton(
+        onTap: () {},
+      );
+
+  CustomAppBar get _buildAppBar => CustomAppBar(
+        title: const Text("Experiences"),
+        onTapUpdate: () {},
+      );
+
+  Widget get _buildBody => BlocBuilder<ExperienceCubit, ExperienceState>(
+        bloc: getIt<ExperienceCubit>.call(),
+        builder: (context, state) {
+          if (state is ExperienceInitial) { 
+            return const InitialStateWidget(
+              text: "Add experiences that you have into resume.",
+            );
+          } else {
+            return Column();
+          }
+        },
+      );
 }

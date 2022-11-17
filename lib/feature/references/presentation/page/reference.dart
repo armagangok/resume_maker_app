@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:resume_maker_app/global/widget/custom_dialog.dart';
 
 import '../../../../core/extension/context_extension.dart';
 import '../../../../global/widget/custom_divider.dart';
@@ -61,6 +62,11 @@ class ReferencesScreenState extends State<ReferencesPage> {
                   recentCompany: referencesList[index].recentCompany ?? "",
                   email: referencesList[index].email ?? "",
                   phoneNumber: referencesList[index].phoneNumber ?? "",
+                  onLongTap: () => showCustomDialog(
+                    context,
+                    index,
+                    () => getIt<ReferencesCubit>.call().removeReference(index),
+                  ),
                 );
               },
               separatorBuilder: (context, index) => const CustomDivider(),

@@ -4,3 +4,4 @@ export './custom_appbar.dart';
 export './custom_bottom_sheet.dart';
 export './initial_state_widget.dart';
 export './snackbar.dart';
+export './ios_dialog.dart';
