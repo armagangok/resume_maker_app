@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resume_maker_app/core/extension/context_extension.dart';
+import 'package:resume_maker_app/global/widget/custom_dialog.dart';
 
 import '../../../../global/widget/export.dart';
 import '../../../../injection_container.dart';
@@ -148,8 +149,8 @@ class _AcademicPageState extends State<AcademicPage> {
   }
 
   Widget get _buidlBody => Padding(
-    padding: context.normalPadding,
-    child: BlocBuilder<AcademicCubit, AcademicState>(
+        padding: context.normalPadding,
+        child: BlocBuilder<AcademicCubit, AcademicState>(
           bloc: getIt<AcademicCubit>.call(),
           builder: (context, state) {
             var academicCubit = getIt<AcademicCubit>.call();
@@ -157,13 +158,18 @@ class _AcademicPageState extends State<AcademicPage> {
               itemBuilder: (context, index) => AcademicItemWidget(
                 academicData: academicCubit.academicDataList[index],
                 index: index,
+                onLongPress: () => showCustomDialog(
+                  context,
+                  index,
+                  () => academicCubit.removeAcademicData(index),
+                ),
               ),
               separatorBuilder: (context, index) => const CustomDivider(),
               itemCount: academicCubit.academicDataList.length,
             );
           },
         ),
-  );
+      );
 
   CustomAppBar get _buildAppBar {
     return CustomAppBar(
