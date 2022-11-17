@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/extension/context_extension.dart';
-
 import '../../../../global/widget/export.dart';
+import '../../../../injection_container.dart';
+import '../../model/reference_model.dart';
 import '../cubit/references/references_cubit.dart';
-import '../cubit/references/references_state.dart';
+import '../widget/reference_item.dart';
 
 class ReferencesPage extends StatefulWidget {
   const ReferencesPage({Key? key}) : super(key: key);
@@ -15,17 +16,17 @@ class ReferencesPage extends StatefulWidget {
 }
 
 class ReferencesScreenState extends State<ReferencesPage> {
-  final screenCubit = ReferencesCubit();
   late final TextEditingController nameController;
   late final TextEditingController professionController;
+  late final TextEditingController recentCompanyController;
   late final TextEditingController emailController;
   late final TextEditingController phoneNumberController;
 
   @override
   void initState() {
-    screenCubit.loadInitialData();
     nameController = TextEditingController();
     professionController = TextEditingController();
+    recentCompanyController = TextEditingController();
     emailController = TextEditingController();
     phoneNumberController = TextEditingController();
     super.initState();
@@ -36,24 +37,33 @@ class ReferencesScreenState extends State<ReferencesPage> {
     return Scaffold(
       appBar: _buildAppBar,
       floatingActionButton: _addReferenceButton,
-      body: BlocConsumer<ReferencesCubit, ReferencesState>(
-        bloc: screenCubit,
-        listener: (BuildContext context, ReferencesState state) {
-          if (state.error != null) {}
-        },
-        builder: (BuildContext context, ReferencesState state) {
-          if (state.isLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          return _buildBody;
-        },
-      ),
+      body: _buildBody,
     );
   }
 
-  Column get _buildBody => Column(
-        children: const [],
+  Widget get _buildBody => BlocBuilder<ReferencesCubit, ReferencesState>(
+        bloc: getIt<ReferencesCubit>.call(),
+        builder: (context, state) {
+          if (state is ReferenceInitial) {
+            return const Center(child: Text("Please add your references."));
+          } else {
+            var referencesList = getIt<ReferencesCubit>.call().referencesList;
+            return ListView.separated(
+              itemBuilder: (context, index) {
+                return ReferenceItemWidget(
+                  thReference: "${index + 1}",
+                  name: referencesList[index].name ?? "",
+                  profession: referencesList[index].profession ?? "",
+                  recentCompany: referencesList[index].recentCompany ?? "",
+                  email: referencesList[index].email ?? "",
+                  phoneNumber: referencesList[index].phoneNumber ?? "",
+                );
+              },
+              separatorBuilder: (context, index) => const Divider(),
+              itemCount: referencesList.length,
+            );
+          }
+        },
       );
 
   TextField get _phoneNumberTextField => TextField(
@@ -61,7 +71,7 @@ class ReferencesScreenState extends State<ReferencesPage> {
         controller: phoneNumberController,
       );
 
-  TextField get _emailController => TextField(
+  TextField get _emailTextField => TextField(
         decoration: const InputDecoration(hintText: "Reference Email"),
         controller: emailController,
       );
@@ -71,9 +81,14 @@ class ReferencesScreenState extends State<ReferencesPage> {
         controller: professionController,
       );
 
-  TextField get _nameTextController => TextField(
+  TextField get _nameTextTextField => TextField(
         decoration: const InputDecoration(hintText: "Name Surname"),
         controller: nameController,
+      );
+
+  TextField get _recentCompanyTextField => TextField(
+        decoration: const InputDecoration(hintText: "Recent Company"),
+        controller: recentCompanyController,
       );
 
   CustomAppBar get _buildAppBar => CustomAppBar(
@@ -90,17 +105,12 @@ class ReferencesScreenState extends State<ReferencesPage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    _nameTextController,
+                    _nameTextTextField,
                     _professionTextField,
-                    _emailController,
+                    _recentCompanyTextField,
+                    _emailTextField,
                     _phoneNumberTextField,
-                    SizedBox(
-                      width: context.width(1),
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: const Text("Add As Reference"),
-                      ),
-                    )
+                    _saveReferenceButton,
                   ],
                 ),
               ),
@@ -108,4 +118,23 @@ class ReferencesScreenState extends State<ReferencesPage> {
           ),
         ),
       );
+
+  Widget get _saveReferenceButton {
+    return SizedBox(
+      width: context.width(1),
+      child: ElevatedButton(
+        onPressed: () {
+          var reference = ReferenceModel(
+            name: nameController.text,
+            profession: professionController.text,
+            email: emailController.text,
+            phoneNumber: phoneNumberController.text,
+            recentCompany: recentCompanyController.text,
+          );
+          getIt<ReferencesCubit>.call().addReference(reference);
+        },
+        child: const Text("Add As Reference"),
+      ),
+    );
+  }
 }
