@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/extension/context_extension.dart';
+import '../../../../global/constant/shape_constant.dart';
 import '../../../../global/widget/custom_divider.dart';
 
 class ReferenceItemWidget extends StatelessWidget {
@@ -35,28 +36,31 @@ class ReferenceItemWidget extends StatelessWidget {
             style: context.textTheme.headline5,
           )),
           const CustomDivider(),
-          padding(Text(name)),
+          padding(Text("Name: $name")),
           const CustomDivider(),
-          padding(Text(profession)),
+          padding(Text("Profession: $profession")),
           const CustomDivider(),
-          padding(Text(recentCompany)),
+          padding(Text("Recent Company: $recentCompany")),
           const CustomDivider(),
-          padding(Text(email)),
+          padding(Text("Email: $email")),
           const CustomDivider(),
-          padding(Text(phoneNumber)),
+          padding(Text("Phone Number: $phoneNumber")),
         ],
       ),
     );
   }
 
-  Widget padding(Widget widget) => Builder(builder: (context) {
-        return Padding(
-          padding: context.lowPadding,
-          child: widget,
-        );
-      });
+  Widget padding(Widget widget) => Builder(
+        builder: (context) {
+          return Padding(
+            padding: context.normalPadding,
+            child: widget,
+          );
+        },
+      );
 
   BoxDecoration get _decoration => const BoxDecoration(
+        borderRadius: BorderRadius.all(radius13),
         color: Colors.white,
       );
 }

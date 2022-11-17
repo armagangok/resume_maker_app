@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:resume_maker_app/injection_container.dart';
 
-import '../../../../global/widget/custom_appbar.dart';
-import '../../../../global/widget/initial_state_widget.dart';
+import '../../../../global/widget/export.dart';
+import '../../../../injection_container.dart';
 import '../cubit/cubit/experience_cubit.dart';
 
 class ExperiencesPage extends StatelessWidget {

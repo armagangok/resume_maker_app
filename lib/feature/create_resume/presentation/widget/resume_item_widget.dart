@@ -22,7 +22,7 @@ class ResumeItem extends StatelessWidget {
       child: Container(
         padding: context.lowPadding,
         width: context.width(1),
-        height: context.height(0.15),
+        height: context.height(0.12),
         decoration: BoxDecoration(
           color: context.colors.primary,
           borderRadius: const BorderRadius.all(radius16),
@@ -38,8 +38,8 @@ class ResumeItem extends StatelessWidget {
               ),
             ),
             Container(
-              height: context.height(0.13),
-              width: context.height(0.13),
+              height: context.height(0.11),
+              width: context.height(0.11),
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(radius16),
