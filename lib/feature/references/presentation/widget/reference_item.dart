@@ -29,9 +29,8 @@ class ReferenceItemWidget extends StatelessWidget {
     return InkWell(
       onLongPress: () => onLongTap(),
       child: Container(
-        decoration: _decoration,
+        decoration: decorationRadius13,
         width: context.width(1),
-        // height: context.height(0.08),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -62,10 +61,5 @@ class ReferenceItemWidget extends StatelessWidget {
             child: widget,
           );
         },
-      );
-
-  BoxDecoration get _decoration => const BoxDecoration(
-        borderRadius: BorderRadius.all(radius13),
-        color: Colors.white,
       );
 }

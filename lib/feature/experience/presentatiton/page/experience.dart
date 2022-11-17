@@ -29,9 +29,9 @@ class ExperiencesPage extends StatelessWidget {
   Widget get _buildBody => BlocBuilder<ExperienceCubit, ExperienceState>(
         bloc: getIt<ExperienceCubit>.call(),
         builder: (context, state) {
-          if (state is ExperienceInitial) { 
+          if (state is ExperienceInitial) {
             return const InitialStateWidget(
-              text: "Add experiences that you have into resume.",
+              text: "Add experiences into resume you have.",
             );
           } else {
             return Column();

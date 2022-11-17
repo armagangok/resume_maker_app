@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:resume_maker_app/feature/academic/presentation/cubit/academic_cubit/academic_cubit.dart';
 import 'package:resume_maker_app/feature/experience/presentatiton/cubit/cubit/experience_cubit.dart';
 
 import 'core/navigation/navigation_service.dart';
@@ -13,4 +14,5 @@ void initDependencies() {
   getIt.registerLazySingleton<SkillCubit>(() => SkillCubit());
   getIt.registerLazySingleton<ReferencesCubit>(() => ReferencesCubit());
   getIt.registerLazySingleton<ExperienceCubit>(() => ExperienceCubit());
+  getIt.registerLazySingleton<AcademicCubit>(() => AcademicCubit());
 }
