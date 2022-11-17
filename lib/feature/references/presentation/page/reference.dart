@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/extension/context_extension.dart';
+import '../../../../global/widget/custom_divider.dart';
 import '../../../../global/widget/export.dart';
 import '../../../../injection_container.dart';
 import '../../model/reference_model.dart';
@@ -37,7 +38,10 @@ class ReferencesScreenState extends State<ReferencesPage> {
     return Scaffold(
       appBar: _buildAppBar,
       floatingActionButton: _addReferenceButton,
-      body: _buildBody,
+      body: Padding(
+        padding: context.normalPadding,
+        child: _buildBody,
+      ),
     );
   }
 
@@ -45,7 +49,7 @@ class ReferencesScreenState extends State<ReferencesPage> {
         bloc: getIt<ReferencesCubit>.call(),
         builder: (context, state) {
           if (state is ReferenceInitial) {
-            return const Center(child: Text("Please add your references."));
+            return _initialText;
           } else {
             var referencesList = getIt<ReferencesCubit>.call().referencesList;
             return ListView.separated(
@@ -59,12 +63,18 @@ class ReferencesScreenState extends State<ReferencesPage> {
                   phoneNumber: referencesList[index].phoneNumber ?? "",
                 );
               },
-              separatorBuilder: (context, index) => const Divider(),
+              separatorBuilder: (context, index) => const CustomDivider(),
               itemCount: referencesList.length,
             );
           }
         },
       );
+
+  Widget get _initialText {
+    return const Center(
+      child: Text("Add references into your resume."),
+    );
+  }
 
   TextField get _phoneNumberTextField => TextField(
         decoration: const InputDecoration(hintText: "Phone Number"),

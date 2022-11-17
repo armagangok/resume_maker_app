@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/extension/context_extension.dart';
+import '../../../../global/widget/custom_divider.dart';
 
 class ReferenceItemWidget extends StatelessWidget {
   const ReferenceItemWidget({
@@ -27,20 +28,33 @@ class ReferenceItemWidget extends StatelessWidget {
       width: context.width(1),
       // height: context.height(0.08),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            thReference,
+          padding(Text(
+            "$thReference. Reference",
             style: context.textTheme.headline5,
-          ),
-          Text(name),
-          Text(profession),
-          Text(recentCompany),
-          Text(email),
-          Text(phoneNumber),
+          )),
+          const CustomDivider(),
+          padding(Text(name)),
+          const CustomDivider(),
+          padding(Text(profession)),
+          const CustomDivider(),
+          padding(Text(recentCompany)),
+          const CustomDivider(),
+          padding(Text(email)),
+          const CustomDivider(),
+          padding(Text(phoneNumber)),
         ],
       ),
     );
   }
+
+  Widget padding(Widget widget) => Builder(builder: (context) {
+        return Padding(
+          padding: context.lowPadding,
+          child: widget,
+        );
+      });
 
   BoxDecoration get _decoration => const BoxDecoration(
         color: Colors.white,

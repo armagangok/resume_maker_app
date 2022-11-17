@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:resume_maker_app/global/widget/custom_bottom_sheet.dart';
+import 'package:resume_maker_app/global/widget/initial_state_widget.dart';
 
 import '../../../../core/extension/context_extension.dart';
 import '../../../../global/widget/export.dart';
@@ -46,15 +46,22 @@ class _SkillsPageState extends State<SkillsPage> {
         bloc: getIt<SkillCubit>.call(),
         builder: (context, state) {
           var skillCubit = getIt<SkillCubit>.call();
-          return ListView.separated(
-            itemCount: getIt<SkillCubit>.call().skills.length,
-            separatorBuilder: (context, index) => const SizedBox(),
-            itemBuilder: (context, index) => ListItemWidget(
-              text: skillCubit.skills[index],
-              index: index,
-              onTap: () => skillCubit.removeSkill(index),
-            ),
-          );
+
+          if (state is SkillInitial) {
+            return const InitialStateWidget(
+              text: "Add the skills you have into your resume.",
+            );
+          } else {
+            return ListView.separated(
+              itemCount: getIt<SkillCubit>.call().skills.length,
+              separatorBuilder: (context, index) => const SizedBox(),
+              itemBuilder: (context, index) => ListItemWidget(
+                text: skillCubit.skills[index],
+                index: index,
+                onTap: () => skillCubit.removeSkill(index),
+              ),
+            );
+          }
         },
       );
 
