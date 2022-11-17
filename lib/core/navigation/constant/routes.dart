@@ -8,4 +8,5 @@ class KRoute {
   static const skillsPage = "/skilsPage";
   static const personalDetailPage = "/personalPage";
   static const academicPage = "/academicPage";
+  static const referencesPage = "/referencesPage";
 }

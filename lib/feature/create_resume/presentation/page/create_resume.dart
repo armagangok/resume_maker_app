@@ -10,7 +10,6 @@ class CreateResumePage extends StatelessWidget {
   CreateResumePage({super.key});
 
   // final navigation = getIt<NavigationService>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +48,8 @@ class CreateResumePage extends StatelessWidget {
     ResumeItem(
       text: "References",
       iconData: Icons.explore_outlined,
-      onTap: () {},
+      onTap: () =>
+          getIt<NavigationService>().navigateTo(path: KRoute.referencesPage),
     ),
     ResumeItem(
       text: "Skills",
