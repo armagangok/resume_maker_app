@@ -1,9 +1,9 @@
-class SchoolCareerDate {
-  final DateTime startDate;
-  final DateTime endDate;
+// class SchoolCareerDate {
+//   final DateTime startDate;
+//   final DateTime endDate;
 
-  SchoolCareerDate({
-    required this.startDate,
-    required this.endDate,
-  });
-}
+//   SchoolCareerDate({
+//     required this.startDate,
+//     required this.endDate,
+//   });
+// }

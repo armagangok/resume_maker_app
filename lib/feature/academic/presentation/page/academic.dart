@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:resume_maker_app/core/extension/context_extension.dart';
-import 'package:resume_maker_app/global/widget/custom_dialog.dart';
 
+import '../../../../core/extension/context_extension.dart';
+import '../../../../global/widget/custom_dialog.dart';
 import '../../../../global/widget/export.dart';
 import '../../../../injection_container.dart';
 import '../../model/academic_data_model.dart';
-import '../../model/school_career_date_model.dart';
 import '../cubit/academic_cubit/academic_cubit.dart';
 import '../widget/academic_item_widget.dart';
 
@@ -89,8 +88,8 @@ class _AcademicPageState extends State<AcademicPage> {
         var academicDataModel = AcademicDataModel(
           grade: gradeController.text,
           university: uniController.text,
-          schoolCareerDate: SchoolCareerDate(
-              startDate: DateTime(1999), endDate: DateTime(1999)),
+          schoolEndDate: endDateController.text,
+          schoolStartDate: startDateController.text,
           major: majorController.text,
           scholarship: scholarshipController.text,
         );

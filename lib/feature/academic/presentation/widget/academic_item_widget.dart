@@ -49,14 +49,15 @@ class AcademicItemWidget extends StatelessWidget {
               children: [
                 ItemPadding(
                   widget: Text(
-                    "Start date: ${academicData.schoolCareerDate.startDate.year}",
+                    "Start date: ${academicData.schoolStartDate}",
                   ),
                 ),
                 const Spacer(),
                 // const CustomDivider(),
                 ItemPadding(
                   widget: Text(
-                      "End date: ${academicData.schoolCareerDate.endDate.year}"),
+                    "End date: ${academicData.schoolEndDate}",
+                  ),
                 ),
                 const Spacer(),
               ],
@@ -68,15 +69,3 @@ class AcademicItemWidget extends StatelessWidget {
   }
 }
 
-class ItemPadding extends StatelessWidget {
-  const ItemPadding({super.key, required this.widget});
-  final Widget widget;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: context.lowPadding,
-      child: widget,
-    );
-  }
-}
