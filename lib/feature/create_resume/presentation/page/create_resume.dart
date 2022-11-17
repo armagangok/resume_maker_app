@@ -4,7 +4,7 @@ import '../../../../core/extension/context_extension.dart';
 import '../../../../core/navigation/constant/routes.dart';
 import '../../../../core/navigation/navigation_service.dart';
 import '../../../../injection_container.dart';
-import '../../widget/resume_item_widget.dart';
+import '../widget/resume_item_widget.dart';
 
 class CreateResumePage extends StatelessWidget {
   CreateResumePage({super.key});
@@ -42,12 +42,12 @@ class CreateResumePage extends StatelessWidget {
           getIt<NavigationService>().navigateTo(path: KRoute.academicPage),
     ),
     ResumeItem(
-      text: "Experience",
+      text: "Experiences",
       iconData: Icons.star_purple500_outlined,
       onTap: () {},
     ),
     ResumeItem(
-      text: "Reference",
+      text: "References",
       iconData: Icons.explore_outlined,
       onTap: () {},
     ),
@@ -58,7 +58,7 @@ class CreateResumePage extends StatelessWidget {
           getIt<NavigationService>().navigateTo(path: KRoute.skillsPage),
     ),
     ResumeItem(
-      text: "Language",
+      text: "Languages",
       iconData: Icons.language,
       onTap: () =>
           getIt<NavigationService>().navigateTo(path: KRoute.languagePage),
