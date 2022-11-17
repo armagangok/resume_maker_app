@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resume_maker_app/feature/experience/presentatiton/page/experience.dart';
 import 'package:resume_maker_app/feature/references/presentation/page/reference.dart';
 
 import '../../feature/academic/presentation/page/academic.dart';
@@ -35,6 +36,9 @@ class NavigationRoute {
 
       case KRoute.referencesPage:
         return _getRoute(const ReferencesPage());
+
+      case KRoute.experiencesPage:
+        return _getRoute(const ExperiencesPage());
 
       default:
         return MaterialPageRoute(

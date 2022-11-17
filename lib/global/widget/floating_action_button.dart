@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/extension/context_extension.dart';
 
 class CustomFloationgButton extends StatelessWidget {
   final Function onTap;
@@ -10,6 +11,7 @@ class CustomFloationgButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+      backgroundColor: context.colors.primary,
       onPressed: () => onTap(),
       child: const Icon(Icons.add),
     );

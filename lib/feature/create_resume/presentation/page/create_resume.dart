@@ -43,7 +43,8 @@ class CreateResumePage extends StatelessWidget {
     ResumeItem(
       text: "Experiences",
       iconData: Icons.star_purple500_outlined,
-      onTap: () {},
+      onTap: () =>
+          getIt<NavigationService>().navigateTo(path: KRoute.experiencesPage),
     ),
     ResumeItem(
       text: "References",

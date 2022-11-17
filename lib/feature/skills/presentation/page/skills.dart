@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:resume_maker_app/global/widget/custom_bottom_sheet.dart';
 
 import '../../../../core/extension/context_extension.dart';
-import '../../../../global/widget/custom_appbar.dart';
-import '../../../../global/widget/global_widget_export.dart';
+import '../../../../global/widget/export.dart';
 import '../../../../global/widget/snackbar.dart';
 import '../../../../injection_container.dart';
 import '../cubit/skill_cubit.dart';
@@ -58,19 +58,17 @@ class _SkillsPageState extends State<SkillsPage> {
         },
       );
 
-  Future<dynamic> bottomSheet(BuildContext context) => showModalBottomSheet(
+  Future<dynamic> bottomSheet(BuildContext context) => customBottomSheet(
         context: context,
-        builder: (context) {
-          return Padding(
-            padding: context.normalPadding,
-            child: ListView(
-              children: [
-                _skillTextField,
-                _addLanguageButton,
-              ],
-            ),
-          );
-        },
+        widget: Padding(
+          padding: context.normalPadding,
+          child: ListView(
+            children: [
+              _skillTextField,
+              _addLanguageButton,
+            ],
+          ),
+        ),
       );
 
   Widget get _skillTextField => TextField(
