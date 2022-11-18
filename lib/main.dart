@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
+import 'core/local_database/hive/hive_helper.dart';
 import 'core/navigation/navigation_route.dart';
 import 'core/navigation/navigation_service.dart';
 import 'feature/home/presentation/page/home.dart';
 import 'injection_container.dart';
 
-void main() {
+Future<void> main() async {
   initDependencies();
+  await HiveHelper.shared.initializeHive();
   runApp(const MyApp());
 }
 

@@ -1,4 +1,3 @@
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HiveHelper {
@@ -8,7 +7,7 @@ class HiveHelper {
 
   Future<void> initializeHive() async {
     await Hive.initFlutter();
-    //Hive.registerAdapter(AdapterClass);
+    // Hive.registerAdapter(AdapterClass);
     // await Hive.openBox<bool>(BoxKey);
   }
 
@@ -37,7 +36,7 @@ class HiveHelper {
     await box.put(key, data);
   }
 
-  Future<void> putAllData<T>(String boxName, Map<dynamic,T> data) async {
+  Future<void> putAllData<T>(String boxName, Map<dynamic, T> data) async {
     var box = Hive.box<T>(boxName);
     await box.putAll(data);
   }
