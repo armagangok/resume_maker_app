@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:resume_maker_app/feature/personal_details/model/personal_data_model.dart';
 
 import '../../../../core/extension/context_extension.dart';
 import '../../../../global/widget/custom_appbar.dart';
 import '../../../../injection_container.dart';
+import '../../model/personal_data_model.dart';
 import '../cubit/pick_image/pick_image_cubit.dart';
 
 class PersonalDetailPage extends StatefulWidget {
@@ -34,7 +34,6 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
     emailController = TextEditingController();
     linkedinController = TextEditingController();
     birthdayController = TextEditingController();
-
     super.initState();
   }
 

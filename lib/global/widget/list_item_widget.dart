@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../feature/home/presentation/widget/export.dart';
+
 class ListItemWidget extends StatelessWidget {
   final String text;
   final int index;
@@ -15,7 +17,8 @@ class ListItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey[50],
+      decoration: decorationRadius13,
+      // color: Colors.grey[50],
       child: Row(
         children: [
           Checkbox(

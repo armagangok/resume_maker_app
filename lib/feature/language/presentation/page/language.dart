@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:resume_maker_app/global/widget/export.dart';
 
 import '../../../../core/extension/context_extension.dart';
-import '../../../../global/widget/custom_appbar.dart';
-import '../../../../global/widget/floating_action_button.dart';
-import '../../../../global/widget/list_item_widget.dart';
-import '../../../../global/widget/snackbar.dart';
 import '../../../../injection_container.dart';
 import '../cubit/language_cubit/language_cubit.dart';
 
@@ -34,26 +31,29 @@ class _LanguagePageState extends State<LanguagePage> {
     );
   }
 
-  Widget get _buildBody => BlocBuilder<LanguageCubit, LanguageState>(
-        bloc: getIt<LanguageCubit>.call(),
-        builder: (context, state) {
-          if (state is LanguageInitial) {
-            return const Center(
-              child: Text("Add languages into your resume."),
-            );
-          } else {
-            return ListView.separated(
-              itemBuilder: (context, index) => ListItemWidget(
-                text: getIt<LanguageCubit>().languages[index],
-                index: index,
-                onTap: () => getIt<LanguageCubit>().removeLanguage(index),
-              ),
-              separatorBuilder: (context, index) => const SizedBox(),
-              itemCount: getIt<LanguageCubit>().languages.length,
-            );
-          }
-        },
-      );
+  Widget get _buildBody => Padding(
+    padding: context.normalPadding,
+    child: BlocBuilder<LanguageCubit, LanguageState>(
+          bloc: getIt<LanguageCubit>.call(),
+          builder: (context, state) {
+            if (state is LanguageInitial) {
+              return const Center(
+                child: Text("Add languages into your resume."),
+              );
+            } else {
+              return ListView.separated(
+                itemBuilder: (context, index) => ListItemWidget(
+                  text: getIt<LanguageCubit>().languages[index],
+                  index: index,
+                  onTap: () => getIt<LanguageCubit>().removeLanguage(index),
+                ),
+                separatorBuilder: (context, index) => const CustomDivider(),
+                itemCount: getIt<LanguageCubit>().languages.length,
+              );
+            }
+          },
+        ),
+  );
 
   CustomAppBar get _buildAppBar => CustomAppBar(
         title: const Text("Languages"),

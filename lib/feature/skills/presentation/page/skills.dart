@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:resume_maker_app/global/widget/initial_state_widget.dart';
 
 import '../../../../core/extension/context_extension.dart';
 import '../../../../global/widget/export.dart';
-import '../../../../global/widget/snackbar.dart';
 import '../../../../injection_container.dart';
 import '../cubit/skill_cubit.dart';
 
@@ -42,27 +40,30 @@ class _SkillsPageState extends State<SkillsPage> {
         title: const Text("Skills"),
       );
 
-  Widget get _buildBody => BlocBuilder<SkillCubit, SkillState>(
-        bloc: getIt<SkillCubit>.call(),
-        builder: (context, state) {
-          var skillCubit = getIt<SkillCubit>.call();
+  Widget get _buildBody => Padding(
+        padding: context.normalPadding,
+        child: BlocBuilder<SkillCubit, SkillState>(
+          bloc: getIt<SkillCubit>.call(),
+          builder: (context, state) {
+            var skillCubit = getIt<SkillCubit>.call();
 
-          if (state is SkillInitial) {
-            return const InitialStateWidget(
-              text: "Add the skills you have into your resume.",
-            );
-          } else {
-            return ListView.separated(
-              itemCount: getIt<SkillCubit>.call().skills.length,
-              separatorBuilder: (context, index) => const SizedBox(),
-              itemBuilder: (context, index) => ListItemWidget(
-                text: skillCubit.skills[index],
-                index: index,
-                onTap: () => skillCubit.removeSkill(index),
-              ),
-            );
-          }
-        },
+            if (state is SkillInitial) {
+              return const InitialStateWidget(
+                text: "Add the skills you have into your resume.",
+              );
+            } else {
+              return ListView.separated(
+                itemCount: getIt<SkillCubit>.call().skills.length,
+                separatorBuilder: (context, index) => const CustomDivider(),
+                itemBuilder: (context, index) => ListItemWidget(
+                  text: skillCubit.skills[index],
+                  index: index,
+                  onTap: () => skillCubit.removeSkill(index),
+                ),
+              );
+            }
+          },
+        ),
       );
 
   Future<dynamic> bottomSheet(BuildContext context) => customBottomSheet(
