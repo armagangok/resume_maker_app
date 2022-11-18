@@ -16,19 +16,21 @@ class PickImageCubit extends Cubit<PickImageState> {
   final _imagePicker = getIt<ImagePickerHelper>.call();
 
   Future<void> pickImage() async {
+    emit(ImageLoading());
     var result = await _imagePicker.pickImage();
 
     if (result is Exception) {
       emit(LoadError());
+    } else if (_imagePicker.getImage == null) {
+      emit(PickImageInitial());
     } else {
-      emit(ImageLoading());
       _image = _imagePicker.getImage;
       emit(ImageLoaded());
     }
-  }
 
-  Future<void> discardImage() async {
-    _image = null;
-    emit(DiscardImage());
+    Future<void> discardImage() async {
+      _image = null;
+      emit(DiscardImage());
+    }
   }
 }

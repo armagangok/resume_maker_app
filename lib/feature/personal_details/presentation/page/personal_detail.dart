@@ -68,24 +68,20 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         child: BlocBuilder<PickImageCubit, PickImageState>(
           bloc: getIt<PickImageCubit>.call(),
           builder: (context, state) {
-            print(state);
             var imagePickerCubit = getIt<PickImageCubit>.call();
             if (state is PickImageInitial) {
-              return _userImageWidget();
-            } else if (state is ImageLoading) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is ImageLoaded) {
-              CircleAvatar(
-                radius: context.height(0.125),
-                backgroundColor: Colors.grey,
-                child: Builder(
-                  builder: (context) {
-                    File imageFile = File(imagePickerCubit.image!.path);
-                    return Center(child: Image.file(imageFile));
-                  },
+              return _loadingImageWidget(
+                const Icon(
+                  CupertinoIcons.person_fill,
+                  color: Colors.grey,
+                  size: 100,
                 ),
               );
-              return _userImageWidget();
+            } else if (state is ImageLoading) {
+              return _loadingImageWidget(const CircularProgressIndicator());
+            } else if (state is ImageLoaded) {
+              File imageFile = File(imagePickerCubit.image!.path);
+              return _userImageWidget(imageFile);
             } else {
               return const Center(child: Text("Error while uploading image."));
             }
@@ -93,37 +89,21 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         ),
       );
 
-  CircleAvatar _userImageWidget() {
+  CircleAvatar _loadingImageWidget(Widget widget) {
     return CircleAvatar(
       radius: context.height(0.125),
-      backgroundColor: Colors.grey,
-      child: Builder(
-        builder: (context) {
-          return Center(
-            child: _initialImageIcon(),
-          );
-        },
+      backgroundColor: Colors.white,
+      child: Center(
+        child: widget,
       ),
     );
   }
 
-  Column _initialImageIcon() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Icon(
-          CupertinoIcons.person_fill,
-          size: 100,
-          color: Colors.white,
-        ),
-        Text(
-          "Press to add an image.",
-          style: context.textTheme.bodyLarge!.copyWith(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ],
+  CircleAvatar _userImageWidget(File file) {
+    return CircleAvatar(
+      radius: context.height(0.125),
+      backgroundImage: AssetImage(file.path),
+      backgroundColor: Colors.white,
     );
   }
 
