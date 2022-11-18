@@ -5,6 +5,7 @@ class PersonalDataModel {
   final String email;
   final String linkedin;
   final String birthday;
+  final String? imagePath;
 
   PersonalDataModel({
     required this.name,
@@ -13,5 +14,6 @@ class PersonalDataModel {
     required this.email,
     required this.linkedin,
     required this.birthday,
+    required this.imagePath,
   });
 }

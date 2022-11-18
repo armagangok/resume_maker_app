@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:resume_maker_app/feature/personal_details/model/personal_data_model.dart';
 
 import '../../../../core/extension/context_extension.dart';
 import '../../../../global/widget/custom_appbar.dart';
@@ -18,17 +19,18 @@ class PersonalDetailPage extends StatefulWidget {
 
 class _PersonalDetailPageState extends State<PersonalDetailPage> {
   late final TextEditingController nameController;
-  late final TextEditingController cityController;
+
   late final TextEditingController numberController;
   late final TextEditingController emailController;
   late final TextEditingController linkedinController;
   late final TextEditingController birthdayController;
+  late final TextEditingController locationController;
 
   @override
   void initState() {
     nameController = TextEditingController();
-    cityController = TextEditingController();
     numberController = TextEditingController();
+    locationController = TextEditingController();
     emailController = TextEditingController();
     linkedinController = TextEditingController();
     birthdayController = TextEditingController();
@@ -112,12 +114,17 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         children: [
           _personalInformationText,
           _nameTextField,
-          _cityTextField,
+          _locationTextField,
           _numberTextField,
           _emailTextField,
           _linkedinTextField,
           _birthDayTextField,
         ],
+      );
+
+  TextField get _locationTextField => TextField(
+        controller: locationController,
+        decoration: const InputDecoration(hintText: "Location"),
       );
 
   Widget get _personalInformationText => Builder(
@@ -130,7 +137,19 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
   Widget get _updateButton => SizedBox(
         width: context.width(1),
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            var personalDataModel = PersonalDataModel(
+              name: nameController.text,
+              location: locationController.text,
+              phoneNumber: numberController.text,
+              email: emailController.text,
+              linkedin: linkedinController.text,
+              birthday: birthdayController.text,
+              imagePath: getIt<PickImageCubit>.call().image == null
+                  ? ""
+                  : getIt<PickImageCubit>.call().image!.path,
+            );
+          },
           child: const Text("Save"),
         ),
       );
@@ -138,11 +157,6 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
   TextField get _nameTextField => TextField(
         controller: nameController,
         decoration: const InputDecoration(hintText: "Name"),
-      );
-
-  TextField get _cityTextField => TextField(
-        controller: cityController,
-        decoration: const InputDecoration(hintText: "Location"),
       );
 
   TextField get _birthDayTextField => TextField(
