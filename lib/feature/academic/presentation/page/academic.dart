@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/extension/context_extension.dart';
-import '../../../../global/widget/custom_dialog.dart';
-import '../../../../global/widget/export.dart';
+import '../../../../core/widget/custom_dialog.dart';
+import '../../../../core/widget/export.dart';
 import '../../../../injection_container.dart';
 import '../../model/academic_data_model.dart';
 import '../cubit/academic_cubit/academic_cubit.dart';

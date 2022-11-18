@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'core/local_database/hive/hive_helper.dart';
 import 'core/navigation/navigation_route.dart';
 import 'core/navigation/navigation_service.dart';

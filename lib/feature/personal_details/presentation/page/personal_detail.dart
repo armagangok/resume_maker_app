@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/extension/context_extension.dart';
-import '../../../../global/widget/custom_appbar.dart';
+import '../../../../core/widget/custom_appbar.dart';
 import '../../../../injection_container.dart';
 import '../../model/personal_data_model.dart';
 import '../cubit/pick_image/pick_image_cubit.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../core/extension/context_extension.dart';
+import '../extension/context_extension.dart';
 
 class CustomFloationgButton extends StatelessWidget {
   final Function onTap;

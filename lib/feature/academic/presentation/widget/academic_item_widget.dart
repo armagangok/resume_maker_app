@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/constant/padding_constant.dart';
+import '../../../../core/constant/shape_constant.dart';
 import '../../../../core/extension/context_extension.dart';
-import '../../../../global/widget/export.dart';
-import '../../../home/presentation/widget/export.dart';
+import '../../../../core/widget/export.dart';
 import '../../model/academic_data_model.dart';
 
 class AcademicItemWidget extends StatelessWidget {
@@ -68,4 +69,3 @@ class AcademicItemWidget extends StatelessWidget {
     );
   }
 }
-

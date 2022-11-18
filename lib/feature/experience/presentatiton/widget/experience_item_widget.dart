@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/constant/shape_constant.dart';
 import '../../../../core/extension/context_extension.dart';
-import '../../../home/presentation/widget/export.dart';
 import '../../model/experience_model.dart';
 
 class ExperienceItemWidget extends StatelessWidget {

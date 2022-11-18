@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:resume_maker_app/global/widget/export.dart';
+import 'package:resume_maker_app/core/widget/export.dart';
 
 import '../../../../core/extension/context_extension.dart';
 import '../../../../injection_container.dart';
