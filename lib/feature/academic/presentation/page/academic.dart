@@ -153,19 +153,25 @@ class _AcademicPageState extends State<AcademicPage> {
           bloc: getIt<AcademicCubit>.call(),
           builder: (context, state) {
             var academicCubit = getIt<AcademicCubit>.call();
-            return ListView.separated(
-              itemBuilder: (context, index) => AcademicItemWidget(
-                academicData: academicCubit.academicDataList[index],
-                index: index,
-                onLongPress: () => showCustomDialog(
-                  context,
-                  index,
-                  () => academicCubit.removeAcademicData(index),
+            if (state is AcademicInitial) {
+              return const InitialStateWidget(
+                text: "Add academic data into yout resume.",
+              );
+            } else {
+              return ListView.separated(
+                itemBuilder: (context, index) => AcademicItemWidget(
+                  academicData: academicCubit.academicDataList[index],
+                  index: index,
+                  onLongPress: () => showCustomDialog(
+                    context,
+                    index,
+                    () => academicCubit.removeAcademicData(index),
+                  ),
                 ),
-              ),
-              separatorBuilder: (context, index) => const CustomDivider(),
-              itemCount: academicCubit.academicDataList.length,
-            );
+                separatorBuilder: (context, index) => const CustomDivider(),
+                itemCount: academicCubit.academicDataList.length,
+              );
+            }
           },
         ),
       );

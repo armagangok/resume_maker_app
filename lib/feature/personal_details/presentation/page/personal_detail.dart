@@ -1,7 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:resume_maker_app/global/widget/custom_appbar.dart';
 
 import '../../../../core/extension/context_extension.dart';
+import '../../../../global/widget/custom_appbar.dart';
 
 class PersonalDetailPage extends StatefulWidget {
   const PersonalDetailPage({super.key});
@@ -38,54 +39,107 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
     );
   }
 
-  Widget get _buildBody {
-    return ListView(
-      padding: context.normalPadding,
-      children: [
-        _nameTextField(),
-        _cityTextField(),
-        _numberTextField(),
-        _emailTextField(),
-        _linkedinTextField(),
-        _birthDayTextField(),
-        _updateButton()
-      ],
-    );
-  }
+  Widget get _buildBody => ListView(
+        padding: context.normalPadding,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              _informationTextStack,
+              SizedBox(height: context.height(0.05)),
+              _uploadImageButton,
+              SizedBox(height: context.height(0.05)),
+              _updateButton,
+            ],
+          ),
+        ],
+      );
 
-  ElevatedButton _updateButton() {
-    return ElevatedButton(
-      onPressed: () {},
-      child: const Text("Update"),
-    );
-  }
+  InkWell get _uploadImageButton => InkWell(
+        onTap: () {},
+        child: CircleAvatar(
+          radius: context.height(0.125),
+          backgroundColor: Colors.grey,
+          child: Builder(
+            builder: (context) {
+              return Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      CupertinoIcons.person_fill,
+                      size: 100,
+                      color: Colors.white,
+                    ),
+                    Text(
+                      "Press to add an image.",
+                      style: context.textTheme.bodyLarge!.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      );
 
-  TextField _nameTextField() => TextField(
+  Widget get _informationTextStack => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _personalInformationText,
+          _nameTextField,
+          _cityTextField,
+          _numberTextField,
+          _emailTextField,
+          _linkedinTextField,
+          _birthDayTextField,
+        ],
+      );
+
+  Widget get _personalInformationText => Builder(
+        builder: (context) => Text(
+          "Personal Infomarmation",
+          style: context.textTheme.headline5,
+        ),
+      );
+
+  Widget get _updateButton => SizedBox(
+        width: context.width(1),
+        child: ElevatedButton(
+          onPressed: () {},
+          child: const Text("Save"),
+        ),
+      );
+
+  TextField get _nameTextField => TextField(
         controller: nameController,
         decoration: const InputDecoration(hintText: "Name"),
       );
 
-  TextField _cityTextField() => TextField(
+  TextField get _cityTextField => TextField(
         controller: cityController,
         decoration: const InputDecoration(hintText: "Location"),
       );
 
-  TextField _birthDayTextField() => TextField(
+  TextField get _birthDayTextField => TextField(
         controller: birthdayController,
         decoration: const InputDecoration(hintText: "Birthday"),
       );
 
-  TextField _linkedinTextField() => TextField(
+  TextField get _linkedinTextField => TextField(
         controller: linkedinController,
         decoration: const InputDecoration(hintText: "Linkedin"),
       );
 
-  TextField _emailTextField() => TextField(
+  TextField get _emailTextField => TextField(
         controller: emailController,
         decoration: const InputDecoration(hintText: "Email"),
       );
 
-  TextField _numberTextField() => TextField(
+  TextField get _numberTextField => TextField(
         controller: numberController,
         decoration: const InputDecoration(hintText: "Phone Number"),
       );

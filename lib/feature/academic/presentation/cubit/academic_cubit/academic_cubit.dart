@@ -15,6 +15,6 @@ class AcademicCubit extends Cubit<AcademicState> {
 
   void removeAcademicData(int index) {
     academicDataList.removeAt(index);
-    academicDataList.isEmpty ? emit(AcademicInitial()): emit(RemoveAcademicData());
+    academicDataList.isEmpty ? emit(AcademicInitial()) : emit(RemoveAcademicData());
   }
 }
