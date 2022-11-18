@@ -1,5 +1,8 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../../../feature/academic/model/academic_data_model.dart';
+import 'hive_keys.dart';
+
 class HiveHelper {
   HiveHelper._();
 
@@ -7,8 +10,9 @@ class HiveHelper {
 
   Future<void> initializeHive() async {
     await Hive.initFlutter();
+
     // Hive.registerAdapter(AdapterClass);
-    // await Hive.openBox<bool>(BoxKey);
+    await Hive.openBox<AcademicDataModel>(HiveBoxes.academicDataBox);
   }
 
   Future<T?> getData<T>(String boxName, dynamic key) async {
