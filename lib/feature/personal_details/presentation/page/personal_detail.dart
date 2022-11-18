@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/extension/context_extension.dart';
 import '../../../../global/widget/custom_appbar.dart';
+import '../../../../injection_container.dart';
+import '../cubit/pick_image/pick_image_cubit.dart';
 
 class PersonalDetailPage extends StatefulWidget {
   const PersonalDetailPage({super.key});
@@ -56,35 +61,71 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
       );
 
   InkWell get _uploadImageButton => InkWell(
-        onTap: () {},
-        child: CircleAvatar(
-          radius: context.height(0.125),
-          backgroundColor: Colors.grey,
-          child: Builder(
-            builder: (context) {
-              return Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(
-                      CupertinoIcons.person_fill,
-                      size: 100,
-                      color: Colors.white,
-                    ),
-                    Text(
-                      "Press to add an image.",
-                      style: context.textTheme.bodyLarge!.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
+        onTap: () async {
+          var imagePickerCubit = getIt<PickImageCubit>.call();
+          await imagePickerCubit.pickImage();
+        },
+        child: BlocBuilder<PickImageCubit, PickImageState>(
+          bloc: getIt<PickImageCubit>.call(),
+          builder: (context, state) {
+            print(state);
+            var imagePickerCubit = getIt<PickImageCubit>.call();
+            if (state is PickImageInitial) {
+              return _userImageWidget();
+            } else if (state is ImageLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is ImageLoaded) {
+              CircleAvatar(
+                radius: context.height(0.125),
+                backgroundColor: Colors.grey,
+                child: Builder(
+                  builder: (context) {
+                    File imageFile = File(imagePickerCubit.image!.path);
+                    return Center(child: Image.file(imageFile));
+                  },
                 ),
               );
-            },
-          ),
+              return _userImageWidget();
+            } else {
+              return const Center(child: Text("Error while uploading image."));
+            }
+          },
         ),
       );
+
+  CircleAvatar _userImageWidget() {
+    return CircleAvatar(
+      radius: context.height(0.125),
+      backgroundColor: Colors.grey,
+      child: Builder(
+        builder: (context) {
+          return Center(
+            child: _initialImageIcon(),
+          );
+        },
+      ),
+    );
+  }
+
+  Column _initialImageIcon() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Icon(
+          CupertinoIcons.person_fill,
+          size: 100,
+          color: Colors.white,
+        ),
+        Text(
+          "Press to add an image.",
+          style: context.textTheme.bodyLarge!.copyWith(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    );
+  }
 
   Widget get _informationTextStack => Column(
         crossAxisAlignment: CrossAxisAlignment.start,

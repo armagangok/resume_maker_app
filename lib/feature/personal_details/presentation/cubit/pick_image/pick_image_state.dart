@@ -6,6 +6,10 @@ class PickImageInitial extends PickImageState {}
 
 class ImageLoading extends PickImageState {}
 
-class ImageLoaded extends PickImageCubit {}
+class ImageLoaded extends PickImageState {}
 
 class LoadImage extends PickImageState {}
+
+class LoadError extends PickImageState {}
+
+class DiscardImage extends PickImageState {}

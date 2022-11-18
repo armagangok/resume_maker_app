@@ -14,15 +14,15 @@ class LogHelper {
   }
 
   void warningPrint(String message) {
-    if (debugMode)  _logger.w(message);
+    if (debugMode) _logger.w(message);
   }
 
   void errorPrint(String message) {
-   if (debugMode)   _logger.e(message);
+    if (debugMode) _logger.e(message);
   }
 
   void whatTheFuckPrint(String message) {
-   if (debugMode)   _logger.wtf(message);
+    if (debugMode) _logger.wtf(message);
   }
 
   String getError(
