@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:resume_maker_app/core/local_database/hive/hive_keys.dart';
 
 import '../../../../core/error/failure.dart';
 import '../../../../core/local_database/hive/hive_helper.dart';
+import '../../../../core/local_database/hive/hive_keys.dart';
 import '../../model/academic_data_model.dart';
 import '../contract/academic_data_repository.dart';
 

@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 
 import 'core/navigation/navigation_service.dart';
 import 'core/util/image_picker_helper/image_picker_helper.dart';
+import 'feature/academic/data/repository/academic_data_repository_imp.dart';
 import 'feature/academic/presentation/cubit/academic_cubit/academic_cubit.dart';
 import 'feature/experience/presentatiton/cubit/cubit/experience_cubit.dart';
 import 'feature/language/presentation/cubit/language_cubit/language_cubit.dart';
@@ -19,4 +20,5 @@ void initDependencies() {
   getIt.registerLazySingleton<AcademicCubit>(() => AcademicCubit());
   getIt.registerLazySingleton<ImagePickerHelper>(() => ImagePickerHelper());
   getIt.registerLazySingleton<PickImageCubit>(() => PickImageCubit());
+  getIt.registerLazySingleton<AcademicDataRepositoryImp>(() => AcademicDataRepositoryImp());
 }
