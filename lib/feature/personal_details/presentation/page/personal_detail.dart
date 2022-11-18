@@ -28,13 +28,14 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
 
   @override
   void initState() {
-    nameController = TextEditingController();
-    numberController = TextEditingController();
-    locationController = TextEditingController();
-    emailController = TextEditingController();
-    linkedinController = TextEditingController();
-    birthdayController = TextEditingController();
+    initializeControllers();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    disposeControllers();
+    super.dispose();
   }
 
   @override
@@ -51,17 +52,18 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              _informationTextStack,
-              SizedBox(height: context.height(0.05)),
+              SizedBox(height: context.height(0.025)),
               _uploadImageButton,
-              SizedBox(height: context.height(0.05)),
+              SizedBox(height: context.height(0.025)),
+              _informationTextStack,
+              SizedBox(height: context.height(0.025)),
               _updateButton,
             ],
           ),
         ],
       );
 
-  InkWell get _uploadImageButton => InkWell(
+  Widget get _uploadImageButton => InkWell(
         onTap: () async {
           var imagePickerCubit = getIt<PickImageCubit>.call();
           await imagePickerCubit.pickImage();
@@ -90,17 +92,26 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         ),
       );
 
-  CircleAvatar _loadingImageWidget(Widget widget) {
+  Widget _loadingImageWidget(Widget widget) {
     return CircleAvatar(
       radius: context.height(0.125),
       backgroundColor: Colors.white,
       child: Center(
-        child: widget,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            widget,
+            Text(
+              "Tap to upload image.",
+              style: context.textTheme.bodyMedium!.copyWith(color: Colors.grey),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  CircleAvatar _userImageWidget(File file) {
+  Widget _userImageWidget(File file) {
     return CircleAvatar(
       radius: context.height(0.125),
       backgroundImage: AssetImage(file.path),
@@ -121,7 +132,7 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         ],
       );
 
-  TextField get _locationTextField => TextField(
+  Widget get _locationTextField => TextField(
         controller: locationController,
         decoration: const InputDecoration(hintText: "Location"),
       );
@@ -153,27 +164,27 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         ),
       );
 
-  TextField get _nameTextField => TextField(
+  Widget get _nameTextField => TextField(
         controller: nameController,
         decoration: const InputDecoration(hintText: "Name"),
       );
 
-  TextField get _birthDayTextField => TextField(
+  Widget get _birthDayTextField => TextField(
         controller: birthdayController,
         decoration: const InputDecoration(hintText: "Birthday"),
       );
 
-  TextField get _linkedinTextField => TextField(
+  Widget get _linkedinTextField => TextField(
         controller: linkedinController,
         decoration: const InputDecoration(hintText: "Linkedin"),
       );
 
-  TextField get _emailTextField => TextField(
+  Widget get _emailTextField => TextField(
         controller: emailController,
         decoration: const InputDecoration(hintText: "Email"),
       );
 
-  TextField get _numberTextField => TextField(
+  Widget get _numberTextField => TextField(
         controller: numberController,
         decoration: const InputDecoration(hintText: "Phone Number"),
       );
@@ -182,4 +193,22 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         title: const Text("Personal Details"),
         onTapUpdate: () {},
       );
+
+  void initializeControllers() {
+    nameController = TextEditingController();
+    numberController = TextEditingController();
+    locationController = TextEditingController();
+    emailController = TextEditingController();
+    linkedinController = TextEditingController();
+    birthdayController = TextEditingController();
+  }
+
+  void disposeControllers() {
+    nameController.dispose();
+    numberController.dispose();
+    locationController.dispose();
+    emailController.dispose();
+    linkedinController.dispose();
+    birthdayController.dispose();
+  }
 }

@@ -3,29 +3,42 @@ import 'package:flutter/material.dart';
 import '../../../../core/extension/context_extension.dart';
 import '../../../../core/navigation/constant/routes.dart';
 import '../../../../core/navigation/navigation_service.dart';
+import '../../../../global/widget/custom_appbar.dart';
 import '../../../../injection_container.dart';
 import '../widget/resume_item_widget.dart';
 
-class CreateResumePage extends StatelessWidget {
-  CreateResumePage({super.key});
+class CreateResumePage extends StatefulWidget {
+  const CreateResumePage({super.key});
 
+  @override
+  State<CreateResumePage> createState() => _CreateResumePageState();
+}
+
+class _CreateResumePageState extends State<CreateResumePage> {
   // final navigation = getIt<NavigationService>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Resume Maker"),
-      ),
-      body: ListView.separated(
-        padding: context.mediumPadding,
-        itemCount: items.length,
-        separatorBuilder: (context, index) => SizedBox(
-          height: context.height(0.03),
-        ),
-        itemBuilder: (context, index) => items[index],
-      ),
+      appBar: _buildAppBar,
+      body: _buildBody(),
     );
   }
+
+  ListView _buildBody() {
+    return ListView.separated(
+      padding: context.mediumPadding,
+      itemCount: items.length,
+      separatorBuilder: (context, index) => SizedBox(
+        height: context.height(0.03),
+      ),
+      itemBuilder: (context, index) => items[index],
+    );
+  }
+
+  CustomAppBar get _buildAppBar => CustomAppBar(
+        title: const Text("Resume Maker"),
+        onTapUpdate: () {},
+      );
 
   final items = [
     ResumeItem(
