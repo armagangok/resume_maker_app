@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:resume_maker_app/feature/academic/presentation/cubit/text_controller/text_controller_cubit.dart';
 
 import '../../../../core/extension/context_extension.dart';
 import '../../../../core/widget/custom_dialog.dart';
 import '../../../../core/widget/export.dart';
 import '../../../../injection_container.dart';
 import '../../model/academic_data_model.dart';
-
 import '../cubit/academic_data/academic_cubit.dart';
+import '../cubit/text_controller/text_controller_cubit.dart';
 import '../widget/academic_item_widget.dart';
 
 class AcademicPage extends StatefulWidget {
@@ -38,17 +37,6 @@ class _AcademicPageState extends State<AcademicPage> {
         );
 
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    academicTextControllerCubit.uniController.dispose();
-    academicTextControllerCubit.majorController.dispose();
-    academicTextControllerCubit.gradeController.dispose();
-    academicTextControllerCubit.scholarshipController.dispose();
-    academicTextControllerCubit.startDateController.dispose();
-    academicTextControllerCubit.endDateController.dispose();
-    super.dispose();
   }
 
   @override
@@ -92,11 +80,12 @@ class _AcademicPageState extends State<AcademicPage> {
         onPressed: () async {
           var academicDataModel = AcademicDataModel(
             grade: academicTextControllerCubit.gradeController.text,
-            university:academicTextControllerCubit. uniController.text,
-            schoolEndDate:academicTextControllerCubit. endDateController.text,
-            schoolStartDate:academicTextControllerCubit. startDateController.text,
-            major:academicTextControllerCubit. majorController.text,
-            scholarship:academicTextControllerCubit. scholarshipController.text,
+            university: academicTextControllerCubit.uniController.text,
+            schoolEndDate: academicTextControllerCubit.endDateController.text,
+            schoolStartDate:
+                academicTextControllerCubit.startDateController.text,
+            major: academicTextControllerCubit.majorController.text,
+            scholarship: academicTextControllerCubit.scholarshipController.text,
           );
 
           academicCubit.addAcademicData(academicDataModel);
