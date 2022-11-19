@@ -8,6 +8,7 @@ import '../../../../core/extension/context_extension.dart';
 import '../../../../core/widget/custom_appbar.dart';
 import '../../../../injection_container.dart';
 import '../../model/personal_data_model.dart';
+import '../cubit/personal_text_controllers/personal_text_controllers_cubit.dart';
 import '../cubit/pick_image/pick_image_cubit.dart';
 
 class PersonalDetailPage extends StatefulWidget {
@@ -18,24 +19,11 @@ class PersonalDetailPage extends StatefulWidget {
 }
 
 class _PersonalDetailPageState extends State<PersonalDetailPage> {
-  late final TextEditingController nameController;
-
-  late final TextEditingController numberController;
-  late final TextEditingController emailController;
-  late final TextEditingController linkedinController;
-  late final TextEditingController birthdayController;
-  late final TextEditingController locationController;
-
+  late final PersonalTextControllerCubit personalTextControllers;
   @override
   void initState() {
-    initializeControllers();
+    personalTextControllers = getIt<PersonalTextControllerCubit>.call();
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    disposeControllers();
-    super.dispose();
   }
 
   @override
@@ -133,7 +121,7 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
       );
 
   Widget get _locationTextField => TextField(
-        controller: locationController,
+        controller: personalTextControllers.locationController,
         decoration: const InputDecoration(hintText: "Location"),
       );
 
@@ -149,12 +137,12 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         child: ElevatedButton(
           onPressed: () {
             var personalDataModel = PersonalDataModel(
-              name: nameController.text,
-              location: locationController.text,
-              phoneNumber: numberController.text,
-              email: emailController.text,
-              linkedin: linkedinController.text,
-              birthday: birthdayController.text,
+              name: personalTextControllers.nameController.text,
+              location: personalTextControllers.locationController.text,
+              phoneNumber: personalTextControllers.numberController.text,
+              email: personalTextControllers.emailController.text,
+              linkedin: personalTextControllers.linkedinController.text,
+              birthday: personalTextControllers.birthdayController.text,
               imagePath: getIt<PickImageCubit>.call().image == null
                   ? ""
                   : getIt<PickImageCubit>.call().image!.path,
@@ -165,27 +153,27 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
       );
 
   Widget get _nameTextField => TextField(
-        controller: nameController,
+        controller: personalTextControllers.nameController,
         decoration: const InputDecoration(hintText: "Name"),
       );
 
   Widget get _birthDayTextField => TextField(
-        controller: birthdayController,
+        controller: personalTextControllers.birthdayController,
         decoration: const InputDecoration(hintText: "Birthday"),
       );
 
   Widget get _linkedinTextField => TextField(
-        controller: linkedinController,
+        controller: personalTextControllers.linkedinController,
         decoration: const InputDecoration(hintText: "Linkedin"),
       );
 
   Widget get _emailTextField => TextField(
-        controller: emailController,
+        controller: personalTextControllers.emailController,
         decoration: const InputDecoration(hintText: "Email"),
       );
 
   Widget get _numberTextField => TextField(
-        controller: numberController,
+        controller: personalTextControllers.numberController,
         decoration: const InputDecoration(hintText: "Phone Number"),
       );
 
@@ -193,22 +181,4 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         title: const Text("Personal Details"),
         onTapUpdate: () {},
       );
-
-  void initializeControllers() {
-    nameController = TextEditingController();
-    numberController = TextEditingController();
-    locationController = TextEditingController();
-    emailController = TextEditingController();
-    linkedinController = TextEditingController();
-    birthdayController = TextEditingController();
-  }
-
-  void disposeControllers() {
-    nameController.dispose();
-    numberController.dispose();
-    locationController.dispose();
-    emailController.dispose();
-    linkedinController.dispose();
-    birthdayController.dispose();
-  }
 }

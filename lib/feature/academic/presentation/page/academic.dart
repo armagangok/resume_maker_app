@@ -56,10 +56,10 @@ class _AcademicPageState extends State<AcademicPage> {
               widget: ListView(
                 padding: context.normalPadding,
                 children: [
-                  uniTextField,
-                  majorTextField,
-                  gradeTextField,
-                  scolarShipTextField,
+                  _uniTextField,
+                  _majorTextField,
+                  _gradeTextField,
+                  _scolarShipTextField,
                   _dateTextFields,
                   _saveAcademicDataButton
                 ],
@@ -69,7 +69,7 @@ class _AcademicPageState extends State<AcademicPage> {
         ),
       );
 
-  Widget get majorTextField => TextField(
+  Widget get _majorTextField => TextField(
         controller: academicTextControllerCubit.majorController,
         decoration: InputDecoration(
           hintText: academicDataModel?.major ?? "Major",
@@ -95,21 +95,21 @@ class _AcademicPageState extends State<AcademicPage> {
         child: const Text("Save Academic Data"),
       );
 
-  Widget get gradeTextField => TextField(
+  Widget get _gradeTextField => TextField(
         decoration: InputDecoration(
           hintText: academicDataModel?.grade ?? "Grade",
         ),
         controller: academicTextControllerCubit.gradeController,
       );
 
-  Widget get scolarShipTextField => TextField(
+  Widget get _scolarShipTextField => TextField(
         decoration: InputDecoration(
           hintText: academicDataModel?.scholarship ?? "Scolarship rate",
         ),
         controller: academicTextControllerCubit.scholarshipController,
       );
 
-  Widget get uniTextField => TextField(
+  Widget get _uniTextField => TextField(
         decoration: InputDecoration(
           hintText: academicDataModel?.university ?? "University",
         ),
