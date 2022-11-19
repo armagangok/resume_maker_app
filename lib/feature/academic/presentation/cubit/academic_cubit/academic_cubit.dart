@@ -8,11 +8,12 @@ import '../../../model/academic_data_model.dart';
 part 'academic_state.dart';
 
 class AcademicCubit extends Cubit<AcademicState> {
-  AcademicCubit() : super(AcademicInitial());
-
-  List<AcademicDataModel> academicDataList = [];
-
-  var academicRepository = getIt<AcademicDataRepositoryImp>.call();
+  AcademicCubit() : super(AcademicInitial()) {
+    academicRepository = getIt<AcademicDataRepositoryImp>.call();
+    academicDataList = [];
+  }
+  late final AcademicDataRepositoryImp academicRepository;
+  late List<AcademicDataModel> academicDataList;
 
   void addAcademicData(AcademicDataModel academicDataModel) {
     academicDataList.add(academicDataModel);
@@ -34,8 +35,14 @@ class AcademicCubit extends Cubit<AcademicState> {
     var academicData = await academicRepository.getAcademicData();
 
     return academicData.fold(
-      (left) => const Left("Error Message"),
-      (rigth) => Right(rigth),
+      (left) {
+        emit(ErrorOnCaching());
+        return const Left("An unknown error occured while caching data.");
+      },
+      (rigth) {
+        emit(CachedSuccesfully());
+        return Right(rigth);
+      },
     );
   }
 }

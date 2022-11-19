@@ -11,11 +11,13 @@ class AcademicDataRepositoryImp implements AcademicDataRepository {
   @override
   Future<Either<Failure, AcademicDataModel>> getAcademicData() async {
     try {
-      var result = await HiveHelper.shared
-          .getAll<AcademicDataModel>(HiveBoxes.academicDataBox);
+      var result = await HiveHelper.shared.getData<AcademicDataModel>(
+        HiveBoxes.academicDataBox,
+        HiveBoxes.academicDataBox,
+      );
 
-      if (result[0] is AcademicDataModel) {
-        return Right(result[0]);
+      if (result is AcademicDataModel) {
+        return Right(result);
       } else {
         return Left(CacheFailure());
       }
@@ -27,11 +29,15 @@ class AcademicDataRepositoryImp implements AcademicDataRepository {
 
   @override
   Future<void> saveAcademicData(AcademicDataModel academicDataModel) async {
-    await HiveHelper.shared
-        .clearBox<AcademicDataModel>(HiveBoxes.academicDataBox);
-    await HiveHelper.shared.addData(
-      HiveBoxes.academicDataBox,
-      academicDataModel,
-    );
+    try {
+      await HiveHelper.shared.putData<AcademicDataModel>(
+        HiveBoxes.academicDataBox,
+        HiveBoxes.academicDataBox,
+        academicDataModel,
+      );
+      
+    } on Exception catch (e) {
+      LogHelper.shared.debugPrint("$e");
+    }
   }
 }

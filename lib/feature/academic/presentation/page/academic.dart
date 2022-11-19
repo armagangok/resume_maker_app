@@ -37,23 +37,18 @@ class _AcademicPageState extends State<AcademicPage> {
     academicCubit = getIt<AcademicCubit>.call();
 
     academicCubit.getAcademicData().then(
-      (value) {
-        print(value);
-        if (value is AcademicDataModel) {
-          var val = value.fold(
+          (value) => value.fold(
             (l) => print(l),
-            (r) => print(r),
-          );
-        }
-      },
-    );
-
-    // uniController.text = academicDataModel.university ?? "";
-    // gradeController.text = academicDataModel.grade ?? "";
-    // scholarshipController.text = academicDataModel.grade ?? "";
-    // majorController.text = academicDataModel.major ?? "";
-    // startDateController.text = academicDataModel.schoolStartDate ?? "";
-    // endDateController.text = academicDataModel.schoolStartDate ?? "";
+            (r) {
+              print(r.university);
+              print(r.grade);
+              print(r.grade);
+              print(r.major);
+              print(r.schoolEndDate);
+              print(r.schoolStartDate);
+            },
+          ),
+        );
 
     super.initState();
   }
@@ -201,3 +196,11 @@ class _AcademicPageState extends State<AcademicPage> {
     );
   }
 }
+
+
+// "University: ${r.university}";
+// "Grade: ${r.grade}";
+// "Scholarship: ${r.scholarship}";
+// "Major: ${r.major}";
+// "School end date: ${r.schoolEndDate}";
+// "School start date: ${r.schoolStartDate}";

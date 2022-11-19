@@ -8,6 +8,6 @@ class AddAcademicData extends AcademicState {}
 
 class RemoveAcademicData extends AcademicState {}
 
-class Error extends AcademicState {}
+class ErrorOnCaching extends AcademicState {}
 
-
+class CachedSuccesfully extends AcademicState {}
