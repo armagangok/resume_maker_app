@@ -7,3 +7,7 @@ class AcademicInitial extends AcademicState {}
 class AddAcademicData extends AcademicState {}
 
 class RemoveAcademicData extends AcademicState {}
+
+class Error extends AcademicState {}
+
+

@@ -22,8 +22,9 @@ class _AcademicPageState extends State<AcademicPage> {
   late final TextEditingController scholarshipController;
   late final TextEditingController startDateController;
   late final TextEditingController majorController;
-
   late final TextEditingController endDateController;
+  late final AcademicCubit academicCubit;
+  AcademicDataModel? academicDataModel;
 
   @override
   void initState() {
@@ -33,6 +34,26 @@ class _AcademicPageState extends State<AcademicPage> {
     majorController = TextEditingController();
     startDateController = TextEditingController();
     endDateController = TextEditingController();
+    academicCubit = getIt<AcademicCubit>.call();
+
+    academicCubit.getAcademicData().then(
+      (value) {
+        if (value is AcademicDataModel) {
+          var val = value.fold(
+            (l) => print(l),
+            (r) => print(r),
+          );
+        }
+      },
+    );
+
+    // uniController.text = academicDataModel.university ?? "";
+    // gradeController.text = academicDataModel.grade ?? "";
+    // scholarshipController.text = academicDataModel.grade ?? "";
+    // majorController.text = academicDataModel.major ?? "";
+    // startDateController.text = academicDataModel.schoolStartDate ?? "";
+    // endDateController.text = academicDataModel.schoolStartDate ?? "";
+
     super.initState();
   }
 
@@ -56,8 +77,8 @@ class _AcademicPageState extends State<AcademicPage> {
     );
   }
 
-  Widget get _addAcademicDataButton => Builder(builder: (context) {
-        return CustomFloationgButton(
+  Widget get _addAcademicDataButton => Builder(
+        builder: (context) => CustomFloationgButton(
           onTap: () {
             customBottomSheet(
               context: context,
@@ -68,37 +89,35 @@ class _AcademicPageState extends State<AcademicPage> {
                   majorTextField(),
                   gradeTextField(),
                   scolarShipTextField(),
-                  dateTextFields(),
-                  saveAcademicDataButton()
+                  _dateTextFields,
+                  _saveAcademicDataButton
                 ],
               ),
             );
-            // getIt<AcademicCubit>.call().addAcademicData(academicDataModel);
           },
-        );
-      });
+        ),
+      );
 
   TextField majorTextField() => TextField(
         controller: majorController,
+        decoration: const InputDecoration(hintText: "Major"),
       );
 
-  Widget saveAcademicDataButton() {
-    return ElevatedButton(
-      onPressed: () {
-        var academicDataModel = AcademicDataModel(
-          grade: gradeController.text,
-          university: uniController.text,
-          schoolEndDate: endDateController.text,
-          schoolStartDate: startDateController.text,
-          major: majorController.text,
-          scholarship: scholarshipController.text,
-        );
+  Widget get _saveAcademicDataButton => ElevatedButton(
+        onPressed: () async {
+          var academicDataModel = AcademicDataModel(
+            grade: gradeController.text,
+            university: uniController.text,
+            schoolEndDate: endDateController.text,
+            schoolStartDate: startDateController.text,
+            major: majorController.text,
+            scholarship: scholarshipController.text,
+          );
 
-        getIt<AcademicCubit>.call().addAcademicData(academicDataModel);
-      },
-      child: const Text("Save Academic Data"),
-    );
-  }
+          await academicCubit.saveAcademicData(academicDataModel);
+        },
+        child: const Text("Save Academic Data"),
+      );
 
   Widget gradeTextField() {
     return TextField(
@@ -121,31 +140,29 @@ class _AcademicPageState extends State<AcademicPage> {
     );
   }
 
-  Widget dateTextFields() {
-    return Row(
-      children: [
-        SizedBox(
-          width: context.width(0.4),
-          child: TextField(
-            decoration: const InputDecoration(hintText: "Start date"),
-            controller: startDateController,
-            keyboardType: TextInputType.datetime,
-          ),
-        ),
-        const Spacer(),
-        SizedBox(
-          width: context.width(0.4),
-          child: TextField(
-            controller: endDateController,
-            decoration: const InputDecoration(
-              hintText: "End date",
+  Widget get _dateTextFields => Row(
+        children: [
+          SizedBox(
+            width: context.width(0.4),
+            child: TextField(
+              decoration: const InputDecoration(hintText: "Start date"),
+              controller: startDateController,
+              keyboardType: TextInputType.datetime,
             ),
-            keyboardType: TextInputType.datetime,
           ),
-        ),
-      ],
-    );
-  }
+          const Spacer(),
+          SizedBox(
+            width: context.width(0.4),
+            child: TextField(
+              controller: endDateController,
+              decoration: const InputDecoration(
+                hintText: "End date",
+              ),
+              keyboardType: TextInputType.datetime,
+            ),
+          ),
+        ],
+      );
 
   Widget get _buidlBody => Padding(
         padding: context.normalPadding,
