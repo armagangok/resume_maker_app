@@ -11,7 +11,7 @@ class HiveHelper {
   Future<void> initializeHive() async {
     await Hive.initFlutter();
     Hive.registerAdapter(AcademicDataModelAdapter());
-    await Hive.openBox(HiveBoxes.academicDataBox);
+    await Hive.openBox<AcademicDataModel>(HiveBoxes.academicDataBox);
   }
 
   Future<T?> getData<T>(String boxName, dynamic key) async {
@@ -54,8 +54,8 @@ class HiveHelper {
     return box.add(dataToAdd);
   }
 
-  Future<void> clearBox(String boxName) async {
-    var box = Hive.box(boxName);
+  Future<void> clearBox<T>(String boxName) async {
+    var box = Hive.box<T>(boxName);
     await box.clear();
   }
 }

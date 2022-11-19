@@ -22,7 +22,6 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch().copyWith(
-          // primary: Colors.white
           primary: const Color.fromARGB(255, 47, 52, 205),
           // or from RGB
         ),

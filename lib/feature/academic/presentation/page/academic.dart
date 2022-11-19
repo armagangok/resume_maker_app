@@ -38,6 +38,7 @@ class _AcademicPageState extends State<AcademicPage> {
 
     academicCubit.getAcademicData().then(
       (value) {
+        print(value);
         if (value is AcademicDataModel) {
           var val = value.fold(
             (l) => print(l),
