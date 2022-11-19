@@ -34,8 +34,6 @@ class AcademicCubit extends Cubit<AcademicState> {
   Future<Either<String, AcademicDataModel?>> getAcademicData() async {
     var academicData = await academicRepository.getAcademicData();
 
-    print(academicData);
-
     return academicData.fold(
       (left) {
         // emit(ErrorOnCaching());

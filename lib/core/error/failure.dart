@@ -4,4 +4,4 @@ class ServerFailure extends Failure {}
 
 class CacheFailure extends Failure {}
 
-class NoDataFailure extends Failure {}
+class NullDataFailure extends Failure {}
