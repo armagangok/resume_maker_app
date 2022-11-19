@@ -9,18 +9,14 @@ import '../contract/academic_data_repository.dart';
 
 class AcademicDataRepositoryImp implements AcademicDataRepository {
   @override
-  Future<Either<Failure, AcademicDataModel>> getAcademicData() async {
+  Future<Either<Failure, AcademicDataModel?>> getAcademicData() async {
     try {
-      var result = await HiveHelper.shared.getData<AcademicDataModel>(
+      var response = await HiveHelper.shared.getData<AcademicDataModel>(
         HiveBoxes.academicDataBox,
         HiveBoxes.academicDataBox,
       );
 
-      if (result is AcademicDataModel) {
-        return Right(result);
-      } else {
-        return Left(CacheFailure());
-      }
+      return Right(response);
     } on Exception catch (e) {
       LogHelper.shared.errorPrint("$e");
       return Left(CacheFailure());
@@ -35,7 +31,6 @@ class AcademicDataRepositoryImp implements AcademicDataRepository {
         HiveBoxes.academicDataBox,
         academicDataModel,
       );
-      
     } on Exception catch (e) {
       LogHelper.shared.debugPrint("$e");
     }

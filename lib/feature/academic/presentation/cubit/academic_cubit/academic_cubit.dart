@@ -31,16 +31,18 @@ class AcademicCubit extends Cubit<AcademicState> {
     await academicRepository.saveAcademicData(academicDataModel);
   }
 
-  Future<Either<String, AcademicDataModel>> getAcademicData() async {
+  Future<Either<String, AcademicDataModel?>> getAcademicData() async {
     var academicData = await academicRepository.getAcademicData();
+
+    print(academicData);
 
     return academicData.fold(
       (left) {
-        emit(ErrorOnCaching());
+        // emit(ErrorOnCaching());
         return const Left("An unknown error occured while caching data.");
       },
       (rigth) {
-        emit(CachedSuccesfully());
+        // emit(CachedSuccesfully());
         return Right(rigth);
       },
     );

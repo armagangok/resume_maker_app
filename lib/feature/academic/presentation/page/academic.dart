@@ -24,7 +24,7 @@ class _AcademicPageState extends State<AcademicPage> {
   late final TextEditingController majorController;
   late final TextEditingController endDateController;
   late final AcademicCubit academicCubit;
-  AcademicDataModel? academicDataModel;
+  late final AcademicDataModel? academicDataModel;
 
   @override
   void initState() {
@@ -34,18 +34,14 @@ class _AcademicPageState extends State<AcademicPage> {
     majorController = TextEditingController();
     startDateController = TextEditingController();
     endDateController = TextEditingController();
+
     academicCubit = getIt<AcademicCubit>.call();
 
     academicCubit.getAcademicData().then(
-          (value) => value.fold(
-            (l) => print(l),
-            (r) {
-              print(r.university);
-              print(r.grade);
-              print(r.grade);
-              print(r.major);
-              print(r.schoolEndDate);
-              print(r.schoolStartDate);
+          (response) => response.fold(
+            (error) => print(error),
+            (data) {
+              academicDataModel = data;
             },
           ),
         );
@@ -96,7 +92,9 @@ class _AcademicPageState extends State<AcademicPage> {
 
   TextField majorTextField() => TextField(
         controller: majorController,
-        decoration: const InputDecoration(hintText: "Major"),
+        decoration: InputDecoration(
+          hintText: academicDataModel?.major ?? "Major",
+        ),
       );
 
   Widget get _saveAcademicDataButton => ElevatedButton(
@@ -117,21 +115,27 @@ class _AcademicPageState extends State<AcademicPage> {
 
   Widget gradeTextField() {
     return TextField(
-      decoration: const InputDecoration(hintText: "Grade"),
+      decoration: InputDecoration(
+        hintText: academicDataModel?.grade ?? "Grade",
+      ),
       controller: gradeController,
     );
   }
 
   Widget scolarShipTextField() {
     return TextField(
-      decoration: const InputDecoration(hintText: "Scolarship rate"),
+      decoration: InputDecoration(
+        hintText: academicDataModel?.scholarship ?? "Scolarship rate",
+      ),
       controller: scholarshipController,
     );
   }
 
   Widget uniTextField() {
     return TextField(
-      decoration: const InputDecoration(hintText: "University"),
+      decoration: InputDecoration(
+        hintText: academicDataModel?.university ?? "University",
+      ),
       controller: uniController,
     );
   }
@@ -141,7 +145,9 @@ class _AcademicPageState extends State<AcademicPage> {
           SizedBox(
             width: context.width(0.4),
             child: TextField(
-              decoration: const InputDecoration(hintText: "Start date"),
+              decoration: InputDecoration(
+                hintText: academicDataModel?.schoolStartDate ?? "Start date",
+              ),
               controller: startDateController,
               keyboardType: TextInputType.datetime,
             ),
@@ -151,8 +157,8 @@ class _AcademicPageState extends State<AcademicPage> {
             width: context.width(0.4),
             child: TextField(
               controller: endDateController,
-              decoration: const InputDecoration(
-                hintText: "End date",
+              decoration: InputDecoration(
+                hintText: academicDataModel?.schoolEndDate ?? "End date",
               ),
               keyboardType: TextInputType.datetime,
             ),
@@ -198,9 +204,9 @@ class _AcademicPageState extends State<AcademicPage> {
 }
 
 
-// "University: ${r.university}";
-// "Grade: ${r.grade}";
-// "Scholarship: ${r.scholarship}";
-// "Major: ${r.major}";
-// "School end date: ${r.schoolEndDate}";
-// "School start date: ${r.schoolStartDate}";
+// "University: ${data.university}";
+// "Grade: ${data.grade}";
+// "Scholarship: ${data.scholarship}";
+// "Major: ${data.major}";
+// "School end date: ${data.schoolEndDate}";
+// "School start date: ${data.schoolStartDate}";
