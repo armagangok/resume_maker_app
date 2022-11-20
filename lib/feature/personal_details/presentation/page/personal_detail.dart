@@ -3,11 +3,14 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:resume_maker_app/core/widget/custom_bottom_sheet.dart';
+import 'package:resume_maker_app/core/widget/floating_action_button.dart';
 
 import '../../../../core/extension/context_extension.dart';
 import '../../../../core/widget/custom_appbar.dart';
 import '../../../../injection_container.dart';
 import '../../model/personal_data_model.dart';
+import '../cubit/personal_data/personal_data_cubit.dart';
 import '../cubit/personal_text_controllers/personal_text_controllers_cubit.dart';
 import '../cubit/pick_image/pick_image_cubit.dart';
 
@@ -19,10 +22,13 @@ class PersonalDetailPage extends StatefulWidget {
 }
 
 class _PersonalDetailPageState extends State<PersonalDetailPage> {
-  late final PersonalTextControllerCubit personalTextControllers;
+  late final PersonalTextControllerCubit _personalTextControllers;
+  late final PersonalDataCubit _personalDataCubit;
   @override
   void initState() {
-    personalTextControllers = getIt<PersonalTextControllerCubit>.call();
+    _personalTextControllers = getIt<PersonalTextControllerCubit>.call();
+    _personalDataCubit = getIt<PersonalDataCubit>.call();
+    _personalDataCubit.getPersonalData();
     super.initState();
   }
 
@@ -31,24 +37,47 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
     return Scaffold(
       appBar: _buildAppBar,
       body: _buildBody,
+      floatingActionButton: _addPersonalDataButton,
     );
   }
 
-  Widget get _buildBody => ListView(
-        padding: context.normalPadding,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(height: context.height(0.025)),
-              _uploadImageButton,
-              SizedBox(height: context.height(0.025)),
-              _informationTextStack,
-              SizedBox(height: context.height(0.025)),
-              _updateButton,
-            ],
-          ),
-        ],
+  Widget get _addPersonalDataButton => CustomFloationgButton(
+        onTap: () {
+          customBottomSheet(
+            context: context,
+            widget: ListView(
+              padding: context.normalPadding,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(height: context.height(0.025)),
+                    _uploadImageButton,
+                    SizedBox(height: context.height(0.025)),
+                    _informationTextStack,
+                    SizedBox(height: context.height(0.025)),
+                    _updateButton,
+                  ],
+                ),
+              ],
+            ),
+          );
+        },
+      );
+
+  Widget get _buildBody => BlocBuilder<PersonalDataCubit, PersonalDataState>(
+        bloc: _personalDataCubit,
+        builder: (context, state) {
+          if (state is PersonalDataInitial) {
+            return const Center(
+              child: Text("Add personal data."),
+            );
+          } else if (state is DataReceived) {
+            return Text(state.personalData.email);
+          } else {
+            return const Text("else");
+          }
+        },
       );
 
   Widget get _uploadImageButton => InkWell(
@@ -121,7 +150,7 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
       );
 
   Widget get _locationTextField => TextField(
-        controller: personalTextControllers.locationController,
+        controller: _personalTextControllers.locationController,
         decoration: const InputDecoration(hintText: "Location"),
       );
 
@@ -135,45 +164,47 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
   Widget get _updateButton => SizedBox(
         width: context.width(1),
         child: ElevatedButton(
-          onPressed: () {
+          onPressed: () async {
             var personalDataModel = PersonalDataModel(
-              name: personalTextControllers.nameController.text,
-              location: personalTextControllers.locationController.text,
-              phoneNumber: personalTextControllers.numberController.text,
-              email: personalTextControllers.emailController.text,
-              linkedin: personalTextControllers.linkedinController.text,
-              birthday: personalTextControllers.birthdayController.text,
+              name: _personalTextControllers.nameController.text,
+              location: _personalTextControllers.locationController.text,
+              phoneNumber: _personalTextControllers.numberController.text,
+              email: _personalTextControllers.emailController.text,
+              linkedin: _personalTextControllers.linkedinController.text,
+              birthday: _personalTextControllers.birthdayController.text,
               imagePath: getIt<PickImageCubit>.call().image == null
                   ? ""
                   : getIt<PickImageCubit>.call().image!.path,
             );
+
+            await _personalDataCubit.savePersonalData(personalDataModel);
           },
           child: const Text("Save"),
         ),
       );
 
   Widget get _nameTextField => TextField(
-        controller: personalTextControllers.nameController,
+        controller: _personalTextControllers.nameController,
         decoration: const InputDecoration(hintText: "Name"),
       );
 
   Widget get _birthDayTextField => TextField(
-        controller: personalTextControllers.birthdayController,
+        controller: _personalTextControllers.birthdayController,
         decoration: const InputDecoration(hintText: "Birthday"),
       );
 
   Widget get _linkedinTextField => TextField(
-        controller: personalTextControllers.linkedinController,
+        controller: _personalTextControllers.linkedinController,
         decoration: const InputDecoration(hintText: "Linkedin"),
       );
 
   Widget get _emailTextField => TextField(
-        controller: personalTextControllers.emailController,
+        controller: _personalTextControllers.emailController,
         decoration: const InputDecoration(hintText: "Email"),
       );
 
   Widget get _numberTextField => TextField(
-        controller: personalTextControllers.numberController,
+        controller: _personalTextControllers.numberController,
         decoration: const InputDecoration(hintText: "Phone Number"),
       );
 

@@ -6,22 +6,23 @@ import '../../../../core/local_database/hive/hive_keys.dart';
 import '../../model/personal_data_model.dart';
 import '../contract/personal_data_repository.dart';
 
-class PersonalDatRepositoryImp implements PersonalDataRepository {
-  PersonalDatRepositoryImp() {
+class PersonalDataRepositoryImp implements PersonalDataRepository {
+  PersonalDataRepositoryImp() {
     hiveHelper = HiveHelper.shared;
   }
 
   late final HiveHelper hiveHelper;
 
   @override
-  Future<void> deleteData(int index) async {
+  Future<Either<Failure, bool>> deleteData(int index) async {
     try {
       await hiveHelper.deleteData(
         HiveBoxes.personalDetailsBox,
         HiveBoxes.personalDetailsBox,
       );
+      return const Right(true);
     } on Exception {
-      rethrow;
+      return Left(HiveDeletingFailure());
     }
   }
 
@@ -33,6 +34,8 @@ class PersonalDatRepositoryImp implements PersonalDataRepository {
         HiveBoxes.personalDetailsBox,
       );
 
+      
+
       return Right(response);
     } catch (e) {
       return Left(CacheFailure());
@@ -40,15 +43,18 @@ class PersonalDatRepositoryImp implements PersonalDataRepository {
   }
 
   @override
-  Future<void> savePersonalData(PersonalDataModel personalDataModel) async {
+  Future<Either<Failure, bool>> savePersonalData(
+      PersonalDataModel personalDataModel) async {
     try {
-      var response = await hiveHelper.putData<PersonalDataModel>(
+      await hiveHelper.putData<PersonalDataModel>(
         HiveBoxes.personalDetailsBox,
         HiveBoxes.personalDetailsBox,
         personalDataModel,
       );
+
+      return const Right(true);
     } on Exception {
-      rethrow;
+      return Left(HiveSavingFailure());
     }
   }
 }
