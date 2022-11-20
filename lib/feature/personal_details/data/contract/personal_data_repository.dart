@@ -4,7 +4,7 @@ import '../../../../core/error/failure.dart';
 import '../../model/personal_data_model.dart';
 
 abstract class PersonalDataRepository {
-  Future<Either<Failure, List<PersonalDataModel>?>> getAcademicData();
-  Future<void> saveAcademicData(PersonalDataModel academicDataModel);
+  Future<Either<Failure, PersonalDataModel?>> getPersonalData();
+  Future<void> savePersonalData(PersonalDataModel academicDataModel);
   Future<void> deleteData(int index);
 }
