@@ -1,25 +1,29 @@
 part of 'academic_cubit.dart';
 
-abstract class AcademicState {}
+abstract class AcademicState {
+  late final List<AcademicDataModel> dataList;
+}
 
 class AcademicInitial extends AcademicState {}
 
 class CacheError extends AcademicState {}
 
-class CachedSuccesfully extends AcademicState {}
+class DataReceived extends AcademicState {
+  @override
+  late final List<AcademicDataModel> dataList;
+  DataReceived({required this.dataList});
+}
 
-class DataReceived extends AcademicState {}
+class DataSaved extends AcademicState {
+  @override
+  late final List<AcademicDataModel> dataList;
 
-class DataLoaded extends AcademicState {
-  final List<AcademicDataModel> academicDataModel;
-
-  DataLoaded({required this.academicDataModel});
+  DataSaved({required this.dataList});
 }
 
 class DataDeleted extends AcademicState {
-  final List<AcademicDataModel> academicDataModel;
+  @override
+  late final List<AcademicDataModel> dataList;
 
-  DataDeleted({required this.academicDataModel});
+  DataDeleted({required this.dataList});
 }
-
-class DataSaved extends AcademicState {}

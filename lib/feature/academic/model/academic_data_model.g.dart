@@ -17,12 +17,12 @@ class AcademicDataModelAdapter extends TypeAdapter<AcademicDataModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return AcademicDataModel(
-      schoolStartDate: fields[2] as String,
-      schoolEndDate: fields[3] as String,
-      grade: fields[0] as String,
-      university: fields[1] as String,
-      major: fields[4] as String,
-      scholarship: fields[5] as String,
+      schoolStartDate: fields[2] as String?,
+      schoolEndDate: fields[3] as String?,
+      grade: fields[0] as String?,
+      university: fields[1] as String?,
+      major: fields[4] as String?,
+      scholarship: fields[5] as String?,
     );
   }
 

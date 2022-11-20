@@ -8,33 +8,33 @@ part 'academic_state.dart';
 
 class AcademicCubit extends Cubit<AcademicState> {
   late final AcademicDataRepositoryImp academicRepository;
-  late List<AcademicDataModel> academicDataList;
 
   AcademicCubit() : super(AcademicInitial()) {
     academicRepository = getIt<AcademicDataRepositoryImp>.call();
-    academicRepository.getAcademicData().then(
-          (value) => academicDataList = value.fold(
-            (l) => [],
-            (r) => academicDataList = r!,
-          ),
-        );
   }
 
   Future<void> saveAcademicData(AcademicDataModel academicDataModel) async {
-    await academicRepository.saveAcademicData(academicDataModel);
-    emit(DataSaved());
+    try {
+      await academicRepository.saveAcademicData(academicDataModel);
+      await getAcademicData();
+    } catch (e) {
+      emit(CacheError());
+    }
   }
 
   // Gets academic data from hive database.
   Future getAcademicData() async {
     try {
       var response = await academicRepository.getAcademicData();
+
       response.fold(
         (error) {
           emit(CacheError());
         },
         (data) {
-          emit(DataLoaded(academicDataModel: data!));
+          data!.isEmpty
+              ? emit(AcademicInitial())
+              : emit(DataReceived(dataList: data));
         },
       );
     } on Exception {
@@ -53,7 +53,9 @@ class AcademicCubit extends Cubit<AcademicState> {
           emit(CacheError());
         },
         (data) {
-          emit(DataLoaded(academicDataModel: data!));
+          data!.isEmpty
+              ? emit(AcademicInitial())
+              : emit(DataDeleted(dataList: data));
         },
       );
     } catch (e) {

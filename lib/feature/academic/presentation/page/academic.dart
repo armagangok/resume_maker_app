@@ -142,10 +142,10 @@ class _AcademicPageState extends State<AcademicPage> {
             return const InitialStateWidget(
               text: "Add academic data into yout resume.",
             );
-          } else if (state is DataLoaded) {
+          } else if (state is DataReceived) {
             return ListView.separated(
               itemBuilder: (context, index) => AcademicItemWidget(
-                academicData: state.academicDataModel[index],
+                academicData: state.dataList[index],
                 index: index,
                 onLongPress: () => showCustomDialog(
                   context,
@@ -154,12 +154,12 @@ class _AcademicPageState extends State<AcademicPage> {
                 ),
               ),
               separatorBuilder: (context, index) => const CustomDivider(),
-              itemCount: state.academicDataModel.length,
+              itemCount: state.dataList.length,
             );
           } else if (state is DataDeleted) {
             return ListView.separated(
               itemBuilder: (context, index) => AcademicItemWidget(
-                academicData: state.academicDataModel[index],
+                academicData: state.dataList[index],
                 index: index,
                 onLongPress: () => showCustomDialog(
                   context,
@@ -168,7 +168,12 @@ class _AcademicPageState extends State<AcademicPage> {
                 ),
               ),
               separatorBuilder: (context, index) => const CustomDivider(),
-              itemCount: state.academicDataModel.length,
+              itemCount: state.dataList.length,
+            );
+          } else if (state is CacheError) {
+            return const Center(
+              child: Text(
+                  "Unexpected caching error while catching data from database."),
             );
           } else {
             return const Text("Data");
