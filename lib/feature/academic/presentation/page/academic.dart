@@ -18,7 +18,6 @@ class AcademicPage extends StatefulWidget {
 }
 
 class _AcademicPageState extends State<AcademicPage> {
-  late final AcademicDataModel? academicDataModel;
   late final AcademicTextControllerCubit academicTextControllerCubit;
   late final AcademicCubit academicCubit;
 
@@ -26,15 +25,7 @@ class _AcademicPageState extends State<AcademicPage> {
   void initState() {
     academicCubit = getIt<AcademicCubit>.call();
     academicTextControllerCubit = getIt<AcademicTextControllerCubit>.call();
-
-    academicCubit.getAcademicData().then(
-          (response) => response.fold(
-            (error) => print(error),
-            (data) {
-              academicDataModel = data;
-            },
-          ),
-        );
+    academicCubit.getAcademicData();
 
     super.initState();
   }
@@ -71,8 +62,8 @@ class _AcademicPageState extends State<AcademicPage> {
 
   Widget get _majorTextField => TextField(
         controller: academicTextControllerCubit.majorController,
-        decoration: InputDecoration(
-          hintText: academicDataModel?.major ?? "Major",
+        decoration: const InputDecoration(
+          hintText: "Major",
         ),
       );
 
@@ -88,30 +79,28 @@ class _AcademicPageState extends State<AcademicPage> {
             scholarship: academicTextControllerCubit.scholarshipController.text,
           );
 
-          academicCubit.addAcademicData(academicDataModel);
-
           await academicCubit.saveAcademicData(academicDataModel);
         },
         child: const Text("Save Academic Data"),
       );
 
   Widget get _gradeTextField => TextField(
-        decoration: InputDecoration(
-          hintText: academicDataModel?.grade ?? "Grade",
+        decoration: const InputDecoration(
+          hintText: "Grade",
         ),
         controller: academicTextControllerCubit.gradeController,
       );
 
   Widget get _scolarShipTextField => TextField(
-        decoration: InputDecoration(
-          hintText: academicDataModel?.scholarship ?? "Scolarship rate",
+        decoration: const InputDecoration(
+          hintText: "Scolarship rate",
         ),
         controller: academicTextControllerCubit.scholarshipController,
       );
 
   Widget get _uniTextField => TextField(
-        decoration: InputDecoration(
-          hintText: academicDataModel?.university ?? "University",
+        decoration: const InputDecoration(
+          hintText: "University",
         ),
         controller: academicTextControllerCubit.uniController,
       );
@@ -121,8 +110,8 @@ class _AcademicPageState extends State<AcademicPage> {
           SizedBox(
             width: context.width(0.4),
             child: TextField(
-              decoration: InputDecoration(
-                hintText: academicDataModel?.schoolStartDate ?? "Start date",
+              decoration: const InputDecoration(
+                hintText: "Start date",
               ),
               controller: academicTextControllerCubit.startDateController,
               keyboardType: TextInputType.datetime,
@@ -133,8 +122,8 @@ class _AcademicPageState extends State<AcademicPage> {
             width: context.width(0.4),
             child: TextField(
               controller: academicTextControllerCubit.endDateController,
-              decoration: InputDecoration(
-                hintText: academicDataModel?.schoolEndDate ?? "End date",
+              decoration: const InputDecoration(
+                hintText: "End date",
               ),
               keyboardType: TextInputType.datetime,
             ),
@@ -153,20 +142,36 @@ class _AcademicPageState extends State<AcademicPage> {
             return const InitialStateWidget(
               text: "Add academic data into yout resume.",
             );
-          } else {
+          } else if (state is DataLoaded) {
             return ListView.separated(
               itemBuilder: (context, index) => AcademicItemWidget(
-                academicData: academicCubit.academicDataList[index],
+                academicData: state.academicDataModel[index],
                 index: index,
                 onLongPress: () => showCustomDialog(
                   context,
                   index,
-                  () => academicCubit.removeAcademicData(index),
+                  () => academicCubit.deleteData(index),
                 ),
               ),
               separatorBuilder: (context, index) => const CustomDivider(),
-              itemCount: academicCubit.academicDataList.length,
+              itemCount: state.academicDataModel.length,
             );
+          } else if (state is DataDeleted) {
+            return ListView.separated(
+              itemBuilder: (context, index) => AcademicItemWidget(
+                academicData: state.academicDataModel[index],
+                index: index,
+                onLongPress: () => showCustomDialog(
+                  context,
+                  index,
+                  () async => await academicCubit.deleteData(index),
+                ),
+              ),
+              separatorBuilder: (context, index) => const CustomDivider(),
+              itemCount: state.academicDataModel.length,
+            );
+          } else {
+            return const Text("Data");
           }
         },
       ),
