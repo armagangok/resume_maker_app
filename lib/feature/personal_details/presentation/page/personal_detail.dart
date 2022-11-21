@@ -55,7 +55,7 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
                     SizedBox(height: context.height(0.025)),
                     _informationTextStack(state),
                     SizedBox(height: context.height(0.025)),
-                    _updateButton,
+                    _updateButton(state),
                   ],
                 ),
               ],
@@ -72,7 +72,7 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
                     SizedBox(height: context.height(0.025)),
                     _informationTextStack(state),
                     SizedBox(height: context.height(0.025)),
-                    _updateButton,
+                    _updateButton(state),
                   ],
                 ),
               ],
@@ -83,32 +83,31 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         },
       );
 
-  Widget _uploadImageButton(DataReceivedContract state1) => InkWell(
+  Widget _uploadImageButton(DataReceivedContract personalDataState) => InkWell(
         onTap: () async {
           var imagePickerCubit = getIt<PickImageCubit>.call();
           await imagePickerCubit.pickImage();
         },
         child: BlocBuilder<PickImageCubit, PickImageState>(
           bloc: getIt<PickImageCubit>.call(),
-          builder: (context, state) {
+          builder: (context, imageState) {
+            print(imageState);
             var imageCubit = getIt<PickImageCubit>.call();
-            if (state is PickImageInitial) {
-              return _loadingImageWidget(
-                const Icon(
-                  CupertinoIcons.person_fill,
-                  color: Colors.grey,
-                  size: 100,
-                ),
-              );
-            } else if (state is ImageLoading) {
+            if (imageState is PickImageInitial) {
+              File imageFile = File(personalDataState.personalData.imagePath!);
+              return personalDataState.personalData.imagePath == null
+                  ? _loadingImageWidget(
+                      const Icon(
+                        CupertinoIcons.person_fill,
+                        color: Colors.grey,
+                        size: 100,
+                      ),
+                    )
+                  : _userImageWidget(imageFile);
+            } else if (imageState is ImageLoading) {
               return _loadingImageWidget(const CircularProgressIndicator());
-            } else if (state is ImageLoaded) {
-              File imageFile = File(
-                state1.personalData.imagePath == null ||
-                        state1.personalData.imagePath!.isEmpty
-                    ? imageCubit.image!.path
-                    : state1.personalData.imagePath!,
-              );
+            } else if (imageState is ImageLoaded) {
+              File imageFile = File(imageCubit.image!.path);
 
               return _userImageWidget(imageFile);
             } else {
@@ -172,16 +171,16 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
 
   Widget get _personalInformationText => Builder(
         builder: (context) => Text(
-          " Personal Infomarmation",
-          style: context.textTheme.headline5,
+          "Personal Infomarmation",
+          style: context.textTheme.headline5!.copyWith(),
         ),
       );
 
-  Widget get _updateButton => SizedBox(
+  Widget _updateButton(state) => SizedBox(
         width: context.width(1),
         child: ElevatedButton(
           onPressed: () async {
-            final personalDataModel = _preparePersonalDataModel;
+            final personalDataModel = _preparePersonalDataModel(state);
             await _personalDataCubit.savePersonalData(personalDataModel);
           },
           child: const Text("Update"),
@@ -243,13 +242,15 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         onTapUpdate: () {},
       );
 
-  PersonalDataModel get _preparePersonalDataModel {
+  PersonalDataModel _preparePersonalDataModel(DataReceived state) {
     // getIt<PickImageCubit>.call().image == null;
-    if (_personalTextControllers.nameController.text.isNotEmpty &&
-        _personalTextControllers.numberController.text.isNotEmpty &&
-        _personalTextControllers.emailController.text.isNotEmpty &&
-        _personalTextControllers.linkedinController.text.isNotEmpty &&
-        _personalTextControllers.birthdayController.text.isNotEmpty) {}
+    // if (_personalTextControllers.nameController.text.isEmpty ||
+    //     _personalTextControllers.numberController.text.isEmpty ||
+    //     _personalTextControllers.emailController.text.isEmpty ||
+    //     _personalTextControllers.birthdayController.text.isNotEmpty) {
+    //   {
+
+    var imagePath = getIt<PickImageCubit>.call().image!.path;
 
     var personalDataModel = PersonalDataModel(
       name: _personalTextControllers.nameController.text,
@@ -258,9 +259,12 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
       email: _personalTextControllers.emailController.text,
       linkedin: _personalTextControllers.linkedinController.text,
       birthday: _personalTextControllers.birthdayController.text,
-      imagePath: getIt<PickImageCubit>.call().image == null
-          ? ""
-          : getIt<PickImageCubit>.call().image!.path,
+      imagePath: imagePath,
+
+      // state.personalData.imagePath == null ||
+      //         state.personalData.imagePath!.isEmpty
+      //     ?
+      //     : state.personalData.imagePath,
     );
     return personalDataModel;
   }
