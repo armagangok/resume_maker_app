@@ -6,4 +6,5 @@ class CacheFailure extends Failure {}
 
 class HiveDeletingFailure extends Failure {}
 
-class HiveSavingFailure extends Failure{}
+class HiveSavingFailure extends Failure {}
+

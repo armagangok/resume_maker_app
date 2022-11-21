@@ -1,36 +1,55 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../../../core/util/image_picker_helper/image_picker_helper.dart';
+import '../../../../../core/util/image_picker_helper/error/image_uploading_error.dart';
 import '../../../../../injection_container.dart';
+import '../../../data/repository/image_picker_repository_imp.dart';
 
 part 'pick_image_state.dart';
 
 class PickImageCubit extends Cubit<PickImageState> {
-  PickImageCubit() : super(PickImageInitial());
+  PickImageCubit() : super(PickImageInitial()) {
+    _imageRepository = getIt<ImagePickerRepositoryImp>.call();
+    _image = XFile("../../../../../../assets/person.png");
+  }
 
-  XFile? _image;
+  late final ImagePickerRepositoryImp _imageRepository;
 
-  XFile? get image => _image;
+  late XFile _image;
 
-  final _imagePicker = getIt<ImagePickerHelper>.call();
+  XFile get image => _image;
 
-  Future<void> pickImage() async {
+  Future pickImage() async {
     emit(ImageLoading());
-    var result = await _imagePicker.pickImage();
+    var result = await _imageRepository.pickImage();
 
-    if (result is Exception) {
-      emit(LoadError());
-    } else if (_imagePicker.getImage == null) {
-      emit(PickImageInitial());
-    } else {
-      _image = _imagePicker.getImage;
-      emit(ImageLoaded());
-    }
+    result.fold(
+      (l) {
+        if (l is NullImageFailure) {
+          emit(PickImageInitial());
+        } else {
+          emit(LoadError());
+        }
+      },
+      (r) {
+        _image = r!;
 
-    Future<void> discardImage() async {
-      _image = null;
-      emit(DiscardImage());
-    }
+        emit(ImageLoaded());
+      },
+    );
+
+    // if (result is Exception) {
+    //   emit(LoadError());
+    // } else if (_imagePicker.getImage == null) {
+    //   emit(PickImageInitial());
+    // } else {
+    //   _image = _imagePicker.getImage;
+    //   emit(ImageLoaded());
+    // }
+
+    // Future<void> discardImage() async {
+    //   _image = null;
+    //   emit(DiscardImage());
+    // }
   }
 }

@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -91,27 +90,24 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         child: BlocBuilder<PickImageCubit, PickImageState>(
           bloc: getIt<PickImageCubit>.call(),
           builder: (context, imageState) {
-            
             var imageCubit = getIt<PickImageCubit>.call();
             if (imageState is PickImageInitial) {
               File imageFile = File(personalDataState.personalData.imagePath!);
               return personalDataState.personalData.imagePath == null
-                  ? _loadingImageWidget(
-                      const Icon(
-                        CupertinoIcons.person_fill,
-                        color: Colors.grey,
-                        size: 100,
-                      ),
+                  ? _userImageWidget(
+                      File('../../../../../../assets/person.png')
                     )
                   : _userImageWidget(imageFile);
             } else if (imageState is ImageLoading) {
               return _loadingImageWidget(const CircularProgressIndicator());
             } else if (imageState is ImageLoaded) {
-              File imageFile = File(imageCubit.image!.path);
+              File imageFile = File(imageCubit.image.path);
 
               return _userImageWidget(imageFile);
             } else {
-              return const Center(child: Text("Error while uploading image."));
+              return const Center(
+                child: Text("Error while uploading image."),
+              );
             }
           },
         ),
@@ -242,24 +238,29 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         onTapUpdate: () {},
       );
 
-  PersonalDataModel _preparePersonalDataModel(DataReceived state) {
-    // getIt<PickImageCubit>.call().image == null;
-    // if (_personalTextControllers.nameController.text.isEmpty ||
-    //     _personalTextControllers.numberController.text.isEmpty ||
-    //     _personalTextControllers.emailController.text.isEmpty ||
-    //     _personalTextControllers.birthdayController.text.isNotEmpty) {
-    //   {
-
-    var imagePath = getIt<PickImageCubit>.call().image!.path;
+  PersonalDataModel _preparePersonalDataModel(DataReceivedContract state) {
+    var imagePath = getIt<PickImageCubit>.call().image.path;
 
     var personalDataModel = PersonalDataModel(
-      name: _personalTextControllers.nameController.text,
-      location: _personalTextControllers.locationController.text,
-      phoneNumber: _personalTextControllers.numberController.text,
-      email: _personalTextControllers.emailController.text,
-      linkedin: _personalTextControllers.linkedinController.text,
-      birthday: _personalTextControllers.birthdayController.text,
-      imagePath: imagePath,
+      name: _personalTextControllers.nameController.text.isEmpty
+          ? state.personalData.name
+          : _personalTextControllers.nameController.text,
+      location: _personalTextControllers.locationController.text.isEmpty
+          ? state.personalData.location
+          : _personalTextControllers.locationController.text,
+      phoneNumber: _personalTextControllers.numberController.text.isEmpty
+          ? state.personalData.phoneNumber
+          : _personalTextControllers.numberController.text,
+      email: _personalTextControllers.emailController.text.isEmpty
+          ? state.personalData.email
+          : _personalTextControllers.emailController.text,
+      linkedin: _personalTextControllers.linkedinController.text.isEmpty
+          ? state.personalData.linkedin
+          : _personalTextControllers.linkedinController.text,
+      birthday: _personalTextControllers.birthdayController.text.isEmpty
+          ? state.personalData.birthday
+          : _personalTextControllers.birthdayController.text,
+      imagePath: imagePath.isEmpty ? state.personalData.imagePath : imagePath,
 
       // state.personalData.imagePath == null ||
       //         state.personalData.imagePath!.isEmpty
