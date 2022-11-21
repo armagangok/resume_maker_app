@@ -91,7 +91,7 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         child: BlocBuilder<PickImageCubit, PickImageState>(
           bloc: getIt<PickImageCubit>.call(),
           builder: (context, imageState) {
-            print(imageState);
+            
             var imageCubit = getIt<PickImageCubit>.call();
             if (imageState is PickImageInitial) {
               File imageFile = File(personalDataState.personalData.imagePath!);
