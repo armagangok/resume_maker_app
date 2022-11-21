@@ -4,17 +4,17 @@ part 'personal_data_model.g.dart';
 @HiveType(typeId: 1)
 class PersonalDataModel extends HiveObject {
   @HiveField(0)
-  final String name;
+  final String? name;
   @HiveField(1)
-  final String location;
+  final String? location;
   @HiveField(2)
-  final String phoneNumber;
+  final String? phoneNumber;
   @HiveField(3)
-  final String email;
+  final String? email;
   @HiveField(4)
-  final String linkedin;
+  final String? linkedin;
   @HiveField(5)
-  final String birthday;
+  final String? birthday;
   @HiveField(6)
   final String? imagePath;
 

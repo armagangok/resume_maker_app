@@ -7,7 +7,20 @@ import '../../../../../injection_container.dart';
 part 'personal_data_state.dart';
 
 class PersonalDataCubit extends Cubit<PersonalDataState> {
-  PersonalDataCubit() : super(PersonalDataInitial()) {
+  PersonalDataCubit()
+      : super(
+          PersonalDataInitial(
+            personalData: PersonalDataModel(
+              birthday: "Birthday",
+              email: "Email",
+              imagePath: "",
+              linkedin: "Linkedin",
+              location: "Location",
+              name: "Name",
+              phoneNumber: "Phone Number",
+            ),
+          ),
+        ) {
     _personalDataRepository = getIt<PersonalDataRepositoryImp>.call();
   }
 
@@ -25,9 +38,7 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
         emit(PersonalDataCacheError());
       },
       (r) {
-        r == null
-            ? emit(PersonalDataInitial())
-            : emit(DataReceived(personalData: r));
+        r == null ? emit(state) : emit(DataReceived(personalData: r));
       },
     );
   }

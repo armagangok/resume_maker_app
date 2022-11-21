@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:resume_maker_app/core/widget/custom_bottom_sheet.dart';
-import 'package:resume_maker_app/core/widget/floating_action_button.dart';
 
 import '../../../../core/extension/context_extension.dart';
 import '../../../../core/widget/custom_appbar.dart';
@@ -24,11 +22,13 @@ class PersonalDetailPage extends StatefulWidget {
 class _PersonalDetailPageState extends State<PersonalDetailPage> {
   late final PersonalTextControllerCubit _personalTextControllers;
   late final PersonalDataCubit _personalDataCubit;
+
   @override
   void initState() {
     _personalTextControllers = getIt<PersonalTextControllerCubit>.call();
     _personalDataCubit = getIt<PersonalDataCubit>.call();
     _personalDataCubit.getPersonalData();
+
     super.initState();
   }
 
@@ -37,50 +37,53 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
     return Scaffold(
       appBar: _buildAppBar,
       body: _buildBody,
-      floatingActionButton: _addPersonalDataButton,
     );
   }
 
-  Widget get _addPersonalDataButton => CustomFloationgButton(
-        onTap: () {
-          customBottomSheet(
-            context: context,
-            widget: ListView(
+  Widget get _buildBody => BlocBuilder<PersonalDataCubit, PersonalDataState>(
+        bloc: _personalDataCubit,
+        builder: (context, state) {
+          if (state is PersonalDataInitial) {
+            return ListView(
               padding: context.normalPadding,
               children: [
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SizedBox(height: context.height(0.025)),
-                    _uploadImageButton,
+                    _uploadImageButton(state),
                     SizedBox(height: context.height(0.025)),
-                    _informationTextStack,
+                    _informationTextStack(state),
                     SizedBox(height: context.height(0.025)),
                     _updateButton,
                   ],
                 ),
               ],
-            ),
-          );
-        },
-      );
-
-  Widget get _buildBody => BlocBuilder<PersonalDataCubit, PersonalDataState>(
-        bloc: _personalDataCubit,
-        builder: (context, state) {
-          if (state is PersonalDataInitial) {
-            return const Center(
-              child: Text("Add personal data."),
             );
           } else if (state is DataReceived) {
-            return Text(state.personalData.email);
+            return ListView(
+              padding: context.normalPadding,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(height: context.height(0.025)),
+                    _uploadImageButton(state),
+                    SizedBox(height: context.height(0.025)),
+                    _informationTextStack(state),
+                    SizedBox(height: context.height(0.025)),
+                    _updateButton,
+                  ],
+                ),
+              ],
+            );
           } else {
             return const Text("else");
           }
         },
       );
 
-  Widget get _uploadImageButton => InkWell(
+  Widget _uploadImageButton(DataReceivedContract state1) => InkWell(
         onTap: () async {
           var imagePickerCubit = getIt<PickImageCubit>.call();
           await imagePickerCubit.pickImage();
@@ -88,7 +91,7 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         child: BlocBuilder<PickImageCubit, PickImageState>(
           bloc: getIt<PickImageCubit>.call(),
           builder: (context, state) {
-            var imagePickerCubit = getIt<PickImageCubit>.call();
+            var imageCubit = getIt<PickImageCubit>.call();
             if (state is PickImageInitial) {
               return _loadingImageWidget(
                 const Icon(
@@ -100,7 +103,13 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
             } else if (state is ImageLoading) {
               return _loadingImageWidget(const CircularProgressIndicator());
             } else if (state is ImageLoaded) {
-              File imageFile = File(imagePickerCubit.image!.path);
+              File imageFile = File(
+                state1.personalData.imagePath == null ||
+                        state1.personalData.imagePath!.isEmpty
+                    ? imageCubit.image!.path
+                    : state1.personalData.imagePath!,
+              );
+
               return _userImageWidget(imageFile);
             } else {
               return const Center(child: Text("Error while uploading image."));
@@ -120,7 +129,9 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
             widget,
             Text(
               "Tap to upload image.",
-              style: context.textTheme.bodyMedium!.copyWith(color: Colors.grey),
+              style: context.textTheme.bodyMedium!.copyWith(
+                color: Colors.grey,
+              ),
             ),
           ],
         ),
@@ -136,27 +147,32 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
     );
   }
 
-  Widget get _informationTextStack => Column(
+  Widget _informationTextStack(DataReceivedContract state) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _personalInformationText,
-          _nameTextField,
-          _locationTextField,
-          _numberTextField,
-          _emailTextField,
-          _linkedinTextField,
-          _birthDayTextField,
+          _nameTextField(state.personalData),
+          _locationTextField(state),
+          _numberTextField(state.personalData),
+          _emailTextField(state.personalData),
+          _linkedinTextField(state.personalData),
+          _birthDayTextField(state.personalData),
         ],
       );
 
-  Widget get _locationTextField => TextField(
+  Widget _locationTextField(DataReceivedContract state) => TextField(
         controller: _personalTextControllers.locationController,
-        decoration: const InputDecoration(hintText: "Location"),
+        decoration: InputDecoration(
+          hintText: state.personalData.location == null ||
+                  state.personalData.location!.isEmpty
+              ? "Location"
+              : state.personalData.location,
+        ),
       );
 
   Widget get _personalInformationText => Builder(
         builder: (context) => Text(
-          "Personal Infomarmation",
+          " Personal Infomarmation",
           style: context.textTheme.headline5,
         ),
       );
@@ -165,51 +181,87 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         width: context.width(1),
         child: ElevatedButton(
           onPressed: () async {
-            var personalDataModel = PersonalDataModel(
-              name: _personalTextControllers.nameController.text,
-              location: _personalTextControllers.locationController.text,
-              phoneNumber: _personalTextControllers.numberController.text,
-              email: _personalTextControllers.emailController.text,
-              linkedin: _personalTextControllers.linkedinController.text,
-              birthday: _personalTextControllers.birthdayController.text,
-              imagePath: getIt<PickImageCubit>.call().image == null
-                  ? ""
-                  : getIt<PickImageCubit>.call().image!.path,
-            );
-
+            final personalDataModel = _preparePersonalDataModel;
             await _personalDataCubit.savePersonalData(personalDataModel);
           },
-          child: const Text("Save"),
+          child: const Text("Update"),
         ),
       );
 
-  Widget get _nameTextField => TextField(
+  Widget _nameTextField(PersonalDataModel personalDataModel) => TextField(
         controller: _personalTextControllers.nameController,
-        decoration: const InputDecoration(hintText: "Name"),
+        decoration: InputDecoration(
+          hintText: (personalDataModel.name == null ||
+                  personalDataModel.name!.isEmpty)
+              ? "Name"
+              : personalDataModel.name,
+        ),
       );
 
-  Widget get _birthDayTextField => TextField(
+  Widget _birthDayTextField(PersonalDataModel personalDataModel) => TextField(
         controller: _personalTextControllers.birthdayController,
-        decoration: const InputDecoration(hintText: "Birthday"),
+        decoration: InputDecoration(
+          hintText: (personalDataModel.birthday == null ||
+                  personalDataModel.birthday!.isEmpty)
+              ? "Birthday"
+              : personalDataModel.birthday,
+        ),
       );
 
-  Widget get _linkedinTextField => TextField(
+  Widget _linkedinTextField(PersonalDataModel personalDataModel) => TextField(
         controller: _personalTextControllers.linkedinController,
-        decoration: const InputDecoration(hintText: "Linkedin"),
+        decoration: InputDecoration(
+          hintText: personalDataModel.linkedin == null ||
+                  personalDataModel.linkedin == ""
+              ? "Linkedin"
+              : personalDataModel.linkedin,
+        ),
       );
 
-  Widget get _emailTextField => TextField(
+  Widget _emailTextField(PersonalDataModel personalDataModel) => TextField(
         controller: _personalTextControllers.emailController,
-        decoration: const InputDecoration(hintText: "Email"),
+        decoration: InputDecoration(
+          hintText: (personalDataModel.email == null ||
+                  personalDataModel.email!.isEmpty)
+              ? "Email"
+              : personalDataModel.email,
+        ),
       );
 
-  Widget get _numberTextField => TextField(
+  Widget _numberTextField(PersonalDataModel personalDataModel) => TextField(
         controller: _personalTextControllers.numberController,
-        decoration: const InputDecoration(hintText: "Phone Number"),
+        decoration: InputDecoration(
+          hintText: personalDataModel.phoneNumber == null ||
+                  personalDataModel.phoneNumber == ""
+              ? "Phone Number"
+              : personalDataModel.phoneNumber,
+        ),
       );
 
   CustomAppBar get _buildAppBar => CustomAppBar(
         title: const Text("Personal Details"),
         onTapUpdate: () {},
       );
+
+  PersonalDataModel get _preparePersonalDataModel {
+    // getIt<PickImageCubit>.call().image == null;
+    if (_personalTextControllers.nameController.text.isNotEmpty &&
+        _personalTextControllers.numberController.text.isNotEmpty &&
+        _personalTextControllers.emailController.text.isNotEmpty &&
+        _personalTextControllers.linkedinController.text.isNotEmpty &&
+        _personalTextControllers.birthdayController.text.isNotEmpty) {}
+
+    var personalDataModel = PersonalDataModel(
+      name: _personalTextControllers.nameController.text,
+      location: _personalTextControllers.locationController.text,
+      phoneNumber: _personalTextControllers.numberController.text,
+      email: _personalTextControllers.emailController.text,
+      linkedin: _personalTextControllers.linkedinController.text,
+      birthday: _personalTextControllers.birthdayController.text,
+      imagePath: getIt<PickImageCubit>.call().image == null
+          ? ""
+          : getIt<PickImageCubit>.call().image!.path,
+    );
+    return personalDataModel;
+  }
 }
