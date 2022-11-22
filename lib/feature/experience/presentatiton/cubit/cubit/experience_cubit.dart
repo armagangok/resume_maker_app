@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:resume_maker_app/core/error/failure.dart';
 
+import '../../../../../core/error/failure.dart';
 import '../../../../../injection_container.dart';
 import '../../../data/model/experience_model.dart';
 import '../../../data/repository/experience_repository_imp.dart';
@@ -14,8 +14,6 @@ class ExperienceCubit extends Cubit<ExperienceState> {
     _repository = getIt<ExperienceRepositoryImp>.call();
   }
 
-  List<ExperienceModel> experiencesList = [];
-
   Future<void> save(ExperienceModel experienceModel) async {
     var response = await _repository.savePersonalData(experienceModel);
 
@@ -23,9 +21,23 @@ class ExperienceCubit extends Cubit<ExperienceState> {
       (failure) {
         return emit(ExperienceSavingError());
       },
-      (data) {
-        experiencesList.add(experienceModel);
-        emit(ExperienceFetched());
+      (data) async {
+        var response = await _repository.fetchExperienceData();
+
+        response.fold(
+          (failure) {
+            if (failure is HiveNullData) {
+              emit(ExperienceInitial());
+            } else if (failure is HiveFetchFailure) {
+              emit(ExperienceFetcingError());
+            } else {
+              emit(state);
+            }
+          },
+          (data) async {
+            emit(ExperienceFetched(experienceData: data));
+          },
+        );
       },
     );
   }
@@ -35,13 +47,25 @@ class ExperienceCubit extends Cubit<ExperienceState> {
 
     response.fold(
       (l) => emit(ExperienceDeletingError()),
-      (r) => emit(state),
-    );
+      (r) async {
+        var response = await _repository.fetchExperienceData();
 
-    experiencesList.removeAt(index);
-    experiencesList.isEmpty
-        ? emit(ExperienceInitial())
-        : emit(ExperienceRemoved());
+        response.fold(
+          (failure) {
+            if (failure is HiveNullData) {
+              emit(ExperienceInitial());
+            } else if (failure is HiveFetchFailure) {
+              emit(ExperienceFetcingError());
+            } else {
+              emit(state);
+            }
+          },
+          (data) async {
+            emit(ExperienceFetched(experienceData: data));
+          },
+        );
+      },
+    );
   }
 
   Future<void> fetchExperienceData() async {
@@ -57,9 +81,8 @@ class ExperienceCubit extends Cubit<ExperienceState> {
           emit(state);
         }
       },
-      (data) {
-        emit(ExperienceFetched());
-        return data;
+      (data) async {
+        emit(ExperienceFetched(experienceData: data));
       },
     );
   }

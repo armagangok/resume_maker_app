@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:resume_maker_app/feature/experience/presentatiton/cubit/text_controller/experience_text_controller_cubit.dart';
 
 import '../../../../core/extension/context_extension.dart';
 import '../../../../core/widget/custom_dialog.dart';
@@ -8,6 +7,7 @@ import '../../../../core/widget/export.dart';
 import '../../../../injection_container.dart';
 import '../../data/model/experience_model.dart';
 import '../cubit/cubit/experience_cubit.dart';
+import '../cubit/text_controller/experience_text_controller_cubit.dart';
 import '../widget/experience_item_widget.dart';
 
 class ExperiencesPage extends StatefulWidget {
@@ -19,9 +19,13 @@ class ExperiencesPage extends StatefulWidget {
 
 class _ExperiencesPageState extends State<ExperiencesPage> {
   late final ExperienceTextControllerCubit _textControllerCubit;
+  late final ExperienceCubit _experienceCubit;
+
   @override
   void initState() {
     _textControllerCubit = getIt<ExperienceTextControllerCubit>.call();
+    _experienceCubit = getIt<ExperienceCubit>.call();
+    _experienceCubit.fetchExperienceData();
 
     super.initState();
   }
@@ -60,7 +64,7 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
         width: context.width(1),
         child: ElevatedButton(
           child: const Text("Add Experience"),
-          onPressed: () {
+          onPressed: () async {
             var experienceModel = ExperienceModel(
               companyName: _textControllerCubit.companyNameController.text,
               profession: _textControllerCubit.professionController.text,
@@ -69,7 +73,7 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
               jobRole: _textControllerCubit.jobRoleController.text,
               jobType: _textControllerCubit.jobTypeController.text,
             );
-            getIt<ExperienceCubit>().save(experienceModel);
+            await _experienceCubit.save(experienceModel);
           },
         ),
       );
@@ -101,11 +105,11 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
             return const InitialStateWidget(
               text: "Add experiences into resume you have.",
             );
-          } else {
+          } else if (state is ExperienceFetched) {
             return ListView.separated(
               padding: context.normalPadding,
               itemBuilder: (context, index) => ExperienceItemWidget(
-                experienceModel: experincesCubit.experiencesList[index],
+                experienceModel: state.experienceData[index],
                 onLongPress: () => showCustomDialog(
                   context,
                   index,
@@ -113,8 +117,10 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
                 ),
               ),
               separatorBuilder: (context, index) => const CustomDivider(),
-              itemCount: experincesCubit.experiencesList.length,
+              itemCount: state.experienceData.length,
             );
+          } else {
+            return const Text("elseee");
           }
         },
       );

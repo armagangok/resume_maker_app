@@ -15,7 +15,10 @@ class ExperienceRepositoryImp extends ExperienceRepository {
   @override
   Future<Either<Failure, bool>> deleteData(int index) async {
     try {
-      await _hiveHelper.deleteDataAt(HiveBoxes.experienceDataBox, index);
+      await _hiveHelper.deleteDataAt<ExperienceModel>(
+        HiveBoxes.experienceDataBox,
+        index,
+      );
       return const Right(true);
     } on Exception {
       return Left(HiveDeletingFailure());
@@ -23,13 +26,13 @@ class ExperienceRepositoryImp extends ExperienceRepository {
   }
 
   @override
-  Future<Either<Failure, ExperienceModel>> fetchExperienceData() async {
+  Future<Either<Failure, List<ExperienceModel>>> fetchExperienceData() async {
     try {
-      var response = await _hiveHelper.getData<ExperienceModel>(
-        HiveBoxes.experienceDataBox,
+      var response = await _hiveHelper.getAll<ExperienceModel>(
         HiveBoxes.experienceDataBox,
       );
-      return response == null ? Left(HiveNullData()) : Right(response);
+
+      return response.isEmpty ? Left(HiveNullData()) : Right(response);
     } on Exception {
       return Left(HiveFetchFailure());
     }
@@ -45,7 +48,6 @@ class ExperienceRepositoryImp extends ExperienceRepository {
       );
 
       return const Right(true);
-
     } on Exception {
       return Left(HiveSavingFailure());
     }

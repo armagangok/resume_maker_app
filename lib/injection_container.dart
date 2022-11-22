@@ -33,6 +33,4 @@ void initDependencies() {
   getIt.registerLazySingleton<PersonalDataRepositoryImp>(() => PersonalDataRepositoryImp());
   getIt.registerLazySingleton<ExperienceRepositoryImp>(() => ExperienceRepositoryImp());
   getIt.registerLazySingleton<ExperienceTextControllerCubit>(() =>ExperienceTextControllerCubit());
-  
-
 }

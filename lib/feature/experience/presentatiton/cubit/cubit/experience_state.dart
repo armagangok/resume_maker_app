@@ -4,9 +4,15 @@ abstract class ExperienceState {}
 
 class ExperienceInitial extends ExperienceState {}
 
-class ExperienceFetched extends ExperienceState {}
+class ExperienceDataReceived extends ExperienceState {
+  ExperienceDataReceived({required this.experienceData});
 
-class ExperienceRemoved extends ExperienceState {}
+  late final List<ExperienceModel> experienceData;
+}
+
+class ExperienceFetched extends ExperienceDataReceived {
+  ExperienceFetched({required super.experienceData});
+}
 
 class ExperienceSavingError extends ExperienceState {
   static const message = "Error occured while saving data.";
@@ -20,6 +26,10 @@ class ExperienceFetcingError extends ExperienceState {
   static const message = "Error occured while fetching data.";
 }
 
-class ExperienceDeleted extends ExperienceState {
+class ExperienceDeleted extends ExperienceDataReceived {
+  ExperienceDeleted({required super.experienceData});
+
   static const message = "Experience deleted succesfully.";
 }
+
+class ReloadPage extends ExperienceState {}
