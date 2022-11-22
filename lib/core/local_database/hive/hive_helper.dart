@@ -4,6 +4,7 @@ import '../../../feature/academic/model/academic_data_model.dart';
 import '../../../feature/experience/data/model/experience_model.dart';
 import '../../../feature/language/data/model/language_model.dart';
 import '../../../feature/personal_details/data/model/personal_data_model.dart';
+import '../../../feature/references/data/model/reference_model.dart';
 import 'hive_keys.dart';
 
 class HiveHelper {
@@ -17,10 +18,12 @@ class HiveHelper {
     Hive.registerAdapter(PersonalDataModelAdapter());
     Hive.registerAdapter(ExperienceModelAdapter());
     Hive.registerAdapter(LanguageModelAdapter());
+    Hive.registerAdapter(ReferenceModelAdapter());
     await Hive.openBox<AcademicDataModel>(HiveBoxes.academicDataBox);
     await Hive.openBox<ExperienceModel>(HiveBoxes.experienceDataBox);
     await Hive.openBox<PersonalDataModel>(HiveBoxes.personalDataBox);
     await Hive.openBox<LanguageModel>(HiveBoxes.languageDataBox);
+    await Hive.openBox<ReferenceModel>(HiveBoxes.referenceDataBox);
   }
 
   Future<T?> getData<T>(String boxName, dynamic key) async {

@@ -6,7 +6,7 @@ import '../../../../core/extension/context_extension.dart';
 import '../../../../core/widget/custom_divider.dart';
 import '../../../../core/widget/export.dart';
 import '../../../../injection_container.dart';
-import '../../model/reference_model.dart';
+import '../../data/model/reference_model.dart';
 import '../cubit/references/references_cubit.dart';
 import '../widget/reference_item.dart';
 

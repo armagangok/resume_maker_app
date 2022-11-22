@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../model/reference_model.dart';
+import '../../../data/model/reference_model.dart';
 
 part 'references_state.dart';
 
