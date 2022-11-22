@@ -46,44 +46,33 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         bloc: _personalDataCubit,
         builder: (context, state) {
           if (state is PersonalDataInitial) {
-            return ListView(
-              padding: context.normalPadding,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(height: context.height(0.025)),
-                    _uploadImageButton(state),
-                    SizedBox(height: context.height(0.025)),
-                    _informationTextStack(state),
-                    SizedBox(height: context.height(0.025)),
-                    _updateButton(state),
-                  ],
-                ),
-              ],
-            );
+            return getBodyWidgets(context, state);
           } else if (state is DataReceived) {
-            return ListView(
-              padding: context.normalPadding,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(height: context.height(0.025)),
-                    _uploadImageButton(state),
-                    SizedBox(height: context.height(0.025)),
-                    _informationTextStack(state),
-                    SizedBox(height: context.height(0.025)),
-                    _updateButton(state),
-                  ],
-                ),
-              ],
-            );
+            return getBodyWidgets(context, state);
           } else {
             return const Text("else");
           }
         },
       );
+
+  ListView getBodyWidgets(BuildContext context, DataReceivedContract state) {
+    return ListView(
+      padding: context.normalPadding,
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(height: context.height(0.025)),
+            _uploadImageButton(state),
+            SizedBox(height: context.height(0.025)),
+            _informationTextStack(state),
+            SizedBox(height: context.height(0.025)),
+            _updateButton(state),
+          ],
+        ),
+      ],
+    );
+  }
 
   Widget _uploadImageButton(DataReceivedContract personalDataState) => InkWell(
         onTap: () async {
@@ -100,7 +89,9 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
                   ? const CircleAvatarWidget(
                       assetImage: AssetImage('assets/person.png'),
                     )
-                  : _userImageWidget(imageFile);
+                  : CircleAvatarWidget(
+                      assetImage: AssetImage(imageFile.path),
+                    );
             } else if (imageState is ImageLoading) {
               return CircleAvatarWidget(
                 widget: Column(
@@ -119,25 +110,19 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
             } else if (imageState is ImageLoaded) {
               File imageFile = File(imageState.imagePath!);
 
-              return _userImageWidget(imageFile);
+              return CircleAvatarWidget(
+                assetImage: AssetImage(imageFile.path),
+              );
             } else {
               return const CircleAvatarWidget(
                 widget: Text(
-                  "Error while uploading image. Image may have been deleted.",
+                  "Error while uploading image.",
                 ),
               );
             }
           },
         ),
       );
-
-  Widget _userImageWidget(File file) {
-    return CircleAvatar(
-      backgroundImage: AssetImage(file.path),
-      backgroundColor: Colors.white,
-      radius: context.height(0.125),
-    );
-  }
 
   Widget _informationTextStack(DataReceivedContract state) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -173,7 +158,8 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         width: context.width(1),
         child: ElevatedButton(
           onPressed: () async {
-            final personalDataModel = _preparePersonalDataModel(state);
+            final personalDataModel =
+                _personalDataCubit.preparePersonalDataModel(state);
             await _personalDataCubit.savePersonalData(personalDataModel);
           },
           child: const Text("Update"),
@@ -234,32 +220,4 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         title: const Text("Personal Details"),
         onTapUpdate: () {},
       );
-
-  PersonalDataModel _preparePersonalDataModel(DataReceivedContract state) {
-    var personalDataModel = PersonalDataModel(
-      name: _personalTextControllers.nameController.text.isEmpty
-          ? state.personalData.name
-          : _personalTextControllers.nameController.text,
-      location: _personalTextControllers.locationController.text.isEmpty
-          ? state.personalData.location
-          : _personalTextControllers.locationController.text,
-      phoneNumber: _personalTextControllers.numberController.text.isEmpty
-          ? state.personalData.phoneNumber
-          : _personalTextControllers.numberController.text,
-      email: _personalTextControllers.emailController.text.isEmpty
-          ? state.personalData.email
-          : _personalTextControllers.emailController.text,
-      linkedin: _personalTextControllers.linkedinController.text.isEmpty
-          ? state.personalData.linkedin
-          : _personalTextControllers.linkedinController.text,
-      birthday: _personalTextControllers.birthdayController.text.isEmpty
-          ? state.personalData.birthday
-          : _personalTextControllers.birthdayController.text,
-      imagePath: state.personalData.imagePath == null ||
-              state.personalData.imagePath!.isEmpty
-          ? state.personalData.imagePath
-          : _imagePickerCubit.getChoosenImagePath,
-    );
-    return personalDataModel;
-  }
 }
