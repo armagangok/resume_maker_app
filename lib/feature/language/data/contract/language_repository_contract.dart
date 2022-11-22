@@ -6,7 +6,7 @@ import '../model/language_model.dart';
 abstract class LanguageRepository {
   Future<Either<Failure, List<LanguageModel>>> fetchLanguageData();
   Future<Either<Failure, bool>> saveLanguageData(
-    LanguageModel experienceModel,
+    LanguageModel languageModel,
   );
   Future<Either<Failure, bool>> deleteLanguageData(int index);
 }

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/extension/context_extension.dart';
 import '../../../../core/widget/export.dart';
 import '../../../../injection_container.dart';
+import '../../data/model/language_model.dart';
 import '../cubit/language_cubit/language_cubit.dart';
 
 class LanguagePage extends StatefulWidget {
@@ -14,11 +15,14 @@ class LanguagePage extends StatefulWidget {
 }
 
 class _LanguagePageState extends State<LanguagePage> {
-  late final TextEditingController textEditingController;
+  late final TextEditingController _langaugeController;
+  late final LanguageCubit _languageCubit;
 
   @override
   void initState() {
-    textEditingController = TextEditingController();
+    _langaugeController = TextEditingController();
+    _languageCubit = getIt<LanguageCubit>.call();
+    _languageCubit.fetchLanguageData();
     super.initState();
   }
 
@@ -32,28 +36,30 @@ class _LanguagePageState extends State<LanguagePage> {
   }
 
   Widget get _buildBody => Padding(
-    padding: context.normalPadding,
-    child: BlocBuilder<LanguageCubit, LanguageState>(
+        padding: context.normalPadding,
+        child: BlocBuilder<LanguageCubit, LanguageState>(
           bloc: getIt<LanguageCubit>.call(),
           builder: (context, state) {
             if (state is LanguageInitial) {
               return const Center(
                 child: Text("Add languages into your resume."),
               );
-            } else {
+            } else if (state is LanguageFetched) {
               return ListView.separated(
                 itemBuilder: (context, index) => ListItemWidget(
-                  text: getIt<LanguageCubit>().languages[index],
+                  text: state.languageData[index].language,
                   index: index,
-                  onTap: () => getIt<LanguageCubit>().removeLanguage(index),
+                  onTap: () => _languageCubit.delete(index),
                 ),
                 separatorBuilder: (context, index) => const CustomDivider(),
-                itemCount: getIt<LanguageCubit>().languages.length,
+                itemCount: state.languageData.length,
               );
+            } else {
+              return const Text("elseee");
             }
           },
         ),
-  );
+      );
 
   CustomAppBar get _buildAppBar => CustomAppBar(
         title: const Text("Languages"),
@@ -86,7 +92,7 @@ class _LanguagePageState extends State<LanguagePage> {
       );
 
   Widget languageTextField() => TextField(
-        controller: textEditingController,
+        controller: _langaugeController,
         decoration: const InputDecoration(
           hintText: "Language",
         ),
@@ -96,11 +102,13 @@ class _LanguagePageState extends State<LanguagePage> {
         width: double.infinity,
         child: ElevatedButton(
           onPressed: () {
-            var text = textEditingController.text;
+            var text = _langaugeController.text;
             (text.isNotEmpty)
-                ? getIt<LanguageCubit>().addLanguage(text)
+                ? _languageCubit.save(
+                    LanguageModel(language: _langaugeController.text),
+                  )
                 : getSnackBar(context, "Language cannot be empty");
-            textEditingController.clear();
+            _langaugeController.clear();
           },
           child: const Text("Add Language"),
         ),

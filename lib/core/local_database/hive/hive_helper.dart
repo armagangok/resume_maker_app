@@ -2,7 +2,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../feature/academic/model/academic_data_model.dart';
 import '../../../feature/experience/data/model/experience_model.dart';
-import '../../../feature/language/presentation/data/model/language_model.dart';
+import '../../../feature/language/data/model/language_model.dart';
 import '../../../feature/personal_details/data/model/personal_data_model.dart';
 import 'hive_keys.dart';
 
@@ -20,7 +20,7 @@ class HiveHelper {
     await Hive.openBox<AcademicDataModel>(HiveBoxes.academicDataBox);
     await Hive.openBox<ExperienceModel>(HiveBoxes.experienceDataBox);
     await Hive.openBox<PersonalDataModel>(HiveBoxes.personalDataBox);
-    await Hive.openBox<AcademicDataModel>(HiveBoxes.languageDataBox);
+    await Hive.openBox<LanguageModel>(HiveBoxes.languageDataBox);
   }
 
   Future<T?> getData<T>(String boxName, dynamic key) async {

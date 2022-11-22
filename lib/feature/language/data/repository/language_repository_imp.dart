@@ -40,11 +40,11 @@ class LanguageRepositoryImp extends LanguageRepository {
 
   @override
   Future<Either<Failure, bool>> saveLanguageData(
-      LanguageModel experienceModel) async {
+      LanguageModel languageModel) async {
     try {
       await _hiveHelper.addData<LanguageModel>(
         HiveBoxes.languageDataBox,
-        experienceModel,
+        languageModel,
       );
 
       return const Right(true);

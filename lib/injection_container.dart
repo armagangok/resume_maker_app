@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:resume_maker_app/feature/language/data/repository/language_repository_imp.dart';
 
 import 'core/navigation/navigation_service.dart';
 import 'feature/academic/data/repository/academic_data_repository_imp.dart';
@@ -33,4 +34,5 @@ void initDependencies() {
   getIt.registerLazySingleton<PersonalDataRepositoryImp>(() => PersonalDataRepositoryImp());
   getIt.registerLazySingleton<ExperienceRepositoryImp>(() => ExperienceRepositoryImp());
   getIt.registerLazySingleton<ExperienceTextControllerCubit>(() =>ExperienceTextControllerCubit());
+  getIt.registerLazySingleton<LanguageRepositoryImp>(() =>LanguageRepositoryImp());
 }
