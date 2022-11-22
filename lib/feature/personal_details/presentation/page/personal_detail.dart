@@ -21,12 +21,14 @@ class PersonalDetailPage extends StatefulWidget {
 class _PersonalDetailPageState extends State<PersonalDetailPage> {
   late final PersonalTextControllerCubit _personalTextControllers;
   late final PersonalDataCubit _personalDataCubit;
+  late final PickImageCubit _imagePickerCubit;
 
   @override
   void initState() {
     _personalTextControllers = getIt<PersonalTextControllerCubit>.call();
     _personalDataCubit = getIt<PersonalDataCubit>.call();
     _personalDataCubit.getPersonalData();
+    _imagePickerCubit = getIt<PickImageCubit>.call();
 
     super.initState();
   }
@@ -84,14 +86,14 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
 
   Widget _uploadImageButton(DataReceivedContract personalDataState) => InkWell(
         onTap: () async {
-          var imagePickerCubit = getIt<PickImageCubit>.call();
-          await imagePickerCubit.pickImage();
+          await _imagePickerCubit.pickImage();
         },
         child: BlocBuilder<PickImageCubit, PickImageState>(
           bloc: getIt<PickImageCubit>.call(),
           builder: (context, imageState) {
             if (imageState is PickImageInitial) {
               File imageFile = File(personalDataState.personalData.imagePath!);
+
               return personalDataState.personalData.imagePath == null ||
                       personalDataState.personalData.imagePath!.isEmpty
                   ? CircleAvatar(
@@ -178,7 +180,7 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         ),
       );
 
-  Widget _updateButton(state) => SizedBox(
+  Widget _updateButton(DataReceivedContract state) => SizedBox(
         width: context.width(1),
         child: ElevatedButton(
           onPressed: () async {
@@ -245,8 +247,7 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
       );
 
   PersonalDataModel _preparePersonalDataModel(DataReceivedContract state) {
-    // var imagePath = getIt<PickImageCubit>.call().image.path;
-
+    print(_imagePickerCubit.getChoosenImagePath);
     var personalDataModel = PersonalDataModel(
       name: _personalTextControllers.nameController.text.isEmpty
           ? state.personalData.name
@@ -266,15 +267,10 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
       birthday: _personalTextControllers.birthdayController.text.isEmpty
           ? state.personalData.birthday
           : _personalTextControllers.birthdayController.text,
-      imagePath: state.personalData.imagePath!.isEmpty ||
-              state.personalData.imagePath == null
-          ? ""
-          : state.personalData.imagePath,
-
-      // state.personalData.imagePath == null ||
-      //         state.personalData.imagePath!.isEmpty
-      //     ?
-      //     : state.personalData.imagePath,
+      imagePath: state.personalData.imagePath == null ||
+              state.personalData.imagePath!.isEmpty
+          ? state.personalData.imagePath
+          : _imagePickerCubit.getChoosenImagePath,
     );
     return personalDataModel;
   }

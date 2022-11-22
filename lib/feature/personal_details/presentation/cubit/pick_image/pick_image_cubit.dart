@@ -13,20 +13,25 @@ class PickImageCubit extends Cubit<PickImageState> {
 
   late final ImagePickerRepositoryImp _imageRepository;
 
+  late final String _choosenImagePath;
+
+  String get getChoosenImagePath => _choosenImagePath;
+
   Future pickImage() async {
     emit(ImageLoading());
     var result = await _imageRepository.pickImage();
 
     result.fold(
-      (l) {
-        if (l is NullImageFailure) {
+      (failure) {
+        if (failure is NullImageFailure) {
           emit(PickImageInitial());
         } else {
           emit(LoadError());
         }
       },
-      (r) {
-        emit(ImageLoaded(imagePath: r!.path));
+      (data) {
+        _choosenImagePath = data!.path;
+        emit(ImageLoaded(imagePath: data.path));
       },
     );
   }
