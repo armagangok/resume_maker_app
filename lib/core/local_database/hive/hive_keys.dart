@@ -3,7 +3,7 @@ class HiveBoxes {
 
   static const String academicDataBox = "academicDataBox";
   static const String personalDataBox = "personalDetailsBox";
-  static const String experienceDataBox = "personalDetailsBox";
+  static const String experienceDataBox = "experienceDataBox";
 }
 
 class HiveKeys {
