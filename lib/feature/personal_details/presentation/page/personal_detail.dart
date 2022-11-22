@@ -26,10 +26,10 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
 
   @override
   void initState() {
-    _personalTextControllers = getIt<PersonalTextControllerCubit>.call();
     _personalDataCubit = getIt<PersonalDataCubit>.call();
     _personalDataCubit.getPersonalData();
     _imagePickerCubit = getIt<PickImageCubit>.call();
+    _personalTextControllers = getIt<PersonalTextControllerCubit>.call();
 
     super.initState();
   }
@@ -46,33 +46,33 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         bloc: _personalDataCubit,
         builder: (context, state) {
           if (state is PersonalDataInitial) {
-            return getBodyWidgets(context, state);
+            return getBodyWidgets(state);
           } else if (state is DataReceived) {
-            return getBodyWidgets(context, state);
+            return getBodyWidgets(state);
           } else {
-            return const Text("else");
+            return const Text("An unknown error occured.");
           }
         },
       );
 
-  ListView getBodyWidgets(BuildContext context, DataReceivedContract state) {
-    return ListView(
-      padding: context.normalPadding,
-      children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+  Widget getBodyWidgets(DataReceivedContract state) => Builder(
+        builder: (context) => ListView(
+          padding: context.normalPadding,
           children: [
-            SizedBox(height: context.height(0.025)),
-            _uploadImageButton(state),
-            SizedBox(height: context.height(0.025)),
-            _informationTextStack(state),
-            SizedBox(height: context.height(0.025)),
-            _updateButton(state),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(height: context.height(0.025)),
+                _uploadImageButton(state),
+                SizedBox(height: context.height(0.025)),
+                _informationTextStack(state),
+                SizedBox(height: context.height(0.025)),
+                _updateButton(state),
+              ],
+            ),
           ],
         ),
-      ],
-    );
-  }
+      );
 
   Widget _uploadImageButton(DataReceivedContract personalDataState) => InkWell(
         onTap: () async {
@@ -93,19 +93,8 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
                       assetImage: AssetImage(imageFile.path),
                     );
             } else if (imageState is ImageLoading) {
-              return CircleAvatarWidget(
-                widget: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    widget,
-                    Text(
-                      "Tap to upload image.",
-                      style: context.textTheme.bodyMedium!.copyWith(
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
+              return const CircleAvatarWidget(
+                widget: CircularProgressIndicator(),
               );
             } else if (imageState is ImageLoaded) {
               File imageFile = File(imageState.imagePath!);
@@ -114,9 +103,13 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
                 assetImage: AssetImage(imageFile.path),
               );
             } else {
-              return const CircleAvatarWidget(
-                widget: Text(
-                  "Error while uploading image.",
+              return CircleAvatarWidget(
+                widget: Padding(
+                  padding: context.normalPadding,
+                  child: Text(
+                    "Error while uploading image. The picture may have been deleted.",
+                    style: context.textTheme.bodySmall,
+                  ),
                 ),
               );
             }
@@ -124,26 +117,29 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         ),
       );
 
-  Widget _informationTextStack(DataReceivedContract state) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _personalInformationText,
-          _nameTextField(state.personalData),
-          _locationTextField(state),
-          _numberTextField(state.personalData),
-          _emailTextField(state.personalData),
-          _linkedinTextField(state.personalData),
-          _birthDayTextField(state.personalData),
-        ],
-      );
+  Widget _informationTextStack(DataReceivedContract state) {
+    var personalData = state.personalData;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _personalInformationText,
+        _nameTextField(personalData),
+        _locationTextField(personalData),
+        _numberTextField(personalData),
+        _emailTextField(personalData),
+        _linkedinTextField(personalData),
+        _birthDayTextField(personalData),
+      ],
+    );
+  }
 
-  Widget _locationTextField(DataReceivedContract state) => TextField(
+  Widget _locationTextField(PersonalDataModel personalData) => TextField(
         controller: _personalTextControllers.locationController,
         decoration: InputDecoration(
-          hintText: state.personalData.location == null ||
-                  state.personalData.location!.isEmpty
-              ? "Location"
-              : state.personalData.location,
+          hintText:
+              personalData.location == null || personalData.location!.isEmpty
+                  ? "Location"
+                  : personalData.location,
         ),
       );
 
@@ -158,8 +154,10 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         width: context.width(1),
         child: ElevatedButton(
           onPressed: () async {
-            final personalDataModel =
-                _personalDataCubit.preparePersonalDataModel(state);
+            
+            final personalDataModel =_personalDataCubit.preparePersonalDataModel(state);
+
+            
             await _personalDataCubit.savePersonalData(personalDataModel);
           },
           child: const Text("Update"),

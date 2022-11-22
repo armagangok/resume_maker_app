@@ -62,6 +62,10 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
   }
 
   PersonalDataModel preparePersonalDataModel(DataReceivedContract state) {
+    print(state.personalData.imagePath!.isEmpty);
+    print(_pickImageCubit.getChoosenImagePath);
+    
+
     var personalDataModel = PersonalDataModel(
       name: _personalTextControllers.nameController.text.isEmpty
           ? state.personalData.name
@@ -81,10 +85,10 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
       birthday: _personalTextControllers.birthdayController.text.isEmpty
           ? state.personalData.birthday
           : _personalTextControllers.birthdayController.text,
-      imagePath: state.personalData.imagePath == null ||
-              state.personalData.imagePath!.isEmpty
-          ? state.personalData.imagePath
-          : _pickImageCubit.getChoosenImagePath,
+      imagePath: (state.personalData.imagePath == null ||
+              state.personalData.imagePath!.isEmpty)
+          ? _pickImageCubit.getChoosenImagePath
+          : state.personalData.imagePath,
     );
     return personalDataModel;
   }
