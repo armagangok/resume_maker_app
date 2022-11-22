@@ -3,8 +3,9 @@ import 'package:dartz/dartz.dart';
 import '../../../../core/error/failure.dart';
 import '../../../../core/local_database/hive/hive_helper.dart';
 import '../../../../core/local_database/hive/hive_keys.dart';
-import '../../model/personal_data_model.dart';
+
 import '../contract/personal_data_repository.dart';
+import '../model/personal_data_model.dart';
 
 class PersonalDataRepositoryImp implements PersonalDataRepository {
   PersonalDataRepositoryImp() {

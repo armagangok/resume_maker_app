@@ -1,7 +1,8 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../feature/academic/model/academic_data_model.dart';
-import '../../../feature/personal_details/model/personal_data_model.dart';
+import '../../../feature/experience/data/model/experience_model.dart';
+import '../../../feature/personal_details/data/model/personal_data_model.dart';
 import 'hive_keys.dart';
 
 class HiveHelper {
@@ -13,7 +14,9 @@ class HiveHelper {
     await Hive.initFlutter();
     Hive.registerAdapter(AcademicDataModelAdapter());
     Hive.registerAdapter(PersonalDataModelAdapter());
+    Hive.registerAdapter(ExperienceModelAdapter());
     await Hive.openBox<AcademicDataModel>(HiveBoxes.academicDataBox);
+    await Hive.openBox<ExperienceModel>(HiveBoxes.experienceDataBox);
     await Hive.openBox<PersonalDataModel>(HiveBoxes.personalDataBox);
   }
 

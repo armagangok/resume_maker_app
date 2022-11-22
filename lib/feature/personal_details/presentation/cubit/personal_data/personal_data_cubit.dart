@@ -1,7 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../data/model/personal_data_model.dart';
 import '../../../data/repository/personal_data_repository_imp.dart';
-import '../../../model/personal_data_model.dart';
+
 import '../../../../../injection_container.dart';
 
 part 'personal_data_state.dart';

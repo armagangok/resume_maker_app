@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/extension/context_extension.dart';
 import '../../../../core/widget/custom_appbar.dart';
 import '../../../../injection_container.dart';
-import '../../model/personal_data_model.dart';
+import '../../data/model/personal_data_model.dart';
 import '../cubit/personal_data/personal_data_cubit.dart';
 import '../cubit/personal_text_controllers/personal_text_controllers_cubit.dart';
 import '../cubit/pick_image/pick_image_cubit.dart';

@@ -1,5 +1,7 @@
 import 'package:hive/hive.dart';
 
+part 'experience_model.g.dart';
+
 @HiveType(typeId: 2)
 class ExperienceModel extends HiveObject {
   @HiveField(0)
