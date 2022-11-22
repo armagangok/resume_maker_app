@@ -247,7 +247,6 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
       );
 
   PersonalDataModel _preparePersonalDataModel(DataReceivedContract state) {
-    print(_imagePickerCubit.getChoosenImagePath);
     var personalDataModel = PersonalDataModel(
       name: _personalTextControllers.nameController.text.isEmpty
           ? state.personalData.name
