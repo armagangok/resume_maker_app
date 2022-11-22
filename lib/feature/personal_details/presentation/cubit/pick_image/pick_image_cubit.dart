@@ -13,7 +13,7 @@ class PickImageCubit extends Cubit<PickImageState> {
 
   late final ImagePickerRepositoryImp _imageRepository;
 
-  late final String _choosenImagePath;
+  late String _choosenImagePath;
 
   String get getChoosenImagePath => _choosenImagePath;
 

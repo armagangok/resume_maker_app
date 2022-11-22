@@ -14,7 +14,7 @@ class HiveHelper {
     Hive.registerAdapter(AcademicDataModelAdapter());
     Hive.registerAdapter(PersonalDataModelAdapter());
     await Hive.openBox<AcademicDataModel>(HiveBoxes.academicDataBox);
-    await Hive.openBox<PersonalDataModel>(HiveBoxes.personalDetailsBox);
+    await Hive.openBox<PersonalDataModel>(HiveBoxes.personalDataBox);
   }
 
   Future<T?> getData<T>(String boxName, dynamic key) async {

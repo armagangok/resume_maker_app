@@ -17,8 +17,8 @@ class PersonalDataRepositoryImp implements PersonalDataRepository {
   Future<Either<Failure, bool>> deleteData(int index) async {
     try {
       await hiveHelper.deleteData(
-        HiveBoxes.personalDetailsBox,
-        HiveBoxes.personalDetailsBox,
+        HiveBoxes.personalDataBox,
+        HiveBoxes.personalDataBox,
       );
       return const Right(true);
     } on Exception {
@@ -30,11 +30,9 @@ class PersonalDataRepositoryImp implements PersonalDataRepository {
   Future<Either<Failure, PersonalDataModel?>> getPersonalData() async {
     try {
       var response = await hiveHelper.getData<PersonalDataModel>(
-        HiveBoxes.personalDetailsBox,
-        HiveBoxes.personalDetailsBox,
+        HiveBoxes.personalDataBox,
+        HiveBoxes.personalDataBox,
       );
-
-      
 
       return Right(response);
     } catch (e) {
@@ -47,8 +45,8 @@ class PersonalDataRepositoryImp implements PersonalDataRepository {
       PersonalDataModel personalDataModel) async {
     try {
       await hiveHelper.putData<PersonalDataModel>(
-        HiveBoxes.personalDetailsBox,
-        HiveBoxes.personalDetailsBox,
+        HiveBoxes.personalDataBox,
+        HiveBoxes.personalDataBox,
         personalDataModel,
       );
 

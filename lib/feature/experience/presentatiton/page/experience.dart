@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:resume_maker_app/feature/experience/presentatiton/cubit/text_controller/experience_text_controller_cubit.dart';
 
 import '../../../../core/extension/context_extension.dart';
 import '../../../../core/widget/custom_dialog.dart';
 import '../../../../core/widget/export.dart';
 import '../../../../injection_container.dart';
-import '../../model/experience_model.dart';
+import '../../data/model/experience_model.dart';
 import '../cubit/cubit/experience_cubit.dart';
 import '../widget/experience_item_widget.dart';
 
@@ -17,21 +18,11 @@ class ExperiencesPage extends StatefulWidget {
 }
 
 class _ExperiencesPageState extends State<ExperiencesPage> {
-  late final TextEditingController companyNameController;
-  late final TextEditingController professionController;
-  late final TextEditingController jobStartDateController;
-  late final TextEditingController jobEndDateController;
-  late final TextEditingController jobRoleController;
-  late final TextEditingController jobTypeController;
-
+  late final ExperienceTextControllerCubit _textControllerCubit;
   @override
   void initState() {
-    companyNameController = TextEditingController();
-    professionController = TextEditingController();
-    jobStartDateController = TextEditingController();
-    jobEndDateController = TextEditingController();
-    jobRoleController = TextEditingController();
-    jobTypeController = TextEditingController();
+    _textControllerCubit = getIt<ExperienceTextControllerCubit>.call();
+
     super.initState();
   }
 
@@ -71,12 +62,12 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
           child: const Text("Add Experience"),
           onPressed: () {
             var experienceModel = ExperienceModel(
-              companyName: companyNameController.text,
-              profession: professionController.text,
-              jobStartDate: jobStartDateController.text,
-              jobEndDate: jobEndDateController.text,
-              jobRole: jobRoleController.text,
-              jobType: jobTypeController.text,
+              companyName: _textControllerCubit.companyNameController.text,
+              profession: _textControllerCubit.professionController.text,
+              jobStartDate: _textControllerCubit.jobStartDateController.text,
+              jobEndDate: _textControllerCubit.jobEndDateController.text,
+              jobRole: _textControllerCubit.jobRoleController.text,
+              jobType: _textControllerCubit.jobTypeController.text,
             );
             getIt<ExperienceCubit>().addExperince(experienceModel);
           },
@@ -130,31 +121,31 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
 
   TextField get _companyNameTextField => TextField(
         decoration: const InputDecoration(hintText: "Company name"),
-        controller: companyNameController,
+        controller: _textControllerCubit.companyNameController,
       );
 
   TextField get _jobRoleTextField => TextField(
         decoration: const InputDecoration(hintText: "Job role"),
-        controller: jobRoleController,
+        controller: _textControllerCubit.jobRoleController,
       );
 
   TextField get _jobRoleTypeField => TextField(
         decoration: const InputDecoration(hintText: "Job role type"),
-        controller: jobTypeController,
+        controller: _textControllerCubit.jobTypeController,
       );
 
   TextField get _professionTextField => TextField(
         decoration: const InputDecoration(hintText: "Profession"),
-        controller: professionController,
+        controller: _textControllerCubit.professionController,
       );
 
   TextField get _jobEndDateTextField => TextField(
         decoration: const InputDecoration(hintText: "Job end date"),
-        controller: jobEndDateController,
+        controller: _textControllerCubit.jobEndDateController,
       );
 
   TextField get _jobStartDateTextField => TextField(
         decoration: const InputDecoration(hintText: "Job start date"),
-        controller: jobStartDateController,
+        controller: _textControllerCubit.jobStartDateController,
       );
 }

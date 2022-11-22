@@ -1,11 +1,17 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../model/experience_model.dart';
+import '../../../../../injection_container.dart';
+import '../../../data/model/experience_model.dart';
+import '../../../data/repository/experience_repository_imp.dart';
 
 part 'experience_state.dart';
 
 class ExperienceCubit extends Cubit<ExperienceState> {
-  ExperienceCubit() : super(ExperienceInitial());
+  late final ExperienceRepositoryImp _experienceRepository;
+
+  ExperienceCubit() : super(ExperienceInitial()) {
+    _experienceRepository = getIt<ExperienceRepositoryImp>.call();
+  }
 
   List<ExperienceModel> experiencesList = [];
 
@@ -16,7 +22,8 @@ class ExperienceCubit extends Cubit<ExperienceState> {
 
   void removeExperience(int index) {
     experiencesList.removeAt(index);
-    experiencesList.isEmpty ? emit(ExperienceInitial()) : emit(RemoveExperience());
-    
+    experiencesList.isEmpty
+        ? emit(ExperienceInitial())
+        : emit(RemoveExperience());
   }
 }
