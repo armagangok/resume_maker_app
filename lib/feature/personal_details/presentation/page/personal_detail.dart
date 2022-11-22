@@ -10,6 +10,7 @@ import '../../data/model/personal_data_model.dart';
 import '../cubit/personal_data/personal_data_cubit.dart';
 import '../cubit/personal_text_controllers/personal_text_controllers_cubit.dart';
 import '../cubit/pick_image/pick_image_cubit.dart';
+import '../widget/custom_circle_avatar.dart';
 
 class PersonalDetailPage extends StatefulWidget {
   const PersonalDetailPage({super.key});
@@ -96,24 +97,33 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
 
               return personalDataState.personalData.imagePath == null ||
                       personalDataState.personalData.imagePath!.isEmpty
-                  ? CircleAvatar(
-                      radius: context.height(0.125),
-                      backgroundColor: Colors.white,
-                      backgroundImage: const AssetImage('assets/person.png'),
+                  ? const CircleAvatarWidget(
+                      assetImage: AssetImage('assets/person.png'),
                     )
                   : _userImageWidget(imageFile);
             } else if (imageState is ImageLoading) {
-              return _loadingImageWidget(const CircularProgressIndicator());
+              return CircleAvatarWidget(
+                widget: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    widget,
+                    Text(
+                      "Tap to upload image.",
+                      style: context.textTheme.bodyMedium!.copyWith(
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              );
             } else if (imageState is ImageLoaded) {
               File imageFile = File(imageState.imagePath!);
 
               return _userImageWidget(imageFile);
             } else {
-              return CircleAvatar(
-                radius: context.height(0.125),
-                backgroundColor: Colors.white,
-                child: const Center(
-                  child: Text("Error while uploading image."),
+              return const CircleAvatarWidget(
+                widget: Text(
+                  "Error while uploading image. Image may have been deleted.",
                 ),
               );
             }
@@ -121,32 +131,11 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         ),
       );
 
-  Widget _loadingImageWidget(Widget widget) {
-    return CircleAvatar(
-      radius: context.height(0.125),
-      backgroundColor: Colors.white,
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            widget,
-            Text(
-              "Tap to upload image.",
-              style: context.textTheme.bodyMedium!.copyWith(
-                color: Colors.grey,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _userImageWidget(File file) {
     return CircleAvatar(
-      radius: context.height(0.125),
       backgroundImage: AssetImage(file.path),
       backgroundColor: Colors.white,
+      radius: context.height(0.125),
     );
   }
 

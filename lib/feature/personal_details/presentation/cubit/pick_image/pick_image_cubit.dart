@@ -7,13 +7,13 @@ import '../../../data/repository/image_picker_repository_imp.dart';
 part 'pick_image_state.dart';
 
 class PickImageCubit extends Cubit<PickImageState> {
-  PickImageCubit() : super(PickImageInitial()) {
+  PickImageCubit() : super(PickImageInitial(imagePath: "")) {
     _imageRepository = getIt<ImagePickerRepositoryImp>.call();
   }
 
   late final ImagePickerRepositoryImp _imageRepository;
 
-  late String _choosenImagePath;
+  String _choosenImagePath = "";
 
   String get getChoosenImagePath => _choosenImagePath;
 
@@ -24,14 +24,14 @@ class PickImageCubit extends Cubit<PickImageState> {
     result.fold(
       (failure) {
         if (failure is NullImageFailure) {
-          emit(PickImageInitial());
+          emit(PickImageInitial(imagePath: ""));
         } else {
           emit(LoadError());
         }
       },
       (data) {
         _choosenImagePath = data!.path;
-        emit(ImageLoaded(imagePath: data.path));
+        emit(ImageLoaded(imagePath: _choosenImagePath));
       },
     );
   }
