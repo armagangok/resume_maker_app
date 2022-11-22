@@ -62,10 +62,6 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
   }
 
   PersonalDataModel preparePersonalDataModel(DataReceivedContract state) {
-    print(state.personalData.imagePath!.isEmpty);
-    print(_pickImageCubit.getChoosenImagePath);
-    
-
     var personalDataModel = PersonalDataModel(
       name: _personalTextControllers.nameController.text.isEmpty
           ? state.personalData.name

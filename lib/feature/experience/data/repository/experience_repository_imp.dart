@@ -45,6 +45,7 @@ class ExperienceRepositoryImp extends ExperienceRepository {
       );
 
       return const Right(true);
+
     } on Exception {
       return Left(HiveSavingFailure());
     }

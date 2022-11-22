@@ -69,7 +69,7 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
               jobRole: _textControllerCubit.jobRoleController.text,
               jobType: _textControllerCubit.jobTypeController.text,
             );
-            getIt<ExperienceCubit>().addExperince(experienceModel);
+            getIt<ExperienceCubit>().save(experienceModel);
           },
         ),
       );
@@ -109,7 +109,7 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
                 onLongPress: () => showCustomDialog(
                   context,
                   index,
-                  () => experincesCubit.removeExperience(index),
+                  () => experincesCubit.delete(index),
                 ),
               ),
               separatorBuilder: (context, index) => const CustomDivider(),
