@@ -6,9 +6,11 @@ class PickImageInitial extends PickImageState {}
 
 class ImageLoading extends PickImageState {}
 
-class ImageLoaded extends PickImageState {}
-
-class LoadImage extends PickImageState {}
+class ImageLoaded extends PickImageState {
+  @override
+  late final String? imagePath;
+  ImageLoaded({required this.imagePath});
+}
 
 class LoadError extends PickImageState {}
 

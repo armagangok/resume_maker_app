@@ -90,23 +90,29 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         child: BlocBuilder<PickImageCubit, PickImageState>(
           bloc: getIt<PickImageCubit>.call(),
           builder: (context, imageState) {
-            var imageCubit = getIt<PickImageCubit>.call();
             if (imageState is PickImageInitial) {
               File imageFile = File(personalDataState.personalData.imagePath!);
-              return personalDataState.personalData.imagePath == null
-                  ? _userImageWidget(
-                      File('../../../../../../assets/person.png')
+              return personalDataState.personalData.imagePath == null ||
+                      personalDataState.personalData.imagePath!.isEmpty
+                  ? CircleAvatar(
+                      radius: context.height(0.125),
+                      backgroundColor: Colors.white,
+                      backgroundImage: const AssetImage('assets/person.png'),
                     )
                   : _userImageWidget(imageFile);
             } else if (imageState is ImageLoading) {
               return _loadingImageWidget(const CircularProgressIndicator());
             } else if (imageState is ImageLoaded) {
-              File imageFile = File(imageCubit.image.path);
+              File imageFile = File(imageState.imagePath!);
 
               return _userImageWidget(imageFile);
             } else {
-              return const Center(
-                child: Text("Error while uploading image."),
+              return CircleAvatar(
+                radius: context.height(0.125),
+                backgroundColor: Colors.white,
+                child: const Center(
+                  child: Text("Error while uploading image."),
+                ),
               );
             }
           },
@@ -239,7 +245,7 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
       );
 
   PersonalDataModel _preparePersonalDataModel(DataReceivedContract state) {
-    var imagePath = getIt<PickImageCubit>.call().image.path;
+    // var imagePath = getIt<PickImageCubit>.call().image.path;
 
     var personalDataModel = PersonalDataModel(
       name: _personalTextControllers.nameController.text.isEmpty
@@ -260,7 +266,10 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
       birthday: _personalTextControllers.birthdayController.text.isEmpty
           ? state.personalData.birthday
           : _personalTextControllers.birthdayController.text,
-      imagePath: imagePath.isEmpty ? state.personalData.imagePath : imagePath,
+      imagePath: state.personalData.imagePath!.isEmpty ||
+              state.personalData.imagePath == null
+          ? ""
+          : state.personalData.imagePath,
 
       // state.personalData.imagePath == null ||
       //         state.personalData.imagePath!.isEmpty
