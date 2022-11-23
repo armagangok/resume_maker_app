@@ -16,7 +16,9 @@ import 'feature/personal_details/presentation/cubit/personal_text_controllers/pe
 import 'feature/personal_details/presentation/cubit/pick_image/pick_image_cubit.dart';
 import 'feature/references/data/repository/reference_repository_imp.dart';
 import 'feature/references/presentation/cubit/references/references_cubit.dart';
-import 'feature/skills/presentation/cubit/skill_cubit.dart';
+import 'feature/skills/data/repository/skills_repository_imp.dart';
+import 'feature/skills/presentation/cubit/skill_cubit/skill_cubit.dart';
+
 
 final getIt = GetIt.instance;
 void initDependencies() {
@@ -37,4 +39,5 @@ void initDependencies() {
   getIt.registerLazySingleton<ExperienceTextControllerCubit>(() =>ExperienceTextControllerCubit());
   getIt.registerLazySingleton<LanguageRepositoryImp>(() =>LanguageRepositoryImp());
   getIt.registerLazySingleton<ReferenceRepositoryImp>(() =>ReferenceRepositoryImp());
+  getIt.registerLazySingleton<SkillRepositoryImp>(() =>SkillRepositoryImp());
 }

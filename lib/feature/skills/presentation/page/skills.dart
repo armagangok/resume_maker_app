@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:resume_maker_app/feature/skills/data/model/skill_model.dart';
 
 import '../../../../core/extension/context_extension.dart';
 import '../../../../core/widget/export.dart';
 import '../../../../injection_container.dart';
-import '../cubit/skill_cubit.dart';
+import '../cubit/skill_cubit/skill_cubit.dart';
 
 class SkillsPage extends StatefulWidget {
   const SkillsPage({super.key});
@@ -15,9 +16,11 @@ class SkillsPage extends StatefulWidget {
 
 class _SkillsPageState extends State<SkillsPage> {
   late final TextEditingController skillController;
+  late final SkillCubit _skillCubit;
 
   @override
   void initState() {
+    _skillCubit = getIt<SkillCubit>.call();
     skillController = TextEditingController();
     super.initState();
   }
@@ -51,16 +54,18 @@ class _SkillsPageState extends State<SkillsPage> {
               return const InitialStateWidget(
                 text: "Add the skills you have into your resume.",
               );
-            } else {
+            } else if (state is SkillFetched) {
               return ListView.separated(
-                itemCount: getIt<SkillCubit>.call().skills.length,
+                itemCount: state.skillData.length,
                 separatorBuilder: (context, index) => const CustomDivider(),
                 itemBuilder: (context, index) => ListItemWidget(
-                  text: skillCubit.skills[index],
+                  text: state.skillData[index].skill,
                   index: index,
-                  onTap: () => skillCubit.removeSkill(index),
+                  onTap: () => skillCubit.delete(index),
                 ),
               );
+            } else {
+              return const Text("data data data");
             }
           },
         ),
@@ -92,7 +97,7 @@ class _SkillsPageState extends State<SkillsPage> {
           onPressed: () {
             var text = skillController.text;
             (text.isNotEmpty)
-                ? getIt<SkillCubit>().addSkill(text)
+                ? getIt<SkillCubit>().save(SkillModel(skill: text))
                 : getSnackBar(context, "Skill cannot be empty");
             skillController.clear();
           },

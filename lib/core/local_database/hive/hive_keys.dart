@@ -6,6 +6,7 @@ class HiveBoxes {
   static const String experienceDataBox = "experienceDataBox";
   static const String languageDataBox = "languageDataBox";
   static const String referenceDataBox = "referenceDataBox";
+  static const String skillDataBox = "skillDataBox";
 }
 
 class HiveKeys {
