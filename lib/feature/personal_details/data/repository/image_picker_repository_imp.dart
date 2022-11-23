@@ -18,8 +18,8 @@ class ImagePickerRepositoryImp extends ImagePickerRepository {
       var response = await _imagePicker.pickImage();
 
       return response == null ? Left(NullImageFailure()) : Right(response);
-    } on Exception {
-      return Left(PickingFailure());
+    } on Exception catch (error) {
+      return Left(PickingFailure(errorMessage: "$error"));
     }
   }
 }

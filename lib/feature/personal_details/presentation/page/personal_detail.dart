@@ -3,8 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/constant/asset_constant.dart';
 import '../../../../core/extension/context_extension.dart';
-import '../../../../core/widget/custom_appbar.dart';
+import '../../../../core/widget/export.dart';
 import '../../../../injection_container.dart';
 import '../../data/model/personal_data_model.dart';
 import '../cubit/personal_data/personal_data_cubit.dart';
@@ -79,39 +80,27 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
           await _imagePickerCubit.pickImage();
         },
         child: BlocBuilder<PickImageCubit, PickImageState>(
-          bloc: getIt<PickImageCubit>.call(),
+          bloc: _imagePickerCubit,
           builder: (context, imageState) {
             if (imageState is PickImageInitial) {
               File imageFile = File(personalDataState.personalData.imagePath!);
 
               return personalDataState.personalData.imagePath == null ||
                       personalDataState.personalData.imagePath!.isEmpty
-                  ? const CircleAvatarWidget(
-                      assetImage: AssetImage('assets/person.png'),
+                  ? const CircleAvatarLoading(
+                      decorationImage: DecorationImage(
+                        image: AssetImage(personImage),
+                      ),
                     )
-                  : CircleAvatarWidget(
-                      assetImage: AssetImage(imageFile.path),
-                    );
+                  : CircleAvatarWidget(file: imageFile);
             } else if (imageState is ImageLoading) {
-              return const CircleAvatarWidget(
-                widget: CircularProgressIndicator(),
-              );
+              return const ImageLoadingWidget();
             } else if (imageState is ImageLoaded) {
               File imageFile = File(imageState.imagePath!);
 
-              return CircleAvatarWidget(
-                assetImage: AssetImage(imageFile.path),
-              );
+              return CircleAvatarWidget(file: imageFile);
             } else {
-              return CircleAvatarWidget(
-                widget: Padding(
-                  padding: context.normalPadding,
-                  child: Text(
-                    "Error while uploading image. The picture may have been deleted.",
-                    style: context.textTheme.bodySmall,
-                  ),
-                ),
-              );
+              return const ImageLoadingErrorWidgget();
             }
           },
         ),
@@ -154,10 +143,9 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         width: context.width(1),
         child: ElevatedButton(
           onPressed: () async {
-            
-            final personalDataModel =_personalDataCubit.preparePersonalDataModel(state);
+            final personalDataModel =
+                _personalDataCubit.preparePersonalDataModel(state);
 
-            
             await _personalDataCubit.savePersonalData(personalDataModel);
           },
           child: const Text("Update"),

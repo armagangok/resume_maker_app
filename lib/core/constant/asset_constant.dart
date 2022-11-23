@@ -1,0 +1,1 @@
+const personImage = "assets/person.png";
