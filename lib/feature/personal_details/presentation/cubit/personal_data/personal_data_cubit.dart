@@ -81,10 +81,9 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
       birthday: _personalTextControllers.birthdayController.text.isEmpty
           ? state.personalData.birthday
           : _personalTextControllers.birthdayController.text,
-      imagePath: (state.personalData.imagePath == null ||
-              state.personalData.imagePath!.isEmpty)
-          ? _pickImageCubit.getChoosenImagePath
-          : state.personalData.imagePath,
+      imagePath: _pickImageCubit.getChoosenImagePath.isEmpty
+          ? state.personalData.imagePath
+          : _pickImageCubit.getChoosenImagePath,
     );
     return personalDataModel;
   }

@@ -79,7 +79,14 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         onTap: () async {
           await _imagePickerCubit.pickImage();
         },
-        child: BlocBuilder<PickImageCubit, PickImageState>(
+        child: BlocConsumer<PickImageCubit, PickImageState>(
+          listener: (context, state) {
+            if (state is ImageLoaded) {
+              getSnackBar(context, ImageLoaded.message);
+            } else if (state is LoadError) {
+              getSnackBar(context, LoadError.message);
+            }
+          },
           bloc: _imagePickerCubit,
           builder: (context, imageState) {
             if (imageState is PickImageInitial) {
@@ -143,8 +150,7 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         width: context.width(1),
         child: ElevatedButton(
           onPressed: () async {
-            final personalDataModel =
-                _personalDataCubit.preparePersonalDataModel(state);
+            final personalDataModel = _personalDataCubit.preparePersonalDataModel(state);
 
             await _personalDataCubit.savePersonalData(personalDataModel);
           },
