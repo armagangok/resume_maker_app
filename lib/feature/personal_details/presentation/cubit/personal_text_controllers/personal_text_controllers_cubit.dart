@@ -26,4 +26,24 @@ class PersonalTextControllerCubit extends Cubit<PersonalTextControllerState> {
   TextEditingController get linkedinController => _linkedinController;
   TextEditingController get birthdayController => _birthdayController;
   TextEditingController get locationController => _locationController;
+
+  void clearControllers() {
+    _nameController.clear();
+    _numberController.clear();
+    _emailController.clear();
+    _linkedinController.clear();
+    _birthdayController.clear();
+    _locationController.clear();
+  }
+
+  bool checkControllersIfEmpty() {
+    return (_nameController.text.isEmpty &&
+            _numberController.text.isEmpty &&
+            _emailController.text.isEmpty &&
+            _linkedinController.text.isEmpty &&
+            _birthdayController.text.isEmpty &&
+            _locationController.text.isEmpty)
+        ? true
+        : false;
+  }
 }

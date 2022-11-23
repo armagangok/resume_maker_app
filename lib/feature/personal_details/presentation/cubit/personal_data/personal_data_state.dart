@@ -13,24 +13,23 @@ class PersonalDataInitial implements DataReceivedContract {
   PersonalDataInitial({required this.personalData});
 }
 
-class PersonalDataCacheError extends PersonalDataState {}
-
-class DataReceived implements DataReceivedContract {
-  @override
-  late final PersonalDataModel personalData;
-  DataReceived({required this.personalData});
+class PersonalDataCacheError extends PersonalDataState {
+  static const message = "En error occured while saving your personal data!";
 }
 
-class DataSaved implements DataReceivedContract {
+class PersonalDataReceived implements DataReceivedContract {
   @override
   late final PersonalDataModel personalData;
-
-  DataSaved({required this.personalData});
+  PersonalDataReceived({required this.personalData});
 }
 
-class DataDeleted implements DataReceivedContract {
+class PersonalDataSaved extends PersonalDataState {
+  static const message = "Personal Data saved successfully!";
+}
+
+class PersonalDataDeleted implements DataReceivedContract {
   @override
   late final PersonalDataModel personalData;
 
-  DataDeleted({required this.personalData});
+  PersonalDataDeleted({required this.personalData});
 }

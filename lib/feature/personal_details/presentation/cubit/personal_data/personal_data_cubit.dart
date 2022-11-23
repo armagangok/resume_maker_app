@@ -1,28 +1,13 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../../injection_container.dart';
 import '../../../data/model/personal_data_model.dart';
 import '../../../data/repository/personal_data_repository_imp.dart';
 import '../personal_text_controllers/personal_text_controllers_cubit.dart';
 import '../pick_image/pick_image_cubit.dart';
+import '../../../../../core/export/core_export.dart';
 
 part 'personal_data_state.dart';
 
 class PersonalDataCubit extends Cubit<PersonalDataState> {
-  PersonalDataCubit()
-      : super(
-          PersonalDataInitial(
-            personalData: PersonalDataModel(
-              birthday: "Birthday",
-              email: "Email",
-              imagePath: "",
-              linkedin: "Linkedin",
-              location: "Location",
-              name: "Name",
-              phoneNumber: "Phone Number",
-            ),
-          ),
-        ) {
+  PersonalDataCubit() : super(_getInitialPersonalModel) {
     _personalDataRepository = getIt<PersonalDataRepositoryImp>.call();
     _personalTextControllers = getIt<PersonalTextControllerCubit>.call();
     _pickImageCubit = getIt<PickImageCubit>.call();
@@ -44,7 +29,7 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
         emit(PersonalDataCacheError());
       },
       (r) {
-        r == null ? emit(state) : emit(DataReceived(personalData: r));
+        r == null ? emit(state) : emit(PersonalDataReceived(personalData: r));
       },
     );
   }
@@ -56,8 +41,13 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
     await getPersonalData();
 
     response.fold(
-      (l) => emit(PersonalDataCacheError()),
-      (r) => {},
+      (l) => emit(
+        PersonalDataCacheError(),
+      ),
+      (r) async {
+        emit(PersonalDataSaved());
+        await getPersonalData();
+      },
     );
   }
 
@@ -87,4 +77,17 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
     );
     return personalDataModel;
   }
+
+  static PersonalDataInitial get _getInitialPersonalModel =>
+      PersonalDataInitial(
+        personalData: PersonalDataModel(
+          birthday: "Birthday",
+          email: "Email",
+          imagePath: "",
+          linkedin: "Linkedin",
+          location: "Location",
+          name: "Name",
+          phoneNumber: "Phone Number",
+        ),
+      );
 }
