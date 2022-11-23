@@ -132,20 +132,26 @@ class _AcademicPageState extends State<AcademicPage> {
       );
 
   Widget get _buidlBody {
-    var academicCubit = getIt<AcademicCubit>.call();
     return Padding(
       padding: context.normalPadding,
-      child: BlocBuilder<AcademicCubit, AcademicState>(
+      child: BlocConsumer<AcademicCubit, AcademicState>(
+        listener: (context, state) {
+          if (state is AcademicDeleted) {
+            getSnackBar(context, AcademicDeleted.message);
+          } else if (state is AcademicSaved) {
+            getSnackBar(context, AcademicSaved.message);
+          }
+        },
         bloc: academicCubit,
         builder: (context, state) {
           if (state is AcademicInitial) {
             return const InitialStateWidget(
               text: "Add academic data into yout resume.",
             );
-          } else if (state is DataReceived) {
+          } else if (state is AcademicDataReceived) {
             return ListView.separated(
               itemBuilder: (context, index) => AcademicItemWidget(
-                academicData: state.dataList[index],
+                academicData: state.academicDataList[index],
                 index: index,
                 onLongPress: () => showCustomDialog(
                   context,
@@ -154,23 +160,9 @@ class _AcademicPageState extends State<AcademicPage> {
                 ),
               ),
               separatorBuilder: (context, index) => const CustomDivider(),
-              itemCount: state.dataList.length,
+              itemCount: state.academicDataList.length,
             );
-          } else if (state is DataDeleted) {
-            return ListView.separated(
-              itemBuilder: (context, index) => AcademicItemWidget(
-                academicData: state.dataList[index],
-                index: index,
-                onLongPress: () => showCustomDialog(
-                  context,
-                  index,
-                  () async => await academicCubit.deleteData(index),
-                ),
-              ),
-              separatorBuilder: (context, index) => const CustomDivider(),
-              itemCount: state.dataList.length,
-            );
-          } else if (state is CacheError) {
+          } else if (state is AcademicFetchingError) {
             return const Center(
               child: Text(
                   "Unexpected caching error while catching data from database."),
@@ -190,11 +182,3 @@ class _AcademicPageState extends State<AcademicPage> {
     );
   }
 }
-
-
-// "University: ${data.university}";
-// "Grade: ${data.grade}";
-// "Scholarship: ${data.scholarship}";
-// "Major: ${data.major}";
-// "School end date: ${data.schoolEndDate}";
-// "School start date: ${data.schoolStartDate}";

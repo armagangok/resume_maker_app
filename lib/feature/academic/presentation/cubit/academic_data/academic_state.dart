@@ -1,29 +1,37 @@
 part of 'academic_cubit.dart';
 
-abstract class AcademicState {
-  late final List<AcademicDataModel> dataList;
-}
+abstract class AcademicState {}
 
 class AcademicInitial extends AcademicState {}
 
-class CacheError extends AcademicState {}
+class AcademicDataReceived extends AcademicState {
+  AcademicDataReceived({required this.academicDataList});
 
-class DataReceived extends AcademicState {
-  @override
-  late final List<AcademicDataModel> dataList;
-  DataReceived({required this.dataList});
+  late final List<AcademicDataModel> academicDataList;
 }
 
-class DataSaved extends AcademicState {
-  @override
-  late final List<AcademicDataModel> dataList;
-
-  DataSaved({required this.dataList});
+class AcademicFetched extends AcademicDataReceived {
+  AcademicFetched({required super.academicDataList});
 }
 
-class DataDeleted extends AcademicState {
-  @override
-  late final List<AcademicDataModel> dataList;
+class AcademicSavingError extends AcademicState {
+  static const message = "Error occured while saving data.";
+}
 
-  DataDeleted({required this.dataList});
+class AcademicDeletingError extends AcademicState {
+  static const message = "Error occured while deleting data.";
+}
+
+class AcademicFetchingError extends AcademicState {
+  static const message = "Error occured while fetching data.";
+}
+
+class AcademicDeleted extends AcademicState {
+  // AcademicDeleted({required super.skillData});
+
+  static const message = "Academic deleted succesfully.";
+}
+
+class AcademicSaved extends AcademicState {
+  static const message = "Academic saved succesfully.";
 }

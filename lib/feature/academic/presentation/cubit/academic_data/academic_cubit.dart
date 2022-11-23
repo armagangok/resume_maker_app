@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/error/failure.dart';
 import '../../../../../injection_container.dart';
 import '../../../data/repository/academic_data_repository_imp.dart';
 import '../../../model/academic_data_model.dart';
@@ -7,59 +8,61 @@ import '../../../model/academic_data_model.dart';
 part 'academic_state.dart';
 
 class AcademicCubit extends Cubit<AcademicState> {
-  late final AcademicDataRepositoryImp academicRepository;
+  late final AcademicDataRepositoryImp _repository;
 
   AcademicCubit() : super(AcademicInitial()) {
-    academicRepository = getIt<AcademicDataRepositoryImp>.call();
+    _repository = getIt<AcademicDataRepositoryImp>.call();
   }
 
   Future<void> saveAcademicData(AcademicDataModel academicDataModel) async {
     try {
-      await academicRepository.saveAcademicData(academicDataModel);
+      await _repository.saveAcademicData(academicDataModel);
       await getAcademicData();
     } catch (e) {
-      emit(CacheError());
+      emit(AcademicSavingError());
     }
   }
 
   // Gets academic data from hive database.
   Future getAcademicData() async {
-    try {
-      var response = await academicRepository.getAcademicData();
+    var response = await _repository.fetchAcademicData();
 
-      response.fold(
-        (error) {
-          emit(CacheError());
-        },
-        (data) {
-          data!.isEmpty
-              ? emit(AcademicInitial())
-              : emit(DataReceived(dataList: data));
-        },
-      );
-    } on Exception {
-      emit(CacheError());
-    }
+    response.fold(
+      (failure) {
+        if (failure is HiveNullData) {
+          emit(AcademicInitial());
+        } else if (failure is HiveFetchFailure) {
+          emit(AcademicFetchingError());
+        } else {
+          emit(state);
+        }
+      },
+      (data) async {
+        emit(AcademicDataReceived(academicDataList: data!));
+      },
+    );
   }
 
   // Deletes data from hive database
   Future<void> deleteData(int index) async {
     try {
-      await academicRepository.deleteData(index);
+      await _repository.deleteData(index);
 
-      var response = await academicRepository.getAcademicData();
+      emit(AcademicDeleted());
+
+      var response = await _repository.fetchAcademicData();
       response.fold(
         (error) {
-          emit(CacheError());
+          emit(AcademicDeletingError());
         },
         (data) {
           data!.isEmpty
               ? emit(AcademicInitial())
-              : emit(DataDeleted(dataList: data));
+              : emit(AcademicDataReceived(academicDataList: data));
         },
       );
     } catch (e) {
-      emit(CacheError());
+      emit(AcademicFetchingError());
     }
   }
 }

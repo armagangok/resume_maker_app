@@ -9,7 +9,7 @@ import '../contract/academic_data_repository.dart';
 
 class AcademicDataRepositoryImp implements AcademicDataRepository {
   @override
-  Future<Either<Failure, List<AcademicDataModel>?>> getAcademicData() async {
+  Future<Either<Failure, List<AcademicDataModel>?>> fetchAcademicData() async {
     try {
       var response = await HiveHelper.shared.getAll<AcademicDataModel>(
         HiveBoxes.academicDataBox,
@@ -35,7 +35,8 @@ class AcademicDataRepositoryImp implements AcademicDataRepository {
   }
 
   @override
-  Future<void> deleteData(int index) async => await HiveHelper.shared.deleteDataAt<AcademicDataModel>(
+  Future<void> deleteData(int index) async =>
+      await HiveHelper.shared.deleteDataAt<AcademicDataModel>(
         HiveBoxes.academicDataBox,
         index,
       );
