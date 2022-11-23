@@ -107,7 +107,7 @@ class _LanguagePageState extends State<LanguagePage> {
                 ? _languageCubit.save(
                     LanguageModel(language: _langaugeController.text),
                   )
-                : getSnackBar(context, "Language cannot be empty");
+                : getSnackBar(context,"Language cannot be empty");
             _langaugeController.clear();
           },
           child: const Text("Add Language"),

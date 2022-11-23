@@ -99,7 +99,7 @@ class _SkillsPageState extends State<SkillsPage> {
             var text = skillController.text;
             (text.isNotEmpty)
                 ? getIt<SkillCubit>().save(SkillModel(skill: text))
-                : getSnackBar(context, "Skill cannot be empty");
+                : getSnackBar(context,"Skill cannot be empty");
             skillController.clear();
           },
           child: const Text("Add Skill"),

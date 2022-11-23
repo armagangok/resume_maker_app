@@ -26,8 +26,8 @@ class ReferenceFetcingError extends ReferenceState {
   static const message = "Error occured while fetching data.";
 }
 
-class ReferenceDeleted extends ReferenceDataReceived {
-  ReferenceDeleted({required super.referenceData});
+class ReferenceDeleted extends ReferenceState {
+  // ReferenceDeleted({required super.referenceData});
 
   static const message = "Reference deleted succesfully.";
 }

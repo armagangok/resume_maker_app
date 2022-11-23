@@ -8,6 +8,7 @@ import '../../../../injection_container.dart';
 import '../../data/model/reference_model.dart';
 
 import '../cubit/skill_cubit/reference_cubit.dart';
+import '../cubit/text_controller/text_controller_cubit.dart';
 import '../widget/reference_item.dart';
 
 class ReferencePage extends StatefulWidget {
@@ -18,22 +19,14 @@ class ReferencePage extends StatefulWidget {
 }
 
 class ReferenceScreenState extends State<ReferencePage> {
-  late final TextEditingController nameController;
-  late final TextEditingController professionController;
-  late final TextEditingController recentCompanyController;
-  late final TextEditingController emailController;
-  late final TextEditingController phoneNumberController;
-
   late final ReferenceCubit _referenceCubit;
+  late final ReferenceTextControllerCubit _textController;
 
   @override
   void initState() {
     _referenceCubit = getIt<ReferenceCubit>.call();
-    nameController = TextEditingController();
-    professionController = TextEditingController();
-    recentCompanyController = TextEditingController();
-    emailController = TextEditingController();
-    phoneNumberController = TextEditingController();
+    _textController = getIt<ReferenceTextControllerCubit>.call();
+
     _referenceCubit.fetchReferenceData();
     super.initState();
   }
@@ -50,7 +43,12 @@ class ReferenceScreenState extends State<ReferencePage> {
     );
   }
 
-  Widget get _buildBody => BlocBuilder<ReferenceCubit, ReferenceState>(
+  Widget get _buildBody => BlocConsumer<ReferenceCubit, ReferenceState>(
+        listener: (context, state) {
+          if (state is ReferenceDeleted) {
+            getSnackBar(context, "Reference deleted succesfully.");
+          }
+        },
         bloc: _referenceCubit,
         builder: (context, state) {
           if (state is ReferenceInitial) {
@@ -90,27 +88,27 @@ class ReferenceScreenState extends State<ReferencePage> {
 
   TextField get _phoneNumberTextField => TextField(
         decoration: const InputDecoration(hintText: "Phone Number"),
-        controller: phoneNumberController,
+        controller: _textController.phoneNumberController,
       );
 
   TextField get _emailTextField => TextField(
         decoration: const InputDecoration(hintText: "Reference Email"),
-        controller: emailController,
+        controller: _textController.emailController,
       );
 
   TextField get _professionTextField => TextField(
         decoration: const InputDecoration(hintText: "Profession"),
-        controller: professionController,
+        controller: _textController.professionController,
       );
 
   TextField get _nameTextTextField => TextField(
         decoration: const InputDecoration(hintText: "Name Surname"),
-        controller: nameController,
+        controller: _textController.nameController,
       );
 
   TextField get _recentCompanyTextField => TextField(
         decoration: const InputDecoration(hintText: "Recent Company"),
-        controller: recentCompanyController,
+        controller: _textController.recentCompanyController,
       );
 
   CustomAppBar get _buildAppBar => CustomAppBar(
@@ -147,19 +145,19 @@ class ReferenceScreenState extends State<ReferencePage> {
       child: ElevatedButton(
         onPressed: () async {
           var reference = ReferenceModel(
-            name: nameController.text,
-            profession: professionController.text,
-            email: emailController.text,
-            phoneNumber: phoneNumberController.text,
-            recentCompany: recentCompanyController.text,
+            name: _textController.nameController.text,
+            profession: _textController.professionController.text,
+            email: _textController.emailController.text,
+            phoneNumber: _textController.phoneNumberController.text,
+            recentCompany: _textController.recentCompanyController.text,
           );
           await _referenceCubit.save(reference);
 
-          nameController.clear();
-          professionController.clear();
-          emailController.clear();
-          phoneNumberController.clear();
-          recentCompanyController.clear();
+          _textController.nameController.clear();
+          _textController.professionController.clear();
+          _textController.emailController.clear();
+          _textController.phoneNumberController.clear();
+          _textController.recentCompanyController.clear();
         },
         child: const Text("Add As Reference"),
       ),

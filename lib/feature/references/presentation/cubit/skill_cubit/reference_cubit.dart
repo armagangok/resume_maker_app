@@ -48,6 +48,7 @@ class ReferenceCubit extends Cubit<ReferenceState> {
     response.fold(
       (l) => emit(ReferenceDeletingError()),
       (r) async {
+        emit(ReferenceDeleted());
         var response = await _repository.fetchReferenceData();
 
         response.fold(
