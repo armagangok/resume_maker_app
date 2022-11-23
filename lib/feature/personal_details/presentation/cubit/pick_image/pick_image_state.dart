@@ -3,7 +3,6 @@ part of 'pick_image_cubit.dart';
 abstract class PickImageState {}
 
 class PickImageInitial extends PickImageState {
-  @override
   late final String? imagePath;
   PickImageInitial({required this.imagePath});
 }
@@ -11,7 +10,6 @@ class PickImageInitial extends PickImageState {
 class ImageLoading extends PickImageState {}
 
 class ImageLoaded extends PickImageState {
-  @override
   late final String? imagePath;
   ImageLoaded({required this.imagePath});
 }

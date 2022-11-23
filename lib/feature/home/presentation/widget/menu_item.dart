@@ -32,7 +32,7 @@ class MenuItemWidget extends StatelessWidget {
           children: [
             Icon(
               iconData,
-              size: 45,
+              size: context.width(0.15),
             ),
             Expanded(
               child: Text(

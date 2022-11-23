@@ -86,9 +86,11 @@ class ImageLoadingErrorWidgget extends StatelessWidget {
       ),
       child: Padding(
         padding: context.normalPadding,
-        child: Text(
-          "Error while uploading image. The picture may have been deleted.",
-          style: context.textTheme.bodySmall,
+        child: Center(
+          child: Text(
+            "Error while uploading image. The picture may have been deleted.",
+            style: context.textTheme.bodySmall,
+          ),
         ),
       ),
     );
