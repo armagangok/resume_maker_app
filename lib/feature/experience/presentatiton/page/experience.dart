@@ -97,7 +97,14 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
         onTapUpdate: () {},
       );
 
-  Widget get _buildBody => BlocBuilder<ExperienceCubit, ExperienceState>(
+  Widget get _buildBody => BlocConsumer<ExperienceCubit, ExperienceState>(
+        listener: (context, state) {
+          if (state is ExperienceDeleted) {
+            getSnackBar(context, ExperienceDeleted.message);
+          } else if (state is ExperienceSaved) {
+            getSnackBar(context, ExperienceSaved.message);
+          }
+        },
         bloc: getIt<ExperienceCubit>.call(),
         builder: (context, state) {
           var experincesCubit = getIt<ExperienceCubit>.call();

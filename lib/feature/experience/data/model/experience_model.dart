@@ -5,17 +5,17 @@ part 'experience_model.g.dart';
 @HiveType(typeId: 2)
 class ExperienceModel extends HiveObject {
   @HiveField(0)
-  final String companyName;
+  final String? companyName;
   @HiveField(1)
-  final String profession;
+  final String? profession;
   @HiveField(2)
-  final String jobStartDate;
+  final String? jobStartDate;
   @HiveField(3)
-  final String jobEndDate;
+  final String? jobEndDate;
   @HiveField(4)
-  final String jobRole;
+  final String? jobRole;
   @HiveField(5)
-  final String jobType;
+  final String? jobType;
 
   ExperienceModel({
     required this.companyName,

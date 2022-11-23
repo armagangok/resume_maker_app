@@ -24,6 +24,8 @@ class ExperienceCubit extends Cubit<ExperienceState> {
       (data) async {
         var response = await _repository.fetchExperienceData();
 
+        emit(ExperienceSaved());
+
         response.fold(
           (failure) {
             if (failure is HiveNullData) {
@@ -49,6 +51,8 @@ class ExperienceCubit extends Cubit<ExperienceState> {
       (l) => emit(ExperienceDeletingError()),
       (r) async {
         var response = await _repository.fetchExperienceData();
+
+        emit(ExperienceDeleted());
 
         response.fold(
           (failure) {

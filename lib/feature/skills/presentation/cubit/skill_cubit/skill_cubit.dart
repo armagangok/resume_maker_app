@@ -6,7 +6,6 @@ import '../../../../../injection_container.dart';
 import '../../../data/model/skill_model.dart';
 import '../../../data/repository/skills_repository_imp.dart';
 
-
 part 'skill_state.dart';
 
 class SkillCubit extends Cubit<SkillState> {
@@ -24,6 +23,8 @@ class SkillCubit extends Cubit<SkillState> {
       },
       (data) async {
         var response = await _repository.fetchSkillData();
+
+        emit(SkillSaved());
 
         response.fold(
           (failure) {
@@ -50,6 +51,8 @@ class SkillCubit extends Cubit<SkillState> {
       (l) => emit(SkillDeletingError()),
       (r) async {
         var response = await _repository.fetchSkillData();
+
+        emit(SkillDeleted());
 
         response.fold(
           (failure) {

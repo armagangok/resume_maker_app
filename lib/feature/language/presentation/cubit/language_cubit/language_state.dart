@@ -26,10 +26,10 @@ class LanguageFetcingError extends LanguageState {
   static const message = "Error occured while fetching data.";
 }
 
-class LanguageDeleted extends LanguageDataReceived {
-  LanguageDeleted({required super.languageData});
+class LanguageDeleted extends LanguageState {
+  // LanguageDeleted({required super.languageData});
 
   static const message = "Language deleted succesfully.";
 }
 
-class ReloadPage extends LanguageState {}
+class LanguageSaved extends LanguageState {}

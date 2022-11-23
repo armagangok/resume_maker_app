@@ -26,10 +26,12 @@ class SkillFetcingError extends SkillState {
   static const message = "Error occured while fetching data.";
 }
 
-class SkillDeleted extends SkillDataReceived {
-  SkillDeleted({required super.skillData});
+class SkillDeleted extends SkillState {
+  // SkillDeleted({required super.skillData});
 
   static const message = "Skill deleted succesfully.";
 }
 
-class ReloadPage extends SkillState {}
+class SkillSaved extends SkillState {
+ static const message = "Skill saved succesfully."; 
+}

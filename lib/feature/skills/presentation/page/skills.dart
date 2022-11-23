@@ -46,7 +46,14 @@ class _SkillsPageState extends State<SkillsPage> {
 
   Widget get _buildBody => Padding(
         padding: context.normalPadding,
-        child: BlocBuilder<SkillCubit, SkillState>(
+        child: BlocConsumer<SkillCubit, SkillState>(
+          listener: (context, state) {
+            if (state is SkillDeleted) {
+              getSnackBar(context, SkillDeleted.message);
+            } else if (state is SkillSaved) {
+              getSnackBar(context, SkillSaved.message);
+            }
+          },
           bloc: getIt<SkillCubit>.call(),
           builder: (context, state) {
             var skillCubit = getIt<SkillCubit>.call();
@@ -99,7 +106,7 @@ class _SkillsPageState extends State<SkillsPage> {
             var text = skillController.text;
             (text.isNotEmpty)
                 ? getIt<SkillCubit>().save(SkillModel(skill: text))
-                : getSnackBar(context,"Skill cannot be empty");
+                : getSnackBar(context, "Skill cannot be empty");
             skillController.clear();
           },
           child: const Text("Add Skill"),

@@ -23,6 +23,8 @@ class LanguageCubit extends Cubit<LanguageState> {
       (data) async {
         var response = await _repository.fetchLanguageData();
 
+        emit(LanguageSaved());
+
         response.fold(
           (failure) {
             if (failure is HiveNullData) {
@@ -48,6 +50,8 @@ class LanguageCubit extends Cubit<LanguageState> {
       (l) => emit(LanguageDeletingError()),
       (r) async {
         var response = await _repository.fetchLanguageData();
+
+        emit(LanguageDeleted());
 
         response.fold(
           (failure) {

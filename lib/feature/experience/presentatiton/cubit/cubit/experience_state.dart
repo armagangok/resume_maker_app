@@ -26,10 +26,14 @@ class ExperienceFetcingError extends ExperienceState {
   static const message = "Error occured while fetching data.";
 }
 
-class ExperienceDeleted extends ExperienceDataReceived {
-  ExperienceDeleted({required super.experienceData});
+class ExperienceDeleted extends ExperienceState {
+  // ExperienceDeleted({required super.experienceData});
 
   static const message = "Experience deleted succesfully.";
 }
 
-class ReloadPage extends ExperienceState {}
+class ExperienceSaved extends ExperienceState {
+  // ExperienceDeleted({required super.experienceData});
+
+  static const message = "Experience saved succesfully.";
+}

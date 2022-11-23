@@ -37,7 +37,14 @@ class _LanguagePageState extends State<LanguagePage> {
 
   Widget get _buildBody => Padding(
         padding: context.normalPadding,
-        child: BlocBuilder<LanguageCubit, LanguageState>(
+        child: BlocConsumer<LanguageCubit, LanguageState>(
+          listener: (context, state) {
+            if (state is LanguageDeleted) {
+              getSnackBar(context, "Language deleted succesfully.");
+            } else if (state is LanguageSaved) {
+              getSnackBar(context, "Laguage saved succesfully.");
+            }
+          },
           bloc: getIt<LanguageCubit>.call(),
           builder: (context, state) {
             if (state is LanguageInitial) {
@@ -107,7 +114,7 @@ class _LanguagePageState extends State<LanguagePage> {
                 ? _languageCubit.save(
                     LanguageModel(language: _langaugeController.text),
                   )
-                : getSnackBar(context,"Language cannot be empty");
+                : getSnackBar(context, "Language cannot be empty");
             _langaugeController.clear();
           },
           child: const Text("Add Language"),
