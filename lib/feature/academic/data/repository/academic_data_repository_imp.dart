@@ -18,7 +18,7 @@ class AcademicDataRepositoryImp implements AcademicDataRepository {
       return Right(response);
     } on Exception catch (e) {
       LogHelper.shared.errorPrint("$e");
-      return Left(CacheFailure());
+      return Left(HiveFetchFailure());
     }
   }
 

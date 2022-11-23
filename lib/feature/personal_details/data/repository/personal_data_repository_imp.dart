@@ -37,7 +37,7 @@ class PersonalDataRepositoryImp implements PersonalDataRepository {
 
       return Right(response);
     } catch (e) {
-      return Left(CacheFailure());
+      return Left(HiveFetchFailure());
     }
   }
 

@@ -26,7 +26,7 @@ class AcademicCubit extends Cubit<AcademicState> {
   // Gets academic data from hive database.
   Future getAcademicData() async {
     var response = await _repository.fetchAcademicData();
-
+    print(response);
     response.fold(
       (failure) {
         if (failure is HiveNullData) {
@@ -38,7 +38,13 @@ class AcademicCubit extends Cubit<AcademicState> {
         }
       },
       (data) async {
-        emit(AcademicDataReceived(academicDataList: data!));
+        if (data == null) {
+          emit(AcademicInitial());
+        } else if (data.isEmpty) {
+          emit(AcademicInitial());
+        } else {
+          emit(AcademicDataReceived(academicDataList: data));
+        }
       },
     );
   }
