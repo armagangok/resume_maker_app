@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'core/local_database/hive/hive_helper.dart';
-import 'core/navigation/navigation_route.dart';
-import 'core/navigation/navigation_service.dart';
 import 'feature/home/presentation/page/home.dart';
-import 'injection_container.dart';
+
+import 'core/export/core_export.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

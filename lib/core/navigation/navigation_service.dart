@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:resume_maker_app/core/navigation/contract/base_navigation_service.dart';
+import 'contract/base_navigation_service.dart';
 
 class NavigationService extends BaseNavigationService {
   static final NavigationService _instance = NavigationService._init();

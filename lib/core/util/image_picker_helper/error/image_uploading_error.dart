@@ -1,4 +1,4 @@
-import 'package:resume_maker_app/core/error/failure.dart';
+import '../../../error/failure.dart';
 
 abstract class ImagePickingFailure extends Failure {}
 

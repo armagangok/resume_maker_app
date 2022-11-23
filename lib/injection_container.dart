@@ -1,5 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:resume_maker_app/feature/references/presentation/cubit/text_controller/text_controller_cubit.dart';
+import 'feature/references/presentation/cubit/text_controller/text_controller_cubit.dart';
 
 import 'core/navigation/navigation_service.dart';
 import 'feature/academic/data/repository/academic_data_repository_imp.dart';

@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/extension/context_extension.dart';
-import '../../../../core/widget/custom_dialog.dart';
-import '../../../../core/widget/export.dart';
-import '../../../../injection_container.dart';
 import '../../data/model/experience_model.dart';
 import '../cubit/cubit/experience_cubit.dart';
 import '../cubit/text_controller/experience_text_controller_cubit.dart';
 import '../widget/experience_item_widget.dart';
+
+import '../../../../core/export/core_export.dart';
 
 class ExperiencesPage extends StatefulWidget {
   const ExperiencesPage({super.key});

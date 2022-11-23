@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../injection_container.dart';
 import '../extension/context_extension.dart';
 import '../navigation/navigation_service.dart';
-import '../../injection_container.dart';
 
 class IosDeleteDialog extends StatelessWidget {
   const IosDeleteDialog({

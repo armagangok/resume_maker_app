@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+
 part 'personal_data_model.g.dart';
 
 @HiveType(typeId: 1)

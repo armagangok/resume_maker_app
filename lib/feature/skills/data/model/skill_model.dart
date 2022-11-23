@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+
 part 'skill_model.g.dart';
 @HiveType(typeId: 5)
 class SkillModel extends HiveObject{

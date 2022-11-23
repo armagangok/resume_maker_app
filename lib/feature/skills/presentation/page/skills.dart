@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:resume_maker_app/feature/skills/data/model/skill_model.dart';
 
-import '../../../../core/extension/context_extension.dart';
-import '../../../../core/widget/export.dart';
-import '../../../../injection_container.dart';
+import '../../../../core/export/core_export.dart';
+import '../../data/model/skill_model.dart';
 import '../cubit/skill_cubit/skill_cubit.dart';
 
 class SkillsPage extends StatefulWidget {

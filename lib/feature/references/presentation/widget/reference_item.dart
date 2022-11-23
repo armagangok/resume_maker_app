@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constant/shape_constant.dart';
 import '../../../../core/extension/context_extension.dart';
-
 import '../../../../core/widget/custom_divider.dart';
 
 class ReferenceItemWidget extends StatelessWidget {

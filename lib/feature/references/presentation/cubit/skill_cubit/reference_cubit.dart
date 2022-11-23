@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/error/failure.dart';
 import '../../../../../injection_container.dart';
-
 import '../../../data/model/reference_model.dart';
 import '../../../data/repository/reference_repository_imp.dart';
 

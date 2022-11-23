@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/extension/context_extension.dart';
-import '../../../../core/widget/custom_dialog.dart';
-import '../../../../core/widget/export.dart';
-import '../../../../injection_container.dart';
 import '../../model/academic_data_model.dart';
 import '../cubit/academic_data/academic_cubit.dart';
 import '../cubit/text_controller/text_controller_cubit.dart';
 import '../widget/academic_item_widget.dart';
+
+import '../../../../core/export/core_export.dart';
 
 class AcademicPage extends StatefulWidget {
   const AcademicPage({super.key});

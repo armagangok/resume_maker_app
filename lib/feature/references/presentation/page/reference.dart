@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/extension/context_extension.dart';
-import '../../../../core/widget/custom_dialog.dart';
-import '../../../../core/widget/export.dart';
-import '../../../../injection_container.dart';
 import '../../data/model/reference_model.dart';
-
 import '../cubit/skill_cubit/reference_cubit.dart';
 import '../cubit/text_controller/text_controller_cubit.dart';
 import '../widget/reference_item.dart';
+
+import '../../../../core/export/core_export.dart';
 
 class ReferencePage extends StatefulWidget {
   const ReferencePage({Key? key}) : super(key: key);
