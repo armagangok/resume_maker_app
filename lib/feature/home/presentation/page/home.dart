@@ -1,0 +1,50 @@
+import 'package:flutter/material.dart';
+
+import '../widget/export.dart';
+
+import '../../../../core/export/core_export.dart';
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          const HomeContainerWidget(),
+          const Spacer(),
+          Padding(
+            padding: context.normalPadding,
+            child: Column(
+              children: [
+                _createResumeButton,
+                SizedBox(height: context.height(0.05)),
+                _viewResumeButton,
+              ],
+            ),
+          ),
+          const Spacer(),
+        ],
+      ),
+    );
+  }
+
+  MenuItemWidget get _viewResumeButton {
+    return MenuItemWidget(
+      text: "View Resume",
+      iconData: Icons.search,
+      onTap: () {},
+    );
+  }
+
+  MenuItemWidget get _createResumeButton {
+    return MenuItemWidget(
+      text: "Create Resume",
+      iconData: Icons.contact_page,
+      onTap: () {
+        NavigationService.instance.navigateTo(path: KRoute.createResumePage);
+      },
+    );
+  }
+}
