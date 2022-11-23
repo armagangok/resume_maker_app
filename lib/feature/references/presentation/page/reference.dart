@@ -1,36 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:resume_maker_app/core/widget/custom_dialog.dart';
 
 import '../../../../core/extension/context_extension.dart';
-import '../../../../core/widget/custom_divider.dart';
+import '../../../../core/widget/custom_dialog.dart';
 import '../../../../core/widget/export.dart';
 import '../../../../injection_container.dart';
 import '../../data/model/reference_model.dart';
-import '../cubit/references/references_cubit.dart';
+
+import '../cubit/skill_cubit/reference_cubit.dart';
 import '../widget/reference_item.dart';
 
-class ReferencesPage extends StatefulWidget {
-  const ReferencesPage({Key? key}) : super(key: key);
+class ReferencePage extends StatefulWidget {
+  const ReferencePage({Key? key}) : super(key: key);
 
   @override
-  ReferencesScreenState createState() => ReferencesScreenState();
+  ReferenceScreenState createState() => ReferenceScreenState();
 }
 
-class ReferencesScreenState extends State<ReferencesPage> {
+class ReferenceScreenState extends State<ReferencePage> {
   late final TextEditingController nameController;
   late final TextEditingController professionController;
   late final TextEditingController recentCompanyController;
   late final TextEditingController emailController;
   late final TextEditingController phoneNumberController;
 
+  late final ReferenceCubit _referenceCubit;
+
   @override
   void initState() {
+    _referenceCubit = getIt<ReferenceCubit>.call();
     nameController = TextEditingController();
     professionController = TextEditingController();
     recentCompanyController = TextEditingController();
     emailController = TextEditingController();
     phoneNumberController = TextEditingController();
+    _referenceCubit.fetchReferenceData();
     super.initState();
   }
 
@@ -46,13 +50,13 @@ class ReferencesScreenState extends State<ReferencesPage> {
     );
   }
 
-  Widget get _buildBody => BlocBuilder<ReferencesCubit, ReferencesState>(
-        bloc: getIt<ReferencesCubit>.call(),
+  Widget get _buildBody => BlocBuilder<ReferenceCubit, ReferenceState>(
+        bloc: _referenceCubit,
         builder: (context, state) {
           if (state is ReferenceInitial) {
             return _initialText;
-          } else {
-            var referencesList = getIt<ReferencesCubit>.call().referencesList;
+          } else if (state is ReferenceFetched) {
+            var referencesList = state.referenceData;
             return ListView.separated(
               itemBuilder: (context, index) {
                 return ReferenceItemWidget(
@@ -65,13 +69,15 @@ class ReferencesScreenState extends State<ReferencesPage> {
                   onLongTap: () => showCustomDialog(
                     context,
                     index,
-                    () => getIt<ReferencesCubit>.call().removeReference(index),
+                    () => _referenceCubit.delete(index),
                   ),
                 );
               },
               separatorBuilder: (context, index) => const CustomDivider(),
               itemCount: referencesList.length,
             );
+          } else {
+            return const Text("data");
           }
         },
       );
@@ -108,7 +114,7 @@ class ReferencesScreenState extends State<ReferencesPage> {
       );
 
   CustomAppBar get _buildAppBar => CustomAppBar(
-        title: const Text("References"),
+        title: const Text("Reference"),
         onTapUpdate: () {},
       );
 
@@ -139,7 +145,7 @@ class ReferencesScreenState extends State<ReferencesPage> {
     return SizedBox(
       width: context.width(1),
       child: ElevatedButton(
-        onPressed: () {
+        onPressed: () async {
           var reference = ReferenceModel(
             name: nameController.text,
             profession: professionController.text,
@@ -147,7 +153,13 @@ class ReferencesScreenState extends State<ReferencesPage> {
             phoneNumber: phoneNumberController.text,
             recentCompany: recentCompanyController.text,
           );
-          getIt<ReferencesCubit>.call().addReference(reference);
+          await _referenceCubit.save(reference);
+
+          nameController.clear();
+          professionController.clear();
+          emailController.clear();
+          phoneNumberController.clear();
+          recentCompanyController.clear();
         },
         child: const Text("Add As Reference"),
       ),

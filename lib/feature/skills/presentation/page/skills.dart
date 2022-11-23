@@ -20,8 +20,9 @@ class _SkillsPageState extends State<SkillsPage> {
 
   @override
   void initState() {
-    _skillCubit = getIt<SkillCubit>.call();
     skillController = TextEditingController();
+    _skillCubit = getIt<SkillCubit>.call();
+    _skillCubit.fetchSkillData();
     super.initState();
   }
 
