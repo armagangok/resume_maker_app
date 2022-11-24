@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/export/core_export.dart';
 import '../../data/model/language_model.dart';
 import '../cubit/language_cubit/language_cubit.dart';
-import '../../../../core/export/core_export.dart';
 
 class LanguagePage extends StatefulWidget {
   const LanguagePage({super.key});

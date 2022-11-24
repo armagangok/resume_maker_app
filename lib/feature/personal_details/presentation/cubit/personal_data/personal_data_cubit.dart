@@ -1,8 +1,8 @@
+import '../../../../../core/export/core_export.dart';
 import '../../../data/model/personal_data_model.dart';
 import '../../../data/repository/personal_data_repository_imp.dart';
 import '../personal_text_controllers/personal_text_controllers_cubit.dart';
 import '../pick_image/pick_image_cubit.dart';
-import '../../../../../core/export/core_export.dart';
 
 part 'personal_data_state.dart';
 

@@ -1,6 +1,6 @@
+import '../../../../../core/export/core_export.dart';
 import '../../../data/repository/academic_data_repository_imp.dart';
 import '../../../model/academic_data_model.dart';
-import '../../../../../core/export/core_export.dart';
 
 part 'academic_state.dart';
 

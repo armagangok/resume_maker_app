@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/export/core_export.dart';
 import '../../data/model/reference_model.dart';
 import '../cubit/skill_cubit/reference_cubit.dart';
 import '../cubit/text_controller/text_controller_cubit.dart';
 import '../widget/reference_item.dart';
 
-import '../../../../core/export/core_export.dart';
+
 
 class ReferencePage extends StatefulWidget {
   const ReferencePage({Key? key}) : super(key: key);
