@@ -1,11 +1,7 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/error/failure.dart';
-import '../../../../core/local_database/hive/hive_helper.dart';
-import '../../../../core/local_database/hive/hive_keys.dart';
-import '../../../../core/util/logger.dart';
-import '../../model/academic_data_model.dart';
-import '../contract/academic_data_repository.dart';
+import '../../../../core/export/core_export.dart';
+import '../../academic_export.dart';
 
 class AcademicDataRepositoryImp implements AcademicDataRepository {
   @override

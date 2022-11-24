@@ -22,6 +22,7 @@ import 'feature/skills/presentation/cubit/skill_cubit/skill_cubit.dart';
 
 
 final getIt = GetIt.instance;
+
 void initDependencies() {
   getIt.registerLazySingleton(() => NavigationService.instance);
   getIt.registerLazySingleton<LanguageCubit>(() => LanguageCubit());

@@ -22,3 +22,4 @@ export '../widget/initial_state_widget.dart';
 export '../widget/ios_dialog.dart';
 export '../widget/list_item_widget.dart';
 export '../widget/snackbar.dart';
+export '../util/logger.dart';

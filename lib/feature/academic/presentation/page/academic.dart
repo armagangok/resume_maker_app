@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../model/academic_data_model.dart';
-import '../cubit/academic_data/academic_cubit.dart';
-import '../cubit/text_controller/text_controller_cubit.dart';
-import '../widget/academic_item_widget.dart';
-
 import '../../../../core/export/core_export.dart';
+import '../../academic_export.dart';
 
 class AcademicPage extends StatefulWidget {
   const AcademicPage({super.key});
