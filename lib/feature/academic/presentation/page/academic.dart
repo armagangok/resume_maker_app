@@ -158,7 +158,8 @@ class _AcademicPageState extends State<AcademicPage> {
           } else if (state is AcademicFetchingError) {
             return const Center(
               child: Text(
-                  "Unexpected caching error while catching data from database."),
+                "Unexpected caching error while catching data from database.",
+              ),
             );
           } else {
             return const Text("Data");

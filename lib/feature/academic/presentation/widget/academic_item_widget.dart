@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/constant/padding_constant.dart';
-import '../../../../core/constant/shape_constant.dart';
-import '../../../../core/extension/context_extension.dart';
-import '../../../../core/widget/export.dart';
-import '../../model/academic_data_model.dart';
+import '../../academic_export.dart';
+export '../../../../core/export/core_export.dart';
 
 class AcademicItemWidget extends StatelessWidget {
   const AcademicItemWidget({

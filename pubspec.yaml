@@ -59,6 +59,7 @@ dependencies:
   # ERROR HANDLING
   dartz: ^0.10.1
   logger: ^1.1.0
+  connectivity_plus: ^3.0.2
   
 
 dev_dependencies:
