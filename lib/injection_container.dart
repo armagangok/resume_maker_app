@@ -62,6 +62,7 @@ void initDependencies() {
   getIt.registerLazySingleton<PersonalDataCubit>(
     () => PersonalDataCubit(
       personalDataRepository: getIt<PersonalDataRepository>.call(),
+      pickImageCubit: getIt<PickImageCubit>.call(),
     ),
   );
   getIt.registerLazySingleton<ImagePickerRepository>(

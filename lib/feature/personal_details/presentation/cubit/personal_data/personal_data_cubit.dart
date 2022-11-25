@@ -10,11 +10,15 @@ part 'personal_data_state.dart';
 class PersonalDataCubit extends Cubit<PersonalDataState> {
   PersonalDataCubit({
     required PersonalDataRepository personalDataRepository,
-    
+    required PickImageCubit pickImageCubit,
   }) : super(_getInitialPersonalModel) {
     _personalDataRepository = personalDataRepository;
-    
+    _pickImageCubit = pickImageCubit;
 
+    _initTextController();
+  }
+
+  void _initTextController() {
     _nameController = TextEditingController();
     _numberController = TextEditingController();
     _emailController = TextEditingController();
