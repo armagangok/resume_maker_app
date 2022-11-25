@@ -1,4 +1,4 @@
-package com.armagangok.resume_maker_app
+package com.armagangok.resumeMakerApp
 
 import io.flutter.embedding.android.FlutterActivity
 
