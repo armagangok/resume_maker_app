@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../feature/academic/presentation/page/academic.dart';
 import '../../feature/create_resume/presentation/page/create_resume.dart';
+import '../../feature/cv_templates/presentation/page/cv_templates.dart';
 import '../../feature/experience/presentatiton/page/experience.dart';
 import '../../feature/home/presentation/page/home.dart';
 import '../../feature/language/presentation/page/language.dart';
@@ -39,6 +40,9 @@ class NavigationRoute {
 
       case KRoute.experiencesPage:
         return _getRoute(const ExperiencesPage());
+
+      case KRoute.templatesPage:
+        return _getRoute(const TemplatePage());
 
       default:
         return MaterialPageRoute(
