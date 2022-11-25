@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/error/failure.dart';
-import '../../../../core/local_database/hive/hive_helper.dart';
-import '../../../../core/local_database/hive/hive_keys.dart';
+import '../../../../core/database/local_database/hive/hive_helper.dart';
+import '../../../../core/database/local_database/hive/hive_keys.dart';
 import '../contract/language_repository.dart';
 import '../model/skill_model.dart';
 
