@@ -56,10 +56,23 @@ dependencies:
   # STATE MANAGEMENT
   flutter_bloc: ^8.1.1
   
+
   # ERROR HANDLING
   dartz: ^0.10.1
   logger: ^1.1.0
+    
+
+  # FIREBASE
+  firebase_core: ^2.3.0
+  firebase_auth: ^4.1.4
+  cloud_firestore: ^4.1.0
+  firebase_storage: ^11.0.6
+
+
+  # NETWORK
   connectivity_plus: ^3.0.2
+  
+
   
 
 dev_dependencies:

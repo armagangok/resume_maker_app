@@ -7,8 +7,8 @@ import '../contract/language_repository.dart';
 import '../model/language_model.dart';
 
 class LanguageRepositoryImp implements LanguageRepository {
-  LanguageRepositoryImp() {
-    _hiveHelper = HiveHelper.shared;
+  LanguageRepositoryImp({required HiveHelper hiveHelper}) {
+    _hiveHelper = hiveHelper;
   }
 
   late final HiveHelper _hiveHelper;

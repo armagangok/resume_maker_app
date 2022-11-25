@@ -1,21 +1,30 @@
+import 'package:flutter/material.dart';
+
 import '../../../../../core/export/core_export.dart';
+import '../../../data/contract/personal_data_repository.dart';
 import '../../../data/model/personal_data_model.dart';
-import '../../../data/repository/personal_data_repository_imp.dart';
-import '../personal_text_controllers/personal_text_controllers_cubit.dart';
 import '../pick_image/pick_image_cubit.dart';
 
 part 'personal_data_state.dart';
 
 class PersonalDataCubit extends Cubit<PersonalDataState> {
-  PersonalDataCubit() : super(_getInitialPersonalModel) {
-    _personalDataRepository = getIt<PersonalDataRepositoryImp>.call();
-    _personalTextControllers = getIt<PersonalTextControllerCubit>.call();
-    _pickImageCubit = getIt<PickImageCubit>.call();
+  PersonalDataCubit({
+    required PersonalDataRepository personalDataRepository,
+    
+  }) : super(_getInitialPersonalModel) {
+    _personalDataRepository = personalDataRepository;
+    
+
+    _nameController = TextEditingController();
+    _numberController = TextEditingController();
+    _emailController = TextEditingController();
+    _linkedinController = TextEditingController();
+    _birthdayController = TextEditingController();
+    _locationController = TextEditingController();
   }
 
-  late final PersonalTextControllerCubit _personalTextControllers;
   late final PickImageCubit _pickImageCubit;
-  late final PersonalDataRepositoryImp _personalDataRepository;
+  late final PersonalDataRepository _personalDataRepository;
 
   Future<void> deleteData(int index) async {
     await _personalDataRepository.deleteData(index);
@@ -53,24 +62,24 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
 
   PersonalDataModel preparePersonalDataModel(DataReceivedContract state) {
     var personalDataModel = PersonalDataModel(
-      name: _personalTextControllers.nameController.text.isEmpty
+      name: _nameController.text.isEmpty
           ? state.personalData.name
-          : _personalTextControllers.nameController.text,
-      location: _personalTextControllers.locationController.text.isEmpty
+          : _nameController.text,
+      location: _locationController.text.isEmpty
           ? state.personalData.location
-          : _personalTextControllers.locationController.text,
-      phoneNumber: _personalTextControllers.numberController.text.isEmpty
+          : _locationController.text,
+      phoneNumber: _numberController.text.isEmpty
           ? state.personalData.phoneNumber
-          : _personalTextControllers.numberController.text,
-      email: _personalTextControllers.emailController.text.isEmpty
+          : _numberController.text,
+      email: _emailController.text.isEmpty
           ? state.personalData.email
-          : _personalTextControllers.emailController.text,
-      linkedin: _personalTextControllers.linkedinController.text.isEmpty
+          : _emailController.text,
+      linkedin: _linkedinController.text.isEmpty
           ? state.personalData.linkedin
-          : _personalTextControllers.linkedinController.text,
-      birthday: _personalTextControllers.birthdayController.text.isEmpty
+          : _linkedinController.text,
+      birthday: _birthdayController.text.isEmpty
           ? state.personalData.birthday
-          : _personalTextControllers.birthdayController.text,
+          : _birthdayController.text,
       imagePath: _pickImageCubit.getChoosenImagePath.isEmpty
           ? state.personalData.imagePath
           : _pickImageCubit.getChoosenImagePath,
@@ -90,4 +99,38 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
           phoneNumber: "Phone Number",
         ),
       );
+
+  late final TextEditingController _nameController;
+  late final TextEditingController _numberController;
+  late final TextEditingController _emailController;
+  late final TextEditingController _linkedinController;
+  late final TextEditingController _birthdayController;
+  late final TextEditingController _locationController;
+
+  TextEditingController get nameController => _nameController;
+  TextEditingController get numberController => _numberController;
+  TextEditingController get emailController => _emailController;
+  TextEditingController get linkedinController => _linkedinController;
+  TextEditingController get birthdayController => _birthdayController;
+  TextEditingController get locationController => _locationController;
+
+  void clearControllers() {
+    _nameController.clear();
+    _numberController.clear();
+    _emailController.clear();
+    _linkedinController.clear();
+    _birthdayController.clear();
+    _locationController.clear();
+  }
+
+  bool checkControllersIfEmpty() {
+    return (_nameController.text.isEmpty &&
+            _numberController.text.isEmpty &&
+            _emailController.text.isEmpty &&
+            _linkedinController.text.isEmpty &&
+            _birthdayController.text.isEmpty &&
+            _locationController.text.isEmpty)
+        ? true
+        : false;
+  }
 }

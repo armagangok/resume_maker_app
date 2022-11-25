@@ -3,15 +3,16 @@ import '../../../academic_export.dart';
 part 'academic_state.dart';
 
 class AcademicCubit extends Cubit<AcademicState> {
-  late final AcademicDataRepositoryImp _repository;
+  late final AcademicDataRepositoryImp _academicRepository;
 
-  AcademicCubit() : super(AcademicInitial()) {
-    _repository = getIt<AcademicDataRepositoryImp>.call();
+  AcademicCubit({required AcademicDataRepositoryImp academicDataRepository})
+      : super(AcademicInitial()) {
+    _academicRepository = academicDataRepository;
   }
 
   Future<void> saveAcademicData(AcademicDataModel academicDataModel) async {
     try {
-      await _repository.saveAcademicData(academicDataModel);
+      await _academicRepository.saveAcademicData(academicDataModel);
       await getAcademicData();
     } catch (e) {
       emit(AcademicSavingError());
@@ -20,7 +21,7 @@ class AcademicCubit extends Cubit<AcademicState> {
 
   // Gets academic data from hive database.
   Future getAcademicData() async {
-    var response = await _repository.fetchAcademicData();
+    var response = await _academicRepository.fetchAcademicData();
     response.fold(
       (failure) {
         if (failure is HiveNullData) {
@@ -46,11 +47,11 @@ class AcademicCubit extends Cubit<AcademicState> {
   // Deletes data from hive database
   Future<void> deleteData(int index) async {
     try {
-      await _repository.deleteData(index);
+      await _academicRepository.deleteData(index);
 
       emit(AcademicDeleted());
 
-      var response = await _repository.fetchAcademicData();
+      var response = await _academicRepository.fetchAcademicData();
       response.fold(
         (error) {
           emit(AcademicDeletingError());

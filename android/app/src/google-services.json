@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "288722690955",
+    "project_id": "resume-maker-app-8a68f",
+    "storage_bucket": "resume-maker-app-8a68f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288722690955:android:995121ee122406c20a458e",
+        "android_client_info": {
+          "package_name": "com.armagangok.resumeMakerApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288722690955-us6n3mt19de9gdki1q8svul4c8ia0k6r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8YKBd6BqbFZBmjcXHghiwjK8H28cGrVs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "288722690955-us6n3mt19de9gdki1q8svul4c8ia0k6r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,15 +1,17 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
 
-import '../../../../../core/error/failure.dart';
-import '../../../../../injection_container.dart';
 import '../../../data/model/reference_model.dart';
 import '../../../data/repository/reference_repository_imp.dart';
+
+import '../../../../../core/export/core_export.dart';
 
 part 'reference_state.dart';
 
 class ReferenceCubit extends Cubit<ReferenceState> {
-  ReferenceCubit() : super(ReferenceInitial()) {
-    _repository = getIt<ReferenceRepositoryImp>.call();
+  ReferenceCubit({required ReferenceRepositoryImp repository})
+      : super(ReferenceInitial()) {
+    _repository = repository;
+    _initTextControllers;
   }
   late final ReferenceRepositoryImp _repository;
 
@@ -85,5 +87,36 @@ class ReferenceCubit extends Cubit<ReferenceState> {
         emit(ReferenceFetched(referenceData: data));
       },
     );
+  }
+
+  //
+  // TEXT CONTROLLERS
+
+  late final TextEditingController _nameController;
+  late final TextEditingController _professionController;
+  late final TextEditingController _recentCompanyController;
+  late final TextEditingController _emailController;
+  late final TextEditingController _phoneNumberController;
+
+  TextEditingController get nameController => _nameController;
+  TextEditingController get professionController => _professionController;
+  TextEditingController get recentCompanyController => _recentCompanyController;
+  TextEditingController get emailController => _emailController;
+  TextEditingController get phoneNumberController => _phoneNumberController;
+
+  void get clearTextController {
+    _nameController.clear();
+    _professionController.clear();
+    _recentCompanyController.clear();
+    _emailController.clear();
+    _phoneNumberController.clear();
+  }
+
+  void get _initTextControllers {
+    _nameController = TextEditingController();
+    _professionController = TextEditingController();
+    _recentCompanyController = TextEditingController();
+    _emailController = TextEditingController();
+    _phoneNumberController = TextEditingController();
   }
 }

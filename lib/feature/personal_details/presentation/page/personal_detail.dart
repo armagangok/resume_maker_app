@@ -11,16 +11,14 @@ class PersonalDetailPage extends StatefulWidget {
 }
 
 class _PersonalDetailPageState extends State<PersonalDetailPage> {
-  late final PersonalTextControllerCubit _textControllers;
   late final PersonalDataCubit _personalDataCubit;
   late final PickImageCubit _imagePickerCubit;
 
   @override
   void initState() {
+    _imagePickerCubit = getIt<PickImageCubit>.call();
     _personalDataCubit = getIt<PersonalDataCubit>.call();
     _personalDataCubit.getPersonalData();
-    _imagePickerCubit = getIt<PickImageCubit>.call();
-    _textControllers = getIt<PersonalTextControllerCubit>.call();
 
     super.initState();
   }
@@ -127,7 +125,7 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
   }
 
   Widget _locationTextField(PersonalDataModel personalData) => TextField(
-        controller: _textControllers.locationController,
+        controller: _personalDataCubit.locationController,
         decoration: InputDecoration(
           hintText:
               personalData.location == null || personalData.location!.isEmpty
@@ -150,12 +148,12 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
             final personalDataModel =
                 _personalDataCubit.preparePersonalDataModel(state);
 
-            _textControllers.checkControllersIfEmpty()
+            _personalDataCubit.checkControllersIfEmpty()
                 ? {}
                 : {
                     await _personalDataCubit
                         .savePersonalData(personalDataModel),
-                    _textControllers.clearControllers(),
+                    _personalDataCubit.clearControllers(),
                   };
           },
           child: const Text("Update"),
@@ -163,7 +161,7 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
       );
 
   Widget _nameTextField(PersonalDataModel personalDataModel) => TextField(
-        controller: _textControllers.nameController,
+        controller: _personalDataCubit.nameController,
         decoration: InputDecoration(
           hintText: (personalDataModel.name == null ||
                   personalDataModel.name!.isEmpty)
@@ -173,7 +171,7 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
       );
 
   Widget _birthDayTextField(PersonalDataModel personalDataModel) => TextField(
-        controller: _textControllers.birthdayController,
+        controller: _personalDataCubit.birthdayController,
         decoration: InputDecoration(
           hintText: (personalDataModel.birthday == null ||
                   personalDataModel.birthday!.isEmpty)
@@ -183,7 +181,7 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
       );
 
   Widget _linkedinTextField(PersonalDataModel personalDataModel) => TextField(
-        controller: _textControllers.linkedinController,
+        controller: _personalDataCubit.linkedinController,
         decoration: InputDecoration(
           hintText: personalDataModel.linkedin == null ||
                   personalDataModel.linkedin == ""
@@ -193,7 +191,7 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
       );
 
   Widget _emailTextField(PersonalDataModel personalDataModel) => TextField(
-        controller: _textControllers.emailController,
+        controller: _personalDataCubit.emailController,
         decoration: InputDecoration(
           hintText: (personalDataModel.email == null ||
                   personalDataModel.email!.isEmpty)
@@ -203,7 +201,7 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
       );
 
   Widget _numberTextField(PersonalDataModel personalDataModel) => TextField(
-        controller: _textControllers.numberController,
+        controller: _personalDataCubit.numberController,
         decoration: InputDecoration(
           hintText: personalDataModel.phoneNumber == null ||
                   personalDataModel.phoneNumber == ""

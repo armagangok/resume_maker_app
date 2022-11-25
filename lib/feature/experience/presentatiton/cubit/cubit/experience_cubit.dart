@@ -1,28 +1,29 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/error/failure.dart';
-import '../../../../../injection_container.dart';
 import '../../../data/model/experience_model.dart';
 import '../../../data/repository/experience_repository_imp.dart';
 
 part 'experience_state.dart';
 
 class ExperienceCubit extends Cubit<ExperienceState> {
-  late final ExperienceRepositoryImp _repository;
+  late final ExperienceRepositoryImp _experienceRepository;
 
-  ExperienceCubit() : super(ExperienceInitial()) {
-    _repository = getIt<ExperienceRepositoryImp>.call();
+  ExperienceCubit({required ExperienceRepositoryImp experienceRepository})
+      : super(ExperienceInitial()) {
+    _experienceRepository = experienceRepository;
   }
 
   Future<void> save(ExperienceModel experienceModel) async {
-    var response = await _repository.savePersonalData(experienceModel);
+    var response =
+        await _experienceRepository.savePersonalData(experienceModel);
 
     response.fold(
       (failure) {
         return emit(ExperienceSavingError());
       },
       (data) async {
-        var response = await _repository.fetchExperienceData();
+        var response = await _experienceRepository.fetchExperienceData();
 
         emit(ExperienceSaved());
 
@@ -45,12 +46,12 @@ class ExperienceCubit extends Cubit<ExperienceState> {
   }
 
   Future<void> delete(int index) async {
-    var response = await _repository.deleteData(index);
+    var response = await _experienceRepository.deleteData(index);
 
     response.fold(
       (l) => emit(ExperienceDeletingError()),
       (r) async {
-        var response = await _repository.fetchExperienceData();
+        var response = await _experienceRepository.fetchExperienceData();
 
         emit(ExperienceDeleted());
 
@@ -73,7 +74,7 @@ class ExperienceCubit extends Cubit<ExperienceState> {
   }
 
   Future<void> fetchExperienceData() async {
-    var response = await _repository.fetchExperienceData();
+    var response = await _experienceRepository.fetchExperienceData();
 
     response.fold(
       (failure) {

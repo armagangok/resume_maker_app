@@ -3,15 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../../core/export/core_export.dart';
 import '../../data/model/reference_model.dart';
 import '../cubit/skill_cubit/reference_cubit.dart';
-import '../cubit/text_controller/text_controller_cubit.dart';
 import '../widget/reference_item.dart';
-
-
 
 class ReferencePage extends StatefulWidget {
   const ReferencePage({Key? key}) : super(key: key);
-
-  
 
   @override
   ReferenceScreenState createState() => ReferenceScreenState();
@@ -19,12 +14,10 @@ class ReferencePage extends StatefulWidget {
 
 class ReferenceScreenState extends State<ReferencePage> {
   late final ReferenceCubit _referenceCubit;
-  late final ReferenceTextControllerCubit _textController;
 
   @override
   void initState() {
     _referenceCubit = getIt<ReferenceCubit>.call();
-    _textController = getIt<ReferenceTextControllerCubit>.call();
 
     _referenceCubit.fetchReferenceData();
     super.initState();
@@ -87,27 +80,27 @@ class ReferenceScreenState extends State<ReferencePage> {
 
   TextField get _phoneNumberTextField => TextField(
         decoration: const InputDecoration(hintText: "Phone Number"),
-        controller: _textController.phoneNumberController,
+        controller: _referenceCubit.phoneNumberController,
       );
 
   TextField get _emailTextField => TextField(
         decoration: const InputDecoration(hintText: "Reference Email"),
-        controller: _textController.emailController,
+        controller: _referenceCubit.emailController,
       );
 
   TextField get _professionTextField => TextField(
         decoration: const InputDecoration(hintText: "Profession"),
-        controller: _textController.professionController,
+        controller: _referenceCubit.professionController,
       );
 
   TextField get _nameTextTextField => TextField(
         decoration: const InputDecoration(hintText: "Name Surname"),
-        controller: _textController.nameController,
+        controller: _referenceCubit.nameController,
       );
 
   TextField get _recentCompanyTextField => TextField(
         decoration: const InputDecoration(hintText: "Recent Company"),
-        controller: _textController.recentCompanyController,
+        controller: _referenceCubit.recentCompanyController,
       );
 
   CustomAppBar get _buildAppBar => CustomAppBar(
@@ -144,19 +137,15 @@ class ReferenceScreenState extends State<ReferencePage> {
       child: ElevatedButton(
         onPressed: () async {
           var reference = ReferenceModel(
-            name: _textController.nameController.text,
-            profession: _textController.professionController.text,
-            email: _textController.emailController.text,
-            phoneNumber: _textController.phoneNumberController.text,
-            recentCompany: _textController.recentCompanyController.text,
+            name: _referenceCubit.nameController.text,
+            profession: _referenceCubit.professionController.text,
+            email: _referenceCubit.emailController.text,
+            phoneNumber: _referenceCubit.phoneNumberController.text,
+            recentCompany: _referenceCubit.recentCompanyController.text,
           );
           await _referenceCubit.save(reference);
 
-          _textController.nameController.clear();
-          _textController.professionController.clear();
-          _textController.emailController.clear();
-          _textController.phoneNumberController.clear();
-          _textController.recentCompanyController.clear();
+          _referenceCubit.clearTextController;
         },
         child: const Text("Add As Reference"),
       ),

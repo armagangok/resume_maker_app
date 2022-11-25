@@ -1,14 +1,15 @@
 import '../../../../../core/export/core_export.dart';
+import '../../../data/contract/language_repository.dart';
 import '../../../data/model/skill_model.dart';
-import '../../../data/repository/skills_repository_imp.dart';
 
 part 'skill_state.dart';
 
 class SkillCubit extends Cubit<SkillState> {
-  SkillCubit() : super(SkillInitial()) {
-    _repository = getIt<SkillRepositoryImp>.call();
+  SkillCubit({required SkillRepository skillRepository})
+      : super(SkillInitial()) {
+    _repository = skillRepository;
   }
-  late final SkillRepositoryImp _repository;
+  late final SkillRepository _repository;
 
   Future<void> save(SkillModel skillModel) async {
     var response = await _repository.saveSkillData(skillModel);
