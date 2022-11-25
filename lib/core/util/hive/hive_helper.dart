@@ -1,11 +1,11 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../../../../../feature/academic/academic_export.dart';
-import '../../../../../feature/experience/data/model/experience_model.dart';
-import '../../../../../feature/language/data/model/language_model.dart';
-import '../../../../../feature/personal_details/data/model/personal_data_model.dart';
-import '../../../../../feature/references/data/model/reference_model.dart';
-import '../../../../../feature/skills/data/model/skill_model.dart';
+import '../../../feature/academic/academic_export.dart';
+import '../../../feature/experience/data/model/experience_model.dart';
+import '../../../feature/language/data/model/language_model.dart';
+import '../../../feature/personal_details/data/model/personal_data_model.dart';
+import '../../../feature/references/data/model/reference_model.dart';
+import '../../../feature/skills/data/model/skill_model.dart';
 
 class HiveHelper {
   HiveHelper._();
