@@ -1,17 +1,19 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/error/failure.dart';
-import '../../../../../injection_container.dart';
+import '../../../data/contract/language_repository.dart';
 import '../../../data/model/language_model.dart';
-import '../../../data/repository/language_repository_imp.dart';
 
 part 'language_state.dart';
 
 class LanguageCubit extends Cubit<LanguageState> {
-  LanguageCubit() : super(LanguageInitial()) {
-    _repository = getIt<LanguageRepositoryImp>.call();
+  LanguageCubit({
+    required LanguageRepository languageRepository,
+  }) : super(LanguageInitial()) {
+    _repository = languageRepository;
   }
-  late final LanguageRepositoryImp _repository;
+
+  late final LanguageRepository _repository;
 
   Future<void> save(LanguageModel languageModel) async {
     var response = await _repository.saveLanguageData(languageModel);

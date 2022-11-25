@@ -6,7 +6,7 @@ import '../../../../core/local_database/hive/hive_keys.dart';
 import '../contract/language_repository.dart';
 import '../model/language_model.dart';
 
-class LanguageRepositoryImp extends LanguageRepository {
+class LanguageRepositoryImp implements LanguageRepository {
   LanguageRepositoryImp() {
     _hiveHelper = HiveHelper.shared;
   }

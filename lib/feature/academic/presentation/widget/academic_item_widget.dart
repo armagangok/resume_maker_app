@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../academic_export.dart';
+
 export '../../../../core/export/core_export.dart';
 
 class AcademicItemWidget extends StatelessWidget {

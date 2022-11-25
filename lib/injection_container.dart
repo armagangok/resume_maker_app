@@ -27,27 +27,40 @@ import 'feature/skills/data/contract/language_repository.dart';
 import 'feature/skills/data/repository/skills_repository_imp.dart';
 import 'feature/skills/presentation/cubit/skill_cubit/skill_cubit.dart';
 
-
 final getIt = GetIt.instance;
 
 void initDependencies() {
   getIt.registerLazySingleton(() => NavigationService.instance);
-  getIt.registerLazySingleton<LanguageCubit>(() => LanguageCubit());
+  getIt.registerLazySingleton<LanguageCubit>(
+    () => LanguageCubit(
+      languageRepository: LanguageRepositoryImp(),
+    ),
+  );
   getIt.registerLazySingleton<SkillCubit>(() => SkillCubit());
   getIt.registerLazySingleton<ReferenceCubit>(() => ReferenceCubit());
-  getIt.registerLazySingleton<ReferenceTextControllerCubit>(() => ReferenceTextControllerCubit());
+  getIt.registerLazySingleton<ReferenceTextControllerCubit>(
+      () => ReferenceTextControllerCubit());
   getIt.registerLazySingleton<ExperienceCubit>(() => ExperienceCubit());
   getIt.registerLazySingleton<AcademicCubit>(() => AcademicCubit());
   getIt.registerLazySingleton<PickImageCubit>(() => PickImageCubit());
-  getIt.registerLazySingleton<AcademicDataRepository>(() => AcademicDataRepositoryImp());
-  getIt.registerLazySingleton<AcademicTextControllerCubit>(() => AcademicTextControllerCubit());
-  getIt.registerLazySingleton<PersonalTextControllerCubit>(() => PersonalTextControllerCubit());
+  getIt.registerLazySingleton<AcademicDataRepository>(
+      () => AcademicDataRepositoryImp());
+  getIt.registerLazySingleton<AcademicTextControllerCubit>(
+      () => AcademicTextControllerCubit());
+  getIt.registerLazySingleton<PersonalTextControllerCubit>(
+      () => PersonalTextControllerCubit());
   getIt.registerLazySingleton<PersonalDataCubit>(() => PersonalDataCubit());
-  getIt.registerLazySingleton<ImagePickerRepository>(() => ImagePickerRepositoryImp());
-  getIt.registerLazySingleton<PersonalDataRepository>(() => PersonalDataRepositoryImp());
-  getIt.registerLazySingleton<ExperienceRepository>(() => ExperienceRepositoryImp());
-  getIt.registerLazySingleton<ExperienceTextControllerCubit>(() =>ExperienceTextControllerCubit());
-  getIt.registerLazySingleton<LanguageRepository>(() =>LanguageRepositoryImp());
-  getIt.registerLazySingleton<ReferenceRepository>(() =>ReferenceRepositoryImp());
-  getIt.registerLazySingleton<SkillRepository>(() =>SkillRepositoryImp());
+  getIt.registerLazySingleton<ImagePickerRepository>(
+      () => ImagePickerRepositoryImp());
+  getIt.registerLazySingleton<PersonalDataRepository>(
+      () => PersonalDataRepositoryImp());
+  getIt.registerLazySingleton<ExperienceRepository>(
+      () => ExperienceRepositoryImp());
+  getIt.registerLazySingleton<ExperienceTextControllerCubit>(
+      () => ExperienceTextControllerCubit());
+  getIt
+      .registerLazySingleton<LanguageRepository>(() => LanguageRepositoryImp());
+  getIt.registerLazySingleton<ReferenceRepository>(
+      () => ReferenceRepositoryImp());
+  getIt.registerLazySingleton<SkillRepository>(() => SkillRepositoryImp());
 }
