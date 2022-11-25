@@ -1,4 +1,4 @@
-abstract class RemoteDatabase {
+abstract class FirebaseRepository {
   Future<void> saveData<T>({
     required String collection,
     dynamic data,
