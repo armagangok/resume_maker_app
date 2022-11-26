@@ -44,7 +44,6 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
               child: ListView(
                 children: [
                   _companyNameTextField,
-                  _professionTextField,
                   _jobRoleTextField,
                   _jobRoleTypeField,
                   _jobDateTextFields,
@@ -54,7 +53,7 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
             ),
           );
         },
-      );
+      );  
 
   Widget get _saveExperienceButton => SizedBox(
         width: context.width(1),
@@ -63,11 +62,10 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
           onPressed: () async {
             var experienceModel = ExperienceModel(
               companyName: _textControllerCubit.companyNameController.text,
-              profession: _textControllerCubit.professionController.text,
               jobStartDate: _textControllerCubit.jobStartDateController.text,
               jobEndDate: _textControllerCubit.jobEndDateController.text,
               jobRole: _textControllerCubit.jobRoleController.text,
-              jobType: _textControllerCubit.jobTypeController.text,
+              skills: _textControllerCubit.jobSkillsController.text,
             );
             await _experienceCubit.save(experienceModel);
           },
@@ -139,13 +137,8 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
       );
 
   TextField get _jobRoleTypeField => TextField(
-        decoration: const InputDecoration(hintText: "Job role type"),
-        controller: _textControllerCubit.jobTypeController,
-      );
-
-  TextField get _professionTextField => TextField(
-        decoration: const InputDecoration(hintText: "Profession"),
-        controller: _textControllerCubit.professionController,
+        decoration: const InputDecoration(hintText: "Job skills"),
+        controller: _textControllerCubit.jobSkillsController,
       );
 
   TextField get _jobEndDateTextField => TextField(

@@ -38,9 +38,6 @@ class AcademicItemWidget extends StatelessWidget {
             const CustomDivider(),
             ItemPadding(widget: Text("Major: ${academicData.major}")),
             const CustomDivider(),
-            ItemPadding(
-                widget: Text("Scholarship: ${academicData.scholarship}")),
-            const CustomDivider(),
             ItemPadding(widget: Text("Academic data: ${academicData.grade}")),
             const CustomDivider(),
             Row(

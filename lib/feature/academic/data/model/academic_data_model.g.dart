@@ -17,19 +17,18 @@ class AcademicDataModelAdapter extends TypeAdapter<AcademicDataModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return AcademicDataModel(
-      schoolStartDate: fields[2] as String?,
-      schoolEndDate: fields[3] as String?,
       grade: fields[0] as String?,
       university: fields[1] as String?,
+      schoolStartDate: fields[2] as String?,
+      schoolEndDate: fields[3] as String?,
       major: fields[4] as String?,
-      scholarship: fields[5] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, AcademicDataModel obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.grade)
       ..writeByte(1)
@@ -39,9 +38,7 @@ class AcademicDataModelAdapter extends TypeAdapter<AcademicDataModel> {
       ..writeByte(3)
       ..write(obj.schoolEndDate)
       ..writeByte(4)
-      ..write(obj.major)
-      ..writeByte(5)
-      ..write(obj.scholarship);
+      ..write(obj.major);
   }
 
   @override

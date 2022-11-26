@@ -17,31 +17,28 @@ class ExperienceModelAdapter extends TypeAdapter<ExperienceModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ExperienceModel(
-      companyName: fields[0] as String,
-      profession: fields[1] as String,
-      jobStartDate: fields[2] as String,
-      jobEndDate: fields[3] as String,
-      jobRole: fields[4] as String,
-      jobType: fields[5] as String,
+      jobRole: fields[3] as String?,
+      companyName: fields[0] as String?,
+      jobStartDate: fields[1] as String?,
+      jobEndDate: fields[2] as String?,
+      skills: fields[4] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, ExperienceModel obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.companyName)
       ..writeByte(1)
-      ..write(obj.profession)
-      ..writeByte(2)
       ..write(obj.jobStartDate)
-      ..writeByte(3)
+      ..writeByte(2)
       ..write(obj.jobEndDate)
-      ..writeByte(4)
+      ..writeByte(3)
       ..write(obj.jobRole)
-      ..writeByte(5)
-      ..write(obj.jobType);
+      ..writeByte(4)
+      ..write(obj.skills);
   }
 
   @override

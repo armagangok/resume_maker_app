@@ -26,8 +26,7 @@ class ExperienceItemWidget extends StatelessWidget {
           children: [
             _companyNameText,
             _jobRoleText,
-            _professionText,
-            _jobTypeText,
+            _jobSkillsText,
             _jobWorkDateTexts,
           ],
         ),
@@ -52,10 +51,7 @@ class ExperienceItemWidget extends StatelessWidget {
     });
   }
 
-  Text get _jobTypeText => Text("Job type: ${experienceModel.jobType}");
-
-  Text get _professionText =>
-      Text("Profession:  ${experienceModel.profession}");
+  Text get _jobSkillsText => Text("Job skills: ${experienceModel.skills}");
 
   Text get _jobRoleText => Text("Job role: ${experienceModel.jobRole}");
 

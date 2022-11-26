@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/export/core_export.dart';
 import '../../academic_export.dart';
 
 class AcademicPage extends StatefulWidget {
@@ -43,7 +42,6 @@ class _AcademicPageState extends State<AcademicPage> {
                   _uniTextField,
                   _majorTextField,
                   _gradeTextField,
-                  _scolarShipTextField,
                   _dateTextFields,
                   _saveAcademicDataButton
                 ],
@@ -69,7 +67,6 @@ class _AcademicPageState extends State<AcademicPage> {
             schoolStartDate:
                 academicTextControllerCubit.startDateController.text,
             major: academicTextControllerCubit.majorController.text,
-            scholarship: academicTextControllerCubit.scholarshipController.text,
           );
 
           await academicCubit.saveAcademicData(academicDataModel);
@@ -82,13 +79,6 @@ class _AcademicPageState extends State<AcademicPage> {
           hintText: "Grade",
         ),
         controller: academicTextControllerCubit.gradeController,
-      );
-
-  Widget get _scolarShipTextField => TextField(
-        decoration: const InputDecoration(
-          hintText: "Scolarship rate",
-        ),
-        controller: academicTextControllerCubit.scholarshipController,
       );
 
   Widget get _uniTextField => TextField(

@@ -17,8 +17,7 @@ class AcademicDataModel extends HiveObject {
   final String? schoolEndDate;
   @HiveField(4)
   final String? major;
-  @HiveField(5)
-  final String? scholarship;
+
 
   AcademicDataModel({
     required this.grade,
@@ -26,7 +25,7 @@ class AcademicDataModel extends HiveObject {
     required this.schoolStartDate,
     required this.schoolEndDate,
     required this.major,
-    required this.scholarship,
+    
   });
 
   AcademicDataModel copyWith({
@@ -43,7 +42,7 @@ class AcademicDataModel extends HiveObject {
       schoolStartDate: schoolStartDate ?? this.schoolStartDate,
       schoolEndDate: schoolEndDate ?? this.schoolEndDate,
       major: major ?? this.major,
-      scholarship: scholarship ?? this.scholarship,
+      
     );
   }
 
@@ -54,7 +53,7 @@ class AcademicDataModel extends HiveObject {
       'schoolStartDate': schoolStartDate,
       'schoolEndDate': schoolEndDate,
       'major': major,
-      'scholarship': scholarship,
+      
     };
   }
 
@@ -69,8 +68,7 @@ class AcademicDataModel extends HiveObject {
       schoolEndDate:
           map['schoolEndDate'] != null ? map['schoolEndDate'] as String : null,
       major: map['major'] != null ? map['major'] as String : null,
-      scholarship:
-          map['scholarship'] != null ? map['scholarship'] as String : null,
+      
     );
   }
 
@@ -81,7 +79,7 @@ class AcademicDataModel extends HiveObject {
 
   @override
   String toString() {
-    return 'AcademicDataModel(grade: $grade, university: $university, schoolStartDate: $schoolStartDate, schoolEndDate: $schoolEndDate, major: $major, scholarship: $scholarship)';
+    return 'AcademicDataModel(grade: $grade, university: $university, schoolStartDate: $schoolStartDate, schoolEndDate: $schoolEndDate, major: $major)';
   }
 
 

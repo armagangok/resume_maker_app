@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:resume_maker_app/feature/cv_templates/presentation/page/cv_templates.dart';
 
 import 'core/export/core_export.dart';
+import 'feature/home/presentation/page/home.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       ),
       navigatorKey: NavigationService.instance.navigatorKey,
       onGenerateRoute: NavigationRoute.instance.generateRoute,
-      home: const TemplatePage(),
+      home: const HomePage(),
     );
   }
 }

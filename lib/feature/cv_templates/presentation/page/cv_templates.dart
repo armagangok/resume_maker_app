@@ -31,7 +31,7 @@ class _TemplatePageState extends State<TemplatePage> {
           onPressed: () async {
             try {
               final pdf = await pdfMaker.createOrderPdf();
-              await pdfMaker.savePdfFile("test_file", pdf, context);
+              await pdfMaker.savePdfFile("test_file", pdf);
             } catch (e) {
               getSnackBar(context, " $e");
             }

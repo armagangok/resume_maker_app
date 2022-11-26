@@ -1,12 +1,11 @@
 import 'package:get_it/get_it.dart';
-import 'package:resume_maker_app/feature/cv_templates/presentation/cv_templates/cv_templates_cubit.dart';
 
 import 'core/export/core_export.dart';
-import 'core/util/pdf_maker/pdf_maker.dart';
 import 'feature/academic/data/contract/academic_data_repository.dart';
 import 'feature/academic/data/repository/academic_data_repository_imp.dart';
 import 'feature/academic/presentation/cubit/academic_data/academic_cubit.dart';
 import 'feature/academic/presentation/cubit/text_controller/text_controller_cubit.dart';
+import 'feature/cv_templates/presentation/cv_templates/cv_templates_cubit.dart';
 import 'feature/experience/data/contract/experience_repository.dart';
 import 'feature/experience/data/repository/experience_repository_imp.dart';
 import 'feature/experience/presentatiton/cubit/cubit/experience_cubit.dart';
