@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'core/export/core_export.dart';
-import 'feature/root.dart';
+import 'app_root.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
