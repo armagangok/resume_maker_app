@@ -13,10 +13,10 @@ class TemplatePage extends StatefulWidget {
 
 class _TemplatePageState extends State<TemplatePage> {
   late final TemplatesCubit _templateCubit;
-  late final PdfMaker pdfMaker;
+  late final PdfHelper pdfMaker;
   @override
   void initState() {
-    pdfMaker = getIt<PdfMaker>.call();
+    pdfMaker = getIt<PdfHelper>.call();
 
     _templateCubit = getIt<TemplatesCubit>.call();
     super.initState();
@@ -30,7 +30,7 @@ class _TemplatePageState extends State<TemplatePage> {
         leading: IconButton(
           onPressed: () async {
             try {
-              final pdf = await pdfMaker.createOrderPdf();
+              final pdf = await pdfMaker.createPdf();
               await pdfMaker.savePdfFile("test_file", pdf);
             } catch (e) {
               getSnackBar(context, " $e");

@@ -8,19 +8,17 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 
-final pdf = pw.Document();
-
-
 const String path = 'assets/armagan.jpeg';
 
-var a;
-
-class PdfMaker {
-  PdfMaker() {
-    getImageBytes().then((value) => a = value);
-    
+class PdfHelper {
+  PdfHelper() {
+    getImageBytes().then((value) => uint8ListData = value);
   }
-  Future<Uint8List> createOrderPdf() async {
+  late Uint8List uint8ListData;
+
+  final pdf = pw.Document();
+
+  Future<Uint8List> createPdf() async {
     // ThemeData myTheme = ThemeData.withFont(
     //     // base: Font.ttf(
     //     //   await rootBundle.load("assets/fonts/Lato/Lato-Regular.ttf"),
@@ -29,7 +27,12 @@ class PdfMaker {
 
     pdf.addPage(
       pw.Page(
-        pageFormat: PdfPageFormat.a4,
+        pageFormat: PdfPageFormat.letter.copyWith(
+          marginTop: 20,
+          marginLeft: 20,
+          marginRight: 20,
+          marginBottom: 20,
+        ),
         build: (pw.Context context) {
           return pw.Row(
             children: [
@@ -39,16 +42,8 @@ class PdfMaker {
                   child: pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
-                      pw.Text(
-                        "ARMAGAN GOK",
-                        style: pw.TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        maxLines: 1,
-                      ),
-                      Text(
-                          "I have been learning and implementing Flutter for the last year. I recently use Feature Based Clean Architecture and Cubit state management to deal with my projects."),
+                      nameText(),
+                      aboutMeText(),
                       _sizedBox015,
                       _academicText(),
                       _sizedBox015,
@@ -100,6 +95,22 @@ class PdfMaker {
       ),
     );
     return await pdf.save();
+  }
+
+  pw.Text aboutMeText() {
+    return Text(
+        "I have been learning and implementing Flutter for the last year. I recently use Feature Based Clean Architecture and Cubit state management to deal with my projects.");
+  }
+
+  pw.Text nameText() {
+    return pw.Text(
+      "ARMAGAN GOK",
+      style: pw.TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+      maxLines: 1,
+    );
   }
 
   pw.Column _academicText() {
@@ -173,7 +184,7 @@ class PdfMaker {
         color: PdfColors.grey,
         child: pw.Image(
           pw.MemoryImage(
-            a,
+            uint8ListData,
           ),
           fit: pw.BoxFit.fitHeight,
         ),
@@ -224,7 +235,6 @@ class PdfMaker {
       await OpenFile.open(filePath);
     } catch (e) {
       print("$e");
-      // getSnackBar(context, "$e");
     }
   }
 

@@ -100,7 +100,7 @@ void initDependencies() {
     () => TemplatesCubit(),
   );
 
-  getIt.registerLazySingleton<PdfMaker>(
-    () => PdfMaker(),
+  getIt.registerLazySingleton<PdfHelper>(
+    () => PdfHelper(),
   );
 }
