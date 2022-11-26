@@ -4,17 +4,20 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
+
+import '../../export/core_export.dart';
 
 const String path = 'assets/armagan.jpeg';
 
 class PdfHelper {
   PdfHelper() {
     getImageBytes().then((value) => uint8ListData = value);
+    _pdfComponents = PdfComponents.instance;
   }
   late Uint8List uint8ListData;
+  late final PdfComponents _pdfComponents;
 
   final pdf = pw.Document();
 
@@ -30,71 +33,83 @@ class PdfHelper {
         pageFormat: PdfPageFormat.letter.copyWith(
           marginTop: 20,
           marginLeft: 20,
-          marginRight: 20,
+          marginRight: 0,
           marginBottom: 20,
         ),
         build: (pw.Context context) {
           return pw.Row(
             children: [
-              pw.Expanded(
-                child: pw.Container(
-                  color: PdfColors.white,
-                  child: pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      nameText(),
-                      aboutMeText(),
-                      _sizedBox015,
-                      _academicText(),
-                      _sizedBox015,
-                      _experienceText(
-                        jobRole: "Flutter Developer(Intern)",
-                        companyName: "Ron Digital",
-                        skills: "Flutter, Firebase",
-                        startDate: "2022",
-                        endDate: "2022",
-                        index: 1,
-                      ),
-                      _sizedBox015,
-                      _experienceText(
-                        jobRole: "Flutter Developer(Junior)",
-                        companyName: "Brain Kingdom",
-                        skills:
-                            "Flutter, Firebase, Git Feature-Base Clean Architecture, Core Data",
-                        startDate: "2022",
-                        endDate: "2022",
-                        index: 2,
-                      ),
-                      _sizedBox015,
-                      _referenceText(),
-                      _sizedBox015,
-                      _skillText(),
-                    ],
-                  ),
-                ),
-              ),
-              pw.Container(
-                width: _width / 3.2,
-                color: PdfColors.grey300,
-                child: pw.Column(
-                  crossAxisAlignment: pw.CrossAxisAlignment.start,
-                  children: [
-                    _personImage(),
-                    _sizedBox015,
-                    _contactText(),
-                    _sizedBox015,
-                    _languagesText(),
-                    _sizedBox015,
-                    _hobbiesText(),
-                  ],
-                ),
-              ),
+              leftContainer(),
+              rightContainer(),
             ],
           );
         },
       ),
     );
     return await pdf.save();
+  }
+
+  pw.Widget rightContainer() {
+    return pw.Container(
+      padding: pw.EdgeInsets.symmetric(
+        horizontal: width * 0.02,
+        vertical: width * 0.02,
+      ),
+      width: width / 3,
+      color: PdfColors.grey300,
+      child: pw.Column(
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
+        children: [
+          _personImage(),
+          _pdfComponents.sizedBox015,
+          _contactText(),
+          _pdfComponents.sizedBox015,
+          _languagesText(),
+          _pdfComponents.sizedBox015,
+          _hobbiesText(),
+        ],
+      ),
+    );
+  }
+
+  pw.Expanded leftContainer() {
+    return pw.Expanded(
+      child: pw.Container(
+        color: PdfColors.white,
+        child: pw.Column(
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          children: [
+            nameText(),
+            aboutMeText(),
+            _pdfComponents.sizedBox015,
+            _academicText(),
+            _pdfComponents.sizedBox015,
+            _experienceText(
+              jobRole: "Flutter Developer(Intern)",
+              companyName: "Ron Digital",
+              skills: "Flutter, Firebase",
+              startDate: "2022",
+              endDate: "2022",
+              index: 1,
+            ),
+            _pdfComponents.sizedBox015,
+            _experienceText(
+              jobRole: "Flutter Developer(Junior)",
+              companyName: "Brain Kingdom",
+              skills:
+                  "Flutter, Firebase, Git Feature-Base Clean Architecture, Core Data",
+              startDate: "2022",
+              endDate: "2022",
+              index: 2,
+            ),
+            _pdfComponents.sizedBox015,
+            _referenceText(),
+            _pdfComponents.sizedBox015,
+            _skillText(),
+          ],
+        ),
+      ),
+    );
   }
 
   pw.Text aboutMeText() {
@@ -117,7 +132,7 @@ class PdfHelper {
     return pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
-        _head1Text("ACADEMIC"),
+        _pdfComponents.head1Text("ACADEMIC"),
         pw.Text("Bursa Technical University"),
         Text("Mechatronic Engineering"),
         Text("3. grade"),
@@ -131,63 +146,51 @@ class PdfHelper {
   }
 
   pw.Widget _contactText() {
-    return pw.Padding(
-      padding: pw.EdgeInsets.symmetric(
-        horizontal: _width * 0.03,
-        vertical: _width * 0.01,
-      ),
-      child: pw.Column(
-        crossAxisAlignment: pw.CrossAxisAlignment.start,
-        children: [
-          pw.Row(
-            children: [
-              _head1Text("CONTACT"),
-            ],
-          ),
-          pw.Row(
-            children: [
-              pw.Text(
-                "armagangok@email.com",
-              ),
-            ],
-          ),
-          pw.Row(
-            children: [
-              pw.Text(
-                "24 November 1999",
-              ),
-            ],
-          ),
-          pw.Text(
-            "Driver License: B",
-          ),
-          pw.Text(
-            "Driver License: B",
-          ),
-          pw.Text(
-            "Marital Status: Single",
-          ),
-        ],
-      ),
+    return pw.Column(
+      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      children: [
+        pw.Row(
+          children: [
+            _pdfComponents.head1Text("CONTACT"),
+          ],
+        ),
+        pw.Row(
+          children: [
+            pw.Text(
+              "armagangok@email.com",
+            ),
+          ],
+        ),
+        pw.Row(
+          children: [
+            pw.Text(
+              "24 November 1999",
+            ),
+          ],
+        ),
+        pw.Text(
+          "Driver License: B",
+        ),
+        pw.Text(
+          "Driver License: B",
+        ),
+        pw.Text(
+          "Marital Status: Single",
+        ),
+      ],
     );
   }
 
   pw.Widget _personImage() {
-    return pw.Padding(
-      padding: pw.EdgeInsets.symmetric(
-        horizontal: _width * 0.03,
-        vertical: _width * 0.03,
-      ),
-      child: pw.Container(
-        width: _width / 3,
-        height: _width / 3,
-        color: PdfColors.grey,
-        child: pw.Image(
-          pw.MemoryImage(
-            uint8ListData,
-          ),
-          fit: pw.BoxFit.fitHeight,
+    return pw.Container(
+      width: width / 3,
+      height: width / 3,
+      color: PdfColors.grey,
+      child: pw.Image(
+        pw.MemoryImage(
+          uint8ListData,
         ),
+        fit: pw.BoxFit.fitHeight,
       ),
     );
   }
@@ -196,7 +199,7 @@ class PdfHelper {
     return Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
-        _head1Text("SKILLS"),
+        _pdfComponents.head1Text("SKILLS"),
         Text(
           "C++, Flutter, Object-Oriented Programming, Core Data, Git/GitHub",
         ),
@@ -205,20 +208,14 @@ class PdfHelper {
   }
 
   pw.Widget _languagesText() {
-    return pw.Padding(
-      padding: pw.EdgeInsets.symmetric(
-        horizontal: _width * 0.03,
-        vertical: _width * 0.01,
-      ),
-      child: Column(
-        crossAxisAlignment: pw.CrossAxisAlignment.start,
-        children: [
-          _head1Text("LANGUAGES"),
-          Text("English - C1"),
-          Text("Turkish - Native"),
-          Text("Deutch - B1+"),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      children: [
+        _pdfComponents.head1Text("LANGUAGES"),
+        Text("English - C1"),
+        Text("Turkish - Native"),
+        Text("Deutch - B1+"),
+      ],
     );
   }
 
@@ -239,16 +236,14 @@ class PdfHelper {
   }
 
   pw.Widget _hobbiesText() {
-    return _symmetricPadding(
-      Column(
-        crossAxisAlignment: pw.CrossAxisAlignment.start,
-        children: [
-          _head1Text("HOBBIES"),
-          Text("Walking"),
-          Text("Meeting with new people"),
-          Text("Music"),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      children: [
+        _pdfComponents.head1Text("HOBBIES"),
+        Text("Walking"),
+        Text("Meeting with new people"),
+        Text("Music"),
+      ],
     );
   }
 
@@ -263,7 +258,7 @@ class PdfHelper {
     return Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
-        _head1Text("EXPERIENCE ($index)"),
+        _pdfComponents.head1Text("EXPERIENCE ($index)"),
         Text(jobRole),
         Text(companyName),
         Text(""),
@@ -276,7 +271,7 @@ class PdfHelper {
     return Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
-        _head1Text("REFERENCE"),
+        _pdfComponents.head1Text("REFERENCE"),
         Text("Job role: Senior Flutter Developer"),
         Text("Recent company: Accenture"),
         Text("Email: Erdem@erdem.com"),
@@ -291,29 +286,3 @@ class PdfHelper {
     return byte;
   }
 }
-
-pw.Widget _symmetricPadding(Widget widget) {
-  return Padding(
-    padding: pw.EdgeInsets.symmetric(
-      horizontal: _width * 0.03,
-      vertical: _width * 0.03,
-    ),
-    child: widget,
-  );
-}
-
-pw.Widget get _sizedBox015 => pw.SizedBox(
-      height: _height * 0.02,
-    );
-
-pw.Widget _head1Text(String text) {
-  return pw.Text(
-    text,
-    style: pw.TextStyle(
-      fontWeight: pw.FontWeight.bold,
-    ),
-  );
-}
-
-final _width = PdfPageFormat.a4.availableWidth;
-final _height = PdfPageFormat.a4.availableHeight;

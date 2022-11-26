@@ -28,3 +28,5 @@ export '../constant/color_constant.dart';
 export '../constant/padding_constant.dart';
 export '../constant/shape_constant.dart';
 export '../util/pdf_maker/pdf_maker.dart';
+export  'package:pdf/pdf.dart';
+export '../util/pdf_maker/components/pdf_components.dart';
