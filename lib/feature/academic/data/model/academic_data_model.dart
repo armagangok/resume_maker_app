@@ -81,6 +81,4 @@ class AcademicDataModel extends HiveObject {
   String toString() {
     return 'AcademicDataModel(grade: $grade, university: $university, schoolStartDate: $schoolStartDate, schoolEndDate: $schoolEndDate, major: $major)';
   }
-
-
 }

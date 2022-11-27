@@ -2,7 +2,6 @@ abstract class Failure {}
 
 class ServerFailure extends Failure {}
 
-
 class HiveDeletingFailure extends Failure {}
 
 class HiveSavingFailure extends Failure {}

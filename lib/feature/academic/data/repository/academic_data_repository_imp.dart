@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/export/core_export.dart';
 import '../../academic_export.dart';
 
 class AcademicDataRepositoryImp implements AcademicDataRepository {

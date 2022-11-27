@@ -27,7 +27,7 @@ class PersonalDataRepositoryImp implements PersonalDataRepository {
   }
 
   @override
-  Future<Either<Failure, PersonalDataModel?>> getPersonalData() async {
+  Future<Either<Failure, PersonalDataModel?>> fetchPersonalData() async {
     try {
       var response = await hiveHelper.getData<PersonalDataModel>(
         HiveBoxes.personalDataBox,

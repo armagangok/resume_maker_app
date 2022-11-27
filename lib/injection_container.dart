@@ -101,6 +101,11 @@ void initDependencies() {
   );
 
   getIt.registerLazySingleton<PdfHelper>(
-    () => PdfHelper(),
+    () => PdfHelper(
+      experienceRepository: ExperienceRepositoryImp(),
+      personalDataRepository: PersonalDataRepositoryImp(),
+      academicDataRepository: AcademicDataRepositoryImp(),
+      referenceRepository: ReferenceRepositoryImp(),
+    ),
   );
 }

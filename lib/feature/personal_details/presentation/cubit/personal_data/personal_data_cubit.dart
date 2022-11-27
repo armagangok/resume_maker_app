@@ -35,7 +35,7 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
   }
 
   Future<void> getPersonalData() async {
-    var response = await _personalDataRepository.getPersonalData();
+    var response = await _personalDataRepository.fetchPersonalData();
 
     response.fold(
       (l) {

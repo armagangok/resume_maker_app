@@ -1,40 +1,98 @@
-import 'dart:io';
+// ignore_for_file: avoid_print
 
-// import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
+import 'package:resume_maker_app/feature/academic/academic_export.dart';
+import 'package:resume_maker_app/feature/references/data/contract/reference_repository.dart';
 
-import '../../export/core_export.dart';
+import '../../../feature/experience/data/contract/experience_repository.dart';
+import '../../../feature/experience/data/model/experience_model.dart';
+import '../../../feature/personal_details/data/contract/personal_data_repository.dart';
+import '../../../feature/personal_details/export/personal_export.dart';
+import '../../../feature/references/data/model/reference_model.dart';
 
 const String path = 'assets/armagan.jpeg';
 
 class PdfHelper {
-  PdfHelper() {
+  PdfHelper({
+    required ExperienceRepository experienceRepository,
+    required PersonalDataRepository personalDataRepository,
+    required AcademicDataRepository academicDataRepository,
+    required ReferenceRepository referenceRepository,
+  }) {
+    experienceRepo = experienceRepository;
+    personalDataRepo = personalDataRepository;
+    academicDataRepo = academicDataRepository;
+    referenceRepo = referenceRepository;
+
     getImageBytes().then((value) => uint8ListData = value);
-    _pdfComponents = PdfComponents.instance;
+    experienceRepo.fetchExperienceData().then(
+          (value) => value.fold(
+            (l) async {
+              (l) => LogHelper.shared.debugPrint("$l");
+              return experienceList = [];
+            },
+            (data) {
+              print(data);
+              return experienceList = data;
+            },
+          ),
+        );
+
+    personalDataRepo.fetchPersonalData().then(
+          (value) => value.fold(
+            (l) => LogHelper.shared.debugPrint("$l"),
+            (r) => personalDataModel = r!,
+          ),
+        );
+    academicDataRepo.fetchAcademicData().then(
+          (value) => value.fold(
+            (l) => LogHelper.shared.debugPrint("$l"),
+            (r) => academicDataModel = r!,
+          ),
+        );
+
+    referenceRepo.fetchReferenceData().then(
+          (value) => value.fold(
+            (l) => LogHelper.shared.debugPrint("$l"),
+            (r) => referenceDataList = r,
+          ),
+        );
   }
+
+  late final ExperienceRepository experienceRepo;
+  late List<ExperienceModel> experienceList;
+
+  late final PersonalDataRepository personalDataRepo;
+  late final PersonalDataModel personalDataModel;
+
+  late final AcademicDataRepository academicDataRepo;
+  late final List<AcademicDataModel> academicDataModel;
+
+  late final ReferenceRepository referenceRepo;
+  late final List<ReferenceModel> referenceDataList;
+
   late Uint8List uint8ListData;
-  late final PdfComponents _pdfComponents;
 
   final pdf = pw.Document();
 
   Future<Uint8List> createPdf() async {
-    // ThemeData myTheme = ThemeData.withFont(
-    //     // base: Font.ttf(
-    //     //   await rootBundle.load("assets/fonts/Lato/Lato-Regular.ttf"),
-    //     // ),
-    //     );
+    // pw.ThemeData myTheme = pw.ThemeData.withFont(
+    //   base: Font.ttf(
+    //     await rootBundle.load("assets/fonts/Lato/Lato-Regular.ttf"),
+    //   ),
+    // );
 
     pdf.addPage(
       pw.Page(
         pageFormat: PdfPageFormat.letter.copyWith(
-          marginTop: 20,
+          marginTop: 0,
           marginLeft: 20,
           marginRight: 0,
-          marginBottom: 20,
+          marginBottom: 0,
         ),
         build: (pw.Context context) {
           return pw.Row(
@@ -55,17 +113,14 @@ class PdfHelper {
         horizontal: width * 0.02,
         vertical: width * 0.02,
       ),
-      width: width / 3,
+      width: width / 2.75,
       color: PdfColors.grey300,
       child: pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
           _personImage(),
-          _pdfComponents.sizedBox015,
-          _contactText(),
-          _pdfComponents.sizedBox015,
           _languagesText(),
-          _pdfComponents.sizedBox015,
+          _skillText(),
           _hobbiesText(),
         ],
       ),
@@ -75,51 +130,47 @@ class PdfHelper {
   pw.Expanded leftContainer() {
     return pw.Expanded(
       child: pw.Container(
+        padding: const pw.EdgeInsets.only(
+          top: 20,
+          right: 20,
+        ),
         color: PdfColors.white,
         child: pw.Column(
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
-            nameText(),
+            nameText(personalDataModel.name!),
             aboutMeText(),
-            _pdfComponents.sizedBox015,
-            _academicText(),
-            _pdfComponents.sizedBox015,
-            _experienceText(
-              jobRole: "Flutter Developer(Intern)",
-              companyName: "Ron Digital",
-              skills: "Flutter, Firebase",
-              startDate: "2022",
-              endDate: "2022",
-              index: 1,
-            ),
-            _pdfComponents.sizedBox015,
-            _experienceText(
-              jobRole: "Flutter Developer(Junior)",
-              companyName: "Brain Kingdom",
-              skills:
-                  "Flutter, Firebase, Git Feature-Base Clean Architecture, Core Data",
-              startDate: "2022",
-              endDate: "2022",
-              index: 2,
-            ),
-            _pdfComponents.sizedBox015,
-            _referenceText(),
-            _pdfComponents.sizedBox015,
-            _skillText(),
+            sizedBox015,
+            _contactText(personalDataModel: personalDataModel),
+            sizedBox015,
+            _academicText(academicDataList: academicDataModel),
+            sizedBox015,
+            head1Text("EXPERIENCE"),
+            customDivider(),
+            _experienceText(experienceList: experienceList),
+            sizedBox015,
+            _referenceText(referenceList: referenceDataList),
           ],
         ),
       ),
     );
   }
 
+  pw.Divider customDivider() => pw.Divider(
+        height: 0,
+        thickness: 0.5,
+        color: PdfColors.grey600,
+      );
+
   pw.Text aboutMeText() {
-    return Text(
-        "I have been learning and implementing Flutter for the last year. I recently use Feature Based Clean Architecture and Cubit state management to deal with my projects.");
+    return pw.Text(
+      "I have been learning and implementing Flutter for the last year. I recently use Feature Based Clean Architecture and Cubit state management to deal with my projects.",
+    );
   }
 
-  pw.Text nameText() {
+  pw.Text nameText(String name) {
     return pw.Text(
-      "ARMAGAN GOK",
+      name.toUpperCase(),
       style: pw.TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.bold,
@@ -128,54 +179,60 @@ class PdfHelper {
     );
   }
 
-  pw.Column _academicText() {
-    return pw.Column(
-      crossAxisAlignment: pw.CrossAxisAlignment.start,
-      children: [
-        _pdfComponents.head1Text("ACADEMIC"),
-        pw.Text("Bursa Technical University"),
-        Text("Mechatronic Engineering"),
-        Text("3. grade"),
-        Row(
-          children: [
-            Text("2019 - 2024"),
-          ],
-        )
-      ],
-    );
+  pw.Widget _academicText({required List<AcademicDataModel> academicDataList}) {
+    return pw.ListView.separated(
+        itemBuilder: (context, index) {
+          var academicDataModel = academicDataList[index];
+          return pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              head1Text("ACADEMIC"),
+              customDivider(),
+              pw.Text(academicDataModel.university!),
+              pw.Text(academicDataModel.major!),
+              pw.Text(academicDataModel.grade!),
+              pw.Row(
+                children: [
+                  pw.Text(
+                    "${academicDataModel.schoolStartDate} - ${academicDataModel.schoolEndDate}",
+                  ),
+                ],
+              )
+            ],
+          );
+        },
+        separatorBuilder: (context, index) {
+          return SizedBox(height: height * 0.01);
+        },
+        itemCount: academicDataList.length);
   }
 
-  pw.Widget _contactText() {
+  pw.Widget _contactText({required PersonalDataModel personalDataModel}) {
     return pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
         pw.Row(
           children: [
-            _pdfComponents.head1Text("CONTACT"),
+            head1Text("CONTACT"),
           ],
         ),
+        customDivider(),
         pw.Row(
           children: [
             pw.Text(
-              "armagangok@email.com",
+              "E-mail: ${personalDataModel.email}",
             ),
           ],
         ),
         pw.Row(
           children: [
             pw.Text(
-              "24 November 1999",
+              "Contact number: ${personalDataModel.phoneNumber}",
             ),
           ],
         ),
         pw.Text(
-          "Driver License: B",
-        ),
-        pw.Text(
-          "Driver License: B",
-        ),
-        pw.Text(
-          "Marital Status: Single",
+          "Linkedin: ${personalDataModel.linkedin}",
         ),
       ],
     );
@@ -196,11 +253,11 @@ class PdfHelper {
   }
 
   pw.Widget _skillText() {
-    return Column(
+    return pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
-        _pdfComponents.head1Text("SKILLS"),
-        Text(
+        head1Text("SKILLS"),
+        sideTextBody(
           "C++, Flutter, Object-Oriented Programming, Core Data, Git/GitHub",
         ),
       ],
@@ -208,13 +265,13 @@ class PdfHelper {
   }
 
   pw.Widget _languagesText() {
-    return Column(
+    return pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
-        _pdfComponents.head1Text("LANGUAGES"),
-        Text("English - C1"),
-        Text("Turkish - Native"),
-        Text("Deutch - B1+"),
+        head1Text("LANGUAGES"),
+        sideTextBody("English - C1"),
+        sideTextBody("Turkish - Native"),
+        sideTextBody("Deutch - B1+"),
       ],
     );
   }
@@ -236,47 +293,60 @@ class PdfHelper {
   }
 
   pw.Widget _hobbiesText() {
-    return Column(
+    return pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
-        _pdfComponents.head1Text("HOBBIES"),
-        Text("Walking"),
-        Text("Meeting with new people"),
-        Text("Music"),
+        head1Text("HOBBIES"),
+        sideTextBody("Walking"),
+        sideTextBody("Meeting with new people"),
+        sideTextBody("Music"),
       ],
     );
   }
 
-  pw.Widget _experienceText({
-    required String jobRole,
-    required String companyName,
-    required String skills,
-    required String startDate,
-    required String endDate,
-    required int index,
-  }) {
-    return Column(
-      crossAxisAlignment: pw.CrossAxisAlignment.start,
-      children: [
-        _pdfComponents.head1Text("EXPERIENCE ($index)"),
-        Text(jobRole),
-        Text(companyName),
-        Text(""),
-        Text("Start date: 2022 - End date: 2022"),
-      ],
+  pw.Widget _experienceText({required List<ExperienceModel> experienceList}) {
+    return pw.ListView.separated(
+      itemBuilder: (context, index) {
+        var experience = experienceList[index];
+        return pw.SizedBox(
+          width: width,
+          child: pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              pw.Text(experience.jobRole ?? ""),
+              pw.Text(experience.companyName ?? ""),
+              pw.Text(experience.skills ?? ""),
+              pw.Text(
+                "Start date: ${experience.jobStartDate} - End date: ${experience.jobEndDate},",
+              ),
+            ],
+          ),
+        );
+      },
+      separatorBuilder: (context, index) => pw.SizedBox(height: height * 0.01),
+      itemCount: experienceList.length,
     );
   }
 
-  pw.Widget _referenceText() {
-    return Column(
-      crossAxisAlignment: pw.CrossAxisAlignment.start,
-      children: [
-        _pdfComponents.head1Text("REFERENCE"),
-        Text("Job role: Senior Flutter Developer"),
-        Text("Recent company: Accenture"),
-        Text("Email: Erdem@erdem.com"),
-        Text("Phone number: +9083843847"),
-      ],
+  pw.Widget _referenceText({required List<ReferenceModel> referenceList}) {
+    return ListView.separated(
+      itemBuilder: (context, index) {
+        var referenceModel = referenceList[index];
+        return pw.Column(
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          children: [
+            head1Text("REFERENCE"),
+            customDivider(),
+            pw.Text("Name: ${referenceModel.name}"),
+            pw.Text("Job role: ${referenceModel.profession}"),
+            pw.Text("Recent company: ${referenceModel.recentCompany}"),
+            pw.Text("Email: ${referenceModel.email}"),
+            pw.Text("Phone number: ${referenceModel.phoneNumber}"),
+          ],
+        );
+      },
+      separatorBuilder: (context, index) => SizedBox(height: height * 0.01),
+      itemCount: referenceList.length,
     );
   }
 
