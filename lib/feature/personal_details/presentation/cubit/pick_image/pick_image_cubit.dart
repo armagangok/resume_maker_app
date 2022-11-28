@@ -1,7 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
+import '../../../../../core/constant/asset_constant.dart';
 import '../../../../../core/util/image_picker_helper/error/image_uploading_error.dart';
 import '../../../data/contract/image_picker_repository.dart';
+import '../../../export/personal_export.dart';
 
 part 'pick_image_state.dart';
 
@@ -13,9 +16,9 @@ class PickImageCubit extends Cubit<PickImageState> {
 
   late final ImagePickerRepository _imageRepository;
 
-  String _choosenImagePath = "";
+  XFile _choosenImageFile = XFile("");
 
-  String get getChoosenImagePath => _choosenImagePath;
+  XFile get getImageFile => _choosenImageFile;
 
   Future pickImage() async {
     emit(ImageLoading());
@@ -24,14 +27,14 @@ class PickImageCubit extends Cubit<PickImageState> {
     result.fold(
       (failure) {
         if (failure is NullImageFailure) {
-          emit(PickImageInitial(imagePath: ""));
+          emit(PickImageInitial(imagePath: personImage));
         } else {
           emit(LoadError());
         }
       },
-      (data) {
-        _choosenImagePath = data!.path;
-        emit(ImageLoaded(imagePath: _choosenImagePath));
+      (data) async {
+        _choosenImageFile = data!;
+        emit(ImageLoaded(imagePath: _choosenImageFile.path));
       },
     );
   }

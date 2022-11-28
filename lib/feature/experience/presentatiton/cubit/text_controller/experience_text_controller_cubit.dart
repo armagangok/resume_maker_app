@@ -24,4 +24,12 @@ class ExperienceTextControllerCubit
   TextEditingController get jobEndDateController => _jobEndDateController;
   TextEditingController get jobRoleController => _jobRoleController;
   TextEditingController get jobSkillsController => _jobTypeController;
+
+  void clearTextController() {
+    _companyNameController.clear();
+    _jobStartDateController.clear();
+    _jobEndDateController.clear();
+    _jobRoleController.clear();
+    _jobTypeController.clear();
+  }
 }

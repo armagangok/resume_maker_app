@@ -32,19 +32,19 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
   }
 
   Widget get _buildBody => BlocConsumer<PersonalDataCubit, PersonalDataState>(
-        listener: (context, state) {
-          if (state is PersonalDataSaved) {
+        listener: (context, personalDataState) {
+          if (personalDataState is PersonalDataSaved) {
             getSnackBar(context, PersonalDataSaved.message);
-          } else if (state is PersonalDataFetchError) {
+          } else if (personalDataState is PersonalDataFetchError) {
             getSnackBar(context, PersonalDataFetchError.message);
           }
         },
         bloc: _personalDataCubit,
-        builder: (context, state) {
-          if (state is PersonalDataInitial) {
-            return getBodyWidgets(state);
-          } else if (state is PersonalDataReceived) {
-            return getBodyWidgets(state);
+        builder: (context, personalState) {
+          if (personalState is PersonalDataInitial) {
+            return getBodyWidgets(personalState);
+          } else if (personalState is PersonalDataReceived) {
+            return getBodyWidgets(personalState);
           } else {
             return const Text("data");
           }
@@ -85,21 +85,21 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
           bloc: _imagePickerCubit,
           builder: (context, imageState) {
             if (imageState is PickImageInitial) {
-              File imageFile = File(personalDataState.personalData.imagePath);
-
-              return personalDataState.personalData.imagePath.isEmpty
-                  ? const CircleAvatarLoading(
-                      decorationImage: DecorationImage(
-                        image: AssetImage(personImage),
-                      ),
-                    )
-                  : CircleAvatarWidget(file: imageFile);
+              if (personalDataState.personalData.imagePath.isEmpty) {
+                return const InitialImage(
+                  decorationImage: DecorationImage(
+                    image: AssetImage(personImage),
+                  ),
+                );
+              } else {
+                File imageFile = File(personalDataState.personalData.imagePath);
+                return UserImageWidget(file: imageFile);
+              }
             } else if (imageState is ImageLoading) {
               return const ImageLoadingWidget();
             } else if (imageState is ImageLoaded) {
-              File imageFile = File(imageState.imagePath!);
-
-              return CircleAvatarWidget(file: imageFile);
+              File imageFile = File(imageState.imagePath);
+              return UserImageWidget(file: imageFile);
             } else {
               return const ImageLoadingErrorWidgget();
             }
@@ -113,6 +113,7 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _personalInformationText,
+        _aboutMeTextField(state.personalData),
         _nameTextField(personalData),
         _locationTextField(personalData),
         _numberTextField(personalData),
@@ -145,6 +146,8 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
           onPressed: () async {
             final personalDataModel =
                 _personalDataCubit.preparePersonalDataModel(state);
+
+            print(_imagePickerCubit.getImageFile.path);
 
             _personalDataCubit.checkControllersIfEmpty()
                 ? {}
@@ -192,6 +195,16 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
               ? "Email"
               : personalDataModel.email,
         ),
+      );
+
+  Widget _aboutMeTextField(PersonalDataModel personalDataModel) => TextField(
+        controller: _personalDataCubit.aboutMeController,
+        decoration: InputDecoration(
+          hintText: (personalDataModel.aboutMeText.isEmpty)
+              ? "About Me"
+              : personalDataModel.aboutMeText,
+        ),
+        maxLines: null,
       );
 
   Widget _numberTextField(PersonalDataModel personalDataModel) => TextField(

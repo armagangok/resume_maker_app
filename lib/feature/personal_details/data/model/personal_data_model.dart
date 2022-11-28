@@ -18,6 +18,8 @@ class PersonalDataModel extends HiveObject {
   final String birthday;
   @HiveField(6)
   final String imagePath;
+  @HiveField(7)
+  final String aboutMeText;
 
   PersonalDataModel({
     required this.name,
@@ -27,5 +29,6 @@ class PersonalDataModel extends HiveObject {
     required this.linkedin,
     required this.birthday,
     required this.imagePath,
+    required this.aboutMeText,
   });
 }

@@ -53,7 +53,7 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
             ),
           );
         },
-      );  
+      );
 
   Widget get _saveExperienceButton => SizedBox(
         width: context.width(1),
@@ -68,6 +68,7 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
               skills: _textControllerCubit.jobSkillsController.text,
             );
             await _experienceCubit.save(experienceModel);
+            _textControllerCubit.clearTextController();
           },
         ),
       );

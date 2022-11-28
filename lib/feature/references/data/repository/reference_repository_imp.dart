@@ -7,7 +7,8 @@ import '../contract/reference_repository.dart';
 import '../model/reference_model.dart';
 
 class ReferenceRepositoryImp extends ReferenceRepository {
-  ReferenceRepositoryImp() {
+  static final instance = ReferenceRepositoryImp._();
+  ReferenceRepositoryImp._() {
     _hiveHelper = HiveHelper.shared;
   }
 

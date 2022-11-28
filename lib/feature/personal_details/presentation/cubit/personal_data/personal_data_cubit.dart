@@ -9,25 +9,16 @@ part 'personal_data_state.dart';
 class PersonalDataCubit extends Cubit<PersonalDataState> {
   PersonalDataCubit({
     required PersonalDataRepository personalDataRepository,
-    required PickImageCubit pickImageCubit,
+    required PickImageCubit imagePickerCubit,
   }) : super(_getInitialPersonalModel) {
     _personalDataRepository = personalDataRepository;
-    _pickImageCubit = pickImageCubit;
+    _imagePickerCubit = imagePickerCubit;
 
     _initTextController();
   }
 
-  void _initTextController() {
-    _nameController = TextEditingController();
-    _numberController = TextEditingController();
-    _emailController = TextEditingController();
-    _linkedinController = TextEditingController();
-    _birthdayController = TextEditingController();
-    _locationController = TextEditingController();
-  }
-
-  late final PickImageCubit _pickImageCubit;
   late final PersonalDataRepository _personalDataRepository;
+  late final PickImageCubit _imagePickerCubit;
 
   Future<void> deleteData(int index) async {
     await _personalDataRepository.deleteData(index);
@@ -57,9 +48,7 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
     await fetchPersonalData();
 
     response.fold(
-      (l) => emit(
-        PersonalDataSaveError(),
-      ),
+      (l) => emit(PersonalDataSaveError()),
       (r) async {
         emit(PersonalDataSaved());
         await fetchPersonalData();
@@ -68,6 +57,7 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
   }
 
   PersonalDataModel preparePersonalDataModel(DataReceivedContract state) {
+    var imagePath2 = state.personalData.imagePath;
     var personalDataModel = PersonalDataModel(
       name: _nameController.text.isEmpty
           ? state.personalData.name
@@ -87,9 +77,11 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
       birthday: _birthdayController.text.isEmpty
           ? state.personalData.birthday
           : _birthdayController.text,
-      imagePath: _pickImageCubit.getChoosenImagePath.isEmpty
-          ? state.personalData.imagePath
-          : _pickImageCubit.getChoosenImagePath,
+      imagePath:
+          imagePath2.isEmpty ? _imagePickerCubit.getImageFile.path : imagePath2,
+      aboutMeText: _aboutMeController.text.isEmpty
+          ? state.personalData.aboutMeText
+          : _aboutMeController.text,
     );
     return personalDataModel;
   }
@@ -97,15 +89,19 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
   static PersonalDataInitial get _getInitialPersonalModel =>
       PersonalDataInitial(
         personalData: PersonalDataModel(
-          birthday: "Birthday",
-          email: "Email",
-          imagePath: "",
-          linkedin: "Linkedin",
-          location: "Location",
-          name: "Name",
-          phoneNumber: "Phone Number",
-        ),
+            birthday: "Birthday",
+            email: "Email",
+            imagePath: "",
+            linkedin: "Linkedin",
+            location: "Location",
+            name: "Name",
+            phoneNumber: "Phone Number",
+            aboutMeText: "About Me"),
       );
+
+  //
+  // TEXT CONTROLLERS
+  //
 
   late final TextEditingController _nameController;
   late final TextEditingController _numberController;
@@ -113,6 +109,7 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
   late final TextEditingController _linkedinController;
   late final TextEditingController _birthdayController;
   late final TextEditingController _locationController;
+  late final TextEditingController _aboutMeController;
 
   TextEditingController get nameController => _nameController;
   TextEditingController get numberController => _numberController;
@@ -120,6 +117,17 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
   TextEditingController get linkedinController => _linkedinController;
   TextEditingController get birthdayController => _birthdayController;
   TextEditingController get locationController => _locationController;
+  TextEditingController get aboutMeController => _aboutMeController;
+
+  void _initTextController() {
+    _nameController = TextEditingController();
+    _numberController = TextEditingController();
+    _emailController = TextEditingController();
+    _linkedinController = TextEditingController();
+    _birthdayController = TextEditingController();
+    _locationController = TextEditingController();
+    _aboutMeController = TextEditingController();
+  }
 
   void clearControllers() {
     _nameController.clear();
@@ -128,6 +136,7 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
     _linkedinController.clear();
     _birthdayController.clear();
     _locationController.clear();
+    _aboutMeController.clear();
   }
 
   bool checkControllersIfEmpty() {
@@ -136,7 +145,8 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
             _emailController.text.isEmpty &&
             _linkedinController.text.isEmpty &&
             _birthdayController.text.isEmpty &&
-            _locationController.text.isEmpty)
+            _locationController.text.isEmpty &&
+            aboutMeController.text.isEmpty)
         ? true
         : false;
   }

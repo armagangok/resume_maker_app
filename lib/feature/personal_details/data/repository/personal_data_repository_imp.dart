@@ -7,7 +7,8 @@ import '../contract/personal_data_repository.dart';
 import '../model/personal_data_model.dart';
 
 class PersonalDataRepositoryImp implements PersonalDataRepository {
-  PersonalDataRepositoryImp() {
+  static final instance = PersonalDataRepositoryImp._();
+  PersonalDataRepositoryImp._() {
     hiveHelper = HiveHelper.shared;
   }
 
@@ -33,10 +34,6 @@ class PersonalDataRepositoryImp implements PersonalDataRepository {
         HiveBoxes.personalDataBox,
         HiveBoxes.personalDataBox,
       );
-
-      print("object");
-      print(response);
-      print("object");
 
       if (response == null) {
         return Left(HiveNullData());

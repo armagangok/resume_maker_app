@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/extension/context_extension.dart';
 
-class CircleAvatarWidget extends StatelessWidget {
+class UserImageWidget extends StatelessWidget {
   final File file;
 
-  const CircleAvatarWidget({
+  const UserImageWidget({
     super.key,
     required this.file,
   });
@@ -15,21 +15,22 @@ class CircleAvatarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: context.height(0.2),
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          image: DecorationImage(
-            fit: BoxFit.fill,
-            image: FileImage(file),
-          ),
-        ));
+      height: context.height(0.2),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        image: DecorationImage(
+          fit: BoxFit.fitHeight,
+          image: FileImage(file),
+        ),
+      ),
+    );
   }
 }
 
-class CircleAvatarLoading extends StatelessWidget {
+class InitialImage extends StatelessWidget {
   final DecorationImage decorationImage;
 
-  const CircleAvatarLoading({
+  const InitialImage({
     super.key,
     required this.decorationImage,
   });
@@ -41,12 +42,11 @@ class CircleAvatarLoading extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         shape: BoxShape.circle,
-        image: decorationImage
+        image: decorationImage,
       ),
     );
   }
 }
-
 
 class ImageLoadingWidget extends StatelessWidget {
   const ImageLoadingWidget({
@@ -68,7 +68,6 @@ class ImageLoadingWidget extends StatelessWidget {
     );
   }
 }
-
 
 class ImageLoadingErrorWidgget extends StatelessWidget {
   const ImageLoadingErrorWidgget({
@@ -96,4 +95,3 @@ class ImageLoadingErrorWidgget extends StatelessWidget {
     );
   }
 }
-

@@ -7,7 +7,8 @@ import '../../../../core/util/image_picker_helper/image_picker_helper.dart';
 import '../contract/image_picker_repository.dart';
 
 class ImagePickerRepositoryImp extends ImagePickerRepository {
-  ImagePickerRepositoryImp() {
+  static final instance = ImagePickerRepositoryImp._();
+  ImagePickerRepositoryImp._() {
     _imagePicker = ImagePickerHelper.instance;
   }
   late final ImagePickerHelper _imagePicker;

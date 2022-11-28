@@ -24,13 +24,14 @@ class PersonalDataModelAdapter extends TypeAdapter<PersonalDataModel> {
       linkedin: fields[4] as String,
       birthday: fields[5] as String,
       imagePath: fields[6] as String,
+      aboutMeText: fields[7] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, PersonalDataModel obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -44,7 +45,9 @@ class PersonalDataModelAdapter extends TypeAdapter<PersonalDataModel> {
       ..writeByte(5)
       ..write(obj.birthday)
       ..writeByte(6)
-      ..write(obj.imagePath);
+      ..write(obj.imagePath)
+      ..writeByte(7)
+      ..write(obj.aboutMeText);
   }
 
   @override

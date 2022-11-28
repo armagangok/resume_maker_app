@@ -2,7 +2,7 @@ part of 'personal_data_cubit.dart';
 
 abstract class PersonalDataState {}
 
-abstract class DataReceivedContract extends PersonalDataState {
+abstract class DataReceivedContract implements PersonalDataState {
   late final PersonalDataModel personalData;
   DataReceivedContract({required this.personalData});
 }

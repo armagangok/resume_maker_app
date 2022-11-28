@@ -3,6 +3,8 @@ import 'package:dartz/dartz.dart';
 import '../../academic_export.dart';
 
 class AcademicDataRepositoryImp implements AcademicDataRepository {
+  AcademicDataRepositoryImp._();
+  static final instance = AcademicDataRepositoryImp._();
   @override
   Future<Either<Failure, List<AcademicDataModel>?>> fetchAcademicData() async {
     try {
