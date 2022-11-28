@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/export/core_export.dart';
-import '../cv_templates/cv_templates_cubit.dart';
+import '../cubit/cv_templates_cubit.dart';
 
 class TemplatePage extends StatefulWidget {
   const TemplatePage({super.key});
@@ -29,12 +29,8 @@ class _TemplatePageState extends State<TemplatePage> {
         title: const Text("Templates"),
         leading: IconButton(
           onPressed: () async {
-            try {
-              final pdf = await pdfMaker.createPdf();
-              await pdfMaker.savePdfFile("test_file", pdf);
-            } catch (e) {
-              getSnackBar(context, " $e");
-            }
+            final pdf = await pdfMaker.createPdf();
+            await pdfMaker.savePdfFile("test_file", pdf);
           },
           icon: const Icon(
             CupertinoIcons.share,

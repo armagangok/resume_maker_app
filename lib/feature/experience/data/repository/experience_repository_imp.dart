@@ -5,8 +5,8 @@ import '../contract/experience_repository.dart';
 import '../model/experience_model.dart';
 
 class ExperienceRepositoryImp extends ExperienceRepository {
-  ExperienceRepositoryImp() {
-    _hiveHelper = HiveHelper.shared;
+  ExperienceRepositoryImp({required HiveHelper hiveHelper}) {
+    _hiveHelper = hiveHelper;
   }
 
   late final HiveHelper _hiveHelper;

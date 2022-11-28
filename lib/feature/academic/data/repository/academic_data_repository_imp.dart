@@ -10,7 +10,11 @@ class AcademicDataRepositoryImp implements AcademicDataRepository {
         HiveBoxes.academicDataBox,
       );
 
-      return Right(response);
+      if (response.isEmpty) {
+        return Left(HiveNullData());
+      } else {
+        return Right(response);
+      }
     } on Exception catch (e) {
       LogHelper.shared.errorPrint("$e");
       return Left(HiveFetchFailure());

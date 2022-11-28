@@ -17,13 +17,13 @@ class PersonalDataModelAdapter extends TypeAdapter<PersonalDataModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return PersonalDataModel(
-      name: fields[0] as String?,
-      location: fields[1] as String?,
-      phoneNumber: fields[2] as String?,
-      email: fields[3] as String?,
-      linkedin: fields[4] as String?,
-      birthday: fields[5] as String?,
-      imagePath: fields[6] as String?,
+      name: fields[0] as String,
+      location: fields[1] as String,
+      phoneNumber: fields[2] as String,
+      email: fields[3] as String,
+      linkedin: fields[4] as String,
+      birthday: fields[5] as String,
+      imagePath: fields[6] as String,
     );
   }
 

@@ -5,16 +5,20 @@ import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
-import 'package:resume_maker_app/feature/academic/academic_export.dart';
-import 'package:resume_maker_app/feature/references/data/contract/reference_repository.dart';
 
+import '../../../feature/academic/academic_export.dart';
 import '../../../feature/experience/data/contract/experience_repository.dart';
 import '../../../feature/experience/data/model/experience_model.dart';
+import '../../../feature/language/data/contract/language_repository.dart';
+import '../../../feature/language/data/model/language_model.dart';
 import '../../../feature/personal_details/data/contract/personal_data_repository.dart';
 import '../../../feature/personal_details/export/personal_export.dart';
+import '../../../feature/references/data/contract/reference_repository.dart';
 import '../../../feature/references/data/model/reference_model.dart';
+import '../../../feature/skills/data/contract/language_repository.dart';
+import '../../../feature/skills/data/model/skill_model.dart';
 
-const String path = 'assets/armagan.jpeg';
+const String path = 'assets/person.png';
 
 class PdfHelper {
   PdfHelper({
@@ -22,36 +26,36 @@ class PdfHelper {
     required PersonalDataRepository personalDataRepository,
     required AcademicDataRepository academicDataRepository,
     required ReferenceRepository referenceRepository,
+    required LanguageRepository languageRepository,
+    required SkillRepository skillRepository,
   }) {
     experienceRepo = experienceRepository;
     personalDataRepo = personalDataRepository;
     academicDataRepo = academicDataRepository;
     referenceRepo = referenceRepository;
+    languageRepo = languageRepository;
+    skillRepo = skillRepository;
 
     getImageBytes().then((value) => uint8ListData = value);
-    experienceRepo.fetchExperienceData().then(
-          (value) => value.fold(
-            (l) async {
-              (l) => LogHelper.shared.debugPrint("$l");
-              return experienceList = [];
-            },
-            (data) {
-              print(data);
-              return experienceList = data;
-            },
-          ),
-        );
 
     personalDataRepo.fetchPersonalData().then(
           (value) => value.fold(
             (l) => LogHelper.shared.debugPrint("$l"),
-            (r) => personalDataModel = r!,
+            (data) => personalDataModel = data,
           ),
         );
+
+    experienceRepo.fetchExperienceData().then(
+          (value) => value.fold(
+            (l) async => (l) => LogHelper.shared.debugPrint("$l"),
+            (data) => experienceList = data,
+          ),
+        );
+
     academicDataRepo.fetchAcademicData().then(
           (value) => value.fold(
             (l) => LogHelper.shared.debugPrint("$l"),
-            (r) => academicDataModel = r!,
+            (r) => academicDataModel = r,
           ),
         );
 
@@ -61,21 +65,41 @@ class PdfHelper {
             (r) => referenceDataList = r,
           ),
         );
+
+    languageRepo.fetchLanguageData().then(
+          (value) => value.fold(
+            (l) => LogHelper.shared.debugPrint("$l"),
+            (r) => languageList = r,
+          ),
+        );
+
+    skillRepo.fetchSkillData().then(
+          (value) => value.fold(
+            (l) => LogHelper.shared.debugPrint("$l"),
+            (r) => skillsList = r,
+          ),
+        );
   }
 
   late final ExperienceRepository experienceRepo;
-  late List<ExperienceModel> experienceList;
+  List<ExperienceModel>? experienceList;
 
   late final PersonalDataRepository personalDataRepo;
-  late final PersonalDataModel personalDataModel;
+  PersonalDataModel? personalDataModel;
 
   late final AcademicDataRepository academicDataRepo;
-  late final List<AcademicDataModel> academicDataModel;
+  List<AcademicDataModel>? academicDataModel;
 
   late final ReferenceRepository referenceRepo;
-  late final List<ReferenceModel> referenceDataList;
+  List<ReferenceModel>? referenceDataList;
 
-  late Uint8List uint8ListData;
+  late final LanguageRepository languageRepo;
+  List<LanguageModel>? languageList;
+
+  late final SkillRepository skillRepo;
+  List<SkillModel>? skillsList;
+
+  Uint8List? uint8ListData;
 
   final pdf = pw.Document();
 
@@ -119,8 +143,21 @@ class PdfHelper {
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
           _personImage(),
-          _languagesText(),
-          _skillText(),
+          sizedBox015,
+          head1Text("LANGUAGES"),
+          languageList == null
+              ? SizedBox()
+              : _languagesText(languageList: languageList!),
+          sizedBox015,
+          skillsList == null
+              ? pw.SizedBox()
+              : pw.Column(
+                  children: [
+                    head1Text("SKILLS"),
+                    _skillText(skills: skillsList!),
+                  ],
+                ),
+          sizedBox015,
           _hobbiesText(),
         ],
       ),
@@ -128,6 +165,7 @@ class PdfHelper {
   }
 
   pw.Expanded leftContainer() {
+    print(academicDataModel);
     return pw.Expanded(
       child: pw.Container(
         padding: const pw.EdgeInsets.only(
@@ -138,18 +176,46 @@ class PdfHelper {
         child: pw.Column(
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
-            nameText(personalDataModel.name!),
+            personalDataModel == null
+                ? SizedBox()
+                : nameText(personalDataModel!.name),
             aboutMeText(),
             sizedBox015,
-            _contactText(personalDataModel: personalDataModel),
+            personalDataModel == null
+                ? SizedBox()
+                : _contactText(personalDataModel: personalDataModel!),
             sizedBox015,
-            _academicText(academicDataList: academicDataModel),
+            academicDataModel == null
+                ? SizedBox()
+                : pw.Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      head1Text("ACADEMIC"),
+                      customDivider(),
+                      _academicText(academicDataList: academicDataModel!),
+                    ],
+                  ),
             sizedBox015,
-            head1Text("EXPERIENCE"),
-            customDivider(),
-            _experienceText(experienceList: experienceList),
+            experienceList == null
+                ? SizedBox()
+                : pw.Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      head1Text("EXPERIENCE"),
+                      customDivider(),
+                      _experienceText(experienceList: experienceList!),
+                    ],
+                  ),
             sizedBox015,
-            _referenceText(referenceList: referenceDataList),
+            referenceDataList == null
+                ? SizedBox()
+                : pw.Column(
+                    children: [
+                      head1Text("REFERENCE"),
+                      customDivider(),
+                      _referenceText(referenceList: referenceDataList!),
+                    ],
+                  ),
           ],
         ),
       ),
@@ -186,15 +252,19 @@ class PdfHelper {
           return pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
-              head1Text("ACADEMIC"),
-              customDivider(),
-              pw.Text(academicDataModel.university!),
-              pw.Text(academicDataModel.major!),
-              pw.Text(academicDataModel.grade!),
+              academicDataModel.university == null
+                  ? pw.SizedBox()
+                  : pw.Text(academicDataModel.university!),
+              academicDataModel.major == null
+                  ? pw.SizedBox()
+                  : pw.Text(academicDataModel.major!),
+              academicDataModel.grade == null
+                  ? pw.SizedBox()
+                  : pw.Text(academicDataModel.grade!),
               pw.Row(
                 children: [
                   pw.Text(
-                    "${academicDataModel.schoolStartDate} - ${academicDataModel.schoolEndDate}",
+                    "${academicDataModel.schoolStartDate} - ${academicDataModel.schoolEndDate!.isEmpty ? "Present" : academicDataModel.schoolEndDate}",
                   ),
                 ],
               )
@@ -239,24 +309,31 @@ class PdfHelper {
   }
 
   pw.Widget _personImage() {
-    return pw.Container(
-      width: width / 3,
-      height: width / 3,
-      color: PdfColors.grey,
-      child: pw.Image(
-        pw.MemoryImage(
-          uint8ListData,
-        ),
-        fit: pw.BoxFit.fitHeight,
-      ),
-    );
+    return uint8ListData == null
+        ? SizedBox()
+        : pw.Container(
+            width: width / 3,
+            height: width / 3,
+            color: PdfColors.grey,
+            child: pw.Image(
+              pw.MemoryImage(uint8ListData!),
+              fit: pw.BoxFit.fitHeight,
+            ),
+          );
   }
 
-  pw.Widget _skillText() {
-    return pw.Column(
+  pw.Widget _skillText({required List<SkillModel> skills}) {
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        var skill = skills[index];
+        return sideTextBody(skill.skill);
+      },
+      itemCount: skills.length,
+    );
+
+    pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
-        head1Text("SKILLS"),
         sideTextBody(
           "C++, Flutter, Object-Oriented Programming, Core Data, Git/GitHub",
         ),
@@ -264,15 +341,18 @@ class PdfHelper {
     );
   }
 
-  pw.Widget _languagesText() {
-    return pw.Column(
-      crossAxisAlignment: pw.CrossAxisAlignment.start,
-      children: [
-        head1Text("LANGUAGES"),
-        sideTextBody("English - C1"),
-        sideTextBody("Turkish - Native"),
-        sideTextBody("Deutch - B1+"),
-      ],
+  pw.Widget _languagesText({required List<LanguageModel> languageList}) {
+    return pw.ListView.builder(
+      itemBuilder: (context, index) {
+        var languageModel = languageList[index];
+        return pw.Column(
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          children: [
+            sideTextBody(languageModel.language),
+          ],
+        );
+      },
+      itemCount: languageList.length,
     );
   }
 
@@ -313,9 +393,9 @@ class PdfHelper {
           child: pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
-              pw.Text(experience.jobRole ?? ""),
-              pw.Text(experience.companyName ?? ""),
-              pw.Text(experience.skills ?? ""),
+              pw.Text(experience.jobRole),
+              pw.Text(experience.companyName),
+              pw.Text(experience.skills),
               pw.Text(
                 "Start date: ${experience.jobStartDate} - End date: ${experience.jobEndDate},",
               ),
@@ -335,8 +415,6 @@ class PdfHelper {
         return pw.Column(
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
-            head1Text("REFERENCE"),
-            customDivider(),
             pw.Text("Name: ${referenceModel.name}"),
             pw.Text("Job role: ${referenceModel.profession}"),
             pw.Text("Recent company: ${referenceModel.recentCompany}"),
@@ -351,8 +429,14 @@ class PdfHelper {
   }
 
   Future<Uint8List> getImageBytes() async {
+    // print(personalDataModel.imagePath!);
+    // var path = personalDataModel.imagePath!;
     final ByteData bytes = await rootBundle.load(path);
     final Uint8List byte = bytes.buffer.asUint8List();
     return byte;
   }
+}
+
+dynamic checkIfNull(dynamic data) {
+  return data ?? pw.SizedBox();
 }

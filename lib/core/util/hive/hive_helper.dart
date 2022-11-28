@@ -9,7 +9,6 @@ import '../../../feature/skills/data/model/skill_model.dart';
 
 class HiveHelper {
   HiveHelper._();
-
   static final shared = HiveHelper._();
 
   Future<void> initializeHive() async {

@@ -13,7 +13,11 @@ class PersonalDataInitial implements DataReceivedContract {
   PersonalDataInitial({required this.personalData});
 }
 
-class PersonalDataCacheError extends PersonalDataState {
+class PersonalDataFetchError extends PersonalDataState {
+  static const message = "En error occured while fetching your personal data!";
+}
+
+class PersonalDataSaveError extends PersonalDataState {
   static const message = "En error occured while saving your personal data!";
 }
 

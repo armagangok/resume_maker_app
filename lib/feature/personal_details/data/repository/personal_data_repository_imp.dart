@@ -27,14 +27,22 @@ class PersonalDataRepositoryImp implements PersonalDataRepository {
   }
 
   @override
-  Future<Either<Failure, PersonalDataModel?>> fetchPersonalData() async {
+  Future<Either<Failure, PersonalDataModel>> fetchPersonalData() async {
     try {
       var response = await hiveHelper.getData<PersonalDataModel>(
         HiveBoxes.personalDataBox,
         HiveBoxes.personalDataBox,
       );
 
-      return Right(response);
+      print("object");
+      print(response);
+      print("object");
+
+      if (response == null) {
+        return Left(HiveNullData());
+      } else {
+        return Right(response);
+      }
     } catch (e) {
       return Left(HiveFetchFailure());
     }

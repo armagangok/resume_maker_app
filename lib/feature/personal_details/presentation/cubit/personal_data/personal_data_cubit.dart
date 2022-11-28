@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/export/core_export.dart';
 import '../../../data/contract/personal_data_repository.dart';
-import '../../../data/model/personal_data_model.dart';
-import '../pick_image/pick_image_cubit.dart';
+import '../../../export/personal_export.dart';
 
 part 'personal_data_state.dart';
 
@@ -34,15 +33,19 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
     await _personalDataRepository.deleteData(index);
   }
 
-  Future<void> getPersonalData() async {
+  Future<void> fetchPersonalData() async {
     var response = await _personalDataRepository.fetchPersonalData();
 
     response.fold(
       (l) {
-        emit(PersonalDataCacheError());
+        if (l is HiveNullData) {
+          emit(_getInitialPersonalModel);
+        } else {
+          emit(PersonalDataFetchError());
+        }
       },
       (r) {
-        r == null ? emit(state) : emit(PersonalDataReceived(personalData: r));
+        emit(PersonalDataReceived(personalData: r));
       },
     );
   }
@@ -51,15 +54,15 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
     var response =
         await _personalDataRepository.savePersonalData(personalDataModel);
 
-    await getPersonalData();
+    await fetchPersonalData();
 
     response.fold(
       (l) => emit(
-        PersonalDataCacheError(),
+        PersonalDataSaveError(),
       ),
       (r) async {
         emit(PersonalDataSaved());
-        await getPersonalData();
+        await fetchPersonalData();
       },
     );
   }

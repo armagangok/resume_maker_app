@@ -17,11 +17,11 @@ class ExperienceModelAdapter extends TypeAdapter<ExperienceModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ExperienceModel(
-      jobRole: fields[3] as String?,
-      companyName: fields[0] as String?,
-      jobStartDate: fields[1] as String?,
-      jobEndDate: fields[2] as String?,
-      skills: fields[4] as String?,
+      jobRole: fields[3] as String,
+      companyName: fields[0] as String,
+      jobStartDate: fields[1] as String,
+      jobEndDate: fields[2] as String,
+      skills: fields[4] as String,
     );
   }
 

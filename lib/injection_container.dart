@@ -5,7 +5,8 @@ import 'feature/academic/data/contract/academic_data_repository.dart';
 import 'feature/academic/data/repository/academic_data_repository_imp.dart';
 import 'feature/academic/presentation/cubit/academic_data/academic_cubit.dart';
 import 'feature/academic/presentation/cubit/text_controller/text_controller_cubit.dart';
-import 'feature/cv_templates/presentation/cv_templates/cv_templates_cubit.dart';
+import 'feature/cv_templates/presentation/cubit/cv_templates_cubit.dart';
+
 import 'feature/experience/data/contract/experience_repository.dart';
 import 'feature/experience/data/repository/experience_repository_imp.dart';
 import 'feature/experience/presentatiton/cubit/cubit/experience_cubit.dart';
@@ -44,7 +45,8 @@ void initDependencies() {
 
   getIt.registerLazySingleton<ExperienceCubit>(
     () => ExperienceCubit(
-      experienceRepository: ExperienceRepositoryImp(),
+      experienceRepository:
+          ExperienceRepositoryImp(hiveHelper: HiveHelper.shared),
     ),
   );
   getIt.registerLazySingleton<AcademicCubit>(
@@ -62,8 +64,10 @@ void initDependencies() {
 
   getIt.registerLazySingleton<PersonalDataCubit>(
     () => PersonalDataCubit(
-      personalDataRepository: getIt<PersonalDataRepository>.call(),
-      pickImageCubit: getIt<PickImageCubit>.call(),
+      personalDataRepository: PersonalDataRepositoryImp(),
+      pickImageCubit: PickImageCubit(
+        pickerRepository: ImagePickerRepositoryImp(),
+      ),
     ),
   );
   getIt.registerLazySingleton<ImagePickerRepository>(
@@ -73,7 +77,7 @@ void initDependencies() {
     () => PersonalDataRepositoryImp(),
   );
   getIt.registerLazySingleton<ExperienceRepository>(
-    () => ExperienceRepositoryImp(),
+    () => ExperienceRepositoryImp(hiveHelper: HiveHelper.shared),
   );
   getIt.registerLazySingleton<ExperienceTextControllerCubit>(
     () => ExperienceTextControllerCubit(),
@@ -102,10 +106,13 @@ void initDependencies() {
 
   getIt.registerLazySingleton<PdfHelper>(
     () => PdfHelper(
-      experienceRepository: ExperienceRepositoryImp(),
+      experienceRepository:
+          ExperienceRepositoryImp(hiveHelper: HiveHelper.shared),
       personalDataRepository: PersonalDataRepositoryImp(),
       academicDataRepository: AcademicDataRepositoryImp(),
       referenceRepository: ReferenceRepositoryImp(),
+      languageRepository: LanguageRepositoryImp(hiveHelper: HiveHelper.shared),
+      skillRepository: SkillRepositoryImp(),
     ),
   );
 }
