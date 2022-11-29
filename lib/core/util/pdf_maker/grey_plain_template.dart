@@ -24,8 +24,8 @@ import '../../export/core_export.dart';
 
 // const String path = 'assets/person.png';
 
-class PdfHelper {
-  PdfHelper({
+class GreyPlainTemplate {
+  GreyPlainTemplate({
     required ExperienceRepository experienceRepository,
     required PersonalDataRepository personalDataRepository,
     required AcademicDataRepository academicDataRepository,
@@ -97,7 +97,7 @@ class PdfHelper {
         horizontal: width * 0.02,
         vertical: width * 0.02,
       ),
-      width: width / 2.75,
+      width: width * 0.4,
       color: PdfColors.grey300,
       child: pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -105,6 +105,20 @@ class PdfHelper {
           personalDataModel.imagePath.isEmpty
               ? getPersonImage(uint8ListData)
               : getPersonImage1(personalDataModel.imagePath),
+          sizedBox015,
+          personalDataModel == null
+              ? SizedBox()
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    pw.Row(
+                      children: [
+                        head1Text("CONTACT"),
+                      ],
+                    ),
+                    contactText(personalDataModel: personalDataModel),
+                  ],
+                ),
           sizedBox015,
           languageList == null
               ? SizedBox()
@@ -132,7 +146,6 @@ class PdfHelper {
   }
 
   pw.Expanded leftContainer() {
-    print(academicDataModel);
     return pw.Expanded(
       child: pw.Container(
         padding: const pw.EdgeInsets.only(
@@ -146,6 +159,7 @@ class PdfHelper {
             personalDataModel == null
                 ? SizedBox()
                 : nameText(personalDataModel.name),
+            sizedBox015,
             personalDataModel == null
                 ? pw.SizedBox()
                 : pw.Column(
@@ -156,10 +170,6 @@ class PdfHelper {
                       aboutMeText(aboutMeText: personalDataModel.aboutMeText)
                     ],
                   ),
-            sizedBox015,
-            personalDataModel == null
-                ? SizedBox()
-                : contactText(personalDataModel: personalDataModel),
             sizedBox015,
             academicDataModel == null
                 ? SizedBox()

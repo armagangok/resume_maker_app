@@ -107,33 +107,24 @@ pw.Widget academicText({required List<AcademicDataModel> academicDataList}) {
 }
 
 pw.Widget contactText({required PersonalDataModel personalDataModel}) {
-  return pw.Column(
-    crossAxisAlignment: pw.CrossAxisAlignment.start,
-    children: [
-      pw.Row(
-        children: [
-          head1Text("CONTACT"),
-        ],
-      ),
-      customDivider(),
-      pw.Row(
-        children: [
-          pw.Text(
-            "E-mail: ${personalDataModel.email}",
-          ),
-        ],
-      ),
-      pw.Row(
-        children: [
-          pw.Text(
-            "Contact number: ${personalDataModel.phoneNumber}",
-          ),
-        ],
-      ),
-      pw.Text(
-        "Linkedin: ${personalDataModel.linkedin}",
-      ),
-    ],
+  return pw.FittedBox(
+    child: pw.Column(
+      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      children: [
+        pw.Text(
+          "E-mail: ${personalDataModel.email}",
+          maxLines: 1,
+        ),
+        pw.Text(
+          "Contact number: ${personalDataModel.phoneNumber}",
+          maxLines: 1,
+        ),
+        pw.Text(
+          "Linkedin: ${personalDataModel.linkedin}",
+          maxLines: 1,
+        ),
+      ],
+    ),
   );
 }
 
@@ -141,8 +132,8 @@ pw.Widget getPersonImage(Uint8List? uint8ListData) {
   return uint8ListData == null
       ? SizedBox()
       : pw.Container(
-          width: width / 3,
-          height: width / 3,
+          width: double.infinity,
+          height: width / 2.7,
           color: PdfColors.grey,
           child: pw.Image(
             pw.MemoryImage(uint8ListData),
@@ -156,8 +147,8 @@ pw.Widget getPersonImage1(String imagePath) {
   final byte = pw.MemoryImage(image.readAsBytesSync());
 
   return pw.Container(
-    width: width / 3,
-    height: width / 3,
+    width: double.infinity,
+    height: width / 2.7,
     color: PdfColors.grey,
     child: pw.Image(
       byte,
@@ -204,7 +195,7 @@ pw.Widget experienceText({required List<ExperienceModel> experienceList}) {
             pw.Text(experience.companyName),
             pw.Text(experience.skills),
             pw.Text(
-              "Start date: ${experience.jobStartDate} - End date: ${experience.jobEndDate},",
+              "Start date: ${experience.jobStartDate} - End date: ${experience.jobEndDate}",
             ),
           ],
         ),

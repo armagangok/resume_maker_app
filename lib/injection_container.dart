@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:resume_maker_app/core/util/pdf_maker/peach_puff_template.dart';
 
 import 'core/export/core_export.dart';
 import 'feature/academic/data/contract/academic_data_repository.dart';
@@ -85,7 +86,6 @@ void initDependencies() {
     () => ExperienceTextControllerCubit(),
   );
 
-
   getIt.registerLazySingleton<ReferenceRepository>(
     () => ReferenceRepositoryImp.instance,
   );
@@ -101,8 +101,20 @@ void initDependencies() {
     () => TemplatesCubit(),
   );
 
-  getIt.registerLazySingleton<PdfHelper>(
-    () => PdfHelper(
+  getIt.registerLazySingleton<PeachPuffTemplate>(
+    () => PeachPuffTemplate(
+      experienceRepository:
+          ExperienceRepositoryImp(hiveHelper: HiveHelper.shared),
+      personalDataRepository: PersonalDataRepositoryImp.instance,
+      academicDataRepository: AcademicDataRepositoryImp.instance,
+      referenceRepository: ReferenceRepositoryImp.instance,
+      languageRepository: LanguageRepositoryImp(hiveHelper: HiveHelper.shared),
+      skillRepository: SkillRepositoryImp(),
+    ),
+  );
+
+  getIt.registerLazySingleton<GreyPlainTemplate>(
+    () => GreyPlainTemplate(
       experienceRepository:
           ExperienceRepositoryImp(hiveHelper: HiveHelper.shared),
       personalDataRepository: PersonalDataRepositoryImp.instance,
