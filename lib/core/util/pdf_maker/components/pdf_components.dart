@@ -235,3 +235,13 @@ Future<Uint8List> getImageBytes(String? imagePath) async {
 dynamic checkIfNull(dynamic data) {
   return data ?? pw.SizedBox();
 }
+
+pw.Widget whiteHeadContainer({required pw.Widget widget}) {
+  return pw.Container(
+    decoration: const pw.BoxDecoration(
+      color: PdfColors.white,
+    ),
+    padding: EdgeInsets.all(width * 0.005),
+    child: widget,
+  );
+}

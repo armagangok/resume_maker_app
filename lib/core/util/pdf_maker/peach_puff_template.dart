@@ -72,15 +72,16 @@ class PeachPuffTemplate {
       pw.Page(
         pageFormat: PdfPageFormat.letter.copyWith(
           marginTop: 0,
-          marginLeft: 20,
+          marginLeft: 0,
           marginRight: 0,
           marginBottom: 0,
         ),
         build: (pw.Context context) {
           return pw.Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              rightContainer(),
               leftContainer(),
+              rightContainer(),
             ],
           );
         },
@@ -89,14 +90,13 @@ class PeachPuffTemplate {
     return await pdf.save();
   }
 
-  pw.Widget rightContainer() {
+  pw.Widget leftContainer() {
     return pw.Container(
       padding: pw.EdgeInsets.symmetric(
         horizontal: width * 0.02,
-        vertical: width * 0.02,
       ),
       width: width * 0.4,
-      color: PdfColors.grey300,
+      color: PdfColors.amber50,
       child: pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
@@ -143,12 +143,13 @@ class PeachPuffTemplate {
     );
   }
 
-  pw.Expanded leftContainer() {
+  pw.Expanded rightContainer() {
     return pw.Expanded(
       child: pw.Container(
         padding: const pw.EdgeInsets.only(
           top: 20,
           right: 20,
+          left: 20,
         ),
         color: PdfColors.white,
         child: pw.Column(
