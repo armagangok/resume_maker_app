@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 
-import '../../academic_export.dart';
+import '../../education_export.dart';
+import '../cubit/education_data/education_cubit.dart';
 
-class AcademicPage extends StatefulWidget {
-  const AcademicPage({super.key});
+class EducationPage extends StatefulWidget {
+  const EducationPage({super.key});
 
   @override
-  State<AcademicPage> createState() => _AcademicPageState();
+  State<EducationPage> createState() => _EducationPageState();
 }
 
-class _AcademicPageState extends State<AcademicPage> {
-  late final AcademicTextControllerCubit academicTextControllerCubit;
-  late final AcademicCubit academicCubit;
+class _EducationPageState extends State<EducationPage> {
+  late final EducationTextControllerCubit academicTextControllerCubit;
+  late final EducationCubit academicCubit;
 
   @override
   void initState() {
-    academicCubit = getIt<AcademicCubit>.call();
-    academicTextControllerCubit = getIt<AcademicTextControllerCubit>.call();
-    academicCubit.getAcademicData();
+    academicCubit = getIt<EducationCubit>.call();
+    academicTextControllerCubit = getIt<EducationTextControllerCubit>.call();
+    academicCubit.getEducationData();
 
     super.initState();
   }
@@ -27,11 +28,11 @@ class _AcademicPageState extends State<AcademicPage> {
     return Scaffold(
       appBar: _buildAppBar,
       body: _buidlBody,
-      floatingActionButton: _addAcademicDataButton,
+      floatingActionButton: _addEducationDataButton,
     );
   }
 
-  Widget get _addAcademicDataButton => Builder(
+  Widget get _addEducationDataButton => Builder(
         builder: (context) => CustomFloationgButton(
           onTap: () {
             customBottomSheet(
@@ -43,7 +44,7 @@ class _AcademicPageState extends State<AcademicPage> {
                   _majorTextField,
                   _gradeTextField,
                   _dateTextFields,
-                  _saveAcademicDataButton
+                  _saveEducationDataButton
                 ],
               ),
             );
@@ -58,9 +59,9 @@ class _AcademicPageState extends State<AcademicPage> {
         ),
       );
 
-  Widget get _saveAcademicDataButton => ElevatedButton(
+  Widget get _saveEducationDataButton => ElevatedButton(
         onPressed: () async {
-          var academicDataModel = AcademicDataModel(
+          var academicDataModel = EducationDataModel(
             grade: academicTextControllerCubit.gradeController.text,
             university: academicTextControllerCubit.uniController.text,
             schoolEndDate: academicTextControllerCubit.endDateController.text,
@@ -69,9 +70,9 @@ class _AcademicPageState extends State<AcademicPage> {
             major: academicTextControllerCubit.majorController.text,
           );
 
-          await academicCubit.saveAcademicData(academicDataModel);
+          await academicCubit.saveEducationData(academicDataModel);
         },
-        child: const Text("Save Academic Data"),
+        child: const Text("Save Education Data"),
       );
 
   Widget get _gradeTextField => TextField(
@@ -117,23 +118,23 @@ class _AcademicPageState extends State<AcademicPage> {
   Widget get _buidlBody {
     return Padding(
       padding: context.normalPadding,
-      child: BlocConsumer<AcademicCubit, AcademicState>(
+      child: BlocConsumer<EducationCubit, EducationState>(
         listener: (context, state) {
-          if (state is AcademicDeleted) {
-            getSnackBar(context, AcademicDeleted.message);
-          } else if (state is AcademicSaved) {
-            getSnackBar(context, AcademicSaved.message);
+          if (state is EducationDeleted) {
+            getSnackBar(context, EducationDeleted.message);
+          } else if (state is EducationSaved) {
+            getSnackBar(context, EducationSaved.message);
           }
         },
         bloc: academicCubit,
         builder: (context, state) {
-          if (state is AcademicInitial) {
+          if (state is EducationInitial) {
             return const InitialStateWidget(
               text: "Add academic data into yout resume.",
             );
-          } else if (state is AcademicDataReceived) {
+          } else if (state is EducationDataReceived) {
             return ListView.separated(
-              itemBuilder: (context, index) => AcademicItemWidget(
+              itemBuilder: (context, index) => EducationItemWidget(
                 academicData: state.academicDataList[index],
                 index: index,
                 onLongPress: () => showCustomDialog(
@@ -145,7 +146,7 @@ class _AcademicPageState extends State<AcademicPage> {
               separatorBuilder: (context, index) => const CustomDivider(),
               itemCount: state.academicDataList.length,
             );
-          } else if (state is AcademicFetchingError) {
+          } else if (state is EducationFetchingError) {
             return const Center(
               child: Text(
                 "Unexpected caching error while catching data from database.",
@@ -161,7 +162,7 @@ class _AcademicPageState extends State<AcademicPage> {
 
   CustomAppBar get _buildAppBar {
     return CustomAppBar(
-      title: const Text("Academic"),
+      title: const Text("Education"),
       onTapUpdate: () {},
     );
   }

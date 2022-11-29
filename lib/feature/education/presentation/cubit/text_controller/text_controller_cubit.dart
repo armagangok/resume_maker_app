@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'text_controller_state.dart';
 
-class AcademicTextControllerCubit extends Cubit<AcademicTextControllerState> {
-  AcademicTextControllerCubit() : super(AcademicTextControllerInitial()) {
+class EducationTextControllerCubit extends Cubit<AcademicTextControllerState> {
+  EducationTextControllerCubit() : super(AcademicTextControllerInitial()) {
     _uniController = TextEditingController();
     _gradeController = TextEditingController();
     _majorController = TextEditingController();

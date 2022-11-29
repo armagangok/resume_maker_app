@@ -8,8 +8,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 
-import '../../../feature/academic/data/contract/academic_data_repository.dart';
-import '../../../feature/academic/data/model/academic_data_model.dart';
+import '../../../feature/education/data/contract/academic_data_repository.dart';
+import '../../../feature/education/education_export.dart';
 import '../../../feature/experience/data/contract/experience_repository.dart';
 import '../../../feature/experience/data/model/experience_model.dart';
 import '../../../feature/language/data/contract/language_repository.dart';
@@ -20,7 +20,6 @@ import '../../../feature/references/data/contract/reference_repository.dart';
 import '../../../feature/references/data/model/reference_model.dart';
 import '../../../feature/skills/data/contract/language_repository.dart';
 import '../../../feature/skills/data/model/skill_model.dart';
-import '../../export/core_export.dart';
 
 // const String path = 'assets/person.png';
 
@@ -28,7 +27,7 @@ class GreyPlainTemplate {
   GreyPlainTemplate({
     required ExperienceRepository experienceRepository,
     required PersonalDataRepository personalDataRepository,
-    required AcademicDataRepository academicDataRepository,
+    required EducationDataRepository academicDataRepository,
     required ReferenceRepository referenceRepository,
     required LanguageRepository languageRepository,
     required SkillRepository skillRepository,
@@ -49,8 +48,8 @@ class GreyPlainTemplate {
   late final PersonalDataRepository personalDataRepo;
   late PersonalDataModel personalDataModel;
 
-  late final AcademicDataRepository academicDataRepo;
-  List<AcademicDataModel>? academicDataModel;
+  late final EducationDataRepository academicDataRepo;
+  List<EducationDataModel>? academicDataModel;
 
   late final ReferenceRepository referenceRepo;
   List<ReferenceModel>? referenceDataList;
@@ -101,51 +100,57 @@ class GreyPlainTemplate {
       color: PdfColors.grey300,
       child: pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
         children: [
           personalDataModel.imagePath.isEmpty
               ? getPersonImage(uint8ListData)
               : getPersonImage1(personalDataModel.imagePath),
           sizedBox015,
-          personalDataModel == null
-              ? SizedBox()
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    pw.Row(
+          pw.Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              languageList == null
+                  ? SizedBox()
+                  : pw.Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         whiteHeadContainer(
-                          widget: head1Text("CONTACT"),
+                          widget: head1Text("LANGUAGES"),
                         ),
+                        languagesText(languageList: languageList!),
+                        sizedBox015,
                       ],
                     ),
-                    contactText(personalDataModel: personalDataModel),
-                  ],
-                ),
-          sizedBox015,
-          languageList == null
-              ? SizedBox()
-              : pw.Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    whiteHeadContainer(
-                      widget: head1Text("LANGUAGES"),
+              skillsList == null
+                  ? pw.SizedBox()
+                  : pw.Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        whiteHeadContainer(
+                          widget: head1Text("SKILLS"),
+                        ),
+                        skillText(skills: skillsList!),
+                      ],
                     ),
-                    languagesText(languageList: languageList!),
-                    sizedBox015,
-                  ],
-                ),
-          skillsList == null
-              ? pw.SizedBox()
-              : pw.Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    whiteHeadContainer(
-                      widget: head1Text("SKILLS"),
+              sizedBox015,
+              personalDataModel == null
+                  ? SizedBox()
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        pw.Row(
+                          children: [
+                            whiteHeadContainer(
+                              widget: head1Text("CONTACT"),
+                            ),
+                          ],
+                        ),
+                        contactText(personalDataModel: personalDataModel),
+                      ],
                     ),
-                    skillText(skills: skillsList!),
-                  ],
-                ),
-          sizedBox015,
+            ],
+          ),
         ],
       ),
     );
@@ -251,7 +256,7 @@ class GreyPlainTemplate {
           ),
         );
 
-    academicDataRepo.fetchAcademicData().then(
+    academicDataRepo.fetchEducationData().then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (r) => academicDataModel = r,

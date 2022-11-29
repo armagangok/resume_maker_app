@@ -5,13 +5,12 @@ import 'package:flutter/services.dart';
 import 'package:pdf/widgets.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../../../../feature/academic/data/model/academic_data_model.dart';
+import '../../../../feature/education/education_export.dart';
 import '../../../../feature/experience/data/model/experience_model.dart';
 import '../../../../feature/language/data/model/language_model.dart';
 import '../../../../feature/personal_details/data/model/personal_data_model.dart';
 import '../../../../feature/references/data/model/reference_model.dart';
 import '../../../../feature/skills/data/model/skill_model.dart';
-import '../../../export/core_export.dart';
 
 final width = PdfPageFormat.a4.availableWidth;
 final height = PdfPageFormat.a4.availableHeight;
@@ -34,8 +33,10 @@ pw.Widget get sizedBox015 => pw.SizedBox(
 pw.Widget head1Text(String text) {
   return pw.Text(
     text,
-    style: pw.TextStyle(
-      fontWeight: pw.FontWeight.bold,
+    style: TextStyle(
+      fontSize: 15,
+      fontWeight: FontWeight.bold,
+      fontBold: Font.helveticaBold(),
     ),
   );
 }
@@ -74,7 +75,7 @@ pw.Text nameText(String name) {
   );
 }
 
-pw.Widget academicText({required List<AcademicDataModel> academicDataList}) {
+pw.Widget academicText({required List<EducationDataModel> academicDataList}) {
   return pw.ListView.separated(
       itemBuilder: (context, index) {
         var academicDataModel = academicDataList[index];
@@ -111,17 +112,32 @@ pw.Widget contactText({required PersonalDataModel personalDataModel}) {
     child: pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
-        pw.Text(
-          "E-mail: ${personalDataModel.email}",
-          maxLines: 1,
+        pw.Row(
+          children: [
+            getIcon(0xe0be),
+            pw.Text(
+              "E-mail: ${personalDataModel.email}",
+              maxLines: 1,
+            ),
+          ],
         ),
-        pw.Text(
-          "Contact number: ${personalDataModel.phoneNumber}",
-          maxLines: 1,
+        pw.Row(
+          children: [
+            getIcon(0xe0ba),
+            pw.Text(
+              "Contact number: ${personalDataModel.phoneNumber}",
+              maxLines: 1,
+            ),
+          ],
         ),
-        pw.Text(
-          "Linkedin: ${personalDataModel.linkedin}",
-          maxLines: 1,
+        pw.Row(
+          children: [
+            getIcon(0xea1d),
+            pw.Text(
+              "Linkedin: ${personalDataModel.linkedin}",
+              maxLines: 1,
+            ),
+          ],
         ),
       ],
     ),
@@ -149,7 +165,6 @@ pw.Widget getPersonImage1(String imagePath) {
   return pw.Container(
     width: double.infinity,
     height: width / 2.7,
-    color: PdfColors.grey,
     child: pw.Image(
       byte,
       fit: pw.BoxFit.fitHeight,
@@ -161,7 +176,7 @@ pw.Widget skillText({required List<SkillModel> skills}) {
   return ListView.builder(
     itemBuilder: (context, index) {
       var skill = skills[index];
-      return sideTextBody(skill.skill);
+      return sideTextBody("Skills: ${skill.skill}");
     },
     itemCount: skills.length,
   );
@@ -174,7 +189,7 @@ pw.Widget languagesText({required List<LanguageModel> languageList}) {
       return pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
-          sideTextBody(languageModel.language),
+          sideTextBody("Languages: ${languageModel.language}"),
         ],
       );
     },
@@ -191,11 +206,11 @@ pw.Widget experienceText({required List<ExperienceModel> experienceList}) {
         child: pw.Column(
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
-            pw.Text(experience.jobRole),
-            pw.Text(experience.companyName),
-            pw.Text(experience.skills),
+            pw.Text("Job role: ${experience.jobRole}"),
+            pw.Text("Company name: ${experience.companyName}"),
+            pw.Text("Skills: ${experience.skills}"),
             pw.Text(
-              "Start date: ${experience.jobStartDate} - End date: ${experience.jobEndDate}",
+              "Start date: ${experience.jobStartDate}   End date: ${experience.jobEndDate}",
             ),
           ],
         ),
@@ -237,11 +252,34 @@ dynamic checkIfNull(dynamic data) {
 }
 
 pw.Widget whiteHeadContainer({required pw.Widget widget}) {
-  return pw.Container(
-    decoration: const pw.BoxDecoration(
-      color: PdfColors.white,
+  return pw.Padding(
+    padding: EdgeInsets.symmetric(
+      vertical: width * 0.01,
     ),
-    padding: EdgeInsets.all(width * 0.005),
-    child: widget,
+    child: pw.Container(
+      width: width * 0.35,
+      decoration: const pw.BoxDecoration(
+        color: PdfColors.white,
+        borderRadius: BorderRadius.all(
+          Radius.circular(3),
+        ),
+      ),
+      padding: EdgeInsets.symmetric(
+        horizontal: width * 0.005,
+        vertical: width * 0.0025,
+      ),
+      child: widget,
+    ),
   );
 }
+
+pw.Widget getIcon(int codePoint) => pw.Padding(
+      padding: EdgeInsets.only(
+        right: width * 0.01,
+      ),
+      child: pw.Icon(
+        pw.IconData(codePoint),
+        color: PdfColors.black,
+        size: 15,
+      ),
+    );

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../academic_export.dart';
+import '../../education_export.dart';
 
 export '../../../../core/export/core_export.dart';
 
-class AcademicItemWidget extends StatelessWidget {
-  const AcademicItemWidget({
+class EducationItemWidget extends StatelessWidget {
+  const EducationItemWidget({
     super.key,
     required this.academicData,
     required this.index,
@@ -13,7 +13,7 @@ class AcademicItemWidget extends StatelessWidget {
   });
 
   final int index;
-  final AcademicDataModel academicData;
+  final EducationDataModel academicData;
   final Function onLongPress;
 
   @override
@@ -38,7 +38,7 @@ class AcademicItemWidget extends StatelessWidget {
             const CustomDivider(),
             ItemPadding(widget: Text("Major: ${academicData.major}")),
             const CustomDivider(),
-            ItemPadding(widget: Text("Academic data: ${academicData.grade}")),
+            ItemPadding(widget: Text("Education data: ${academicData.grade}")),
             const CustomDivider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

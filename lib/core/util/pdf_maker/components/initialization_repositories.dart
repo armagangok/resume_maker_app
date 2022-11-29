@@ -1,4 +1,4 @@
-import '../../../../feature/academic/academic_export.dart';
+import '../../../../feature/education/education_export.dart';
 import '../../../../feature/experience/data/model/experience_model.dart';
 import '../../../../feature/language/data/model/language_model.dart';
 import '../../../../feature/personal_details/data/contract/personal_data_repository.dart';
@@ -14,7 +14,7 @@ void initializeRepositories({
   required languageRepo,
   required skillRepo,
   required List<ExperienceModel>? experienceList,
-  required List<AcademicDataModel>? academicDataList,
+  required List<EducationDataModel>? academicDataList,
   required List<ReferenceModel>? referenceDataList,
   required List<LanguageModel>? languageList,
   required List<SkillModel>? skillsList,
@@ -37,7 +37,7 @@ void initializeRepositories({
         ),
       );
 
-  academicDataRepo.fetchAcademicData().then(
+  academicDataRepo.fetchEducationData().then(
         (value) => value.fold(
           (failure) => LogHelper.shared.debugPrint("$failure"),
           (r) => academicDataList = r,

@@ -1,12 +1,9 @@
 import 'package:get_it/get_it.dart';
-import 'package:resume_maker_app/core/util/pdf_maker/peach_puff_template.dart';
 
-import 'core/export/core_export.dart';
-import 'feature/academic/data/contract/academic_data_repository.dart';
-import 'feature/academic/data/repository/academic_data_repository_imp.dart';
-import 'feature/academic/presentation/cubit/academic_data/academic_cubit.dart';
-import 'feature/academic/presentation/cubit/text_controller/text_controller_cubit.dart';
+import 'core/util/pdf_maker/peach_puff_template.dart';
 import 'feature/cv_templates/presentation/cubit/cv_templates_cubit.dart';
+import 'feature/education/data/contract/academic_data_repository.dart';
+import 'feature/education/education_export.dart';
 import 'feature/experience/data/contract/experience_repository.dart';
 import 'feature/experience/data/repository/experience_repository_imp.dart';
 import 'feature/experience/presentatiton/cubit/cubit/experience_cubit.dart';
@@ -55,17 +52,17 @@ void initDependencies() {
           ExperienceRepositoryImp(hiveHelper: HiveHelper.shared),
     ),
   );
-  getIt.registerLazySingleton<AcademicCubit>(
-    () => AcademicCubit(
-      academicDataRepository: AcademicDataRepositoryImp.instance,
+  getIt.registerLazySingleton<EducationCubit>(
+    () => EducationCubit(
+      academicDataRepository: EducationDataRepositoryImp.instance,
     ),
   );
 
-  getIt.registerLazySingleton<AcademicDataRepository>(
-    () => AcademicDataRepositoryImp.instance,
+  getIt.registerLazySingleton<EducationDataRepository>(
+    () => EducationDataRepositoryImp.instance,
   );
-  getIt.registerLazySingleton<AcademicTextControllerCubit>(
-    () => AcademicTextControllerCubit(),
+  getIt.registerLazySingleton<EducationTextControllerCubit>(
+    () => EducationTextControllerCubit(),
   );
 
   getIt.registerLazySingleton<PersonalDataCubit>(
@@ -106,7 +103,7 @@ void initDependencies() {
       experienceRepository:
           ExperienceRepositoryImp(hiveHelper: HiveHelper.shared),
       personalDataRepository: PersonalDataRepositoryImp.instance,
-      academicDataRepository: AcademicDataRepositoryImp.instance,
+      academicDataRepository: EducationDataRepositoryImp.instance,
       referenceRepository: ReferenceRepositoryImp.instance,
       languageRepository: LanguageRepositoryImp(hiveHelper: HiveHelper.shared),
       skillRepository: SkillRepositoryImp(),
@@ -118,7 +115,7 @@ void initDependencies() {
       experienceRepository:
           ExperienceRepositoryImp(hiveHelper: HiveHelper.shared),
       personalDataRepository: PersonalDataRepositoryImp.instance,
-      academicDataRepository: AcademicDataRepositoryImp.instance,
+      academicDataRepository: EducationDataRepositoryImp.instance,
       referenceRepository: ReferenceRepositoryImp.instance,
       languageRepository: LanguageRepositoryImp(hiveHelper: HiveHelper.shared),
       skillRepository: SkillRepositoryImp(),

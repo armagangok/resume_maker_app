@@ -1,6 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../../../feature/academic/academic_export.dart';
+import '../../../feature/education/education_export.dart';
 import '../../../feature/experience/data/model/experience_model.dart';
 import '../../../feature/language/data/model/language_model.dart';
 import '../../../feature/personal_details/data/model/personal_data_model.dart';
@@ -13,14 +13,14 @@ class HiveHelper {
 
   Future<void> initializeHive() async {
     await Hive.initFlutter();
-    Hive.registerAdapter(AcademicDataModelAdapter());
+    Hive.registerAdapter(EducationDataModelAdapter());
     Hive.registerAdapter(PersonalDataModelAdapter());
     Hive.registerAdapter(ExperienceModelAdapter());
     Hive.registerAdapter(LanguageModelAdapter());
     Hive.registerAdapter(ReferenceModelAdapter());
     Hive.registerAdapter(SkillModelAdapter());
 
-    await Hive.openBox<AcademicDataModel>(HiveBoxes.academicDataBox);
+    await Hive.openBox<EducationDataModel>(HiveBoxes.academicDataBox);
     await Hive.openBox<ExperienceModel>(HiveBoxes.experienceDataBox);
     await Hive.openBox<PersonalDataModel>(HiveBoxes.personalDataBox);
     await Hive.openBox<LanguageModel>(HiveBoxes.languageDataBox);

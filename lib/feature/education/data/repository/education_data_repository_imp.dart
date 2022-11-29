@@ -1,14 +1,15 @@
 import 'package:dartz/dartz.dart';
 
-import '../../academic_export.dart';
+import '../../education_export.dart';
+import '../contract/academic_data_repository.dart';
 
-class AcademicDataRepositoryImp implements AcademicDataRepository {
-  AcademicDataRepositoryImp._();
-  static final instance = AcademicDataRepositoryImp._();
+class EducationDataRepositoryImp implements EducationDataRepository {
+  EducationDataRepositoryImp._();
+  static final instance = EducationDataRepositoryImp._();
   @override
-  Future<Either<Failure, List<AcademicDataModel>?>> fetchAcademicData() async {
+  Future<Either<Failure, List<EducationDataModel>?>> fetchEducationData() async {
     try {
-      var response = await HiveHelper.shared.getAll<AcademicDataModel>(
+      var response = await HiveHelper.shared.getAll<EducationDataModel>(
         HiveBoxes.academicDataBox,
       );
 
@@ -24,9 +25,9 @@ class AcademicDataRepositoryImp implements AcademicDataRepository {
   }
 
   @override
-  Future<void> saveAcademicData(AcademicDataModel academicDataModel) async {
+  Future<void> saveEducationData(EducationDataModel academicDataModel) async {
     try {
-      await HiveHelper.shared.addData<AcademicDataModel>(
+      await HiveHelper.shared.addData<EducationDataModel>(
         HiveBoxes.academicDataBox,
         academicDataModel,
       );
@@ -37,7 +38,7 @@ class AcademicDataRepositoryImp implements AcademicDataRepository {
 
   @override
   Future<void> deleteData(int index) async =>
-      await HiveHelper.shared.deleteDataAt<AcademicDataModel>(
+      await HiveHelper.shared.deleteDataAt<EducationDataModel>(
         HiveBoxes.academicDataBox,
         index,
       );

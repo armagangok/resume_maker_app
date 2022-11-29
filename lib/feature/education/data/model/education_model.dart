@@ -3,10 +3,10 @@ import 'dart:convert';
 
 import 'package:hive/hive.dart';
 
-part 'academic_data_model.g.dart';
+part 'education_model.g.dart';
 
 @HiveType(typeId: 0)
-class AcademicDataModel extends HiveObject {
+class EducationDataModel extends HiveObject {
   @HiveField(0)
   final String? grade;
   @HiveField(1)
@@ -19,7 +19,7 @@ class AcademicDataModel extends HiveObject {
   final String? major;
 
 
-  AcademicDataModel({
+  EducationDataModel({
     required this.grade,
     required this.university,
     required this.schoolStartDate,
@@ -28,7 +28,7 @@ class AcademicDataModel extends HiveObject {
     
   });
 
-  AcademicDataModel copyWith({
+  EducationDataModel copyWith({
     String? grade,
     String? university,
     String? schoolStartDate,
@@ -36,7 +36,7 @@ class AcademicDataModel extends HiveObject {
     String? major,
     String? scholarship,
   }) {
-    return AcademicDataModel(
+    return EducationDataModel(
       grade: grade ?? this.grade,
       university: university ?? this.university,
       schoolStartDate: schoolStartDate ?? this.schoolStartDate,
@@ -57,8 +57,8 @@ class AcademicDataModel extends HiveObject {
     };
   }
 
-  factory AcademicDataModel.fromMap(Map<String, dynamic> map) {
-    return AcademicDataModel(
+  factory EducationDataModel.fromMap(Map<String, dynamic> map) {
+    return EducationDataModel(
       grade: map['grade'] != null ? map['grade'] as String : null,
       university:
           map['university'] != null ? map['university'] as String : null,
@@ -74,11 +74,11 @@ class AcademicDataModel extends HiveObject {
 
   String toJson() => json.encode(toMap());
 
-  factory AcademicDataModel.fromJson(String source) =>
-      AcademicDataModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory EducationDataModel.fromJson(String source) =>
+      EducationDataModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'AcademicDataModel(grade: $grade, university: $university, schoolStartDate: $schoolStartDate, schoolEndDate: $schoolEndDate, major: $major)';
+    return 'EducationDataModel(grade: $grade, university: $university, schoolStartDate: $schoolStartDate, schoolEndDate: $schoolEndDate, major: $major)';
   }
 }

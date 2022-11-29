@@ -7,8 +7,10 @@ import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
+import 'package:printing/printing.dart';
 
-import '../../../feature/academic/academic_export.dart';
+import '../../../feature/education/data/contract/academic_data_repository.dart';
+import '../../../feature/education/education_export.dart';
 import '../../../feature/experience/data/contract/experience_repository.dart';
 import '../../../feature/experience/data/model/experience_model.dart';
 import '../../../feature/language/data/contract/language_repository.dart';
@@ -26,7 +28,7 @@ class PeachPuffTemplate {
   PeachPuffTemplate({
     required ExperienceRepository experienceRepository,
     required PersonalDataRepository personalDataRepository,
-    required AcademicDataRepository academicDataRepository,
+    required EducationDataRepository academicDataRepository,
     required ReferenceRepository referenceRepository,
     required LanguageRepository languageRepository,
     required SkillRepository skillRepository,
@@ -47,8 +49,8 @@ class PeachPuffTemplate {
   late final PersonalDataRepository personalDataRepo;
   late PersonalDataModel personalDataModel;
 
-  late final AcademicDataRepository academicDataRepo;
-  List<AcademicDataModel>? academicDataModel;
+  late final EducationDataRepository academicDataRepo;
+  List<EducationDataModel>? academicDataModel;
 
   late final ReferenceRepository referenceRepo;
   List<ReferenceModel>? referenceDataList;
@@ -76,6 +78,11 @@ class PeachPuffTemplate {
           marginRight: 0,
           marginBottom: 0,
         ),
+        theme: pw.ThemeData.withFont(
+          base: await PdfGoogleFonts.varelaRoundRegular(),
+          bold: await PdfGoogleFonts.varelaRoundRegular(),
+          icons: await PdfGoogleFonts.materialIcons(),
+        ),
         build: (pw.Context context) {
           return pw.Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -92,52 +99,69 @@ class PeachPuffTemplate {
 
   pw.Widget leftContainer() {
     return pw.Container(
-      padding: pw.EdgeInsets.symmetric(
-        horizontal: width * 0.02,
-      ),
-      width: width * 0.4,
+      padding: const pw.EdgeInsets.symmetric(
+          // horizontal: width * 0.02,
+          ),
+      width: width * 0.45,
       color: PdfColors.amber50,
       child: pw.Column(
-        crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
           personalDataModel.imagePath.isEmpty
               ? getPersonImage(uint8ListData)
               : getPersonImage1(personalDataModel.imagePath),
-          sizedBox015,
-          personalDataModel == null
-              ? SizedBox()
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    pw.Row(
-                      children: [
-                        head1Text("CONTACT"),
-                      ],
-                    ),
-                    contactText(personalDataModel: personalDataModel),
-                  ],
-                ),
-          sizedBox015,
-          languageList == null
-              ? SizedBox()
-              : pw.Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    head1Text("LANGUAGES"),
-                    languagesText(languageList: languageList!),
-                    sizedBox015,
-                  ],
-                ),
-          skillsList == null
-              ? pw.SizedBox()
-              : pw.Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    head1Text("SKILLS"),
-                    skillText(skills: skillsList!),
-                  ],
-                ),
-          sizedBox015,
+          pw.Expanded(
+            child: pw.Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: height * 0.035,
+                horizontal: width * 0.025,
+              ),
+              child: pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  sizedBox015,
+                  languageList == null
+                      ? SizedBox()
+                      : pw.Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            pw.Row(
+                              children: [
+                                getIcon(0xe894),
+                                head1Text("LANGUAGES"),
+                              ],
+                            ),
+                            languagesText(languageList: languageList!),
+                            sizedBox015,
+                          ],
+                        ),
+                  skillsList == null
+                      ? pw.SizedBox()
+                      : pw.Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            pw.Row(
+                              children: [
+                                getIcon(0xe8d0),
+                                head1Text("SKILLS"),
+                              ],
+                            ),
+                            skillText(skills: skillsList!),
+                          ],
+                        ),
+                  pw.Spacer(),
+                  personalDataModel == null
+                      ? SizedBox()
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            head1Text("CONTACT"),
+                            contactText(personalDataModel: personalDataModel),
+                          ],
+                        ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );
@@ -244,7 +268,7 @@ class PeachPuffTemplate {
           ),
         );
 
-    academicDataRepo.fetchAcademicData().then(
+    academicDataRepo.fetchEducationData().then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (r) => academicDataModel = r,
