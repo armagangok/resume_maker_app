@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:resume_maker_app/core/util/pdf_maker/peach_puff_template.dart';
 
 import '../../../../core/export/core_export.dart';
+import '../../../../core/util/pdf_maker/cloud_template.dart';
+import '../../../../core/util/pdf_maker/peach_puff_template.dart';
 import '../cubit/cv_templates_cubit.dart';
 
 class TemplatePage extends StatefulWidget {
@@ -15,12 +16,14 @@ class _TemplatePageState extends State<TemplatePage> {
   late final PeachPuffTemplate _peachPuffTemplate;
   late final GreyPlainTemplate _greyPlainTemplate;
   late final TemplatesCubit _templatesCubit;
+  late final CloudTemplate _cloudTemplate;
 
   @override
   void initState() {
     _greyPlainTemplate = getIt<GreyPlainTemplate>.call();
     _peachPuffTemplate = getIt<PeachPuffTemplate>.call();
     _templatesCubit = getIt<TemplatesCubit>.call();
+    _cloudTemplate = getIt<CloudTemplate>.call();
     super.initState();
   }
 
@@ -52,6 +55,15 @@ class _TemplatePageState extends State<TemplatePage> {
                   await _greyPlainTemplate.savePdfFile("test_file", pdf);
                 },
                 child: const Text("Grey Plain Template"),
+              ),
+              TextButton(
+                onPressed: () async {
+                  _cloudTemplate.buildUpWidgets();
+                  final pdf = await _cloudTemplate.createPdf();
+
+                  await _cloudTemplate.savePdfFile("fileName", pdf);
+                },
+                child: const Text("Cloud Template"),
               ),
             ],
           );

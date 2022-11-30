@@ -4,8 +4,8 @@ import '../../../../core/export/core_export.dart';
 import '../contract/experience_repository.dart';
 import '../model/experience_model.dart';
 
-class ExperienceRepositoryImp extends ExperienceRepository {
-  ExperienceRepositoryImp({required HiveHelper hiveHelper}) {
+class ExperienceRepoImp extends ExperienceRepository {
+  ExperienceRepoImp({required HiveHelper hiveHelper}) {
     _hiveHelper = hiveHelper;
   }
 

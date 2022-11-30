@@ -1,16 +1,7 @@
-import 'dart:io';
-
-import 'package:flutter/services.dart';
-
 import 'package:pdf/widgets.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../../../../feature/education/education_export.dart';
-import '../../../../feature/experience/data/model/experience_model.dart';
-import '../../../../feature/language/data/model/language_model.dart';
-import '../../../../feature/personal_details/data/model/personal_data_model.dart';
-import '../../../../feature/references/data/model/reference_model.dart';
-import '../../../../feature/skills/data/model/skill_model.dart';
+import '../export/pdf_export.dart';
 
 final width = PdfPageFormat.a4.availableWidth;
 final height = PdfPageFormat.a4.availableHeight;
@@ -70,12 +61,13 @@ pw.Text nameText(String name) {
     style: pw.TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.bold,
+      fontBold: Font.helveticaBold(),
     ),
     maxLines: 1,
   );
 }
 
-pw.Widget academicText({required List<EducationDataModel> academicDataList}) {
+pw.Widget educationText({required List<EducationDataModel> academicDataList}) {
   return pw.ListView.separated(
       itemBuilder: (context, index) {
         var academicDataModel = academicDataList[index];
@@ -144,30 +136,20 @@ pw.Widget contactText({required PersonalDataModel personalDataModel}) {
   );
 }
 
-pw.Widget getPersonImage(Uint8List? uint8ListData) {
-  return uint8ListData == null
-      ? SizedBox()
-      : pw.Container(
-          width: double.infinity,
-          height: width / 2.7,
-          color: PdfColors.grey,
-          child: pw.Image(
-            pw.MemoryImage(uint8ListData),
-            fit: pw.BoxFit.fitHeight,
-          ),
-        );
-}
-
 pw.Widget getPersonImage1(String imagePath) {
   var image = File(imagePath);
   final byte = pw.MemoryImage(image.readAsBytesSync());
 
   return pw.Container(
-    width: double.infinity,
+    width: width / 2.7,
     height: width / 2.7,
-    child: pw.Image(
-      byte,
-      fit: pw.BoxFit.fitHeight,
+    decoration: BoxDecoration(
+      color: PdfColors.orange,
+      shape: BoxShape.circle,
+      image: pw.DecorationImage(
+        image: byte,
+        fit: BoxFit.cover,
+      ),
     ),
   );
 }
@@ -241,11 +223,11 @@ pw.Widget referenceText({required List<ReferenceModel> referenceList}) {
   );
 }
 
-Future<Uint8List> getImageBytes(String? imagePath) async {
-  final ByteData bytes = await rootBundle.load(imagePath ?? "");
-  final Uint8List byte = bytes.buffer.asUint8List();
-  return byte;
-}
+// Future<Uint8List> getImageBytes(String? imagePath) async {
+//   final ByteData bytes = await rootBundle.load(imagePath!);
+//   final Uint8List byte = bytes.buffer.asUint8List();
+//   return byte;
+// }
 
 dynamic checkIfNull(dynamic data) {
   return data ?? pw.SizedBox();
@@ -283,3 +265,18 @@ pw.Widget getIcon(int codePoint) => pw.Padding(
         size: 15,
       ),
     );
+
+
+// pw.Widget getPersonImage(Uint8List? uint8ListData) {
+//   return uint8ListData == null
+//       ? SizedBox()
+//       : pw.Container(
+//           width: double.infinity,
+//           height: width / 2.7,
+//           color: PdfColors.grey,
+//           child: pw.Image(
+//             pw.MemoryImage(uint8ListData),
+//             fit: pw.BoxFit.fitHeight,
+//           ),
+//         );
+// }

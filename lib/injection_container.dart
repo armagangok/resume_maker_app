@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 
+import 'core/util/pdf_maker/cloud_template.dart';
 import 'core/util/pdf_maker/peach_puff_template.dart';
 import 'feature/cv_templates/presentation/cubit/cv_templates_cubit.dart';
 import 'feature/education/data/contract/academic_data_repository.dart';
@@ -48,8 +49,7 @@ void initDependencies() {
 
   getIt.registerLazySingleton<ExperienceCubit>(
     () => ExperienceCubit(
-      experienceRepository:
-          ExperienceRepositoryImp(hiveHelper: HiveHelper.shared),
+      experienceRepository: ExperienceRepoImp(hiveHelper: HiveHelper.shared),
     ),
   );
   getIt.registerLazySingleton<EducationCubit>(
@@ -77,7 +77,7 @@ void initDependencies() {
     () => PersonalDataRepositoryImp.instance,
   );
   getIt.registerLazySingleton<ExperienceRepository>(
-    () => ExperienceRepositoryImp(hiveHelper: HiveHelper.shared),
+    () => ExperienceRepoImp(hiveHelper: HiveHelper.shared),
   );
   getIt.registerLazySingleton<ExperienceTextControllerCubit>(
     () => ExperienceTextControllerCubit(),
@@ -100,8 +100,7 @@ void initDependencies() {
 
   getIt.registerLazySingleton<PeachPuffTemplate>(
     () => PeachPuffTemplate(
-      experienceRepository:
-          ExperienceRepositoryImp(hiveHelper: HiveHelper.shared),
+      experienceRepository: ExperienceRepoImp(hiveHelper: HiveHelper.shared),
       personalDataRepository: PersonalDataRepositoryImp.instance,
       academicDataRepository: EducationDataRepositoryImp.instance,
       referenceRepository: ReferenceRepositoryImp.instance,
@@ -112,8 +111,18 @@ void initDependencies() {
 
   getIt.registerLazySingleton<GreyPlainTemplate>(
     () => GreyPlainTemplate(
-      experienceRepository:
-          ExperienceRepositoryImp(hiveHelper: HiveHelper.shared),
+      experienceRepository: ExperienceRepoImp(hiveHelper: HiveHelper.shared),
+      personalDataRepository: PersonalDataRepositoryImp.instance,
+      academicDataRepository: EducationDataRepositoryImp.instance,
+      referenceRepository: ReferenceRepositoryImp.instance,
+      languageRepository: LanguageRepositoryImp(hiveHelper: HiveHelper.shared),
+      skillRepository: SkillRepositoryImp(),
+    ),
+  );
+
+  getIt.registerLazySingleton<CloudTemplate>(
+    () => CloudTemplate(
+      experienceRepository: ExperienceRepoImp(hiveHelper: HiveHelper.shared),
       personalDataRepository: PersonalDataRepositoryImp.instance,
       academicDataRepository: EducationDataRepositoryImp.instance,
       referenceRepository: ReferenceRepositoryImp.instance,

@@ -1,26 +1,8 @@
 // ignoreforfile: avoidprint
 
-import 'dart:io';
-
-import 'package:flutter/services.dart';
-import 'package:open_file/open_file.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
-import 'package:printing/printing.dart';
-
-import '../../../feature/education/data/contract/academic_data_repository.dart';
-import '../../../feature/education/education_export.dart';
-import '../../../feature/experience/data/contract/experience_repository.dart';
-import '../../../feature/experience/data/model/experience_model.dart';
-import '../../../feature/language/data/contract/language_repository.dart';
-import '../../../feature/language/data/model/language_model.dart';
-import '../../../feature/personal_details/data/contract/personal_data_repository.dart';
-import '../../../feature/personal_details/data/model/personal_data_model.dart';
-import '../../../feature/references/data/contract/reference_repository.dart';
-import '../../../feature/references/data/model/reference_model.dart';
-import '../../../feature/skills/data/contract/language_repository.dart';
-import '../../../feature/skills/data/model/skill_model.dart';
+import './export/pdf_export.dart';
 
 // const String path = 'assets/person.png';
 
@@ -63,6 +45,8 @@ class PeachPuffTemplate {
 
   final pdf = pw.Document();
 
+  List<pw.Widget> widgets = [];
+
   Future<Uint8List> createPdf() async {
     // pw.ThemeData myTheme = pw.ThemeData.withFont(
     //   base: Font.ttf(
@@ -71,7 +55,7 @@ class PeachPuffTemplate {
     // );
 
     pdf.addPage(
-      pw.Page(
+      pw.MultiPage(
         pageFormat: PdfPageFormat.letter.copyWith(
           marginTop: 0,
           marginLeft: 0,
@@ -84,13 +68,14 @@ class PeachPuffTemplate {
           icons: await PdfGoogleFonts.materialIcons(),
         ),
         build: (pw.Context context) {
-          return pw.Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              leftContainer(),
-              rightContainer(),
-            ],
-          );
+          
+          return widgets;
+          // Row(
+          //       children: [
+          //         leftContainer(),
+          //         rightContainer(),
+          //       ],
+          //     ),
         },
       ),
     );
@@ -99,67 +84,70 @@ class PeachPuffTemplate {
 
   pw.Widget leftContainer() {
     return pw.Container(
-      padding: const pw.EdgeInsets.symmetric(
-          // horizontal: width * 0.02,
-          ),
+      padding: pw.EdgeInsets.all(width * 0.02),
       width: width * 0.45,
       color: PdfColors.amber50,
       child: pw.Column(
         children: [
           personalDataModel.imagePath.isEmpty
-              ? getPersonImage(uint8ListData)
+              ? SizedBox()
               : getPersonImage1(personalDataModel.imagePath),
           pw.Expanded(
-            child: pw.Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: height * 0.035,
-                horizontal: width * 0.025,
-              ),
-              child: pw.Column(
-                crossAxisAlignment: pw.CrossAxisAlignment.start,
-                children: [
-                  sizedBox015,
-                  languageList == null
-                      ? SizedBox()
-                      : pw.Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            pw.Row(
-                              children: [
-                                getIcon(0xe894),
-                                head1Text("LANGUAGES"),
-                              ],
-                            ),
-                            languagesText(languageList: languageList!),
-                            sizedBox015,
-                          ],
-                        ),
-                  skillsList == null
-                      ? pw.SizedBox()
-                      : pw.Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            pw.Row(
-                              children: [
-                                getIcon(0xe8d0),
-                                head1Text("SKILLS"),
-                              ],
-                            ),
-                            skillText(skills: skillsList!),
-                          ],
-                        ),
-                  pw.Spacer(),
-                  personalDataModel == null
-                      ? SizedBox()
-                      : Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            head1Text("CONTACT"),
-                            contactText(personalDataModel: personalDataModel),
-                          ],
-                        ),
-                ],
-              ),
+            child: pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                sizedBox015,
+                languageList == null
+                    ? SizedBox()
+                    : pw.Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          academicDataModel == null
+                              ? SizedBox()
+                              : pw.Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    head1Text("EDUCATION"),
+                                    educationText(
+                                        academicDataList: academicDataModel!),
+                                  ],
+                                ),
+                          sizedBox015,
+                          pw.Row(
+                            children: [
+                              getIcon(0xe894),
+                              head1Text("LANGUAGES"),
+                            ],
+                          ),
+                          languagesText(languageList: languageList!),
+                          sizedBox015,
+                        ],
+                      ),
+                skillsList == null
+                    ? pw.SizedBox()
+                    : pw.Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          pw.Row(
+                            children: [
+                              getIcon(0xe8d0),
+                              head1Text("SKILLS"),
+                            ],
+                          ),
+                          skillText(skills: skillsList!),
+                        ],
+                      ),
+                pw.Spacer(),
+                personalDataModel == null
+                    ? SizedBox()
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          head1Text("CONTACT"),
+                          contactText(personalDataModel: personalDataModel),
+                        ],
+                      ),
+              ],
             ),
           )
         ],
@@ -170,11 +158,7 @@ class PeachPuffTemplate {
   pw.Expanded rightContainer() {
     return pw.Expanded(
       child: pw.Container(
-        padding: const pw.EdgeInsets.only(
-          top: 20,
-          right: 20,
-          left: 20,
-        ),
+        padding: pw.EdgeInsets.all(width * 0.02),
         color: PdfColors.white,
         child: pw.Column(
           crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -194,14 +178,14 @@ class PeachPuffTemplate {
                     ],
                   ),
             sizedBox015,
-            academicDataModel == null
+            referenceDataList == null
                 ? SizedBox()
                 : pw.Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      head1Text("ACADEMIC"),
+                      head1Text("REFERENCE"),
                       customDivider(),
-                      academicText(academicDataList: academicDataModel!),
+                      referenceText(referenceList: referenceDataList!),
                     ],
                   ),
             sizedBox015,
@@ -213,17 +197,6 @@ class PeachPuffTemplate {
                       head1Text("EXPERIENCE"),
                       customDivider(),
                       experienceText(experienceList: experienceList!),
-                    ],
-                  ),
-            sizedBox015,
-            referenceDataList == null
-                ? SizedBox()
-                : pw.Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      head1Text("REFERENCE"),
-                      customDivider(),
-                      referenceText(referenceList: referenceDataList!),
                     ],
                   ),
           ],
@@ -254,8 +227,8 @@ class PeachPuffTemplate {
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (data) {
               personalDataModel = data;
-              getImageBytes(data.imagePath)
-                  .then((value) => uint8ListData = value);
+              // getImageBytes(data.imagePath)
+              //     .then((value) => uint8ListData = value);
             },
           ),
         );

@@ -1,8 +1,8 @@
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:resume_maker_app/app_root.dart';
 
 import 'core/export/core_export.dart';
-import 'app_root.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

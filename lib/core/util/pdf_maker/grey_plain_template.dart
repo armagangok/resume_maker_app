@@ -1,25 +1,8 @@
 // ignoreforfile: avoidprint
 
-import 'dart:io';
-
-import 'package:flutter/services.dart';
-import 'package:open_file/open_file.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
-
-import '../../../feature/education/data/contract/academic_data_repository.dart';
-import '../../../feature/education/education_export.dart';
-import '../../../feature/experience/data/contract/experience_repository.dart';
-import '../../../feature/experience/data/model/experience_model.dart';
-import '../../../feature/language/data/contract/language_repository.dart';
-import '../../../feature/language/data/model/language_model.dart';
-import '../../../feature/personal_details/data/contract/personal_data_repository.dart';
-import '../../../feature/personal_details/data/model/personal_data_model.dart';
-import '../../../feature/references/data/contract/reference_repository.dart';
-import '../../../feature/references/data/model/reference_model.dart';
-import '../../../feature/skills/data/contract/language_repository.dart';
-import '../../../feature/skills/data/model/skill_model.dart';
+import './export/pdf_export.dart';
 
 // const String path = 'assets/person.png';
 
@@ -49,7 +32,7 @@ class GreyPlainTemplate {
   late PersonalDataModel personalDataModel;
 
   late final EducationDataRepository academicDataRepo;
-  List<EducationDataModel>? academicDataModel;
+  List<EducationDataModel>? educationModel;
 
   late final ReferenceRepository referenceRepo;
   List<ReferenceModel>? referenceDataList;
@@ -77,6 +60,11 @@ class GreyPlainTemplate {
           marginRight: 0,
           marginBottom: 0,
         ),
+        theme: pw.ThemeData.withFont(
+          base: await PdfGoogleFonts.varelaRoundRegular(),
+          bold: await PdfGoogleFonts.varelaRoundRegular(),
+          icons: await PdfGoogleFonts.materialIcons(),
+        ),
         build: (pw.Context context) {
           return pw.Row(
             children: [
@@ -103,13 +91,25 @@ class GreyPlainTemplate {
         mainAxisSize: MainAxisSize.max,
         children: [
           personalDataModel.imagePath.isEmpty
-              ? getPersonImage(uint8ListData)
+              ? SizedBox()
               : getPersonImage1(personalDataModel.imagePath),
           sizedBox015,
           pw.Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.max,
             children: [
+              educationModel == null
+                  ? SizedBox()
+                  : pw.Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        whiteHeadContainer(
+                          widget: head1Text("EDUCATION"),
+                        ),
+                        educationText(academicDataList: educationModel!),
+                      ],
+                    ),
+              sizedBox015,
               languageList == null
                   ? SizedBox()
                   : pw.Column(
@@ -182,14 +182,14 @@ class GreyPlainTemplate {
                     ],
                   ),
             sizedBox015,
-            academicDataModel == null
+            referenceDataList == null
                 ? SizedBox()
                 : pw.Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      head1Text("ACADEMIC"),
+                      head1Text("REFERENCE"),
                       customDivider(),
-                      academicText(academicDataList: academicDataModel!),
+                      referenceText(referenceList: referenceDataList!),
                     ],
                   ),
             sizedBox015,
@@ -204,16 +204,6 @@ class GreyPlainTemplate {
                     ],
                   ),
             sizedBox015,
-            referenceDataList == null
-                ? SizedBox()
-                : pw.Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      head1Text("REFERENCE"),
-                      customDivider(),
-                      referenceText(referenceList: referenceDataList!),
-                    ],
-                  ),
           ],
         ),
       ),
@@ -242,8 +232,8 @@ class GreyPlainTemplate {
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (data) {
               personalDataModel = data;
-              getImageBytes(data.imagePath)
-                  .then((value) => uint8ListData = value);
+              // getImageBytes(data.imagePath)
+              //     .then((value) => uint8ListData = value);
             },
           ),
         );
@@ -259,7 +249,7 @@ class GreyPlainTemplate {
     academicDataRepo.fetchEducationData().then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
-            (r) => academicDataModel = r,
+            (r) => educationModel = r,
           ),
         );
 

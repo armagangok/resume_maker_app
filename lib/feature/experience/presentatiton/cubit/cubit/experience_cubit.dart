@@ -7,9 +7,9 @@ import '../../../data/repository/experience_repository_imp.dart';
 part 'experience_state.dart';
 
 class ExperienceCubit extends Cubit<ExperienceState> {
-  late final ExperienceRepositoryImp _experienceRepository;
+  late final ExperienceRepoImp _experienceRepository;
 
-  ExperienceCubit({required ExperienceRepositoryImp experienceRepository})
+  ExperienceCubit({required ExperienceRepoImp experienceRepository})
       : super(ExperienceInitial()) {
     _experienceRepository = experienceRepository;
   }
