@@ -38,12 +38,12 @@ class ExperienceRepoImp extends ExperienceRepository {
 
   @override
   Future<Either<Failure, bool>> saveData({
-    required dynamic educationModel,
+    required dynamic dataModel,
   }) async {
     try {
       await _hiveHelper.addData<ExperienceModel>(
         HiveBoxes.experienceDataBox,
-        educationModel,
+        dataModel,
       );
 
       return const Right(true);

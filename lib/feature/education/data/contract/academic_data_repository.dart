@@ -11,7 +11,7 @@ abstract class EducationDataRepository implements DatabaseContract {
   Future<Either<Failure, dynamic>> fetchData();
 
   @override
-  Future<Either<Failure, bool>> saveData({required dynamic educationModel});
+  Future<Either<Failure, bool>> saveData({required dynamic dataModel});
 
   @override
   Future<void> updateData({required newDataModel});

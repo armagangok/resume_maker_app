@@ -13,7 +13,7 @@ class LanguageRepositoryImp implements LanguageRepository {
 
   late final HiveHelper _hiveHelper;
   @override
-  Future<Either<Failure, bool>> deleteLanguageData(int index) async {
+  Future<Either<Failure, bool>> deleteData(int index) async {
     try {
       await _hiveHelper.deleteDataAt<LanguageModel>(
         HiveBoxes.languageDataBox,
@@ -26,7 +26,7 @@ class LanguageRepositoryImp implements LanguageRepository {
   }
 
   @override
-  Future<Either<Failure, List<LanguageModel>>> fetchLanguageData() async {
+  Future<Either<Failure, List<LanguageModel>>> fetchData() async {
     try {
       var response = await _hiveHelper.getAll<LanguageModel>(
         HiveBoxes.languageDataBox,
@@ -39,17 +39,21 @@ class LanguageRepositoryImp implements LanguageRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> saveLanguageData(
-      LanguageModel languageModel) async {
+  Future<Either<Failure, bool>> saveData({required dataModel}) async {
     try {
       await _hiveHelper.addData<LanguageModel>(
         HiveBoxes.languageDataBox,
-        languageModel,
+        dataModel,
       );
-
       return const Right(true);
-    } on Exception {
+    } catch (e) {
       return Left(HiveSavingFailure());
     }
+  }
+
+  @override
+  Future<void> updateData({required newDataModel}) async {
+    // TODO: implement updateData
+    throw UnimplementedError();
   }
 }

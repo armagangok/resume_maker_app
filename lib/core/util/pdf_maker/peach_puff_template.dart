@@ -254,7 +254,7 @@ class PeachPuffTemplate {
           ),
         );
 
-    languageRepo.fetchLanguageData().then(
+    languageRepo.fetchData().then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (data) => languageList = data,

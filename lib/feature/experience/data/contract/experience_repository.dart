@@ -8,7 +8,7 @@ abstract class ExperienceRepository extends DatabaseContract {
   @override
   Future<Either<Failure, List<ExperienceModel>>> fetchData();
   @override
-  Future<Either<Failure, bool>> saveData({required dynamic educationModel});
+  Future<Either<Failure, bool>> saveData({required dynamic dataModel});
   @override
   Future<Either<Failure, bool>> deleteData(int index);
 }

@@ -39,11 +39,11 @@ class EducationDataRepositoryImp implements EducationDataRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> saveData({required educationModel}) async {
+  Future<Either<Failure, bool>> saveData({required dataModel}) async {
     try {
       await HiveHelper.shared.addData<EducationDataModel>(
         HiveBoxes.academicDataBox,
-        educationModel,
+        dataModel,
       );
       return const Right(true);
     } on Exception catch (e) {

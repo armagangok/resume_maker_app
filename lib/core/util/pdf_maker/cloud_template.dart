@@ -1,5 +1,3 @@
-// ignoreforfile: avoidprint
-
 import 'package:pdf/widgets.dart' as pw;
 
 import 'export/pdf_export.dart';
@@ -228,7 +226,7 @@ class CloudTemplate {
           ),
         );
 
-    languageRepo.fetchLanguageData().then(
+    languageRepo.fetchData().then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (data) => languageList = data,
@@ -249,14 +247,13 @@ class CloudTemplate {
   ) async {
     final output = await getTemporaryDirectory();
     var filePath = "${output.path}/$fileName.pdf";
-    print(filePath);
 
     final file = File(filePath);
     try {
       await file.writeAsBytes(byteList);
       await OpenFile.open(filePath);
     } catch (e) {
-      print("$e");
+      LogHelper.shared.debugPrint("$e");
     }
   }
 

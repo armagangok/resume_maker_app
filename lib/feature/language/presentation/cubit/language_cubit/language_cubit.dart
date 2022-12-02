@@ -16,14 +16,12 @@ class LanguageCubit extends Cubit<LanguageState> {
   late final LanguageRepository _repository;
 
   Future<void> save(LanguageModel languageModel) async {
-    var response = await _repository.saveLanguageData(languageModel);
+    var response = await _repository.saveData(dataModel: languageModel);
 
     response.fold(
-      (failure) {
-        return emit(LanguageSavingError());
-      },
+      (failure) => emit(LanguageSavingError()),
       (data) async {
-        var response = await _repository.fetchLanguageData();
+        var response = await _repository.fetchData();
 
         emit(LanguageSaved());
 
@@ -46,12 +44,12 @@ class LanguageCubit extends Cubit<LanguageState> {
   }
 
   Future<void> delete(int index) async {
-    var response = await _repository.deleteLanguageData(index);
+    var response = await _repository.deleteData(index);
 
     response.fold(
       (l) => emit(LanguageDeletingError()),
       (r) async {
-        var response = await _repository.fetchLanguageData();
+        var response = await _repository.fetchData();
 
         emit(LanguageDeleted());
 
@@ -74,7 +72,7 @@ class LanguageCubit extends Cubit<LanguageState> {
   }
 
   Future<void> fetchLanguageData() async {
-    var response = await _repository.fetchLanguageData();
+    var response = await _repository.fetchData();
 
     response.fold(
       (failure) {

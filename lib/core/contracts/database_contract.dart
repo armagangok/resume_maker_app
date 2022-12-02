@@ -6,7 +6,7 @@ import '../error/failure.dart';
 // Repositories will be extended from this DatabaseContract class.
 abstract class DatabaseContract {
   Future<Either<Failure, dynamic>> fetchData();
-  Future<Either<Failure, bool>> saveData({required dynamic educationModel});
+  Future<Either<Failure, bool>> saveData({required dynamic dataModel});
   Future<void> deleteData(int index);
   Future<void> updateData({required dynamic newDataModel});
 }

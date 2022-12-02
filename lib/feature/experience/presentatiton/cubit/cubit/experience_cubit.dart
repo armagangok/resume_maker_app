@@ -16,7 +16,7 @@ class ExperienceCubit extends Cubit<ExperienceState> {
 
   Future<void> save(ExperienceModel experienceModel) async {
     var response = await _experienceRepository.saveData(
-      educationModel: experienceModel,
+      dataModel: experienceModel,
     );
 
     response.fold(

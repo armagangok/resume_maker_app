@@ -12,7 +12,7 @@ class EducationCubit extends Cubit<EducationState> {
 
   Future<void> saveEducationData(EducationDataModel academicDataModel) async {
     try {
-      await _academicRepository.saveData(educationModel: academicDataModel);
+      await _academicRepository.saveData(dataModel: academicDataModel);
       await getEducationData();
     } catch (e) {
       emit(EducationSavingError());
