@@ -45,7 +45,7 @@ pw.Widget sideTextBody(String text) {
 
 pw.Divider customDivider() => pw.Divider(
       height: 0,
-      thickness: 0.5,
+      thickness: 0.85,
       color: PdfColors.grey600,
     );
 
@@ -67,26 +67,26 @@ pw.Text nameText(String name) {
   );
 }
 
-pw.Widget educationText({required List<EducationDataModel> academicDataList}) {
+pw.Widget educationText({required List<EducationDataModel> educationList}) {
   return pw.ListView.separated(
       itemBuilder: (context, index) {
-        var academicDataModel = academicDataList[index];
+        var educationModel = educationList[index];
         return pw.Column(
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
-            academicDataModel.university == null
+            educationModel.university == null
                 ? pw.SizedBox()
-                : pw.Text(academicDataModel.university!),
-            academicDataModel.major == null
+                : pw.Text(educationModel.university!),
+            educationModel.major == null
                 ? pw.SizedBox()
-                : pw.Text(academicDataModel.major!),
-            academicDataModel.grade == null
+                : pw.Text(educationModel.major!),
+            educationModel.grade == null
                 ? pw.SizedBox()
-                : pw.Text(academicDataModel.grade!),
+                : pw.Text(educationModel.grade!),
             pw.Row(
               children: [
                 pw.Text(
-                  "${academicDataModel.schoolStartDate} - ${academicDataModel.schoolEndDate!.isEmpty ? "Present" : academicDataModel.schoolEndDate}",
+                  "${educationModel.schoolStartDate} - ${educationModel.schoolEndDate!.isEmpty ? "Present" : educationModel.schoolEndDate}",
                 ),
               ],
             )
@@ -96,7 +96,7 @@ pw.Widget educationText({required List<EducationDataModel> academicDataList}) {
       separatorBuilder: (context, index) {
         return SizedBox(height: height * 0.01);
       },
-      itemCount: academicDataList.length);
+      itemCount: educationList.length);
 }
 
 pw.Widget contactText({required PersonalDataModel personalDataModel}) {
@@ -104,32 +104,17 @@ pw.Widget contactText({required PersonalDataModel personalDataModel}) {
     child: pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
-        pw.Row(
-          children: [
-            getIcon(0xe0be),
-            pw.Text(
-              "E-mail: ${personalDataModel.email}",
-              maxLines: 1,
-            ),
-          ],
+        pw.Text(
+          "E-mail: ${personalDataModel.email}",
+          maxLines: 1,
         ),
-        pw.Row(
-          children: [
-            getIcon(0xe0ba),
-            pw.Text(
-              "Contact number: ${personalDataModel.phoneNumber}",
-              maxLines: 1,
-            ),
-          ],
+        pw.Text(
+          "Contact number: ${personalDataModel.phoneNumber}",
+          maxLines: 1,
         ),
-        pw.Row(
-          children: [
-            getIcon(0xea1d),
-            pw.Text(
-              "Linkedin: ${personalDataModel.linkedin}",
-              maxLines: 1,
-            ),
-          ],
+        pw.Text(
+          "Linkedin: ${personalDataModel.linkedin}",
+          maxLines: 1,
         ),
       ],
     ),
@@ -141,8 +126,8 @@ pw.Widget getPersonImage1(String imagePath) {
   final byte = pw.MemoryImage(image.readAsBytesSync());
 
   return pw.Container(
-    width: width / 2.7,
-    height: width / 2.7,
+    width: width * 0.4,
+    height: width * 0.4,
     decoration: BoxDecoration(
       color: PdfColors.orange,
       shape: BoxShape.circle,
@@ -156,6 +141,7 @@ pw.Widget getPersonImage1(String imagePath) {
 
 pw.Widget skillText({required List<SkillModel> skills}) {
   return ListView.builder(
+    padding: const pw.EdgeInsets.all(0),
     itemBuilder: (context, index) {
       var skill = skills[index];
       return sideTextBody("Skills: ${skill.skill}");
@@ -179,47 +165,33 @@ pw.Widget languagesText({required List<LanguageModel> languageList}) {
   );
 }
 
-pw.Widget experienceText({required List<ExperienceModel> experienceList}) {
-  return pw.ListView.separated(
-    itemBuilder: (context, index) {
-      var experience = experienceList[index];
-      return pw.SizedBox(
-        width: width,
-        child: pw.Column(
-          crossAxisAlignment: pw.CrossAxisAlignment.start,
-          children: [
-            pw.Text("Job role: ${experience.jobRole}"),
-            pw.Text("Company name: ${experience.companyName}"),
-            pw.Text("Skills: ${experience.skills}"),
-            pw.Text(
-              "Start date: ${experience.jobStartDate}   End date: ${experience.jobEndDate}",
-            ),
-          ],
+pw.Widget experienceWidget({required ExperienceModel experienceModel}) {
+  return pw.SizedBox(
+    width: width,
+    child: pw.Column(
+      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      children: [
+        pw.Text("Job role: ${experienceModel.jobRole}"),
+        pw.Text("Company name: ${experienceModel.companyName}"),
+        pw.Text("Skills: ${experienceModel.skills}"),
+        pw.Text(
+          "Start date: ${experienceModel.jobStartDate}   End date: ${experienceModel.jobEndDate}",
         ),
-      );
-    },
-    separatorBuilder: (context, index) => pw.SizedBox(height: height * 0.01),
-    itemCount: experienceList.length,
+      ],
+    ),
   );
 }
 
-pw.Widget referenceText({required List<ReferenceModel> referenceList}) {
-  return ListView.separated(
-    itemBuilder: (context, index) {
-      var referenceModel = referenceList[index];
-      return pw.Column(
-        crossAxisAlignment: pw.CrossAxisAlignment.start,
-        children: [
-          pw.Text("Name: ${referenceModel.name}"),
-          pw.Text("Job role: ${referenceModel.profession}"),
-          pw.Text("Recent company: ${referenceModel.recentCompany}"),
-          pw.Text("Email: ${referenceModel.email}"),
-          pw.Text("Phone number: ${referenceModel.phoneNumber}"),
-        ],
-      );
-    },
-    separatorBuilder: (context, index) => SizedBox(height: height * 0.01),
-    itemCount: referenceList.length,
+pw.Widget referenceModel({required ReferenceModel referenceModel}) {
+  return pw.Column(
+    crossAxisAlignment: pw.CrossAxisAlignment.start,
+    children: [
+      pw.Text("Name: ${referenceModel.name}"),
+      pw.Text("Job role: ${referenceModel.profession}"),
+      pw.Text("Recent company: ${referenceModel.recentCompany}"),
+      pw.Text("Email: ${referenceModel.email}"),
+      pw.Text("Phone number: ${referenceModel.phoneNumber}"),
+    ],
   );
 }
 

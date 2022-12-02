@@ -15,15 +15,16 @@ class ExperienceCubit extends Cubit<ExperienceState> {
   }
 
   Future<void> save(ExperienceModel experienceModel) async {
-    var response =
-        await _experienceRepository.savePersonalData(experienceModel);
+    var response = await _experienceRepository.saveData(
+      educationModel: experienceModel,
+    );
 
     response.fold(
       (failure) {
         return emit(ExperienceSavingError());
       },
       (data) async {
-        var response = await _experienceRepository.fetchExperienceData();
+        var response = await _experienceRepository.fetchData();
 
         emit(ExperienceSaved());
 
@@ -51,7 +52,7 @@ class ExperienceCubit extends Cubit<ExperienceState> {
     response.fold(
       (l) => emit(ExperienceDeletingError()),
       (r) async {
-        var response = await _experienceRepository.fetchExperienceData();
+        var response = await _experienceRepository.fetchData();
 
         emit(ExperienceDeleted());
 
@@ -74,7 +75,7 @@ class ExperienceCubit extends Cubit<ExperienceState> {
   }
 
   Future<void> fetchExperienceData() async {
-    var response = await _experienceRepository.fetchExperienceData();
+    var response = await _experienceRepository.fetchData();
 
     response.fold(
       (failure) {

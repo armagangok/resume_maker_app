@@ -12,7 +12,7 @@ class EducationCubit extends Cubit<EducationState> {
 
   Future<void> saveEducationData(EducationDataModel academicDataModel) async {
     try {
-      await _academicRepository.saveEducationData(academicDataModel);
+      await _academicRepository.saveData(educationModel: academicDataModel);
       await getEducationData();
     } catch (e) {
       emit(EducationSavingError());
@@ -21,7 +21,7 @@ class EducationCubit extends Cubit<EducationState> {
 
   // Gets academic data from hive database.
   Future getEducationData() async {
-    var response = await _academicRepository.fetchEducationData();
+    var response = await _academicRepository.fetchData();
     response.fold(
       (failure) {
         if (failure is HiveNullData) {
@@ -51,7 +51,7 @@ class EducationCubit extends Cubit<EducationState> {
 
       emit(EducationDeleted());
 
-      var response = await _academicRepository.fetchEducationData();
+      var response = await _academicRepository.fetchData();
       response.fold(
         (error) {
           emit(EducationDeletingError());

@@ -106,7 +106,7 @@ class GreyPlainTemplate {
                         whiteHeadContainer(
                           widget: head1Text("EDUCATION"),
                         ),
-                        educationText(academicDataList: educationModel!),
+                        educationText(educationList: educationModel!),
                       ],
                     ),
               sizedBox015,
@@ -189,21 +189,21 @@ class GreyPlainTemplate {
                     children: [
                       head1Text("REFERENCE"),
                       customDivider(),
-                      referenceText(referenceList: referenceDataList!),
+                      // referenceModel(referenceList: referenceDataList!),
                     ],
                   ),
             sizedBox015,
-            experienceList == null
-                ? SizedBox()
-                : pw.Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      head1Text("EXPERIENCE"),
-                      customDivider(),
-                      experienceText(experienceList: experienceList!),
-                    ],
-                  ),
-            sizedBox015,
+            // experienceList == null
+            //     ? SizedBox()
+            //     : pw.Column(
+            //         crossAxisAlignment: CrossAxisAlignment.start,
+            //         children: [
+            //           head1Text("EXPERIENCE"),
+            //           customDivider(),
+            //           experienceWidget(experienceModel: experienceList!),
+            //         ],
+            //       ),
+            // sizedBox015,
           ],
         ),
       ),
@@ -238,7 +238,7 @@ class GreyPlainTemplate {
           ),
         );
 
-    experienceRepo.fetchExperienceData().then(
+    experienceRepo.fetchData().then(
           (value) => value.fold(
             (failure) async =>
                 (failure) => LogHelper.shared.debugPrint("$failure"),
@@ -246,7 +246,7 @@ class GreyPlainTemplate {
           ),
         );
 
-    academicDataRepo.fetchEducationData().then(
+    academicDataRepo.fetchData().then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (r) => educationModel = r,

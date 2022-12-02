@@ -24,7 +24,7 @@ class ExperienceRepoImp extends ExperienceRepository {
   }
 
   @override
-  Future<Either<Failure, List<ExperienceModel>>> fetchExperienceData() async {
+  Future<Either<Failure, List<ExperienceModel>>> fetchData() async {
     try {
       var response = await _hiveHelper.getAll<ExperienceModel>(
         HiveBoxes.experienceDataBox,
@@ -37,17 +37,24 @@ class ExperienceRepoImp extends ExperienceRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> savePersonalData(
-      ExperienceModel experienceModel) async {
+  Future<Either<Failure, bool>> saveData({
+    required dynamic educationModel,
+  }) async {
     try {
       await _hiveHelper.addData<ExperienceModel>(
         HiveBoxes.experienceDataBox,
-        experienceModel,
+        educationModel,
       );
 
       return const Right(true);
     } on Exception {
       return Left(HiveSavingFailure());
     }
+  }
+
+  @override
+  Future<void> updateData({required newDataModel}) {
+    // TODO: implement updateData
+    throw UnimplementedError();
   }
 }

@@ -6,8 +6,9 @@ import '../contract/academic_data_repository.dart';
 class EducationDataRepositoryImp implements EducationDataRepository {
   EducationDataRepositoryImp._();
   static final instance = EducationDataRepositoryImp._();
+
   @override
-  Future<Either<Failure, List<EducationDataModel>?>> fetchEducationData() async {
+  Future<Either<Failure, dynamic>> fetchData() async {
     try {
       var response = await HiveHelper.shared.getAll<EducationDataModel>(
         HiveBoxes.academicDataBox,
@@ -25,21 +26,29 @@ class EducationDataRepositoryImp implements EducationDataRepository {
   }
 
   @override
-  Future<void> saveEducationData(EducationDataModel academicDataModel) async {
-    try {
-      await HiveHelper.shared.addData<EducationDataModel>(
-        HiveBoxes.academicDataBox,
-        academicDataModel,
-      );
-    } on Exception catch (e) {
-      LogHelper.shared.debugPrint("$e");
-    }
-  }
-
-  @override
   Future<void> deleteData(int index) async =>
       await HiveHelper.shared.deleteDataAt<EducationDataModel>(
         HiveBoxes.academicDataBox,
         index,
       );
+
+  @override
+  Future<void> updateData({required newDataModel}) {
+    // TODO: implement updateData
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, bool>> saveData({required educationModel}) async {
+    try {
+      await HiveHelper.shared.addData<EducationDataModel>(
+        HiveBoxes.academicDataBox,
+        educationModel,
+      );
+      return const Right(true);
+    } on Exception catch (e) {
+      LogHelper.shared.debugPrint("$e");
+      return Left(HiveSavingFailure());
+    }
+  }
 }

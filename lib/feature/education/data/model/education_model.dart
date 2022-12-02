@@ -18,14 +18,12 @@ class EducationDataModel extends HiveObject {
   @HiveField(4)
   final String? major;
 
-
   EducationDataModel({
     required this.grade,
     required this.university,
     required this.schoolStartDate,
     required this.schoolEndDate,
     required this.major,
-    
   });
 
   EducationDataModel copyWith({
@@ -42,7 +40,6 @@ class EducationDataModel extends HiveObject {
       schoolStartDate: schoolStartDate ?? this.schoolStartDate,
       schoolEndDate: schoolEndDate ?? this.schoolEndDate,
       major: major ?? this.major,
-      
     );
   }
 
@@ -53,7 +50,6 @@ class EducationDataModel extends HiveObject {
       'schoolStartDate': schoolStartDate,
       'schoolEndDate': schoolEndDate,
       'major': major,
-      
     };
   }
 
@@ -68,7 +64,6 @@ class EducationDataModel extends HiveObject {
       schoolEndDate:
           map['schoolEndDate'] != null ? map['schoolEndDate'] as String : null,
       major: map['major'] != null ? map['major'] as String : null,
-      
     );
   }
 

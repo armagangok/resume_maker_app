@@ -37,7 +37,7 @@ void initializeRepositories({
         ),
       );
 
-  academicDataRepo.fetchEducationData().then(
+  academicDataRepo.fetchData().then(
         (value) => value.fold(
           (failure) => LogHelper.shared.debugPrint("$failure"),
           (r) => academicDataList = r,
