@@ -8,6 +8,10 @@ class PdfIsBeingCreatedState extends TemplateState {}
 
 class PdfCreatedState extends TemplateState {}
 
-class PdfErrorState extends TemplateState {}
+class PdfErrorState extends TemplateState {
+  PdfErrorState({required this.errorMessage});
+
+  final String errorMessage;
+}
 
 class PdfSavedState extends TemplateState {}

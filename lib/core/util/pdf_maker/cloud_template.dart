@@ -49,10 +49,10 @@ class CloudTemplate {
     pdf.addPage(
       pw.MultiPage(
         pageFormat: PdfPageFormat.letter.copyWith(
-          marginTop: 10,
-          marginLeft: 10,
-          marginRight: 10,
-          marginBottom: 10,
+          marginTop: 20,
+          marginLeft: 20,
+          marginRight: 20,
+          marginBottom: 20,
         ),
         theme: pw.ThemeData.withFont(
           base: await PdfGoogleFonts.varelaRoundRegular(),
@@ -202,20 +202,23 @@ class CloudTemplate {
 
     widgets.add(sizedBox015);
 
-    widgets.add(head1Text("REFERENCE"));
-    widgets.add(customDivider());
-
-    for (var element in referenceDataList!) {
-      widgets.add(referenceModel(referenceModel: element));
-      widgets.add(sizedBox015);
+    if (referenceDataList != null) {
+      widgets.add(head1Text("REFERENCE"));
+      widgets.add(customDivider());
+      for (var element in referenceDataList!) {
+        widgets.add(referenceModel(referenceModel: element));
+        widgets.add(sizedBox015);
+      }
     }
 
-    widgets.add(head1Text("EXPERIENCE"));
-    widgets.add(customDivider());
+    if (experienceList != null) {
+      widgets.add(head1Text("EXPERIENCE"));
+      widgets.add(customDivider());
 
-    for (var experience in experienceList!) {
-      widgets.add(experienceWidget(experienceModel: experience));
-      widgets.add(sizedBox015);
+      for (var experience in experienceList!) {
+        widgets.add(experienceWidget(experienceModel: experience));
+        widgets.add(sizedBox015);
+      }
     }
 
     widgets.add(sizedBox015);

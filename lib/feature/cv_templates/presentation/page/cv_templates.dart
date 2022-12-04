@@ -26,8 +26,13 @@ class _TemplatePageState extends State<TemplatePage> {
       appBar: CustomAppBar(onTapUpdate: () {}),
       body: BlocConsumer<TemplatesCubit, TemplateState>(
         bloc: _templatesCubit,
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is PdfErrorState) {
+            getSnackBar(context, state.errorMessage);
+          }
+        },
         builder: (context, state) {
+          print(state);
           if (state is PdfIsBeingCreatedState) {
             return const Center(
               child: CircularProgressIndicator(),

@@ -23,31 +23,34 @@ class TemplatesCubit extends Cubit<TemplateState> {
       await _cloudTemplate.savePdfFile("fileName", pdf);
       emit(PdfCreatedState());
     } catch (e) {
-      emit(PdfErrorState());
+      emit(PdfErrorState(errorMessage: "$e"));
+      rethrow;
     }
   }
 
-  // Future<void> createPeachPuffPdf() async {
-  //   try {
-  //     _peachPuffTemplate.buildUpPDF();
-  //     emit(PdfIsBeingCreatedState());
-  //     final pdf = await _cloudTemplate.createPdf();
-  //     await _peachPuffTemplate.savePdfFile("peachPuffTest", pdf);
-  //     emit(PdfCreatedState());
-  //   } catch (e) {
-  //     emit(PdfErrorState());
-  //   }
-  // }
+  Future<void> createPeachPuffPdf() async {
+    try {
+      // _peachPuffTemplate.buildUpPDF();
+      emit(PdfIsBeingCreatedState());
+      final pdf = await _cloudTemplate.createPdf();
+      await _peachPuffTemplate.savePdfFile("peachPuffTest", pdf);
+      emit(PdfCreatedState());
+    } catch (e) {
+      emit(PdfErrorState(errorMessage: "$e"));
+      rethrow;
+    }
+  }
 
-  // Future<void> createGreyPdf() async {
-  //   try {
-  //     _peachPuffTemplate.buildUpPDF();
-  //     emit(PdfIsBeingCreatedState());
-  //     final pdf = await _cloudTemplate.createPdf();
-  //     await _peachPuffTemplate.savePdfFile("peachPuffTest", pdf);
-  //     emit(PdfCreatedState());
-  //   } catch (e) {
-  //     emit(PdfErrorState());
-  //   }
-  // }
+  Future<void> createGreyPdf() async {
+    try {
+      // _peachPuffTemplate.buildUpPDF();
+      emit(PdfIsBeingCreatedState());
+      final pdf = await _cloudTemplate.createPdf();
+      await _peachPuffTemplate.savePdfFile("peachPuffTest", pdf);
+      emit(PdfCreatedState());
+    } catch (e) {
+      emit(PdfErrorState(errorMessage: "$e"));
+      rethrow;
+    }
+  }
 }
