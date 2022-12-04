@@ -52,8 +52,5 @@ class LanguageRepositoryImp implements LanguageRepository {
   }
 
   @override
-  Future<void> updateData({required newDataModel}) async {
-    // TODO: implement updateData
-    throw UnimplementedError();
-  }
+  Future<void> updateData({required newDataModel}) async {}
 }

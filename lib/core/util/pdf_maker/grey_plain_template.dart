@@ -104,7 +104,7 @@ class GreyPlainTemplate {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         whiteHeadContainer(
-                          widget: head1Text("EDUCATION"),
+                          column: head1Text("EDUCATION"),
                         ),
                         educationText(educationList: educationModel!),
                       ],
@@ -115,9 +115,7 @@ class GreyPlainTemplate {
                   : pw.Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        whiteHeadContainer(
-                          widget: head1Text("LANGUAGES"),
-                        ),
+                        whiteHeadContainer(column: head1Text("LANGUAGES")),
                         languagesText(languageList: languageList!),
                         sizedBox015,
                       ],
@@ -128,7 +126,7 @@ class GreyPlainTemplate {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         whiteHeadContainer(
-                          widget: head1Text("SKILLS"),
+                          column: head1Text("SKILLS"),
                         ),
                         skillText(skills: skillsList!),
                       ],
@@ -142,7 +140,7 @@ class GreyPlainTemplate {
                         pw.Row(
                           children: [
                             whiteHeadContainer(
-                              widget: head1Text("CONTACT"),
+                              column: head1Text("CONTACT"),
                             ),
                           ],
                         ),

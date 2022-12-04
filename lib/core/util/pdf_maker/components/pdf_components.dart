@@ -7,13 +7,13 @@ final width = PdfPageFormat.a4.availableWidth;
 final height = PdfPageFormat.a4.availableHeight;
 Uint8List? uint8ListData;
 
-pw.Widget symmetricPadding(Widget widget) {
+pw.Widget symmetricPadding(Widget column) {
   return Padding(
     padding: pw.EdgeInsets.symmetric(
       horizontal: width * 0.03,
       vertical: width * 0.03,
     ),
-    child: widget,
+    child: column,
   );
 }
 
@@ -69,6 +69,7 @@ pw.Text nameText(String name) {
 
 pw.Widget educationText({required List<EducationDataModel> educationList}) {
   return pw.ListView.separated(
+      padding: EdgeInsets.zero,
       itemBuilder: (context, index) {
         var educationModel = educationList[index];
         return pw.Column(
@@ -151,18 +152,17 @@ pw.Widget skillText({required List<SkillModel> skills}) {
 }
 
 pw.Widget languagesText({required List<LanguageModel> languageList}) {
-  return pw.ListView.builder(
-    itemBuilder: (context, index) {
-      var languageModel = languageList[index];
-      return pw.Column(
-        crossAxisAlignment: pw.CrossAxisAlignment.start,
-        children: [
-          sideTextBody("Languages: ${languageModel.language}"),
-        ],
-      );
-    },
-    itemCount: languageList.length,
+  var column = pw.Column(
+    crossAxisAlignment: pw.CrossAxisAlignment.start,
+    children: [],
   );
+  for (var languageModel in languageList) {
+    column.children.add(
+      sideTextBody("Languages: ${languageModel.language}"),
+    );
+  }
+
+  return column;
 }
 
 pw.Widget experienceWidget({required ExperienceModel experienceModel}) {
@@ -205,7 +205,7 @@ dynamic checkIfNull(dynamic data) {
   return data ?? pw.SizedBox();
 }
 
-pw.Widget whiteHeadContainer({required pw.Widget widget}) {
+pw.Widget whiteHeadContainer({required pw.Widget column}) {
   return pw.Padding(
     padding: EdgeInsets.symmetric(
       vertical: width * 0.01,
@@ -222,7 +222,7 @@ pw.Widget whiteHeadContainer({required pw.Widget widget}) {
         horizontal: width * 0.005,
         vertical: width * 0.0025,
       ),
-      child: widget,
+      child: column,
     ),
   );
 }

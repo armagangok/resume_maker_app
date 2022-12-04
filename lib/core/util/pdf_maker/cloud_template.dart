@@ -29,7 +29,7 @@ class CloudTemplate {
   List<ExperienceModel>? experienceList;
 
   late final PersonalDataRepository personalDataRepo;
-  late PersonalDataModel personalDataModel;
+  late PersonalDataModel? personalDataModel;
 
   late final EducationDataRepository academicDataRepo;
   List<EducationDataModel>? educationDataModel;
@@ -66,12 +66,18 @@ class CloudTemplate {
   }
 
   void buildUpPDF() {
-    var profilePicture = getPersonImage1(personalDataModel.imagePath);
-    var aboutmeWidget = aboutMeText(aboutMeText: personalDataModel.aboutMeText);
+    var profilePicture = personalDataModel == null
+        ? pw.SizedBox()
+        : getPersonImage1(personalDataModel!.imagePath);
+
+    var aboutmeWidget = personalDataModel == null
+        ? pw.SizedBox()
+        : aboutMeText(aboutMeText: personalDataModel!.aboutMeText);
     var educationContainer = educationDataModel == null
         ? pw.SizedBox()
         : pw.Container(
-            padding: pw.EdgeInsets.all(width * 0.02),
+            width: width * 0.5,
+            padding: pw.EdgeInsets.all(width * 0.015),
             color: PdfColors.blue50,
             child: pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -85,12 +91,14 @@ class CloudTemplate {
     var languageContainer = languageList == null
         ? pw.SizedBox()
         : pw.Container(
-            padding: pw.EdgeInsets.all(width * 0.02),
+            width: width * 0.5,
+            padding: pw.EdgeInsets.all(width * 0.015),
             color: PdfColors.blue50,
             child: pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
                 pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.start,
                   children: [
                     getIcon(0xe894),
                     head1Text("LANGUAGES"),
@@ -104,7 +112,8 @@ class CloudTemplate {
     var skillsContainer = skillsList == null
         ? pw.SizedBox()
         : pw.Container(
-            padding: pw.EdgeInsets.all(width * 0.02),
+            width: width * 0.5,
+            padding: pw.EdgeInsets.all(width * 0.015),
             color: PdfColors.blue50,
             child: pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -124,7 +133,8 @@ class CloudTemplate {
     var contactContainer = personalDataModel == null
         ? pw.SizedBox()
         : pw.Container(
-            padding: pw.EdgeInsets.all(width * 0.02),
+            width: width * 0.5,
+            padding: pw.EdgeInsets.all(width * 0.015),
             color: PdfColors.blue50,
             child: pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -135,42 +145,57 @@ class CloudTemplate {
                     head1Text("CONTACT"),
                   ],
                 ),
-                contactText(personalDataModel: personalDataModel),
+                contactText(personalDataModel: personalDataModel!),
               ],
             ),
           );
 
     widgets.add(
-      pw.Row(
-        children: [
-          pw.Center(child: profilePicture),
-          pw.SizedBox(width: width * 0.02),
-          pw.Expanded(
-            child: pw.Column(
-              mainAxisAlignment: pw.MainAxisAlignment.start,
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
+      personalDataModel == null
+          ? pw.SizedBox()
+          : pw.Row(
               children: [
-                nameText(personalDataModel.name),
-                sizedBox015,
-                head1Text("ABOUT ME"),
-                customDivider(),
-                aboutmeWidget,
+                pw.Center(child: profilePicture),
+                pw.SizedBox(width: width * 0.02),
+                pw.Expanded(
+                  child: pw.Column(
+                    mainAxisAlignment: pw.MainAxisAlignment.start,
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    children: [
+                      nameText(personalDataModel!.name),
+                      sizedBox015,
+                      head1Text("ABOUT ME"),
+                      customDivider(),
+                      aboutmeWidget,
+                    ],
+                  ),
+                ),
               ],
             ),
-          ),
-        ],
-      ),
     );
 
     widgets.add(sizedBox015);
 
     widgets.add(
       pw.Wrap(
+        alignment: pw.WrapAlignment.spaceBetween,
         children: [
-          educationContainer,
-          languageContainer,
-          skillsContainer,
-          contactContainer,
+          pw.Padding(
+            padding: pw.EdgeInsets.all(width * 0.025),
+            child: educationContainer,
+          ),
+          pw.Padding(
+            padding: pw.EdgeInsets.all(width * 0.025),
+            child: languageContainer,
+          ),
+          pw.Padding(
+            padding: pw.EdgeInsets.all(width * 0.025),
+            child: skillsContainer,
+          ),
+          pw.Padding(
+            padding: pw.EdgeInsets.all(width * 0.025),
+            child: contactContainer,
+          ),
         ],
       ),
     );
@@ -256,160 +281,4 @@ class CloudTemplate {
       LogHelper.shared.debugPrint("$e");
     }
   }
-
-  // pw.Widget leftContainer() {
-  //   return pw.Container(
-  //     padding: const pw.EdgeInsets.symmetric(vertical: 20),
-  //     width: width * 0.45,
-  //     child: pw.Column(
-  //       children: [
-  //         personalDataModel.imagePath.isEmpty
-  //             ? pw.SizedBox()
-  //             : getPersonImage1(personalDataModel.imagePath),
-  //         pw.Expanded(
-  //           child: pw.Padding(
-  //             padding: pw.EdgeInsets.symmetric(
-  //               vertical: height * 0.035,
-  //               horizontal: width * 0.025,
-  //             ),
-  //             child: pw.Column(
-  //               crossAxisAlignment: pw.CrossAxisAlignment.start,
-  //               children: [
-  //                 sizedBox015,
-  //                 languageList == null
-  //                     ? pw.SizedBox()
-  //                     : pw.Container(
-  //                         padding: pw.EdgeInsets.all(width * 0.02),
-  //                         color: PdfColors.blue50,
-  //                         child: pw.Column(
-  //                           crossAxisAlignment: pw.CrossAxisAlignment.start,
-  //                           children: [
-  //                             pw.Row(
-  //                               children: [
-  //                                 getIcon(0xe894),
-  //                                 head1Text("LANGUAGES"),
-  //                               ],
-  //                             ),
-  //                             languagesText(languageList: languageList!),
-  //                             sizedBox015,
-  //                           ],
-  //                         ),
-  //                       ),
-  //                 sizedBox015,
-  //                 educationDataModel == null
-  //                     ? pw.SizedBox()
-  //                     : pw.Container(
-  //                         padding: pw.EdgeInsets.all(width * 0.02),
-  //                         color: PdfColors.blue50,
-  //                         child: pw.Column(
-  //                           crossAxisAlignment: pw.CrossAxisAlignment.start,
-  //                           children: [
-  //                             head1Text("EDUCATION"),
-  //                             customDivider(),
-  //                             educationText(educationList: educationDataModel!),
-  //                           ],
-  //                         ),
-  //                       ),
-  //                 sizedBox015,
-  //                 skillsList == null
-  //                     ? pw.SizedBox()
-  //                     : pw.Container(
-  //                         padding: pw.EdgeInsets.all(width * 0.02),
-  //                         color: PdfColors.blue50,
-  //                         child: pw.Column(
-  //                           crossAxisAlignment: pw.CrossAxisAlignment.start,
-  //                           children: [
-  //                             pw.Row(
-  //                               children: [
-  //                                 getIcon(0xe8d0),
-  //                                 head1Text("SKILLS"),
-  //                               ],
-  //                             ),
-  //                             skillText(skills: skillsList!),
-  //                           ],
-  //                         ),
-  //                       ),
-  //                 sizedBox015,
-  //                 pw.Spacer(),
-  //                 personalDataModel == null
-  //                     ? pw.SizedBox()
-  //                     : pw.Container(
-  //                         padding: pw.EdgeInsets.all(width * 0.02),
-  //                         color: PdfColors.blue50,
-  //                         child: pw.Column(
-  //                           crossAxisAlignment: pw.CrossAxisAlignment.start,
-  //                           children: [
-  //                             head1Text("CONTACT"),
-  //                             contactText(personalDataModel: personalDataModel),
-  //                           ],
-  //                         ),
-  //                       ),
-  //               ],
-  //             ),
-  //           ),
-  //         )
-  //       ],
-  //     ),
-  //   );
-  // }
-
-  // pw.Expanded rightContainer() {
-  //   return pw.Expanded(
-  //     child: pw.Container(
-  //       padding: const pw.EdgeInsets.only(
-  //         top: 20,
-  //         right: 20,
-  //         left: 20,
-  //       ),
-  //       color: PdfColors.white,
-  //       child: pw.Column(
-  //         crossAxisAlignment: pw.CrossAxisAlignment.start,
-  //         children: [
-  //           personalDataModel == null
-  //               ? pw.SizedBox()
-  //               : nameText(personalDataModel.name),
-  //           sizedBox015,
-  //           personalDataModel == null
-  //               ? pw.SizedBox()
-  //               : pw.Column(
-  //                   crossAxisAlignment: pw.CrossAxisAlignment.start,
-  //                   children: [
-  //                     head1Text("ABOUT ME"),
-  //                     customDivider(),
-  //                     aboutMeText(aboutMeText: personalDataModel.aboutMeText)
-  //                   ],
-  //                 ),
-  //           sizedBox015,
-  //           referenceDataList == null
-  //               ? pw.SizedBox()
-  //               : pw.Column(
-  //                   crossAxisAlignment: pw.CrossAxisAlignment.start,
-  //                   children: [
-  //                     head1Text("REFERENCE"),
-  //                     customDivider(),
-  //                     // referenceModel(referenceList: referenceDataList!),
-  //                   ],
-  //                 ),
-  //           sizedBox015,
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 }
-
-// "I have been learning and implementing Flutter for the last year. I recently use Feature Based Clean Architecture and Cubit state management to deal with my projects."
-
-// pw.Row(
-//   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//   children: [
-//     // leftContainer(),
-//     // rightContainer(),
-//   ],
-// );
-
-// pw.ThemeData myTheme = pw.ThemeData.withFont(
-//   base: Font.ttf(
-//     await rootBundle.load("assets/fonts/Lato/Lato-Regular.ttf"),
-//   ),
-// );
