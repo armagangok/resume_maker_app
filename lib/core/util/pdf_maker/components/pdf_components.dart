@@ -141,14 +141,17 @@ pw.Widget getPersonImage1(String imagePath) {
 }
 
 pw.Widget skillText({required List<SkillModel> skills}) {
-  return ListView.builder(
-    padding: const pw.EdgeInsets.all(0),
-    itemBuilder: (context, index) {
-      var skill = skills[index];
-      return sideTextBody("Skills: ${skill.skill}");
-    },
-    itemCount: skills.length,
+  var column = pw.Wrap(
+    // crossAxisAlignment: pw.CrossAxisAlignment.start,
+    // mainAxisAlignment: MainAxisAlignment.start,
+    children: [],
   );
+  for (var index = 0; index < skills.length; index++) {
+    column.children.add(sideTextBody(skills[index].skill));
+    if (index != skills.length - 1) column.children.add(Text(", "));
+  }
+
+  return column;
 }
 
 pw.Widget languagesText({required List<LanguageModel> languageList}) {
