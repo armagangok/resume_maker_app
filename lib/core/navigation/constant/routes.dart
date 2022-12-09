@@ -1,6 +1,5 @@
 class KRoute {
   KRoute._();
-  //Example
   static const onboard = "/onboard";
   static const home = "/home";
   static const createResumePage = "/createResume";
@@ -11,4 +10,5 @@ class KRoute {
   static const referencesPage = "/referencesPage";
   static const experiencesPage = "/experiencesPage";
   static const templatesPage = "/templatesPage";
+  static const myProjectsPage = "/projectsPage";
 }

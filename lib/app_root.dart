@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:resume_maker_app/feature/home/presentation/page/home.dart';
 
 import 'core/export/core_export.dart';
+import 'feature/home/presentation/page/home.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

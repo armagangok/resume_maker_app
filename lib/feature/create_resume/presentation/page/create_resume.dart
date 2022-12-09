@@ -73,7 +73,12 @@ class _CreateResumePageState extends State<CreateResumePage> {
       onTap: () =>
           getIt<NavigationService>().navigateTo(path: KRoute.languagePage),
     ),
-
+    ResumeItem(
+      text: "My Projects",
+      iconData: Icons.toll_outlined,
+      onTap: () =>
+          getIt<NavigationService>().navigateTo(path: KRoute.myProjectsPage),
+    ),
     ResumeItem(
       text: "Choose Template",
       iconData: Icons.insert_page_break_rounded,

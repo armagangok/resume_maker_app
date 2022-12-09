@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resume_maker_app/feature/projects/presentation/page/project.dart';
 
 import '../../feature/create_resume/presentation/page/create_resume.dart';
 import '../../feature/cv_templates/presentation/page/cv_templates.dart';
@@ -43,6 +44,9 @@ class NavigationRoute {
 
       case KRoute.templatesPage:
         return _getRoute(const TemplatePage());
+
+      case KRoute.myProjectsPage:
+        return _getRoute(const ProjectPage());
 
       default:
         return MaterialPageRoute(
