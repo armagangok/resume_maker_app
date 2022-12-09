@@ -1,15 +1,11 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../../core/error/failure.dart';
-import '../../../data/model/experience_model.dart';
-import '../../../data/repository/experience_repository_imp.dart';
+import '../../../../../core/util/pdf_maker/export/pdf_export.dart';
 
 part 'experience_state.dart';
 
 class ExperienceCubit extends Cubit<ExperienceState> {
-  late final ExperienceRepoImp _experienceRepository;
+  late final ExperienceRepository _experienceRepository;
 
-  ExperienceCubit({required ExperienceRepoImp experienceRepository})
+  ExperienceCubit({required ExperienceRepository experienceRepository})
       : super(ExperienceInitial()) {
     _experienceRepository = experienceRepository;
   }

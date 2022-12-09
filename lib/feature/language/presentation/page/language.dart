@@ -71,13 +71,11 @@ class _LanguagePageState extends State<LanguagePage> {
       );
 
   Widget _addLanguageButton() {
-    return Builder(builder: (context) {
-      return CustomFloationgButton(
-        onTap: () {
-          bottomSheet(context);
-        },
-      );
-    });
+    return CustomFloationgButton(
+      onTap: () async {
+        await bottomSheet(context);
+      },
+    );
   }
 
   Future<dynamic> bottomSheet(BuildContext context) => showModalBottomSheet(

@@ -1,4 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:resume_maker_app/feature/projects/data/repository/project_repository_imp.dart';
+import 'package:resume_maker_app/feature/projects/presentation/cubit/project_cubit.dart';
 
 import 'core/util/pdf_maker/cloud_template.dart';
 import 'core/util/pdf_maker/peach_puff_template.dart';
@@ -128,6 +130,14 @@ void initDependencies() {
       referenceRepository: ReferenceRepositoryImp.instance,
       languageRepository: LanguageRepositoryImp(hiveHelper: HiveHelper.shared),
       skillRepository: SkillRepositoryImp(),
+    ),
+  );
+
+  getIt.registerLazySingleton<ProjectCubit>(
+    () => ProjectCubit(
+      projectRepository: ProjectRepoImp(
+        hiveHelper: HiveHelper.shared,
+      ),
     ),
   );
 }
