@@ -142,8 +142,6 @@ pw.Widget getPersonImage1(String imagePath) {
 
 pw.Widget skillText({required List<SkillModel> skills}) {
   var column = pw.Wrap(
-    // crossAxisAlignment: pw.CrossAxisAlignment.start,
-    // mainAxisAlignment: MainAxisAlignment.start,
     children: [],
   );
   for (var index = 0; index < skills.length; index++) {
@@ -169,13 +167,20 @@ pw.Widget languagesText({required List<LanguageModel> languageList}) {
 }
 
 pw.Widget experienceWidget({required ExperienceModel experienceModel}) {
-  return pw.SizedBox(
+  return pw.Container(
+    padding: pw.EdgeInsets.all(width * 0.025),
+    color: PdfColors.grey100,
     width: width,
     child: pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
+        pw.Text(
+          "Company name: ${experienceModel.companyName}",
+          style: pw.TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         pw.Text("Job role: ${experienceModel.jobRole}"),
-        pw.Text("Company name: ${experienceModel.companyName}"),
         pw.Text("Skills: ${experienceModel.skills}"),
         pw.Text(
           "Start date: ${experienceModel.jobStartDate}   End date: ${experienceModel.jobEndDate}",
@@ -189,11 +194,86 @@ pw.Widget referenceModel({required ReferenceModel referenceModel}) {
   return pw.Column(
     crossAxisAlignment: pw.CrossAxisAlignment.start,
     children: [
-      pw.Text("Name: ${referenceModel.name}"),
-      pw.Text("Job role: ${referenceModel.profession}"),
-      pw.Text("Recent company: ${referenceModel.recentCompany}"),
-      pw.Text("Email: ${referenceModel.email}"),
-      pw.Text("Phone number: ${referenceModel.phoneNumber}"),
+      RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: "Name: ",
+              style: pw.TextStyle(
+                fontBold: Font.courierBold(),
+                color: PdfColors.black,
+              ),
+            ),
+            TextSpan(
+              text: "${referenceModel.name}",
+            ),
+          ],
+        ),
+      ),
+      RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: "Job role: ",
+              style: pw.TextStyle(
+                fontBold: Font.courierBold(),
+                color: PdfColors.black,
+              ),
+            ),
+            TextSpan(
+              text: "${referenceModel.profession}",
+            ),
+          ],
+        ),
+      ),
+      RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: "Recent company: ",
+              style: pw.TextStyle(
+                fontBold: Font.courierBold(),
+                color: PdfColors.black,
+              ),
+            ),
+            TextSpan(
+              text: "${referenceModel.recentCompany}",
+            ),
+          ],
+        ),
+      ),
+      RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: "Email: ",
+              style: pw.TextStyle(
+                fontBold: Font.courierBold(),
+                color: PdfColors.black,
+              ),
+            ),
+            TextSpan(
+              text: "${referenceModel.email}",
+            ),
+          ],
+        ),
+      ),
+      pw.RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: "Phone number: ",
+              style: pw.TextStyle(
+                fontBold: Font.timesBold(),
+                color: PdfColors.black,
+              ),
+            ),
+            TextSpan(
+              text: "${referenceModel.phoneNumber}",
+            ),
+          ],
+        ),
+      ),
     ],
   );
 }
@@ -240,18 +320,3 @@ pw.Widget getIcon(int codePoint) => pw.Padding(
         size: 15,
       ),
     );
-
-
-// pw.Widget getPersonImage(Uint8List? uint8ListData) {
-//   return uint8ListData == null
-//       ? SizedBox()
-//       : pw.Container(
-//           width: double.infinity,
-//           height: width / 2.7,
-//           color: PdfColors.grey,
-//           child: pw.Image(
-//             pw.MemoryImage(uint8ListData),
-//             fit: pw.BoxFit.fitHeight,
-//           ),
-//         );
-// }

@@ -75,78 +75,90 @@ class CloudTemplate {
         : aboutMeText(aboutMeText: personalDataModel!.aboutMeText);
     var educationContainer = educationDataModel == null
         ? pw.SizedBox()
-        : pw.Container(
-            width: width * 0.5,
-            padding: pw.EdgeInsets.all(width * 0.015),
-            color: PdfColors.blue50,
-            child: pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
-              children: [
-                head1Text("EDUCATION"),
-                educationText(educationList: educationDataModel!),
-              ],
+        : pw.Padding(
+            padding: pw.EdgeInsets.all(width * 0.025),
+            child: pw.Container(
+              width: width * 0.5,
+              padding: pw.EdgeInsets.all(width * 0.015),
+              color: PdfColors.blue50,
+              child: pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  head1Text("EDUCATION"),
+                  educationText(educationList: educationDataModel!),
+                ],
+              ),
             ),
           );
 
     var languageContainer = languageList == null
         ? pw.SizedBox()
-        : pw.Container(
-            width: width * 0.5,
-            padding: pw.EdgeInsets.all(width * 0.015),
-            color: PdfColors.blue50,
-            child: pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
-              children: [
-                pw.Row(
-                  mainAxisAlignment: pw.MainAxisAlignment.start,
-                  children: [
-                    getIcon(0xe894),
-                    head1Text("LANGUAGES"),
-                  ],
-                ),
-                languagesText(languageList: languageList!),
-              ],
+        : pw.Padding(
+            padding: pw.EdgeInsets.all(width * 0.025),
+            child: pw.Container(
+              width: width * 0.5,
+              padding: pw.EdgeInsets.all(width * 0.015),
+              color: PdfColors.blue50,
+              child: pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment.start,
+                    children: [
+                      getIcon(0xe894),
+                      head1Text("LANGUAGES"),
+                    ],
+                  ),
+                  languagesText(languageList: languageList!),
+                ],
+              ),
             ),
           );
 
     var skillsContainer = skillsList == null
         ? pw.SizedBox()
-        : pw.Container(
-            width: width * 0.5,
-            padding: pw.EdgeInsets.all(width * 0.015),
-            color: PdfColors.blue50,
-            child: pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
-              children: [
-                pw.Row(
-                  mainAxisAlignment: pw.MainAxisAlignment.start,
-                  children: [
-                    getIcon(0xe8d0),
-                    head1Text("SKILLS"),
-                  ],
-                ),
-                skillText(skills: skillsList!),
-              ],
+        : pw.Padding(
+            padding: pw.EdgeInsets.all(width * 0.025),
+            child: pw.Container(
+              width: width * 0.5,
+              padding: pw.EdgeInsets.all(width * 0.015),
+              color: PdfColors.blue50,
+              child: pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment.start,
+                    children: [
+                      getIcon(0xe8d0),
+                      head1Text("SKILLS"),
+                    ],
+                  ),
+                  skillText(skills: skillsList!),
+                ],
+              ),
             ),
           );
 
     var contactContainer = personalDataModel == null
         ? pw.SizedBox()
-        : pw.Container(
-            width: width * 0.5,
-            padding: pw.EdgeInsets.all(width * 0.015),
-            color: PdfColors.blue50,
-            child: pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
-              children: [
-                pw.Row(
-                  children: [
-                    getIcon(0xe0ba),
-                    head1Text("CONTACT"),
-                  ],
-                ),
-                contactText(personalDataModel: personalDataModel!),
-              ],
+        : pw.Padding(
+            padding: pw.EdgeInsets.all(width * 0.025),
+            child: pw.Container(
+              width: width * 0.5,
+              padding: pw.EdgeInsets.all(width * 0.015),
+              color: PdfColors.blue50,
+              child: pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  pw.Row(
+                    children: [
+                      getIcon(0xe0ba),
+                      head1Text("CONTACT"),
+                    ],
+                  ),
+                  contactText(personalDataModel: personalDataModel!),
+                ],
+              ),
             ),
           );
 
@@ -156,10 +168,10 @@ class CloudTemplate {
           : pw.Row(
               children: [
                 pw.Center(child: profilePicture),
-                pw.SizedBox(width: width * 0.02),
+                pw.SizedBox(width: width * 0.1),
                 pw.Expanded(
                   child: pw.Column(
-                    mainAxisAlignment: pw.MainAxisAlignment.start,
+                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       nameText(personalDataModel!.name),
@@ -174,28 +186,14 @@ class CloudTemplate {
             ),
     );
 
-    widgets.add(sizedBox015);
-
     widgets.add(
       pw.Wrap(
         alignment: pw.WrapAlignment.spaceBetween,
         children: [
-          pw.Padding(
-            padding: pw.EdgeInsets.all(width * 0.025),
-            child: educationContainer,
-          ),
-          pw.Padding(
-            padding: pw.EdgeInsets.all(width * 0.025),
-            child: languageContainer,
-          ),
-          pw.Padding(
-            padding: pw.EdgeInsets.all(width * 0.025),
-            child: skillsContainer,
-          ),
-          pw.Padding(
-            padding: pw.EdgeInsets.all(width * 0.025),
-            child: contactContainer,
-          ),
+          educationContainer,
+          languageContainer,
+          skillsContainer,
+          contactContainer,
         ],
       ),
     );
