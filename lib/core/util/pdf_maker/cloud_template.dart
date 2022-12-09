@@ -76,15 +76,20 @@ class CloudTemplate {
     var educationContainer = educationDataModel == null
         ? pw.SizedBox()
         : pw.Padding(
-            padding: pw.EdgeInsets.all(width * 0.025),
+            padding: pw.EdgeInsets.only(top: width * 0.025),
             child: pw.Container(
-              width: width * 0.5,
+              decoration: _blueBoxDecoration(),
+              width: double.infinity,
               padding: pw.EdgeInsets.all(width * 0.015),
-              color: PdfColors.blue50,
               child: pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
-                  head1Text("EDUCATION"),
+                  pw.Row(
+                    children: [
+                      getIcon(0xe80c),
+                      head1Text("EDUCATION"),
+                    ],
+                  ),
                   educationText(educationList: educationDataModel!),
                 ],
               ),
@@ -94,11 +99,11 @@ class CloudTemplate {
     var languageContainer = languageList == null
         ? pw.SizedBox()
         : pw.Padding(
-            padding: pw.EdgeInsets.all(width * 0.025),
+            padding: pw.EdgeInsets.only(top: width * 0.025),
             child: pw.Container(
-              width: width * 0.5,
+              decoration: _blueBoxDecoration(),
+              width: double.infinity,
               padding: pw.EdgeInsets.all(width * 0.015),
-              color: PdfColors.blue50,
               child: pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
@@ -118,11 +123,11 @@ class CloudTemplate {
     var skillsContainer = skillsList == null
         ? pw.SizedBox()
         : pw.Padding(
-            padding: pw.EdgeInsets.all(width * 0.025),
+            padding: pw.EdgeInsets.only(top: width * 0.025),
             child: pw.Container(
-              width: width * 0.5,
+              decoration: _blueBoxDecoration(),
+              width: double.infinity,
               padding: pw.EdgeInsets.all(width * 0.015),
-              color: PdfColors.blue50,
               child: pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
@@ -142,11 +147,11 @@ class CloudTemplate {
     var contactContainer = personalDataModel == null
         ? pw.SizedBox()
         : pw.Padding(
-            padding: pw.EdgeInsets.all(width * 0.025),
+            padding: pw.EdgeInsets.only(top: width * 0.025),
             child: pw.Container(
-              width: width * 0.5,
+              decoration: _blueBoxDecoration(),
+              width: double.infinity,
               padding: pw.EdgeInsets.all(width * 0.015),
-              color: PdfColors.blue50,
               child: pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
@@ -168,36 +173,31 @@ class CloudTemplate {
           : pw.Row(
               children: [
                 pw.Center(child: profilePicture),
-                pw.SizedBox(width: width * 0.1),
+                pw.SizedBox(width: width * 0.05),
                 pw.Expanded(
-                  child: pw.Column(
-                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      nameText(personalDataModel!.name),
-                      sizedBox015,
-                      head1Text("ABOUT ME"),
-                      customDivider(),
-                      aboutmeWidget,
-                    ],
+                  child: pw.SizedBox(
+                    height: width * 0.4,
+                    child: pw.Column(
+                      mainAxisAlignment: pw.MainAxisAlignment.start,
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        nameText(personalDataModel!.name),
+                        sizedBox015,
+                        head1Text("ABOUT ME"),
+                        customDivider(),
+                        aboutmeWidget,
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
     );
 
-    widgets.add(
-      pw.Wrap(
-        alignment: pw.WrapAlignment.spaceBetween,
-        children: [
-          educationContainer,
-          languageContainer,
-          skillsContainer,
-          contactContainer,
-        ],
-      ),
-    );
-
+    widgets.add(contactContainer);
+    widgets.add(educationContainer);
+    widgets.add(languageContainer);
+    widgets.add(skillsContainer);
     widgets.add(sizedBox015);
 
     if (referenceDataList != null) {
@@ -212,14 +212,24 @@ class CloudTemplate {
     if (experienceList != null) {
       widgets.add(head1Text("EXPERIENCE"));
       widgets.add(customDivider());
-
+      widgets.add(pw.SizedBox(height: height * 0.001));
       for (var experience in experienceList!) {
         widgets.add(experienceWidget(experienceModel: experience));
-        widgets.add(sizedBox015);
+        widgets.add(pw.SizedBox(height: height * 0.01));
       }
     }
 
     widgets.add(sizedBox015);
+  }
+
+  pw.BoxDecoration _blueBoxDecoration() {
+    return pw.BoxDecoration(
+      color: PdfColors.blue50,
+      border: pw.Border.all(color: PdfColors.blue100),
+      borderRadius: const pw.BorderRadius.all(
+        pw.Radius.circular(6),
+      ),
+    );
   }
 
   void initializeRepositories() {

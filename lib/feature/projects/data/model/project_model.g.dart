@@ -19,17 +19,20 @@ class ProjectModelAdapter extends TypeAdapter<ProjectModel> {
     return ProjectModel(
       projectName: fields[0] as String,
       description: fields[1] as String,
+      sourceLink: fields[2] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, ProjectModel obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.projectName)
       ..writeByte(1)
-      ..write(obj.description);
+      ..write(obj.description)
+      ..writeByte(2)
+      ..write(obj.sourceLink);
   }
 
   @override

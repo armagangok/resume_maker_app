@@ -45,7 +45,7 @@ pw.Widget sideTextBody(String text) {
 
 pw.Divider customDivider() => pw.Divider(
       height: 0,
-      thickness: 0.85,
+      thickness: 1,
       color: PdfColors.grey600,
     );
 
@@ -77,17 +77,17 @@ pw.Widget educationText({required List<EducationDataModel> educationList}) {
           children: [
             educationModel.university == null
                 ? pw.SizedBox()
-                : pw.Text(educationModel.university!),
+                : pw.Text("School: ${educationModel.university!}"),
             educationModel.major == null
                 ? pw.SizedBox()
-                : pw.Text(educationModel.major!),
+                : pw.Text("Major: ${educationModel.major!}"),
             educationModel.grade == null
                 ? pw.SizedBox()
-                : pw.Text(educationModel.grade!),
+                : pw.Text("Grade: ${educationModel.grade!}"),
             pw.Row(
               children: [
                 pw.Text(
-                  "${educationModel.schoolStartDate} - ${educationModel.schoolEndDate!.isEmpty ? "Present" : educationModel.schoolEndDate}",
+                  "Start Date: ${educationModel.schoolStartDate} - End Date: ${educationModel.schoolEndDate!.isEmpty ? "Present" : educationModel.schoolEndDate}",
                 ),
               ],
             )
@@ -115,6 +115,10 @@ pw.Widget contactText({required PersonalDataModel personalDataModel}) {
         ),
         pw.Text(
           "Linkedin: ${personalDataModel.linkedin}",
+          maxLines: 1,
+        ),
+        pw.Text(
+          "Location: ${personalDataModel.location}",
           maxLines: 1,
         ),
       ],
@@ -168,9 +172,15 @@ pw.Widget languagesText({required List<LanguageModel> languageList}) {
 
 pw.Widget experienceWidget({required ExperienceModel experienceModel}) {
   return pw.Container(
-    padding: pw.EdgeInsets.all(width * 0.025),
-    color: PdfColors.grey100,
-    width: width,
+    decoration: BoxDecoration(
+      color: PdfColors.grey100,
+      border: Border.all(color: PdfColors.grey200),
+      borderRadius: const BorderRadius.all(
+        Radius.circular(6),
+      ),
+    ),
+    padding: pw.EdgeInsets.all(width * 0.015),
+    width: double.infinity,
     child: pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [

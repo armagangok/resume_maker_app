@@ -8,9 +8,13 @@ class ProjectModel extends HiveObject {
   final String projectName;
   @HiveField(1)
   final String description;
+  @HiveField(2)
+  final String sourceLink;
 
   ProjectModel({
     required this.projectName,
     required this.description,
+    required this.sourceLink,
+
   });
 }
