@@ -21,7 +21,7 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
   void initState() {
     _textControllerCubit = getIt<ExperienceTextControllerCubit>.call();
     _experienceCubit = getIt<ExperienceCubit>.call();
-    _experienceCubit.fetchExperienceData();
+    _experienceCubit.fetchData();
 
     super.initState();
   }

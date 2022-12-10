@@ -43,7 +43,7 @@ class ProjectCubit extends Cubit<ProjectState> {
             }
           },
           (data) async {
-            emit(ProjectFetched());
+            emit(ProjectFetched(experienceData: data));
           },
         );
       },
@@ -71,14 +71,14 @@ class ProjectCubit extends Cubit<ProjectState> {
             }
           },
           (data) async {
-            emit(ProjectFetched());
+            emit(ProjectFetched(experienceData: data));
           },
         );
       },
     );
   }
 
-  Future<void> fetchExperienceData() async {
+  Future<void> fetchData() async {
     var response = await _projectRepo.fetchData();
 
     response.fold(
@@ -92,7 +92,7 @@ class ProjectCubit extends Cubit<ProjectState> {
         }
       },
       (data) async {
-        emit(ProjectFetched());
+        emit(ProjectFetched(experienceData: data));
       },
     );
   }

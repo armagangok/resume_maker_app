@@ -10,6 +10,7 @@ class ProjectRepoImp extends ProjectRepository {
   }
 
   late final HiveHelper _hiveHelper;
+
   @override
   Future<Either<Failure, bool>> deleteData(int index) async {
     try {
@@ -54,6 +55,6 @@ class ProjectRepoImp extends ProjectRepository {
 
   @override
   Future<void> updateData({required newDataModel}) async {
-    LogHelper.shared.debugPrint("Data Updated...");
+    LogHelper.shared.debugPrint("Project Model Updated...");
   }
 }

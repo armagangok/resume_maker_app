@@ -29,7 +29,7 @@ void initializeRepositories({
         ),
       );
 
-  experienceRepo.fetchExperienceData().then(
+  experienceRepo.fetchData().then(
         (value) => value.fold(
           (failure) async =>
               (failure) => LogHelper.shared.debugPrint("$failure"),

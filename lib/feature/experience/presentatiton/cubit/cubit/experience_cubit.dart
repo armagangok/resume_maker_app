@@ -70,7 +70,7 @@ class ExperienceCubit extends Cubit<ExperienceState> {
     );
   }
 
-  Future<void> fetchExperienceData() async {
+  Future<void> fetchData() async {
     var response = await _experienceRepository.fetchData();
 
     response.fold(
