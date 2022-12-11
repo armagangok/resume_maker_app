@@ -1,4 +1,3 @@
-import '../../../../../core/contracts/database_contract.dart';
 import '../../../../../core/util/pdf_maker/export/pdf_export.dart';
 
 part 'experience_state.dart';
@@ -6,15 +5,15 @@ part 'experience_state.dart';
 class ExperienceCubit extends Cubit<ExperienceState> {
   late final DatabaseContract _experienceRepository;
 
-  ExperienceCubit({required DatabaseContract experienceRepository})
+  ExperienceCubit({required DatabaseContract repository})
       : super(ExperienceInitial()) {
-    _experienceRepository = experienceRepository;
+    _experienceRepository = repository;
   }
 
   static String box = HiveBoxes.experienceDataBox;
 
   Future<void> save(ExperienceModel experienceModel) async {
-    var response = await _experienceRepository.saveData(
+    var response = await _experienceRepository.saveData<ExperienceModel>(
       dataModel: experienceModel,
       boxName: box,
     );
@@ -24,59 +23,29 @@ class ExperienceCubit extends Cubit<ExperienceState> {
         return emit(ExperienceSavingError());
       },
       (data) async {
-        var response = await _experienceRepository.fetchData(boxName: box);
-
         emit(ExperienceSaved());
 
-        response.fold(
-          (failure) {
-            if (failure is HiveNullData) {
-              emit(ExperienceInitial());
-            } else if (failure is HiveFetchFailure) {
-              emit(ExperienceFetcingError());
-            } else {
-              emit(state);
-            }
-          },
-          (data) async {
-            emit(ExperienceFetched(experienceData: data));
-          },
-        );
+        fetchData();
       },
     );
   }
 
   Future<void> delete(int index) async {
-    var response =
-        await _experienceRepository.deleteData(index: index, boxName: box);
+    var response = await _experienceRepository.deleteData<ExperienceModel>(
+        index: index, boxName: box);
 
     response.fold(
       (l) => emit(ExperienceDeletingError()),
       (r) async {
-        var response = await _experienceRepository.fetchData(boxName: box);
-
         emit(ExperienceDeleted());
-
-        response.fold(
-          (failure) {
-            if (failure is HiveNullData) {
-              emit(ExperienceInitial());
-            } else if (failure is HiveFetchFailure) {
-              emit(ExperienceFetcingError());
-            } else {
-              emit(state);
-            }
-          },
-          (data) async {
-            emit(ExperienceFetched(experienceData: data));
-          },
-        );
+        fetchData();
       },
     );
   }
 
   Future<void> fetchData() async {
-    var response = await _experienceRepository.fetchData(boxName: box);
+    var response =
+        await _experienceRepository.fetchData<ExperienceModel>(boxName: box);
 
     response.fold(
       (failure) {

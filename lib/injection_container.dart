@@ -1,6 +1,3 @@
-import 'package:get_it/get_it.dart';
-import 'package:resume_maker_app/core/util/pdf_maker/cloud_template.dart';
-
 import 'core/export/core_export.dart';
 
 final getIt = GetIt.instance;
@@ -74,6 +71,12 @@ void initDependencies() {
   getIt.registerLazySingleton<CloudTemplate>(
     () => CloudTemplate(
       repo: LocalDatabaseRepositoryImp.instance,
+    ),
+  );
+
+  getIt.registerLazySingleton<ExperienceCubit>(
+    () => ExperienceCubit(
+      repository: LocalDatabaseRepositoryImp.instance,
     ),
   );
 }
