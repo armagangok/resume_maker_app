@@ -1,5 +1,3 @@
-// ignoreforfile: avoidprint
-
 export 'dart:io';
 export 'package:flutter/services.dart';
 export 'package:open_file/open_file.dart';
