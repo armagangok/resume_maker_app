@@ -12,3 +12,4 @@ export '../../../../feature/language/data/model/language_model.dart';
 export '../../../../feature/personal_details/data/model/personal_data_model.dart';
 export '../../../../feature/references/data/model/reference_model.dart';
 export '../../../../feature/skills/data/model/skill_model.dart';
+export '../../../../../core/contracts/database_contract.dart';

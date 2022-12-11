@@ -31,6 +31,7 @@ class _ProjectPageState extends State<ProjectPage> {
 
   CustomAppBar _buildAppBar() => CustomAppBar(
         onTapUpdate: () {},
+        title: const Text("Projects"),
       );
 
   Widget _buildBody() {

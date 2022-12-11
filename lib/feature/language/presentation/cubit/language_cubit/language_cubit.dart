@@ -1,78 +1,50 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../../core/contracts/database_contract.dart';
-import '../../../../../core/error/failure.dart';
-import '../../../data/model/language_model.dart';
+import '../../../../../core/util/pdf_maker/export/pdf_export.dart';
 
 part 'language_state.dart';
 
 class LanguageCubit extends Cubit<LanguageState> {
   LanguageCubit({
-    required DatabaseContract languageRepository,
+    required DatabaseContract repository,
   }) : super(LanguageInitial()) {
-    _repository = languageRepository;
+    _repository = repository;
   }
 
   late final DatabaseContract _repository;
 
+  static String box = HiveBoxes.languageDataBox;
+
   Future<void> save(LanguageModel languageModel) async {
-    var response = await _repository.saveData(dataModel: languageModel);
+    var response = await _repository.saveData<LanguageModel>(
+      dataModel: languageModel,
+      boxName: box,
+    );
 
     response.fold(
       (failure) => emit(LanguageSavingError()),
       (data) async {
-        var response = await _repository.fetchData();
-
         emit(LanguageSaved());
-
-        response.fold(
-          (failure) {
-            if (failure is HiveNullData) {
-              emit(LanguageInitial());
-            } else if (failure is HiveFetchFailure) {
-              emit(LanguageFetcingError());
-            } else {
-              emit(state);
-            }
-          },
-          (data) async {
-            emit(LanguageFetched(languageData: data));
-          },
-        );
+        return fetchData();
       },
     );
   }
 
   Future<void> delete(int index) async {
-    var response = await _repository.deleteData(index);
+    var response = await _repository.deleteData<LanguageModel>(
+      index: index,
+      boxName: box,
+    );
 
     response.fold(
       (l) => emit(LanguageDeletingError()),
       (r) async {
-        var response = await _repository.fetchData();
-
         emit(LanguageDeleted());
-
-        response.fold(
-          (failure) {
-            if (failure is HiveNullData) {
-              emit(LanguageInitial());
-            } else if (failure is HiveFetchFailure) {
-              emit(LanguageFetcingError());
-            } else {
-              emit(state);
-            }
-          },
-          (data) async {
-            emit(LanguageFetched(languageData: data));
-          },
-        );
+        return fetchData();
       },
     );
   }
 
-  Future<void> fetchLanguageData() async {
-    var response = await _repository.fetchData();
+  Future<void> fetchData() async {
+    var response = await _repository.fetchData<LanguageModel>(boxName: box);
 
     response.fold(
       (failure) {

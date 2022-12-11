@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/contracts/database_contract.dart';
 import '../../../../../core/export/core_export.dart';
-import '../../../export/personal_export.dart';
 
 part 'personal_data_state.dart';
 
 class PersonalDataCubit extends Cubit<PersonalDataState> {
   PersonalDataCubit({
-    required DatabaseContract personalDataRepository,
+    required DatabaseContract repository,
     required PickImageCubit imagePickerCubit,
   }) : super(_getInitialPersonalModel) {
-    _personalDataRepository = personalDataRepository;
+    _personalDataRepository = repository;
     _imagePickerCubit = imagePickerCubit;
 
     _initTextController();
@@ -20,12 +19,16 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
   late final DatabaseContract _personalDataRepository;
   late final PickImageCubit _imagePickerCubit;
 
+  static const box = HiveBoxes.personalDataBox;
+
   Future<void> deleteData(int index) async {
-    await _personalDataRepository.deleteData(index);
+    await _personalDataRepository.deleteData(index: index, boxName: box);
   }
 
   Future<void> fetchPersonalData() async {
-    var response = await _personalDataRepository.fetchData();
+    var response = await _personalDataRepository.fetchData<PersonalDataModel>(
+      boxName: box,
+    );
 
     response.fold(
       (l) {
@@ -36,14 +39,17 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
         }
       },
       (r) {
-        emit(PersonalDataReceived(personalData: r));
+        print(r);
+        emit(PersonalDataReceived(personalData: r[0]));
       },
     );
   }
 
   Future<void> savePersonalData(PersonalDataModel personalDataModel) async {
-    var response =
-        await _personalDataRepository.saveData(dataModel: personalDataModel);
+    var response = await _personalDataRepository.saveData<PersonalDataModel>(
+      dataModel: personalDataModel,
+      boxName: box,
+    );
 
     await fetchPersonalData();
 

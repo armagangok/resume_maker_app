@@ -7,12 +7,7 @@ import '../../../../feature/skills/data/model/skill_model.dart';
 import '../../../contracts/database_contract.dart';
 
 void initializeRepositories({
-  required DatabaseContract personalDataRepo,
-  required experienceRepo,
-  required academicDataRepo,
-  required referenceRepo,
-  required languageRepo,
-  required skillRepo,
+  required DatabaseContract repo,
   required List<ExperienceModel>? experienceList,
   required List<EducationDataModel>? academicDataList,
   required List<ReferenceModel>? referenceDataList,
@@ -20,7 +15,7 @@ void initializeRepositories({
   required List<SkillModel>? skillsList,
   required PersonalDataModel? personalDataModel,
 }) {
-  personalDataRepo.fetchData().then(
+  repo.fetchData(boxName: HiveBoxes.personalDataBox).then(
         (value) => value.fold(
           (failure) => LogHelper.shared.debugPrint("$failure"),
           (data) {
@@ -29,7 +24,7 @@ void initializeRepositories({
         ),
       );
 
-  experienceRepo.fetchData().then(
+  repo.fetchData(boxName: HiveBoxes.experienceDataBox).then(
         (value) => value.fold(
           (failure) async =>
               (failure) => LogHelper.shared.debugPrint("$failure"),
@@ -37,28 +32,28 @@ void initializeRepositories({
         ),
       );
 
-  academicDataRepo.fetchData().then(
+  repo.fetchData(boxName: HiveBoxes.academicDataBox).then(
         (value) => value.fold(
           (failure) => LogHelper.shared.debugPrint("$failure"),
           (r) => academicDataList = r,
         ),
       );
 
-  referenceRepo.fetchReferenceData().then(
+  repo.fetchData(boxName: HiveBoxes.referenceDataBox).then(
         (value) => value.fold(
           (failure) => LogHelper.shared.debugPrint("$failure"),
           (r) => referenceDataList = r,
         ),
       );
 
-  languageRepo.fetchLanguageData().then(
+  repo.fetchData(boxName: HiveBoxes.languageDataBox).then(
         (value) => value.fold(
           (failure) => LogHelper.shared.debugPrint("$failure"),
           (data) => languageList = data,
         ),
       );
 
-  skillRepo.fetchSkillData().then(
+  repo.fetchData(boxName: HiveBoxes.skillDataBox).then(
         (value) => value.fold(
           (failure) => LogHelper.shared.debugPrint("$failure"),
           (r) => skillsList = r,

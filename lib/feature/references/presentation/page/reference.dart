@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/export/core_export.dart';
-import '../../data/model/reference_model.dart';
-import '../cubit/skill_cubit/reference_cubit.dart';
 import '../widget/reference_item.dart';
 
 class ReferencePage extends StatefulWidget {
@@ -19,7 +17,7 @@ class ReferenceScreenState extends State<ReferencePage> {
   void initState() {
     _referenceCubit = getIt<ReferenceCubit>.call();
 
-    _referenceCubit.fetchReferenceData();
+    _referenceCubit.fetchData();
     super.initState();
   }
 

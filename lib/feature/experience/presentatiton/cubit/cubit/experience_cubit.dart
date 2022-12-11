@@ -1,5 +1,4 @@
-import 'package:resume_maker_app/core/contracts/database_contract.dart';
-
+import '../../../../../core/contracts/database_contract.dart';
 import '../../../../../core/util/pdf_maker/export/pdf_export.dart';
 
 part 'experience_state.dart';
@@ -12,9 +11,12 @@ class ExperienceCubit extends Cubit<ExperienceState> {
     _experienceRepository = experienceRepository;
   }
 
+  static String box = HiveBoxes.experienceDataBox;
+
   Future<void> save(ExperienceModel experienceModel) async {
     var response = await _experienceRepository.saveData(
       dataModel: experienceModel,
+      boxName: box,
     );
 
     response.fold(
@@ -22,7 +24,7 @@ class ExperienceCubit extends Cubit<ExperienceState> {
         return emit(ExperienceSavingError());
       },
       (data) async {
-        var response = await _experienceRepository.fetchData();
+        var response = await _experienceRepository.fetchData(boxName: box);
 
         emit(ExperienceSaved());
 
@@ -45,12 +47,13 @@ class ExperienceCubit extends Cubit<ExperienceState> {
   }
 
   Future<void> delete(int index) async {
-    var response = await _experienceRepository.deleteData(index);
+    var response =
+        await _experienceRepository.deleteData(index: index, boxName: box);
 
     response.fold(
       (l) => emit(ExperienceDeletingError()),
       (r) async {
-        var response = await _experienceRepository.fetchData();
+        var response = await _experienceRepository.fetchData(boxName: box);
 
         emit(ExperienceDeleted());
 
@@ -73,7 +76,7 @@ class ExperienceCubit extends Cubit<ExperienceState> {
   }
 
   Future<void> fetchData() async {
-    var response = await _experienceRepository.fetchData();
+    var response = await _experienceRepository.fetchData(boxName: box);
 
     response.fold(
       (failure) {

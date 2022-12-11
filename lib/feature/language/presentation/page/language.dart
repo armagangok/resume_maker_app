@@ -19,7 +19,7 @@ class _LanguagePageState extends State<LanguagePage> {
   void initState() {
     _langaugeController = TextEditingController();
     _languageCubit = getIt<LanguageCubit>.call();
-    _languageCubit.fetchLanguageData();
+    _languageCubit.fetchData();
     super.initState();
   }
 

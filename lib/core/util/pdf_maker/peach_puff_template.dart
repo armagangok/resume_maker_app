@@ -2,47 +2,38 @@
 
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
-import 'package:resume_maker_app/core/contracts/database_contract.dart';
 
 import './export/pdf_export.dart';
+import '../../contracts/database_contract.dart';
 
 // const String path = 'assets/person.png';
 
 class PeachPuffTemplate {
   PeachPuffTemplate({
-    required DatabaseContract experienceRepository,
-    required DatabaseContract personalDataRepository,
-    required DatabaseContract academicDataRepository,
-    required DatabaseContract referenceRepository,
-    required DatabaseContract languageRepository,
-    required DatabaseContract skillRepository,
+    required DatabaseContract repo,
+    
   }) {
-    experienceRepo = experienceRepository;
-    personalDataRepo = personalDataRepository;
-    academicDataRepo = academicDataRepository;
-    referenceRepo = referenceRepository;
-    languageRepo = languageRepository;
-    skillRepo = skillRepository;
+    myrepo = repo;
+    
 
     initializeRepositories();
   }
 
-  late final DatabaseContract experienceRepo;
+  late final DatabaseContract myrepo;
   List<ExperienceModel>? experienceList;
 
-  late final DatabaseContract personalDataRepo;
   late PersonalDataModel personalDataModel;
 
-  late final DatabaseContract academicDataRepo;
+  
   List<EducationDataModel>? academicDataModel;
 
-  late final DatabaseContract referenceRepo;
+  
   List<ReferenceModel>? referenceDataList;
 
-  late final DatabaseContract languageRepo;
+  
   List<LanguageModel>? languageList;
 
-  late final DatabaseContract skillRepo;
+  
   List<SkillModel>? skillsList;
 
   final pdf = pw.Document();
@@ -223,7 +214,7 @@ class PeachPuffTemplate {
   }
 
   void initializeRepositories() {
-    personalDataRepo.fetchData().then(
+    myrepo.fetchData(boxName: HiveBoxes.personalDataBox).then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (data) {
@@ -234,7 +225,7 @@ class PeachPuffTemplate {
           ),
         );
 
-    experienceRepo.fetchData().then(
+    myrepo.fetchData(boxName: HiveBoxes.experienceDataBox).then(
           (value) => value.fold(
             (failure) async =>
                 (failure) => LogHelper.shared.debugPrint("$failure"),
@@ -242,28 +233,28 @@ class PeachPuffTemplate {
           ),
         );
 
-    academicDataRepo.fetchData().then(
+    myrepo.fetchData(boxName: HiveBoxes.academicDataBox).then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (r) => academicDataModel = r,
           ),
         );
 
-    referenceRepo.fetchData().then(
+    myrepo.fetchData(boxName: HiveBoxes.referenceDataBox).then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (r) => referenceDataList = r,
           ),
         );
 
-    languageRepo.fetchData().then(
+    myrepo.fetchData(boxName: HiveBoxes.languageDataBox).then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (data) => languageList = data,
           ),
         );
 
-    skillRepo.fetchData().then(
+    myrepo.fetchData(boxName: HiveBoxes.skillDataBox).then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (r) => skillsList = r,

@@ -32,4 +32,10 @@ class ReferenceDeleted extends ReferenceState {
   static const message = "Reference deleted succesfully.";
 }
 
-class ReloadPage extends ReferenceState {}
+
+class ReferenceSaved extends ReferenceState {
+  // ReferenceDeleted({required super.referenceData});
+
+  static const message = "Reference saved succesfully.";
+}
+

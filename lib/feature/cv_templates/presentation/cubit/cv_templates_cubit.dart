@@ -6,13 +6,13 @@ part 'cv_templates_state.dart';
 
 class TemplatesCubit extends Cubit<TemplateState> {
   TemplatesCubit() : super(TemplateInitial()) {
-    _greyPlainTemplate = getIt<GreyPlainTemplate>.call();
-    _peachPuffTemplate = getIt<PeachPuffTemplate>.call();
+    // _greyPlainTemplate = getIt<GreyPlainTemplate>.call();
+    // _peachPuffTemplate = getIt<PeachPuffTemplate>.call();
     _cloudTemplate = getIt<CloudTemplate>.call();
   }
 
   late final PeachPuffTemplate _peachPuffTemplate;
-  late final GreyPlainTemplate _greyPlainTemplate;
+  // late final GreyPlainTemplate _greyPlainTemplate;
   late final CloudTemplate _cloudTemplate;
 
   Future<void> createCloudPdf() async {

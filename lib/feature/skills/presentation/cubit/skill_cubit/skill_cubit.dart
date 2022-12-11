@@ -6,72 +6,42 @@ import '../../../data/model/skill_model.dart';
 part 'skill_state.dart';
 
 class SkillCubit extends Cubit<SkillState> {
-  SkillCubit({required DatabaseContract skillRepository})
-      : super(SkillInitial()) {
-    _repository = skillRepository;
+  SkillCubit({required DatabaseContract repository}) : super(SkillInitial()) {
+    _repository = repository;
   }
   late final DatabaseContract _repository;
 
+  static const _box = HiveBoxes.skillDataBox;
+
   Future<void> save(SkillModel skillModel) async {
-    var response = await _repository.saveData(dataModel: skillModel);
+    var response = await _repository.saveData<SkillModel>(
+        dataModel: skillModel, boxName: _box);
 
     response.fold(
       (failure) {
         return emit(SkillSavingError());
       },
-      (data) async {
-        var response = await _repository.fetchData();
-
-        emit(SkillSaved());
-
-        response.fold(
-          (failure) {
-            if (failure is HiveNullData) {
-              emit(SkillInitial());
-            } else if (failure is HiveFetchFailure) {
-              emit(SkillFetcingError());
-            } else {
-              emit(state);
-            }
-          },
-          (data) async {
-            emit(SkillFetched(skillData: data));
-          },
-        );
-      },
+      (data) async => fetchSkillData(),
     );
   }
 
   Future<void> delete(int index) async {
-    var response = await _repository.deleteData(index);
+    var response = await _repository.deleteData<SkillModel>(
+      index: index,
+      boxName: _box,
+    );
 
     response.fold(
       (l) => emit(SkillDeletingError()),
       (r) async {
-        var response = await _repository.fetchData();
-
         emit(SkillDeleted());
-
-        response.fold(
-          (failure) {
-            if (failure is HiveNullData) {
-              emit(SkillInitial());
-            } else if (failure is HiveFetchFailure) {
-              emit(SkillFetcingError());
-            } else {
-              emit(state);
-            }
-          },
-          (data) async {
-            emit(SkillFetched(skillData: data));
-          },
-        );
+        fetchSkillData();
       },
     );
   }
 
   Future<void> fetchSkillData() async {
-    var response = await _repository.fetchData();
+    var response = await _repository.fetchData<SkillModel>(boxName: _box);
 
     response.fold(
       (failure) {

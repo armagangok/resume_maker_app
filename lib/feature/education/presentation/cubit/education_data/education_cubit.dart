@@ -3,16 +3,19 @@ import '../../../education_export.dart';
 part 'education_state.dart';
 
 class EducationCubit extends Cubit<EducationState> {
-  late final EducationDataRepositoryImp _academicRepository;
+  late final LocalDatabaseRepositoryImp _academicRepository;
 
-  EducationCubit({required EducationDataRepositoryImp academicDataRepository})
+  EducationCubit({required LocalDatabaseRepositoryImp repository})
       : super(EducationInitial()) {
-    _academicRepository = academicDataRepository;
+    _academicRepository = repository;
   }
+
+  var educationBox = HiveBoxes.academicDataBox;
 
   Future<void> saveEducationData(EducationDataModel academicDataModel) async {
     try {
-      await _academicRepository.saveData(dataModel: academicDataModel);
+      await _academicRepository.saveData(
+          dataModel: academicDataModel, boxName: educationBox);
       await getEducationData();
     } catch (e) {
       emit(EducationSavingError());
@@ -21,7 +24,9 @@ class EducationCubit extends Cubit<EducationState> {
 
   // Gets academic data from hive database.
   Future getEducationData() async {
-    var response = await _academicRepository.fetchData();
+    var response = await _academicRepository.fetchData<EducationDataModel>(
+      boxName: educationBox,
+    );
     response.fold(
       (failure) {
         if (failure is HiveNullData) {
@@ -47,11 +52,14 @@ class EducationCubit extends Cubit<EducationState> {
   // Deletes data from hive database
   Future<void> deleteData(int index) async {
     try {
-      await _academicRepository.deleteData(index);
+      await _academicRepository.deleteData(
+        index: index,
+        boxName: educationBox,
+      );
 
       emit(EducationDeleted());
 
-      var response = await _academicRepository.fetchData();
+      var response = await _academicRepository.fetchData(boxName: educationBox);
       response.fold(
         (error) {
           emit(EducationDeletingError());

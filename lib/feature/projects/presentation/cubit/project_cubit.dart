@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/contracts/database_contract.dart';
 import '../../../../core/export/core_export.dart';
-import '../../data/contract/project_repository.dart';
 import '../../data/model/project_model.dart';
 
 part 'project_state.dart';
 
 class ProjectCubit extends Cubit<ProjectState> {
-  ProjectCubit({required ProjectRepository projectRepository})
+  ProjectCubit({required DatabaseContract repository})
       : super(ProjectInitial()) {
     _descriptionController = TextEditingController();
     _projectNameController = TextEditingController();
     _sourceLinkController = TextEditingController();
 
-    _projectRepo = projectRepository;
+    _projectRepo = repository;
   }
 
-  late final ProjectRepository _projectRepo;
+  static const box = HiveBoxes.projectDataBox;
+
+  late final DatabaseContract _projectRepo;
 
   Future<void> save(ProjectModel projectModel) async {
-    var response = await _projectRepo.saveData(
+    var response = await _projectRepo.saveData<ProjectModel>(
       dataModel: projectModel,
+      boxName: box,
     );
 
     response.fold(
@@ -28,58 +31,27 @@ class ProjectCubit extends Cubit<ProjectState> {
         return emit(ProjectSavingError());
       },
       (data) async {
-        var response = await _projectRepo.fetchData();
-
-        emit(ProjectSaved());
-
-        response.fold(
-          (failure) {
-            if (failure is HiveNullData) {
-              emit(ProjectInitial());
-            } else if (failure is HiveFetchFailure) {
-              emit(ProjectFetcingError());
-            } else {
-              emit(state);
-            }
-          },
-          (data) async {
-            emit(ProjectFetched(experienceData: data));
-          },
-        );
+        fetchData();
       },
     );
   }
 
   Future<void> delete(int index) async {
-    var response = await _projectRepo.deleteData(index);
+    var response = await _projectRepo.deleteData<ProjectModel>(
+      index: index,
+      boxName: box,
+    );
 
     response.fold(
       (l) => emit(ProjectDeletingError()),
       (r) async {
-        var response = await _projectRepo.fetchData();
-
-        emit(ProjectDeleted());
-
-        response.fold(
-          (failure) {
-            if (failure is HiveNullData) {
-              emit(ProjectInitial());
-            } else if (failure is HiveFetchFailure) {
-              emit(ProjectFetcingError());
-            } else {
-              emit(state);
-            }
-          },
-          (data) async {
-            emit(ProjectFetched(experienceData: data));
-          },
-        );
+        fetchData();
       },
     );
   }
 
   Future<void> fetchData() async {
-    var response = await _projectRepo.fetchData();
+    var response = await _projectRepo.fetchData<ProjectModel>(boxName: box);
 
     response.fold(
       (failure) {

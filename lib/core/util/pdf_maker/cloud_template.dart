@@ -1,53 +1,28 @@
 import 'package:pdf/widgets.dart' as pw;
 
 import '../../../feature/projects/data/model/project_model.dart';
-import '../../contracts/database_contract.dart';
 import 'export/pdf_export.dart';
 
 // const String path = 'assets/person.png';
 
 class CloudTemplate {
   CloudTemplate({
-    required DatabaseContract experienceRepository,
-    required DatabaseContract personalDataRepository,
-    required DatabaseContract academicDataRepository,
-    required DatabaseContract referenceRepository,
-    required DatabaseContract languageRepository,
-    required DatabaseContract skillRepository,
-    required DatabaseContract projectRepository,
+    required DatabaseContract repo,
   }) {
-    experienceRepo = experienceRepository;
-    personalDataRepo = personalDataRepository;
-    academicDataRepo = academicDataRepository;
-    referenceRepo = referenceRepository;
-    languageRepo = languageRepository;
-    skillRepo = skillRepository;
-    projectRepo = projectRepository;
+    myRepo = repo;
 
     initializeRepositories();
   }
 
   List<pw.Widget> widgets = [];
 
-  late final DatabaseContract experienceRepo;
+  late final DatabaseContract myRepo;
   List<ExperienceModel>? experienceList;
-
-  late final DatabaseContract personalDataRepo;
-  late PersonalDataModel? personalDataModel;
-
-  late final DatabaseContract academicDataRepo;
+  PersonalDataModel? personalDataModel;
   List<EducationDataModel>? educationDataModel;
-
-  late final DatabaseContract referenceRepo;
   List<ReferenceModel>? referenceDataList;
-
-  late final DatabaseContract languageRepo;
   List<LanguageModel>? languageList;
-
-  late final DatabaseContract skillRepo;
   List<SkillModel>? skillsList;
-
-  late final DatabaseContract projectRepo;
   List<ProjectModel>? projectList;
 
   final pdf = pw.Document();
@@ -250,14 +225,20 @@ class CloudTemplate {
   }
 
   void initializeRepositories() {
-    personalDataRepo.fetchData().then(
+    myRepo
+        .fetchData<PersonalDataModel>(
+          boxName: HiveBoxes.personalDataBox,
+        )
+        .then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
-            (data) => personalDataModel = data,
+            (data) => personalDataModel = data[0],
           ),
         );
 
-    experienceRepo.fetchData().then(
+    myRepo
+        .fetchData<ExperienceModel>(boxName: HiveBoxes.experienceDataBox)
+        .then(
           (value) => value.fold(
             (failure) async =>
                 (failure) => LogHelper.shared.debugPrint("$failure"),
@@ -265,35 +246,39 @@ class CloudTemplate {
           ),
         );
 
-    academicDataRepo.fetchData().then(
+    myRepo
+        .fetchData<EducationDataModel>(
+          boxName: HiveBoxes.academicDataBox,
+        )
+        .then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (r) => educationDataModel = r,
           ),
         );
 
-    referenceRepo.fetchData().then(
+    myRepo.fetchData<ReferenceModel>(boxName: HiveBoxes.referenceDataBox).then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (r) => referenceDataList = r,
           ),
         );
 
-    languageRepo.fetchData().then(
+    myRepo.fetchData<LanguageModel>(boxName: HiveBoxes.languageDataBox).then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (data) => languageList = data,
           ),
         );
 
-    skillRepo.fetchData().then(
+    myRepo.fetchData<SkillModel>(boxName: HiveBoxes.skillDataBox).then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (r) => skillsList = r,
           ),
         );
 
-    projectRepo.fetchData().then(
+    myRepo.fetchData<ProjectModel>(boxName: HiveBoxes.projectDataBox).then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (r) => projectList = r,

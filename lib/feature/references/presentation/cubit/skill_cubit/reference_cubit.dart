@@ -1,76 +1,50 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/export/core_export.dart';
-import '../../../data/model/reference_model.dart';
-import '../../../data/repository/reference_repository_imp.dart';
 
 part 'reference_state.dart';
 
 class ReferenceCubit extends Cubit<ReferenceState> {
-  ReferenceCubit({required ReferenceRepositoryImp repository})
+  ReferenceCubit({required DatabaseContract repository})
       : super(ReferenceInitial()) {
     _repository = repository;
     _initTextControllers;
   }
-  late final ReferenceRepositoryImp _repository;
+  late final DatabaseContract _repository;
+  static const box = HiveBoxes.referenceDataBox;
 
   Future<void> save(ReferenceModel referenceModel) async {
-    var response = await _repository.saveData(dataModel: referenceModel);
+    var response = await _repository.saveData<ReferenceModel>(
+      dataModel: referenceModel,
+      boxName: box,
+    );
 
     response.fold(
       (failure) {
         return emit(ReferenceSavingError());
       },
       (data) async {
-        var response = await _repository.fetchData();
-
-        response.fold(
-          (failure) {
-            if (failure is HiveNullData) {
-              emit(ReferenceInitial());
-            } else if (failure is HiveFetchFailure) {
-              emit(ReferenceFetcingError());
-            } else {
-              emit(state);
-            }
-          },
-          (data) async {
-            emit(ReferenceFetched(referenceData: data));
-          },
-        );
+        emit(ReferenceSaved());
+        fetchData();
       },
     );
   }
 
   Future<void> delete(int index) async {
-    var response = await _repository.deleteData(index);
+    var response = await _repository.deleteData<ReferenceModel>(
+        index: index, boxName: box);
 
     response.fold(
       (l) => emit(ReferenceDeletingError()),
       (r) async {
         emit(ReferenceDeleted());
-        var response = await _repository.fetchData();
-
-        response.fold(
-          (failure) {
-            if (failure is HiveNullData) {
-              emit(ReferenceInitial());
-            } else if (failure is HiveFetchFailure) {
-              emit(ReferenceFetcingError());
-            } else {
-              emit(state);
-            }
-          },
-          (data) async {
-            emit(ReferenceFetched(referenceData: data));
-          },
-        );
+        fetchData();
       },
     );
   }
 
-  Future<void> fetchReferenceData() async {
-    var response = await _repository.fetchData();
+  Future<void> fetchData() async {
+    var response = await _repository.fetchData<ReferenceModel>(boxName: box);
 
     response.fold(
       (failure) {
