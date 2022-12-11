@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/constant/shape_constant.dart';
-import '../../../../core/extension/context_extension.dart';
-import '../../data/model/project_model.dart';
+import '../../../../core/export/core_export.dart';
 
 class ProjectItemWidget extends StatelessWidget {
   const ProjectItemWidget({

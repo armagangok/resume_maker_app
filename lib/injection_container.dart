@@ -1,5 +1,6 @@
 import 'core/export/core_export.dart';
 
+
 final getIt = GetIt.instance;
 
 void initDependencies() {

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/export/core_export.dart';
-import '../cubit/project_cubit.dart';
-import '../widget/project_item_widget.dart';
+
 
 class ProjectPage extends StatefulWidget {
   const ProjectPage({super.key});

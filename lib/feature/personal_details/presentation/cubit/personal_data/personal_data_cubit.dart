@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/contracts/database_contract.dart';
 import '../../../../../core/export/core_export.dart';
 
 part 'personal_data_state.dart';

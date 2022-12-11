@@ -1,7 +1,4 @@
-import 'package:resume_maker_app/core/contracts/database_contract.dart';
-
 import '../../../../../core/export/core_export.dart';
-import '../../../data/model/skill_model.dart';
 
 part 'skill_state.dart';
 

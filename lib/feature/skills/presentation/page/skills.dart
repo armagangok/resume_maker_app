@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/export/core_export.dart';
-import '../../data/model/skill_model.dart';
 
 class SkillsPage extends StatefulWidget {
   const SkillsPage({super.key});

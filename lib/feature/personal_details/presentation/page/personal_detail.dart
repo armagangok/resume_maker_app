@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/export/core_export.dart';
-import '../../export/personal_export.dart';
+
 
 class PersonalDetailPage extends StatefulWidget {
   const PersonalDetailPage({super.key});
