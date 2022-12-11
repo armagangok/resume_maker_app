@@ -1,6 +1,9 @@
-import '../../core/export/core_export.dart';
-
 import 'package:dartz/dartz.dart';
+
+import '../../core/error/failure.dart';
+import '../../core/util/hive/hive_helper.dart';
+import '../../core/util/logger.dart';
+import '../contracts/database_contract.dart';
 
 class LocalDatabaseRepositoryImp extends DatabaseContract {
   LocalDatabaseRepositoryImp._();
@@ -42,12 +45,10 @@ class LocalDatabaseRepositoryImp extends DatabaseContract {
   }
 
   @override
-  Future<void> updateData<T>(
-      {required newDataModel, required String boxName}) async {}
-
-  @override
-  Future<Either<Failure, bool>> saveData<T>(
-      {required dataModel, required String boxName}) async {
+  Future<Either<Failure, bool>> saveData<T>({
+    required dataModel,
+    required String boxName,
+  }) async {
     try {
       await HiveHelper.shared.addData<T>(
         boxName,
@@ -58,5 +59,17 @@ class LocalDatabaseRepositoryImp extends DatabaseContract {
       LogHelper.shared.debugPrint("$e");
       return Left(HiveSavingFailure());
     }
+  }
+
+  @override
+  Future<void> updateData<T>({
+    required newDataModel,
+    required String boxName,
+  }) async {
+    await HiveHelper.shared.putData<T>(
+      boxName,
+      boxName,
+      newDataModel,
+    );
   }
 }

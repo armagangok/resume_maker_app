@@ -1,6 +1,9 @@
-import '../../../../core/export/core_export.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+
 import '../../../../core/util/pdf_maker/cloud_template.dart';
 import '../../../../core/util/pdf_maker/peach_puff_template.dart';
+import '../../../../injection_container.dart';
 
 part 'cv_templates_state.dart';
 

@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/export/core_export.dart';
+import '../../../../core/extension/context_extension.dart';
+import '../../../../core/widget/custom_appbar.dart';
+import '../../../../core/widget/custom_bottom_sheet.dart';
+import '../../../../core/widget/custom_divider.dart';
+import '../../../../core/widget/floating_action_button.dart';
+import '../../../../core/widget/initial_state_widget.dart';
+import '../../../../core/widget/list_item_widget.dart';
+import '../../../../core/widget/snackbar.dart';
+import '../../data/model/skill_model.dart';
+import '../cubit/skill_cubit/skill_cubit.dart';
 
 class SkillsPage extends StatefulWidget {
   const SkillsPage({super.key});
@@ -16,7 +26,7 @@ class _SkillsPageState extends State<SkillsPage> {
   @override
   void initState() {
     skillController = TextEditingController();
-    _skillCubit = getIt<SkillCubit>.call();
+    _skillCubit = _skillCubit;
     _skillCubit.fetchSkillData();
     super.initState();
   }
@@ -53,7 +63,7 @@ class _SkillsPageState extends State<SkillsPage> {
               getSnackBar(context, SkillSaved.message);
             }
           },
-          bloc: getIt<SkillCubit>.call(),
+          bloc: _skillCubit,
           builder: (context, state) {
             if (state is SkillInitial) {
               return const InitialStateWidget(

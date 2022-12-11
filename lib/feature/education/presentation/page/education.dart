@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/extension/context_extension.dart';
+import '../../../../core/widget/custom_appbar.dart';
+import '../../../../core/widget/custom_bottom_sheet.dart';
+import '../../../../core/widget/custom_dialog.dart';
+import '../../../../core/widget/custom_divider.dart';
+import '../../../../core/widget/floating_action_button.dart';
+import '../../../../core/widget/initial_state_widget.dart';
+import '../../../../core/widget/snackbar.dart';
 import '../../education_export.dart';
-import '../cubit/education_data/education_cubit.dart';
+import '../../../../injection_container.dart';
 
 class EducationPage extends StatefulWidget {
   const EducationPage({super.key});

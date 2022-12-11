@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
-
-import '../../../export/core_export.dart';
+import '../../../../data/contracts/database_contract.dart';
+import '../../../error/failure.dart';
 
 class FirebaseHelper implements DatabaseContract {
   @override

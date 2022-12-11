@@ -5,6 +5,8 @@ import '../../../../feature/personal_details/data/model/personal_data_model.dart
 import '../../../../feature/references/data/model/reference_model.dart';
 import '../../../../feature/skills/data/model/skill_model.dart';
 import '../../../../data/contracts/database_contract.dart';
+import '../../hive/hive_keys.dart';
+import '../../logger.dart';
 
 void initializeRepositories({
   required DatabaseContract repo,

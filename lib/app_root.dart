@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'core/export/core_export.dart';
+
+import 'core/navigation/navigation_route.dart';
+import 'core/navigation/navigation_service.dart';
 import 'feature/home/presentation/page/home.dart';
 
 class MyApp extends StatelessWidget {

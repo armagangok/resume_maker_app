@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/constant/padding_constant.dart';
+import '../../../../core/constant/shape_constant.dart';
+import '../../../../core/extension/context_extension.dart';
+import '../../../../core/widget/custom_divider.dart';
 import '../../education_export.dart';
 
-export '../../../../core/export/core_export.dart';
+
 
 class EducationItemWidget extends StatelessWidget {
   const EducationItemWidget({

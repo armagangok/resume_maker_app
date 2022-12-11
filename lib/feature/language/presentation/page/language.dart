@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/export/core_export.dart';
+import '../../../../core/extension/context_extension.dart';
+import '../../../../core/widget/custom_appbar.dart';
+import '../../../../core/widget/custom_dialog.dart';
+import '../../../../core/widget/custom_divider.dart';
+import '../../../../core/widget/floating_action_button.dart';
+import '../../../../core/widget/list_item_widget.dart';
+import '../../../../core/widget/snackbar.dart';
 import '../../data/model/language_model.dart';
 import '../cubit/language_cubit/language_cubit.dart';
+import '../../../../injection_container.dart';
 
 class LanguagePage extends StatefulWidget {
   const LanguagePage({super.key});
@@ -53,7 +61,11 @@ class _LanguagePageState extends State<LanguagePage> {
                 itemBuilder: (context, index) => ListItemWidget(
                   text: state.languageData[index].language,
                   index: index,
-                  onTap: () => _languageCubit.delete(index),
+                  onTap: () => showCustomDialog(
+                    context,
+                    index,
+                    () {},
+                  ),
                 ),
                 separatorBuilder: (context, index) => const CustomDivider(),
                 itemCount: state.languageData.length,

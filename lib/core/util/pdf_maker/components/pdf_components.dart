@@ -1,7 +1,18 @@
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../export/pdf_export.dart';
+import '../../../../feature/education/data/model/education_model.dart';
+import '../../../../feature/experience/data/model/experience_model.dart';
+import '../../../../feature/language/data/model/language_model.dart';
+import '../../../../feature/personal_details/data/model/personal_data_model.dart';
+import '../../../../feature/references/data/model/reference_model.dart';
+import '../../../../feature/skills/data/model/skill_model.dart';
+
+
 
 final width = PdfPageFormat.a4.availableWidth;
 final height = PdfPageFormat.a4.availableHeight;

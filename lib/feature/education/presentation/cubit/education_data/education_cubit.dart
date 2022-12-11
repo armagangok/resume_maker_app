@@ -1,3 +1,8 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../core/error/failure.dart';
+import '../../../../../core/util/hive/hive_keys.dart';
+import '../../../../../data/repository/local_database_repository_imp.dart';
 import '../../../education_export.dart';
 
 part 'education_state.dart';

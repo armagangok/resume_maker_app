@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/export/core_export.dart';
+import '../../../../core/extension/context_extension.dart';
+import '../../../../core/navigation/constant/routes.dart';
+import '../../../../core/navigation/navigation_service.dart';
+import '../../../../core/widget/custom_appbar.dart';
+import '../../../../injection_container.dart';
 import '../widget/resume_item_widget.dart';
 
 class CreateResumePage extends StatefulWidget {

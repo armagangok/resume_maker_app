@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/export/core_export.dart';
+import '../../../../core/extension/context_extension.dart';
+import '../../../../core/widget/custom_appbar.dart';
+import '../../../../core/widget/custom_bottom_sheet.dart';
+import '../../../../core/widget/custom_dialog.dart';
+import '../../../../core/widget/custom_divider.dart';
+import '../../../../core/widget/floating_action_button.dart';
+import '../../../../core/widget/snackbar.dart';
+import '../../data/model/reference_model.dart';
+import '../cubit/skill_cubit/reference_cubit.dart';
+import '../widget/reference_item.dart';
+import '../../../../injection_container.dart';
 
 
 class ReferencePage extends StatefulWidget {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/export/core_export.dart';
+import '../../../../core/constant/shape_constant.dart';
+import '../../../../core/extension/context_extension.dart';
+
 
 class TemplateItemWidget extends StatelessWidget {
   const TemplateItemWidget({super.key});

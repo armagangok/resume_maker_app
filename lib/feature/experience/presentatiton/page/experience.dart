@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/export/core_export.dart';
+import '../../../../core/extension/context_extension.dart';
+import '../../../../core/widget/custom_appbar.dart';
+import '../../../../core/widget/custom_bottom_sheet.dart';
+import '../../../../core/widget/custom_dialog.dart';
+import '../../../../core/widget/custom_divider.dart';
+import '../../../../core/widget/floating_action_button.dart';
+import '../../../../core/widget/initial_state_widget.dart';
+import '../../../../core/widget/snackbar.dart';
 import '../../data/model/experience_model.dart';
 import '../cubit/cubit/experience_cubit.dart';
 import '../cubit/text_controller/experience_text_controller_cubit.dart';
 import '../widget/experience_item_widget.dart';
+import '../../../../injection_container.dart';
 
 class ExperiencesPage extends StatefulWidget {
   const ExperiencesPage({super.key});
