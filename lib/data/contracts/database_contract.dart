@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../error/failure.dart';
+import '../../core/error/failure.dart';
 
 // Base CRUD operations for repositories.
 // Repositories will be extended from this DatabaseContract class.

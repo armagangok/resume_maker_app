@@ -4,7 +4,7 @@ import '../../../../feature/language/data/model/language_model.dart';
 import '../../../../feature/personal_details/data/model/personal_data_model.dart';
 import '../../../../feature/references/data/model/reference_model.dart';
 import '../../../../feature/skills/data/model/skill_model.dart';
-import '../../../contracts/database_contract.dart';
+import '../../../../data/contracts/database_contract.dart';
 
 void initializeRepositories({
   required DatabaseContract repo,

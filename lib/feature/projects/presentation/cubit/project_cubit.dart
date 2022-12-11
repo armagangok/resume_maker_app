@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/contracts/database_contract.dart';
+import '../../../../data/contracts/database_contract.dart';
 import '../../../../core/export/core_export.dart';
 import '../../data/model/project_model.dart';
 

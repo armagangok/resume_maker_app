@@ -1,4 +1,4 @@
-import '../export/core_export.dart';
+import '../../core/export/core_export.dart';
 
 import 'package:dartz/dartz.dart';
 

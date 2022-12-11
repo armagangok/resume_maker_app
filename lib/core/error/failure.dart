@@ -9,3 +9,5 @@ class HiveSavingFailure extends Failure {}
 class HiveFetchFailure extends Failure {}
 
 class HiveNullData extends Failure {}
+
+class HiveUpdatingFailure extends Failure {}

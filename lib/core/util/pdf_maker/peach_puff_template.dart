@@ -4,7 +4,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 
 import './export/pdf_export.dart';
-import '../../contracts/database_contract.dart';
+import '../../../data/contracts/database_contract.dart';
 
 // const String path = 'assets/person.png';
 
