@@ -1,19 +1,19 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/contracts/database_contract.dart';
 import '../../../../../core/error/failure.dart';
-import '../../../data/contract/language_repository.dart';
 import '../../../data/model/language_model.dart';
 
 part 'language_state.dart';
 
 class LanguageCubit extends Cubit<LanguageState> {
   LanguageCubit({
-    required LanguageRepository languageRepository,
+    required DatabaseContract languageRepository,
   }) : super(LanguageInitial()) {
     _repository = languageRepository;
   }
 
-  late final LanguageRepository _repository;
+  late final DatabaseContract _repository;
 
   Future<void> save(LanguageModel languageModel) async {
     var response = await _repository.saveData(dataModel: languageModel);

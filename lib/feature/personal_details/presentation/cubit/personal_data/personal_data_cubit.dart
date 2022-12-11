@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/contracts/database_contract.dart';
 import '../../../../../core/export/core_export.dart';
-import '../../../data/contract/personal_data_repository.dart';
 import '../../../export/personal_export.dart';
 
 part 'personal_data_state.dart';
 
 class PersonalDataCubit extends Cubit<PersonalDataState> {
   PersonalDataCubit({
-    required PersonalDataRepository personalDataRepository,
+    required DatabaseContract personalDataRepository,
     required PickImageCubit imagePickerCubit,
   }) : super(_getInitialPersonalModel) {
     _personalDataRepository = personalDataRepository;
@@ -17,7 +17,7 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
     _initTextController();
   }
 
-  late final PersonalDataRepository _personalDataRepository;
+  late final DatabaseContract _personalDataRepository;
   late final PickImageCubit _imagePickerCubit;
 
   Future<void> deleteData(int index) async {
@@ -25,7 +25,7 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
   }
 
   Future<void> fetchPersonalData() async {
-    var response = await _personalDataRepository.fetchPersonalData();
+    var response = await _personalDataRepository.fetchData();
 
     response.fold(
       (l) {
@@ -43,7 +43,7 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
 
   Future<void> savePersonalData(PersonalDataModel personalDataModel) async {
     var response =
-        await _personalDataRepository.savePersonalData(personalDataModel);
+        await _personalDataRepository.saveData(dataModel: personalDataModel);
 
     await fetchPersonalData();
 

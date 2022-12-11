@@ -1,20 +1,20 @@
 import 'package:pdf/widgets.dart' as pw;
-import 'package:resume_maker_app/feature/projects/data/contract/project_repository.dart';
-import 'package:resume_maker_app/feature/projects/data/model/project_model.dart';
 
+import '../../../feature/projects/data/model/project_model.dart';
+import '../../contracts/database_contract.dart';
 import 'export/pdf_export.dart';
 
 // const String path = 'assets/person.png';
 
 class CloudTemplate {
   CloudTemplate({
-    required ExperienceRepository experienceRepository,
-    required PersonalDataRepository personalDataRepository,
-    required EducationDataRepository academicDataRepository,
-    required ReferenceRepository referenceRepository,
-    required LanguageRepository languageRepository,
-    required SkillRepository skillRepository,
-    required ProjectRepository projectRepository,
+    required DatabaseContract experienceRepository,
+    required DatabaseContract personalDataRepository,
+    required DatabaseContract academicDataRepository,
+    required DatabaseContract referenceRepository,
+    required DatabaseContract languageRepository,
+    required DatabaseContract skillRepository,
+    required DatabaseContract projectRepository,
   }) {
     experienceRepo = experienceRepository;
     personalDataRepo = personalDataRepository;
@@ -29,25 +29,25 @@ class CloudTemplate {
 
   List<pw.Widget> widgets = [];
 
-  late final ExperienceRepository experienceRepo;
+  late final DatabaseContract experienceRepo;
   List<ExperienceModel>? experienceList;
 
-  late final PersonalDataRepository personalDataRepo;
+  late final DatabaseContract personalDataRepo;
   late PersonalDataModel? personalDataModel;
 
-  late final EducationDataRepository academicDataRepo;
+  late final DatabaseContract academicDataRepo;
   List<EducationDataModel>? educationDataModel;
 
-  late final ReferenceRepository referenceRepo;
+  late final DatabaseContract referenceRepo;
   List<ReferenceModel>? referenceDataList;
 
-  late final LanguageRepository languageRepo;
+  late final DatabaseContract languageRepo;
   List<LanguageModel>? languageList;
 
-  late final SkillRepository skillRepo;
+  late final DatabaseContract skillRepo;
   List<SkillModel>? skillsList;
 
-  late final ProjectRepository projectRepo;
+  late final DatabaseContract projectRepo;
   List<ProjectModel>? projectList;
 
   final pdf = pw.Document();
@@ -183,16 +183,15 @@ class CloudTemplate {
                 pw.SizedBox(width: width * 0.05),
                 pw.Expanded(
                   child: pw.SizedBox(
-                    height: width * 0.4,
                     child: pw.Column(
                       mainAxisAlignment: pw.MainAxisAlignment.start,
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
-                        nameText(personalDataModel!.name),
+                        pw.FittedBox(
+                          child: nameText(personalDataModel!.name),
+                        ),
                         sizedBox015,
-                        head1Text("ABOUT ME"),
-                        customDivider(),
-                        aboutmeWidget,
+                        contactContainer,
                       ],
                     ),
                   ),
@@ -201,7 +200,18 @@ class CloudTemplate {
             ),
     );
 
-    widgets.add(contactContainer);
+    widgets.add(sizedBox015);
+    widgets.add(
+      pw.Column(
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
+        children: [
+          head1Text("ABOUT ME"),
+          customDivider(),
+          aboutmeWidget,
+        ],
+      ),
+    );
+
     widgets.add(educationContainer);
     widgets.add(languageContainer);
     widgets.add(skillsContainer);
@@ -240,7 +250,7 @@ class CloudTemplate {
   }
 
   void initializeRepositories() {
-    personalDataRepo.fetchPersonalData().then(
+    personalDataRepo.fetchData().then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (data) => personalDataModel = data,

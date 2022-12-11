@@ -1,10 +1,11 @@
 import 'package:dartz/dartz.dart';
 
+import '../../../../core/contracts/database_contract.dart';
 import '../../../../core/export/core_export.dart';
-import '../contract/experience_repository.dart';
+
 import '../model/experience_model.dart';
 
-class ExperienceRepoImp extends ExperienceRepository {
+class ExperienceRepoImp extends DatabaseContract {
   ExperienceRepoImp({required HiveHelper hiveHelper}) {
     _hiveHelper = hiveHelper;
   }

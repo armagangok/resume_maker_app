@@ -1,12 +1,13 @@
 import 'package:dartz/dartz.dart';
+import 'package:resume_maker_app/core/contracts/database_contract.dart';
 
 import '../../../../core/error/failure.dart';
 import '../../../../core/util/hive/hive_helper.dart';
 import '../../../../core/util/hive/hive_keys.dart';
-import '../contract/personal_data_repository.dart';
+
 import '../model/personal_data_model.dart';
 
-class PersonalDataRepositoryImp implements PersonalDataRepository {
+class PersonalDataRepositoryImp implements DatabaseContract {
   static final instance = PersonalDataRepositoryImp._();
   PersonalDataRepositoryImp._() {
     hiveHelper = HiveHelper.shared;
@@ -28,7 +29,7 @@ class PersonalDataRepositoryImp implements PersonalDataRepository {
   }
 
   @override
-  Future<Either<Failure, PersonalDataModel>> fetchPersonalData() async {
+  Future<Either<Failure, PersonalDataModel>> fetchData() async {
     try {
       var response = await hiveHelper.getData<PersonalDataModel>(
         HiveBoxes.personalDataBox,
@@ -46,13 +47,12 @@ class PersonalDataRepositoryImp implements PersonalDataRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> savePersonalData(
-      PersonalDataModel personalDataModel) async {
+  Future<Either<Failure, bool>> saveData({required dynamic dataModel}) async {
     try {
       await hiveHelper.putData<PersonalDataModel>(
         HiveBoxes.personalDataBox,
         HiveBoxes.personalDataBox,
-        personalDataModel,
+        dataModel,
       );
 
       return const Right(true);
@@ -60,4 +60,7 @@ class PersonalDataRepositoryImp implements PersonalDataRepository {
       return Left(HiveSavingFailure());
     }
   }
+
+  @override
+  Future<void> updateData({required newDataModel}) async {}
 }

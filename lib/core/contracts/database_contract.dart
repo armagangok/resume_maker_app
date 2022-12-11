@@ -7,6 +7,6 @@ import '../error/failure.dart';
 abstract class DatabaseContract {
   Future<Either<Failure, dynamic>> fetchData();
   Future<Either<Failure, bool>> saveData({required dynamic dataModel});
-  Future<void> deleteData(int index);
+  Future<Either<Failure, bool>> deleteData(int index);
   Future<void> updateData({required dynamic newDataModel});
 }

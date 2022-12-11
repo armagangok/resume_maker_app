@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
 
+import '../../../../core/contracts/database_contract.dart';
 import '../../../../core/error/failure.dart';
 import '../../../../core/util/hive/hive_helper.dart';
 import '../../../../core/util/hive/hive_keys.dart';
-import '../contract/language_repository.dart';
 import '../model/skill_model.dart';
 
-class SkillRepositoryImp implements SkillRepository {
+class SkillRepositoryImp implements DatabaseContract {
   SkillRepositoryImp() {
     _hiveHelper = HiveHelper.shared;
   }

@@ -1,15 +1,16 @@
+import 'package:resume_maker_app/core/contracts/database_contract.dart';
+
 import '../../../../../core/export/core_export.dart';
-import '../../../data/contract/language_repository.dart';
 import '../../../data/model/skill_model.dart';
 
 part 'skill_state.dart';
 
 class SkillCubit extends Cubit<SkillState> {
-  SkillCubit({required SkillRepository skillRepository})
+  SkillCubit({required DatabaseContract skillRepository})
       : super(SkillInitial()) {
     _repository = skillRepository;
   }
-  late final SkillRepository _repository;
+  late final DatabaseContract _repository;
 
   Future<void> save(SkillModel skillModel) async {
     var response = await _repository.saveData(dataModel: skillModel);

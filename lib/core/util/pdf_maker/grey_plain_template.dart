@@ -2,18 +2,20 @@
 
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
+import 'package:resume_maker_app/core/contracts/database_contract.dart';
+
 import './export/pdf_export.dart';
 
 // const String path = 'assets/person.png';
 
 class GreyPlainTemplate {
   GreyPlainTemplate({
-    required ExperienceRepository experienceRepository,
-    required PersonalDataRepository personalDataRepository,
-    required EducationDataRepository academicDataRepository,
-    required ReferenceRepository referenceRepository,
-    required LanguageRepository languageRepository,
-    required SkillRepository skillRepository,
+    required DatabaseContract experienceRepository,
+    required DatabaseContract personalDataRepository,
+    required DatabaseContract academicDataRepository,
+    required DatabaseContract referenceRepository,
+    required DatabaseContract languageRepository,
+    required DatabaseContract skillRepository,
   }) {
     experienceRepo = experienceRepository;
     personalDataRepo = personalDataRepository;
@@ -25,22 +27,22 @@ class GreyPlainTemplate {
     initializeRepositories();
   }
 
-  late final ExperienceRepository experienceRepo;
+  late final DatabaseContract experienceRepo;
   List<ExperienceModel>? experienceList;
 
-  late final PersonalDataRepository personalDataRepo;
+  late final DatabaseContract personalDataRepo;
   late PersonalDataModel personalDataModel;
 
-  late final EducationDataRepository academicDataRepo;
+  late final DatabaseContract academicDataRepo;
   List<EducationDataModel>? educationModel;
 
-  late final ReferenceRepository referenceRepo;
+  late final DatabaseContract referenceRepo;
   List<ReferenceModel>? referenceDataList;
 
-  late final LanguageRepository languageRepo;
+  late final DatabaseContract languageRepo;
   List<LanguageModel>? languageList;
 
-  late final SkillRepository skillRepo;
+  late final DatabaseContract skillRepo;
   List<SkillModel>? skillsList;
 
   final pdf = pw.Document();
@@ -225,7 +227,7 @@ class GreyPlainTemplate {
   }
 
   void initializeRepositories() {
-    personalDataRepo.fetchPersonalData().then(
+    personalDataRepo.fetchData().then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (data) {

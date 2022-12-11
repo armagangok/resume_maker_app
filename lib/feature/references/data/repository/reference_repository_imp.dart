@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
 
+import '../../../../core/contracts/database_contract.dart';
 import '../../../../core/error/failure.dart';
 import '../../../../core/util/hive/hive_helper.dart';
 import '../../../../core/util/hive/hive_keys.dart';
-import '../contract/reference_repository.dart';
 import '../model/reference_model.dart';
 
-class ReferenceRepositoryImp extends ReferenceRepository {
+class ReferenceRepositoryImp extends DatabaseContract {
   static final instance = ReferenceRepositoryImp._();
   ReferenceRepositoryImp._() {
     _hiveHelper = HiveHelper.shared;

@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 
+import '../../../../core/contracts/database_contract.dart';
 import '../../education_export.dart';
-import '../contract/academic_data_repository.dart';
 
-class EducationDataRepositoryImp implements EducationDataRepository {
+class EducationDataRepositoryImp implements DatabaseContract {
   EducationDataRepositoryImp._();
   static final instance = EducationDataRepositoryImp._();
 
@@ -26,17 +26,21 @@ class EducationDataRepositoryImp implements EducationDataRepository {
   }
 
   @override
-  Future<void> deleteData(int index) async =>
+  Future<Either<Failure, bool>> deleteData(int index) async {
+    try {
       await HiveHelper.shared.deleteDataAt<EducationDataModel>(
         HiveBoxes.academicDataBox,
         index,
       );
 
-  @override
-  Future<void> updateData({required newDataModel}) {
-    // TODO: implement updateData
-    throw UnimplementedError();
+      return const Right(true);
+    } catch (e) {
+      return Left(HiveDeletingFailure());
+    }
   }
+
+  @override
+  Future<void> updateData({required newDataModel}) async {}
 
   @override
   Future<Either<Failure, bool>> saveData({required dataModel}) async {

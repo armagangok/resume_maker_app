@@ -59,7 +59,7 @@ pw.Text nameText(String name) {
   return pw.Text(
     name.toUpperCase(),
     style: pw.TextStyle(
-      fontSize: 20,
+      fontSize: 30,
       fontWeight: FontWeight.bold,
       fontBold: Font.helveticaBold(),
     ),

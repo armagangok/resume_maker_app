@@ -1,13 +1,13 @@
 import '../../../../feature/education/education_export.dart';
 import '../../../../feature/experience/data/model/experience_model.dart';
 import '../../../../feature/language/data/model/language_model.dart';
-import '../../../../feature/personal_details/data/contract/personal_data_repository.dart';
 import '../../../../feature/personal_details/data/model/personal_data_model.dart';
 import '../../../../feature/references/data/model/reference_model.dart';
 import '../../../../feature/skills/data/model/skill_model.dart';
+import '../../../contracts/database_contract.dart';
 
 void initializeRepositories({
-  required PersonalDataRepository personalDataRepo,
+  required DatabaseContract personalDataRepo,
   required experienceRepo,
   required academicDataRepo,
   required referenceRepo,
@@ -20,7 +20,7 @@ void initializeRepositories({
   required List<SkillModel>? skillsList,
   required PersonalDataModel? personalDataModel,
 }) {
-  personalDataRepo.fetchPersonalData().then(
+  personalDataRepo.fetchData().then(
         (value) => value.fold(
           (failure) => LogHelper.shared.debugPrint("$failure"),
           (data) {

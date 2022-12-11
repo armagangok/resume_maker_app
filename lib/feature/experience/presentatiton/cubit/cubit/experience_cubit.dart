@@ -1,11 +1,13 @@
+import 'package:resume_maker_app/core/contracts/database_contract.dart';
+
 import '../../../../../core/util/pdf_maker/export/pdf_export.dart';
 
 part 'experience_state.dart';
 
 class ExperienceCubit extends Cubit<ExperienceState> {
-  late final ExperienceRepository _experienceRepository;
+  late final DatabaseContract _experienceRepository;
 
-  ExperienceCubit({required ExperienceRepository experienceRepository})
+  ExperienceCubit({required DatabaseContract experienceRepository})
       : super(ExperienceInitial()) {
     _experienceRepository = experienceRepository;
   }
