@@ -251,7 +251,7 @@ class GreyPlainTemplate {
           ),
         );
 
-    referenceRepo.fetchReferenceData().then(
+    referenceRepo.fetchData().then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (r) => referenceDataList = r,
@@ -265,7 +265,7 @@ class GreyPlainTemplate {
           ),
         );
 
-    skillRepo.fetchSkillData().then(
+    skillRepo.fetchData().then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (r) => skillsList = r,

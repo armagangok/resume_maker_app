@@ -1,4 +1,6 @@
 import 'package:pdf/widgets.dart' as pw;
+import 'package:resume_maker_app/feature/projects/data/contract/project_repository.dart';
+import 'package:resume_maker_app/feature/projects/data/model/project_model.dart';
 
 import 'export/pdf_export.dart';
 
@@ -12,6 +14,7 @@ class CloudTemplate {
     required ReferenceRepository referenceRepository,
     required LanguageRepository languageRepository,
     required SkillRepository skillRepository,
+    required ProjectRepository projectRepository,
   }) {
     experienceRepo = experienceRepository;
     personalDataRepo = personalDataRepository;
@@ -19,6 +22,7 @@ class CloudTemplate {
     referenceRepo = referenceRepository;
     languageRepo = languageRepository;
     skillRepo = skillRepository;
+    projectRepo = projectRepository;
 
     initializeRepositories();
   }
@@ -42,6 +46,9 @@ class CloudTemplate {
 
   late final SkillRepository skillRepo;
   List<SkillModel>? skillsList;
+
+  late final ProjectRepository projectRepo;
+  List<ProjectModel>? projectList;
 
   final pdf = pw.Document();
 
@@ -255,7 +262,7 @@ class CloudTemplate {
           ),
         );
 
-    referenceRepo.fetchReferenceData().then(
+    referenceRepo.fetchData().then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (r) => referenceDataList = r,
@@ -269,10 +276,17 @@ class CloudTemplate {
           ),
         );
 
-    skillRepo.fetchSkillData().then(
+    skillRepo.fetchData().then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (r) => skillsList = r,
+          ),
+        );
+
+    projectRepo.fetchData().then(
+          (value) => value.fold(
+            (failure) => LogHelper.shared.debugPrint("$failure"),
+            (r) => projectList = r,
           ),
         );
   }

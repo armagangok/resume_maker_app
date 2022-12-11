@@ -12,8 +12,9 @@ class SkillRepositoryImp implements SkillRepository {
   }
 
   late final HiveHelper _hiveHelper;
+
   @override
-  Future<Either<Failure, bool>> deleteSkillData(int index) async {
+  Future<Either<Failure, bool>> deleteData(int index) async {
     try {
       await _hiveHelper.deleteDataAt<SkillModel>(
         HiveBoxes.skillDataBox,
@@ -26,7 +27,7 @@ class SkillRepositoryImp implements SkillRepository {
   }
 
   @override
-  Future<Either<Failure, List<SkillModel>>> fetchSkillData() async {
+  Future<Either<Failure, List<SkillModel>>> fetchData() async {
     try {
       var response = await _hiveHelper.getAll<SkillModel>(
         HiveBoxes.skillDataBox,
@@ -39,11 +40,11 @@ class SkillRepositoryImp implements SkillRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> saveSkillData(SkillModel skillModel) async {
+  Future<Either<Failure, bool>> saveData({required dynamic dataModel}) async {
     try {
       await _hiveHelper.addData<SkillModel>(
         HiveBoxes.skillDataBox,
-        skillModel,
+        dataModel,
       );
 
       return const Right(true);
@@ -51,4 +52,7 @@ class SkillRepositoryImp implements SkillRepository {
       return Left(HiveSavingFailure());
     }
   }
+
+  @override
+  Future<void> updateData({required newDataModel}) async {}
 }

@@ -18,9 +18,9 @@ class ProjectCubit extends Cubit<ProjectState> {
 
   late final ProjectRepository _projectRepo;
 
-  Future<void> save(ProjectModel experienceModel) async {
+  Future<void> save(ProjectModel projectModel) async {
     var response = await _projectRepo.saveData(
-      dataModel: experienceModel,
+      dataModel: projectModel,
     );
 
     response.fold(
@@ -104,6 +104,14 @@ class ProjectCubit extends Cubit<ProjectState> {
   TextEditingController get descriptionController => _descriptionController;
   TextEditingController get projectNameController => _projectNameController;
   TextEditingController get sourceLinkController => _sourceLinkController;
+
+  ProjectModel get getProjectModel {
+    return ProjectModel(
+      projectName: _projectNameController.text,
+      description: _descriptionController.text,
+      sourceLink: _sourceLinkController.text,
+    );
+  }
 
   void clearTextController() {
     _descriptionController.clear();

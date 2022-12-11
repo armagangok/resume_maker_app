@@ -130,6 +130,7 @@ void initDependencies() {
       referenceRepository: ReferenceRepositoryImp.instance,
       languageRepository: LanguageRepositoryImp(hiveHelper: HiveHelper.shared),
       skillRepository: SkillRepositoryImp(),
+      projectRepository: ProjectRepoImp(hiveHelper: HiveHelper.shared)
     ),
   );
 

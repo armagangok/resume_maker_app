@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/export/core_export.dart';
 import '../../../data/model/reference_model.dart';
 import '../../../data/repository/reference_repository_imp.dart';
-
-import '../../../../../core/export/core_export.dart';
 
 part 'reference_state.dart';
 
@@ -16,14 +15,14 @@ class ReferenceCubit extends Cubit<ReferenceState> {
   late final ReferenceRepositoryImp _repository;
 
   Future<void> save(ReferenceModel referenceModel) async {
-    var response = await _repository.saveReferenceData(referenceModel);
+    var response = await _repository.saveData(dataModel: referenceModel);
 
     response.fold(
       (failure) {
         return emit(ReferenceSavingError());
       },
       (data) async {
-        var response = await _repository.fetchReferenceData();
+        var response = await _repository.fetchData();
 
         response.fold(
           (failure) {
@@ -44,13 +43,13 @@ class ReferenceCubit extends Cubit<ReferenceState> {
   }
 
   Future<void> delete(int index) async {
-    var response = await _repository.deleteReferenceData(index);
+    var response = await _repository.deleteData(index);
 
     response.fold(
       (l) => emit(ReferenceDeletingError()),
       (r) async {
         emit(ReferenceDeleted());
-        var response = await _repository.fetchReferenceData();
+        var response = await _repository.fetchData();
 
         response.fold(
           (failure) {
@@ -71,7 +70,7 @@ class ReferenceCubit extends Cubit<ReferenceState> {
   }
 
   Future<void> fetchReferenceData() async {
-    var response = await _repository.fetchReferenceData();
+    var response = await _repository.fetchData();
 
     response.fold(
       (failure) {

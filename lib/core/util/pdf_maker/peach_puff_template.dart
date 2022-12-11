@@ -247,7 +247,7 @@ class PeachPuffTemplate {
           ),
         );
 
-    referenceRepo.fetchReferenceData().then(
+    referenceRepo.fetchData().then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (r) => referenceDataList = r,
@@ -261,7 +261,7 @@ class PeachPuffTemplate {
           ),
         );
 
-    skillRepo.fetchSkillData().then(
+    skillRepo.fetchData().then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (r) => skillsList = r,

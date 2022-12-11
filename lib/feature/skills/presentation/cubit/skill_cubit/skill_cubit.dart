@@ -12,14 +12,14 @@ class SkillCubit extends Cubit<SkillState> {
   late final SkillRepository _repository;
 
   Future<void> save(SkillModel skillModel) async {
-    var response = await _repository.saveSkillData(skillModel);
+    var response = await _repository.saveData(dataModel: skillModel);
 
     response.fold(
       (failure) {
         return emit(SkillSavingError());
       },
       (data) async {
-        var response = await _repository.fetchSkillData();
+        var response = await _repository.fetchData();
 
         emit(SkillSaved());
 
@@ -42,12 +42,12 @@ class SkillCubit extends Cubit<SkillState> {
   }
 
   Future<void> delete(int index) async {
-    var response = await _repository.deleteSkillData(index);
+    var response = await _repository.deleteData(index);
 
     response.fold(
       (l) => emit(SkillDeletingError()),
       (r) async {
-        var response = await _repository.fetchSkillData();
+        var response = await _repository.fetchData();
 
         emit(SkillDeleted());
 
@@ -70,7 +70,7 @@ class SkillCubit extends Cubit<SkillState> {
   }
 
   Future<void> fetchSkillData() async {
-    var response = await _repository.fetchSkillData();
+    var response = await _repository.fetchData();
 
     response.fold(
       (failure) {

@@ -1,12 +1,17 @@
 import 'package:dartz/dartz.dart';
+import 'package:resume_maker_app/core/contracts/database_contract.dart';
 
 import '../../../../../core/error/failure.dart';
 import '../model/reference_model.dart';
 
-abstract class ReferenceRepository {
-  Future<Either<Failure, List<ReferenceModel>>> fetchReferenceData();
-  Future<Either<Failure, bool>> saveReferenceData(
-    ReferenceModel referenceModel,
-  );
-  Future<Either<Failure, bool>> deleteReferenceData(int index);
+abstract class ReferenceRepository implements DatabaseContract {
+  @override
+  Future<Either<Failure, List<ReferenceModel>>> fetchData();
+  @override
+  Future<Either<Failure, bool>> saveData({required dynamic dataModel});
+  @override
+  Future<Either<Failure, bool>> deleteData(int index);
+
+  @override
+  Future<void> updateData({required dynamic newDataModel});
 }

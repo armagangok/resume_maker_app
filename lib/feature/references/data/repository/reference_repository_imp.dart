@@ -14,7 +14,7 @@ class ReferenceRepositoryImp extends ReferenceRepository {
 
   late final HiveHelper _hiveHelper;
   @override
-  Future<Either<Failure, bool>> deleteReferenceData(int index) async {
+  Future<Either<Failure, bool>> deleteData(int index) async {
     try {
       await _hiveHelper.deleteDataAt<ReferenceModel>(
         HiveBoxes.referenceDataBox,
@@ -27,7 +27,7 @@ class ReferenceRepositoryImp extends ReferenceRepository {
   }
 
   @override
-  Future<Either<Failure, List<ReferenceModel>>> fetchReferenceData() async {
+  Future<Either<Failure, List<ReferenceModel>>> fetchData() async {
     try {
       var response = await _hiveHelper.getAll<ReferenceModel>(
         HiveBoxes.referenceDataBox,
@@ -40,12 +40,11 @@ class ReferenceRepositoryImp extends ReferenceRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> saveReferenceData(
-      ReferenceModel referenceModel) async {
+  Future<Either<Failure, bool>> saveData({required dynamic dataModel}) async {
     try {
       await _hiveHelper.addData<ReferenceModel>(
         HiveBoxes.referenceDataBox,
-        referenceModel,
+        dataModel,
       );
 
       return const Right(true);
@@ -53,4 +52,7 @@ class ReferenceRepositoryImp extends ReferenceRepository {
       return Left(HiveSavingFailure());
     }
   }
+
+  @override
+  Future<void> updateData({required newDataModel}) async {}
 }

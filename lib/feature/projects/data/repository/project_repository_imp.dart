@@ -15,7 +15,7 @@ class ProjectRepoImp extends ProjectRepository {
   Future<Either<Failure, bool>> deleteData(int index) async {
     try {
       await _hiveHelper.deleteDataAt<ProjectModel>(
-        HiveBoxes.experienceDataBox,
+        HiveBoxes.projectDataBox,
         index,
       );
       return const Right(true);
@@ -28,7 +28,7 @@ class ProjectRepoImp extends ProjectRepository {
   Future<Either<Failure, List<ProjectModel>>> fetchData() async {
     try {
       var response = await _hiveHelper.getAll<ProjectModel>(
-        HiveBoxes.experienceDataBox,
+        HiveBoxes.projectDataBox,
       );
 
       return response.isEmpty ? Left(HiveNullData()) : Right(response);
@@ -43,7 +43,7 @@ class ProjectRepoImp extends ProjectRepository {
   }) async {
     try {
       await _hiveHelper.addData<ProjectModel>(
-        HiveBoxes.experienceDataBox,
+        HiveBoxes.projectDataBox,
         dataModel,
       );
 

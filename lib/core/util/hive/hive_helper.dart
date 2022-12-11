@@ -1,4 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:resume_maker_app/feature/projects/data/model/project_model.dart';
 
 import '../../../feature/education/education_export.dart';
 import '../../../feature/experience/data/model/experience_model.dart';
@@ -19,6 +20,7 @@ class HiveHelper {
     Hive.registerAdapter(LanguageModelAdapter());
     Hive.registerAdapter(ReferenceModelAdapter());
     Hive.registerAdapter(SkillModelAdapter());
+    Hive.registerAdapter(ProjectModelAdapter());
 
     await Hive.openBox<EducationDataModel>(HiveBoxes.academicDataBox);
     await Hive.openBox<ExperienceModel>(HiveBoxes.experienceDataBox);
@@ -26,6 +28,7 @@ class HiveHelper {
     await Hive.openBox<LanguageModel>(HiveBoxes.languageDataBox);
     await Hive.openBox<ReferenceModel>(HiveBoxes.referenceDataBox);
     await Hive.openBox<SkillModel>(HiveBoxes.skillDataBox);
+    await Hive.openBox<ProjectModel>(HiveBoxes.projectDataBox);
   }
 
   Future<T?> getData<T>(String boxName, dynamic key) async {

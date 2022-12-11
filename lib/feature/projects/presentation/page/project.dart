@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/export/core_export.dart';
 import '../cubit/project_cubit.dart';
+import '../widget/project_item_widget.dart';
 
 class ProjectPage extends StatefulWidget {
   const ProjectPage({super.key});
@@ -15,6 +16,7 @@ class _ProjectPageState extends State<ProjectPage> {
   @override
   void initState() {
     _projectCubit = getIt<ProjectCubit>.call();
+    _projectCubit.fetchData();
     super.initState();
   }
 
@@ -34,14 +36,34 @@ class _ProjectPageState extends State<ProjectPage> {
   Widget _buildBody() {
     return BlocConsumer<ProjectCubit, ProjectState>(
       bloc: _projectCubit,
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is ProjectDeleted) {
+          getSnackBar(context, ProjectDeleted.message);
+        } else if (state is ProjectSaved) {
+          getSnackBar(context, ProjectSaved.message);
+        }
+      },
       builder: (context, state) {
         if (state is ProjectInitial) {
-          return const Center(
-            child: Text("Please add your projects."),
+          return const InitialStateWidget(
+            text: "Add experiences into resume you have.",
+          );
+        } else if (state is ProjectFetched) {
+          return ListView.separated(
+            padding: context.normalPadding,
+            itemBuilder: (context, index) => ProjectItemWidget(
+              projectModel: state.experienceData[index],
+              onLongPress: () => showCustomDialog(
+                context,
+                index,
+                () => _projectCubit.delete(index),
+              ),
+            ),
+            separatorBuilder: (context, index) => const CustomDivider(),
+            itemCount: state.experienceData.length,
           );
         } else {
-          return ListView();
+          return const Text("elseee");
         }
       },
     );
@@ -56,36 +78,53 @@ class _ProjectPageState extends State<ProjectPage> {
   }
 
   Future<dynamic> bottomSheet(BuildContext context) => showModalBottomSheet(
+        isScrollControlled: true,
         context: context,
         builder: (context) {
-          return Padding(
-            padding: context.normalPadding,
-            child: ListView(
-              children: [
-                _projectNameTextField(),
-                _descriptipnTextField(),
-                _sourceLinkTextField(),
-              ],
+          return SizedBox(
+            height: context.height(0.7),
+            child: Padding(
+              padding: context.normalPadding,
+              child: ListView(
+                children: [
+                  _projectNameTextField(),
+                  _descriptipnTextField(),
+                  _sourceLinkTextField(),
+                  SizedBox(height: context.normalHeight),
+                  _saveProjectDataButton(),
+                ],
+              ),
             ),
           );
         },
       );
 
-  TextField _sourceLinkTextField() {
-    return TextField(
-      controller: _projectCubit.sourceLinkController,
-    );
-  }
-
   TextField _descriptipnTextField() {
     return TextField(
+      decoration: const InputDecoration(hintText: "Description"),
       controller: _projectCubit.descriptionController,
     );
   }
 
   TextField _projectNameTextField() {
     return TextField(
+      decoration: const InputDecoration(hintText: "Project Name"),
       controller: _projectCubit.projectNameController,
+    );
+  }
+
+  TextField _sourceLinkTextField() {
+    return TextField(
+      decoration: const InputDecoration(hintText: "Link"),
+      controller: _projectCubit.sourceLinkController,
+    );
+  }
+
+  ElevatedButton _saveProjectDataButton() {
+    return ElevatedButton(
+      onPressed: () async =>
+          await _projectCubit.save(_projectCubit.getProjectModel),
+      child: const Text("Save "),
     );
   }
 }
