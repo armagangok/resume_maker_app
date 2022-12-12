@@ -15,7 +15,7 @@ class EducationCubit extends Cubit<EducationState> {
     _academicRepository = repository;
   }
 
-  var educationBox = HiveBoxes.academicDataBox;
+  var educationBox = HiveBoxes.educationDataBox;
 
   Future<void> saveEducationData(EducationDataModel academicDataModel) async {
     try {

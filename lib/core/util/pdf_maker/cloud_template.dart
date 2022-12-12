@@ -264,7 +264,7 @@ class CloudTemplate {
 
     myRepo
         .fetchData<EducationDataModel>(
-          boxName: HiveBoxes.academicDataBox,
+          boxName: HiveBoxes.educationDataBox,
         )
         .then(
           (value) => value.fold(

@@ -23,7 +23,7 @@ class HiveHelper {
     Hive.registerAdapter(SkillModelAdapter());
     Hive.registerAdapter(ProjectModelAdapter());
 
-    await Hive.openBox<EducationDataModel>(HiveBoxes.academicDataBox);
+    await Hive.openBox<EducationDataModel>(HiveBoxes.educationDataBox);
     await Hive.openBox<ExperienceModel>(HiveBoxes.experienceDataBox);
     await Hive.openBox<PersonalDataModel>(HiveBoxes.personalDataBox);
     await Hive.openBox<LanguageModel>(HiveBoxes.languageDataBox);

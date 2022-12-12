@@ -34,7 +34,7 @@ void initializeRepositories({
         ),
       );
 
-  repo.fetchData(boxName: HiveBoxes.academicDataBox).then(
+  repo.fetchData(boxName: HiveBoxes.educationDataBox).then(
         (value) => value.fold(
           (failure) => LogHelper.shared.debugPrint("$failure"),
           (r) => academicDataList = r,

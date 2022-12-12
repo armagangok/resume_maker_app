@@ -35,7 +35,7 @@ class PeachPuffTemplate {
   late final DatabaseContract myrepo;
   List<ExperienceModel>? experienceList;
 
-  late PersonalDataModel personalDataModel;
+  PersonalDataModel? personalDataModel;
 
   List<EducationDataModel>? academicDataModel;
 
@@ -90,9 +90,9 @@ class PeachPuffTemplate {
       color: PdfColors.amber50,
       child: pw.Column(
         children: [
-          personalDataModel.imagePath.isEmpty
+          personalDataModel == null
               ? SizedBox()
-              : getPersonImage1(personalDataModel.imagePath),
+              : getPersonImage1(personalDataModel!.imagePath),
           pw.Expanded(
             child: pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -145,7 +145,7 @@ class PeachPuffTemplate {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           head1Text("CONTACT"),
-                          contactText(personalDataModel: personalDataModel),
+                          contactText(personalDataModel: personalDataModel!),
                         ],
                       ),
               ],
@@ -166,7 +166,7 @@ class PeachPuffTemplate {
           children: [
             personalDataModel == null
                 ? SizedBox()
-                : nameText(personalDataModel.name),
+                : nameText(personalDataModel!.name),
             sizedBox015,
             personalDataModel == null
                 ? pw.SizedBox()
@@ -175,7 +175,7 @@ class PeachPuffTemplate {
                     children: [
                       head1Text("ABOUT ME"),
                       customDivider(),
-                      aboutMeText(aboutMeText: personalDataModel.aboutMeText)
+                      aboutMeText(aboutMeText: personalDataModel!.aboutMeText)
                     ],
                   ),
             sizedBox015,
@@ -218,7 +218,7 @@ class PeachPuffTemplate {
       await file.writeAsBytes(byteList);
       await OpenFile.open(filePath);
     } catch (e) {
-      print("$e");
+      rethrow;
     }
   }
 
@@ -242,7 +242,7 @@ class PeachPuffTemplate {
           ),
         );
 
-    myrepo.fetchData(boxName: HiveBoxes.academicDataBox).then(
+    myrepo.fetchData(boxName: HiveBoxes.educationDataBox).then(
           (value) => value.fold(
             (failure) => LogHelper.shared.debugPrint("$failure"),
             (r) => academicDataModel = r,
