@@ -6,42 +6,21 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
+import 'package:resume_maker_app/core/util/pdf_maker/repository/repo.dart';
 
-import '../../../data/contracts/database_contract.dart';
-import '../../../feature/education/data/model/education_model.dart';
-import '../../../feature/experience/data/model/experience_model.dart';
-import '../../../feature/language/data/model/language_model.dart';
-import '../../../feature/personal_details/data/model/personal_data_model.dart';
-import '../../../feature/projects/data/model/project_model.dart';
-import '../../../feature/references/data/model/reference_model.dart';
-import '../../../feature/skills/data/model/skill_model.dart';
-import '../hive/hive_keys.dart';
 import '../logger.dart';
 import 'components/pdf_components.dart';
 
 // const String path = 'assets/person.png';
 
 class CloudTemplate {
-  CloudTemplate({
-    required DatabaseContract repo,
-  }) {
-    myRepo = repo;
-
-    initializeRepositories();
+  CloudTemplate({required PdfRepo pdfRepo}) {
+    _pdfRepo = pdfRepo;
   }
 
   List<pw.Widget> widgets = [];
-
-  late final DatabaseContract myRepo;
-  List<ExperienceModel>? experienceList;
-  PersonalDataModel? personalDataModel;
-  List<EducationDataModel>? educationDataModel;
-  List<ReferenceModel>? referenceDataList;
-  List<LanguageModel>? languageList;
-  List<SkillModel>? skillsList;
-  List<ProjectModel>? projectList;
-
   final pdf = pw.Document();
+  late final PdfRepo _pdfRepo;
 
   Future<Uint8List> createPdf() async {
     pdf.addPage(
@@ -64,14 +43,14 @@ class CloudTemplate {
   }
 
   void buildUpPDF() {
-    var profilePicture = personalDataModel == null
+    var profilePicture = _pdfRepo.personalDataModel == null
         ? pw.SizedBox()
-        : getPersonImage1(personalDataModel!.imagePath);
+        : getPersonImage1(_pdfRepo.personalDataModel!.imagePath);
 
-    var aboutmeWidget = personalDataModel == null
+    var aboutmeWidget = _pdfRepo.personalDataModel == null
         ? pw.SizedBox()
-        : aboutMeText(aboutMeText: personalDataModel!.aboutMeText);
-    var educationContainer = educationDataModel == null
+        : aboutMeText(aboutMeText: _pdfRepo.personalDataModel!.aboutMeText);
+    var educationContainer = _pdfRepo.educationDataModel == null
         ? pw.SizedBox()
         : pw.Padding(
             padding: pw.EdgeInsets.only(top: width * 0.025),
@@ -88,13 +67,13 @@ class CloudTemplate {
                       head1Text("EDUCATION"),
                     ],
                   ),
-                  educationText(educationList: educationDataModel!),
+                  educationText(educationList: _pdfRepo.educationDataModel!),
                 ],
               ),
             ),
           );
 
-    var languageContainer = languageList == null
+    var languageContainer = _pdfRepo.languageList == null
         ? pw.SizedBox()
         : pw.Padding(
             padding: pw.EdgeInsets.only(top: width * 0.025),
@@ -112,13 +91,13 @@ class CloudTemplate {
                       head1Text("LANGUAGES"),
                     ],
                   ),
-                  languagesText(languageList: languageList!),
+                  languagesText(languageList: _pdfRepo.languageList!),
                 ],
               ),
             ),
           );
 
-    var skillsContainer = skillsList == null
+    var skillsContainer = _pdfRepo.skillsList == null
         ? pw.SizedBox()
         : pw.Padding(
             padding: pw.EdgeInsets.only(top: width * 0.025),
@@ -136,13 +115,13 @@ class CloudTemplate {
                       head1Text("SKILLS"),
                     ],
                   ),
-                  skillText(skills: skillsList!),
+                  skillText(skills: _pdfRepo.skillsList!),
                 ],
               ),
             ),
           );
 
-    var contactContainer = personalDataModel == null
+    var contactContainer = _pdfRepo.personalDataModel == null
         ? pw.SizedBox()
         : pw.Padding(
             padding: pw.EdgeInsets.only(top: width * 0.025),
@@ -159,14 +138,14 @@ class CloudTemplate {
                       head1Text("CONTACT"),
                     ],
                   ),
-                  contactText(personalDataModel: personalDataModel!),
+                  contactText(personalDataModel: _pdfRepo.personalDataModel!),
                 ],
               ),
             ),
           );
 
     widgets.add(
-      personalDataModel == null
+      _pdfRepo.personalDataModel == null
           ? pw.SizedBox()
           : pw.Row(
               children: [
@@ -179,7 +158,7 @@ class CloudTemplate {
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         pw.FittedBox(
-                          child: nameText(personalDataModel!.name),
+                          child: nameText(_pdfRepo.personalDataModel!.name),
                         ),
                         sizedBox015,
                         contactContainer,
@@ -208,20 +187,20 @@ class CloudTemplate {
     widgets.add(skillsContainer);
     widgets.add(sizedBox015);
 
-    if (referenceDataList != null) {
+    if (_pdfRepo.referenceDataList != null) {
       widgets.add(head1Text("REFERENCE"));
       widgets.add(customDivider());
-      for (var element in referenceDataList!) {
+      for (var element in _pdfRepo.referenceDataList!) {
         widgets.add(referenceModel(referenceModel: element));
         widgets.add(sizedBox015);
       }
     }
 
-    if (experienceList != null) {
+    if (_pdfRepo.experienceList != null) {
       widgets.add(head1Text("EXPERIENCE"));
       widgets.add(customDivider());
       widgets.add(pw.SizedBox(height: height * 0.001));
-      for (var experience in experienceList!) {
+      for (var experience in _pdfRepo.experienceList!) {
         widgets.add(experienceWidget(experienceModel: experience));
         widgets.add(pw.SizedBox(height: height * 0.01));
       }
@@ -238,68 +217,6 @@ class CloudTemplate {
         pw.Radius.circular(6),
       ),
     );
-  }
-
-  void initializeRepositories() {
-    myRepo
-        .fetchData<PersonalDataModel>(
-          boxName: HiveBoxes.personalDataBox,
-        )
-        .then(
-          (value) => value.fold(
-            (failure) => LogHelper.shared.debugPrint("$failure"),
-            (data) => personalDataModel = data[0],
-          ),
-        );
-
-    myRepo
-        .fetchData<ExperienceModel>(boxName: HiveBoxes.experienceDataBox)
-        .then(
-          (value) => value.fold(
-            (failure) async =>
-                (failure) => LogHelper.shared.debugPrint("$failure"),
-            (data) => experienceList = data,
-          ),
-        );
-
-    myRepo
-        .fetchData<EducationDataModel>(
-          boxName: HiveBoxes.educationDataBox,
-        )
-        .then(
-          (value) => value.fold(
-            (failure) => LogHelper.shared.debugPrint("$failure"),
-            (r) => educationDataModel = r,
-          ),
-        );
-
-    myRepo.fetchData<ReferenceModel>(boxName: HiveBoxes.referenceDataBox).then(
-          (value) => value.fold(
-            (failure) => LogHelper.shared.debugPrint("$failure"),
-            (r) => referenceDataList = r,
-          ),
-        );
-
-    myRepo.fetchData<LanguageModel>(boxName: HiveBoxes.languageDataBox).then(
-          (value) => value.fold(
-            (failure) => LogHelper.shared.debugPrint("$failure"),
-            (data) => languageList = data,
-          ),
-        );
-
-    myRepo.fetchData<SkillModel>(boxName: HiveBoxes.skillDataBox).then(
-          (value) => value.fold(
-            (failure) => LogHelper.shared.debugPrint("$failure"),
-            (r) => skillsList = r,
-          ),
-        );
-
-    myRepo.fetchData<ProjectModel>(boxName: HiveBoxes.projectDataBox).then(
-          (value) => value.fold(
-            (failure) => LogHelper.shared.debugPrint("$failure"),
-            (r) => projectList = r,
-          ),
-        );
   }
 
   Future<void> savePdfFile(

@@ -1,7 +1,10 @@
 import 'package:get_it/get_it.dart';
+import 'package:resume_maker_app/core/util/pdf_maker/repository/repo.dart';
 
 import 'core/navigation/navigation_service.dart';
 import 'core/util/pdf_maker/cloud_template.dart';
+import 'core/util/pdf_maker/grey_plain_template.dart';
+import 'core/util/pdf_maker/peach_puff_template.dart';
 import 'data/repository/local_database_repository_imp.dart';
 import 'feature/cv_templates/presentation/cubit/cv_templates_cubit.dart';
 import 'feature/education/presentation/cubit/education_data/education_cubit.dart';
@@ -87,13 +90,25 @@ void initDependencies() {
 
   getIt.registerLazySingleton<CloudTemplate>(
     () => CloudTemplate(
-      repo: LocalDatabaseRepositoryImp.instance,
+      pdfRepo: PdfRepo.instance,
     ),
   );
 
   getIt.registerLazySingleton<ExperienceCubit>(
     () => ExperienceCubit(
       repository: LocalDatabaseRepositoryImp.instance,
+    ),
+  );
+
+  getIt.registerLazySingleton<GreyPlainTemplate>(
+    () => GreyPlainTemplate(
+      myRepository: PdfRepo.instance,
+    ),
+  );
+
+  getIt.registerLazySingleton<PeachPuffTemplate>(
+    () => PeachPuffTemplate(
+      repo: PdfRepo.instance,
     ),
   );
 }

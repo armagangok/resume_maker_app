@@ -9,56 +9,20 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
-import 'package:resume_maker_app/core/util/hive/hive_keys.dart';
+import 'package:resume_maker_app/core/util/pdf_maker/repository/repo.dart';
 
-import '../../../data/contracts/database_contract.dart';
-import '../../../feature/education/data/model/education_model.dart';
-import '../../../feature/experience/data/model/experience_model.dart';
-import '../../../feature/language/data/model/language_model.dart';
-import '../../../feature/personal_details/data/model/personal_data_model.dart';
-import '../../../feature/references/data/model/reference_model.dart';
-import '../../../feature/skills/data/model/skill_model.dart';
-import '../logger.dart';
 import 'components/pdf_components.dart';
 
 // const String path = 'assets/person.png';
 
 class GreyPlainTemplate {
   GreyPlainTemplate({
-    required DatabaseContract experienceRepository,
-    required DatabaseContract personalDataRepository,
-    required DatabaseContract academicDataRepository,
-    required DatabaseContract referenceRepository,
-    required DatabaseContract languageRepository,
-    required DatabaseContract skillRepository,
+    required PdfRepo myRepository,
   }) {
-    experienceRepo = experienceRepository;
-    personalDataRepo = personalDataRepository;
-    academicDataRepo = academicDataRepository;
-    referenceRepo = referenceRepository;
-    languageRepo = languageRepository;
-    skillRepo = skillRepository;
-
-    initializeRepositories();
+   _pdfRepo = myRepository;
   }
 
-  late final DatabaseContract experienceRepo;
-  List<ExperienceModel>? experienceList;
-
-  late final DatabaseContract personalDataRepo;
-  late PersonalDataModel personalDataModel;
-
-  late final DatabaseContract academicDataRepo;
-  List<EducationDataModel>? educationModel;
-
-  late final DatabaseContract referenceRepo;
-  List<ReferenceModel>? referenceDataList;
-
-  late final DatabaseContract languageRepo;
-  List<LanguageModel>? languageList;
-
-  late final DatabaseContract skillRepo;
-  List<SkillModel>? skillsList;
+  late final PdfRepo _pdfRepo;
 
   final pdf = pw.Document();
 
@@ -101,58 +65,59 @@ class GreyPlainTemplate {
         horizontal: width * 0.02,
         vertical: width * 0.02,
       ),
-      width: width * 0.4,
+      width: width * 0.5,
       color: PdfColors.grey300,
       child: pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: [
-          personalDataModel.imagePath.isEmpty
+          _pdfRepo.personalDataModel == null
               ? SizedBox()
-              : getPersonImage1(personalDataModel.imagePath),
+              : getPersonImage1(_pdfRepo.personalDataModel!.imagePath),
           sizedBox015,
           pw.Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
-              educationModel == null
-                  ? SizedBox()
+              _pdfRepo.educationDataModel == null
+                  ? pw.SizedBox()
                   : pw.Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         whiteHeadContainer(
                           column: head1Text("EDUCATION"),
                         ),
-                        educationText(educationList: educationModel!),
+                        educationText(educationList: _pdfRepo.educationDataModel!),
                       ],
                     ),
               sizedBox015,
-              languageList == null
+              _pdfRepo.languageList == null
                   ? SizedBox()
                   : pw.Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         whiteHeadContainer(column: head1Text("LANGUAGES")),
-                        languagesText(languageList: languageList!),
+                        languagesText(languageList: _pdfRepo.languageList!),
                         sizedBox015,
                       ],
                     ),
-              skillsList == null
+             _pdfRepo. skillsList == null
                   ? pw.SizedBox()
                   : pw.Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         whiteHeadContainer(
                           column: head1Text("SKILLS"),
                         ),
-                        skillText(skills: skillsList!),
+                        skillText(skills: _pdfRepo.skillsList!),
                       ],
                     ),
               sizedBox015,
-              personalDataModel == null
+              _pdfRepo.personalDataModel == null
                   ? SizedBox()
                   : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         pw.Row(
                           children: [
@@ -161,7 +126,7 @@ class GreyPlainTemplate {
                             ),
                           ],
                         ),
-                        contactText(personalDataModel: personalDataModel),
+                        contactText(personalDataModel: _pdfRepo.personalDataModel!),
                       ],
                     ),
             ],
@@ -182,25 +147,25 @@ class GreyPlainTemplate {
         child: pw.Column(
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
-            personalDataModel == null
+            _pdfRepo.personalDataModel == null
                 ? SizedBox()
-                : nameText(personalDataModel.name),
+                : nameText(_pdfRepo.personalDataModel!.name),
             sizedBox015,
-            personalDataModel == null
+            _pdfRepo.personalDataModel == null
                 ? pw.SizedBox()
                 : pw.Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       head1Text("ABOUT ME"),
                       customDivider(),
-                      aboutMeText(aboutMeText: personalDataModel.aboutMeText)
+                      aboutMeText(aboutMeText: _pdfRepo.personalDataModel!.aboutMeText)
                     ],
                   ),
             sizedBox015,
-            referenceDataList == null
+            _pdfRepo.referenceDataList == null
                 ? SizedBox()
                 : pw.Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       head1Text("REFERENCE"),
                       customDivider(),
@@ -211,7 +176,7 @@ class GreyPlainTemplate {
             // experienceList == null
             //     ? SizedBox()
             //     : pw.Column(
-            //         crossAxisAlignment: CrossAxisAlignment.start,
+            //         crossAxisAlignment: pw.CrossAxisAlignment.start,
             //         children: [
             //           head1Text("EXPERIENCE"),
             //           customDivider(),
@@ -239,55 +204,6 @@ class GreyPlainTemplate {
     } catch (e) {
       print("$e");
     }
-  }
-
-  void initializeRepositories() {
-    personalDataRepo.fetchData(boxName: HiveBoxes.personalDataBox).then(
-          (value) => value.fold(
-            (failure) => LogHelper.shared.debugPrint("$failure"),
-            (data) {
-              personalDataModel = data;
-              // getImageBytes(data.imagePath)
-              //     .then((value) => uint8ListData = value);
-            },
-          ),
-        );
-
-    experienceRepo.fetchData(boxName: HiveBoxes.experienceDataBox).then(
-          (value) => value.fold(
-            (failure) async =>
-                (failure) => LogHelper.shared.debugPrint("$failure"),
-            (data) => experienceList = data,
-          ),
-        );
-
-    academicDataRepo.fetchData(boxName: HiveBoxes.educationDataBox).then(
-          (value) => value.fold(
-            (failure) => LogHelper.shared.debugPrint("$failure"),
-            (r) => educationModel = r,
-          ),
-        );
-
-    referenceRepo.fetchData(boxName: HiveBoxes.referenceDataBox).then(
-          (value) => value.fold(
-            (failure) => LogHelper.shared.debugPrint("$failure"),
-            (r) => referenceDataList = r,
-          ),
-        );
-
-    languageRepo.fetchData(boxName: HiveBoxes.languageDataBox).then(
-          (value) => value.fold(
-            (failure) => LogHelper.shared.debugPrint("$failure"),
-            (data) => languageList = data,
-          ),
-        );
-
-    skillRepo.fetchData(boxName: HiveBoxes.skillDataBox).then(
-          (value) => value.fold(
-            (failure) => LogHelper.shared.debugPrint("$failure"),
-            (r) => skillsList = r,
-          ),
-        );
   }
 }
 

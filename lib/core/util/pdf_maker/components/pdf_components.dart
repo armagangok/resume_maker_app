@@ -12,8 +12,6 @@ import '../../../../feature/personal_details/data/model/personal_data_model.dart
 import '../../../../feature/references/data/model/reference_model.dart';
 import '../../../../feature/skills/data/model/skill_model.dart';
 
-
-
 final width = PdfPageFormat.a4.availableWidth;
 final height = PdfPageFormat.a4.availableHeight;
 Uint8List? uint8ListData;
@@ -146,7 +144,8 @@ pw.Widget getPersonImage1(String imagePath) {
     height: width * 0.4,
     decoration: BoxDecoration(
       color: PdfColors.orange,
-      shape: BoxShape.circle,
+      // shape: BoxShape.circle,
+      borderRadius: borderRadius6(),
       image: pw.DecorationImage(
         image: byte,
         fit: BoxFit.cover,
@@ -186,9 +185,7 @@ pw.Widget experienceWidget({required ExperienceModel experienceModel}) {
     decoration: BoxDecoration(
       color: PdfColors.grey100,
       border: Border.all(color: PdfColors.grey200),
-      borderRadius: const BorderRadius.all(
-        Radius.circular(6),
-      ),
+      borderRadius: borderRadius6(),
     ),
     padding: pw.EdgeInsets.all(width * 0.015),
     width: double.infinity,
@@ -208,6 +205,12 @@ pw.Widget experienceWidget({required ExperienceModel experienceModel}) {
         ),
       ],
     ),
+  );
+}
+
+BorderRadius borderRadius6() {
+  return const BorderRadius.all(
+    Radius.circular(6),
   );
 }
 

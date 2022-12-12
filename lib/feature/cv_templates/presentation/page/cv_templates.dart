@@ -52,17 +52,12 @@ class _TemplatePageState extends State<TemplatePage> {
                 TextButton(
                   child: const Text("Peach Puff Template"),
                   onPressed: () async {
-                    // var peachPuffPdf = await _peachPuffTemplate.createPdf();
-                    // await _peachPuffTemplate.savePdfFile(
-                    //   "peach_puff_test",
-                    //   peachPuffPdf,
-                    // );
+                    await _templatesCubit.createPeachPuffPdf();
                   },
                 ),
                 TextButton(
                   onPressed: () async {
-                    // final pdf = await _greyPlainTemplate.createPdf();
-                    // await _greyPlainTemplate.savePdfFile("test_file", pdf);
+                    await _templatesCubit.createGreyPdf();
                   },
                   child: const Text("Grey Plain Template"),
                 ),
