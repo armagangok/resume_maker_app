@@ -17,7 +17,9 @@ class SkillCubit extends Cubit<SkillState> {
 
   Future<void> save(SkillModel skillModel) async {
     var response = await _repository.saveData<SkillModel>(
-        dataModel: skillModel, boxName: _box);
+      dataModel: skillModel,
+      boxName: _box,
+    );
 
     response.fold(
       (failure) {
