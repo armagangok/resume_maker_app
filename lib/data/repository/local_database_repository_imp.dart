@@ -9,11 +9,14 @@ class LocalDatabaseRepositoryImp extends DatabaseContract {
   LocalDatabaseRepositoryImp._();
   static final instance = LocalDatabaseRepositoryImp._();
 
+  final HiveHelper _hiveHelper = HiveHelper.shared;
+
   @override
-  Future<Either<Failure, dynamic>> fetchData<T>(
-      {required String boxName}) async {
+  Future<Either<Failure, dynamic>> fetchData<T>({
+    required String boxName,
+  }) async {
     try {
-      var response = await HiveHelper.shared.getAll<T>(boxName);
+      var response = await _hiveHelper.getAll<T>(boxName);
 
       if (response.isEmpty) {
         return Left(HiveNullData());
@@ -32,7 +35,7 @@ class LocalDatabaseRepositoryImp extends DatabaseContract {
     required String boxName,
   }) async {
     try {
-      await HiveHelper.shared.deleteDataAt<T>(
+      await _hiveHelper.deleteDataAt<T>(
         boxName,
         index,
       );
@@ -50,7 +53,7 @@ class LocalDatabaseRepositoryImp extends DatabaseContract {
     required String boxName,
   }) async {
     try {
-      await HiveHelper.shared.addData<T>(
+      await _hiveHelper.addData<T>(
         boxName,
         dataModel,
       );
@@ -65,11 +68,12 @@ class LocalDatabaseRepositoryImp extends DatabaseContract {
   Future<void> updateData<T>({
     required newDataModel,
     required String boxName,
+    required int index,
   }) async {
-    await HiveHelper.shared.putData<T>(
-      boxName,
+    await _hiveHelper.putDataAt<T>(
       boxName,
       newDataModel,
+      index,
     );
   }
 }

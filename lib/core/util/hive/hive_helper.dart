@@ -76,4 +76,9 @@ class HiveHelper {
     var box = Hive.box<T>(boxName);
     await box.clear();
   }
+
+  Future<void> putDataAt<T>(String boxName, T dataToAdd, int index) async {
+    var box = Hive.box<T>(boxName);
+    await box.putAt(index, dataToAdd);
+  }
 }

@@ -9,12 +9,19 @@ abstract class DatabaseContract {
     required String boxName,
   });
 
-  Future<Either<Failure, bool>> saveData<T>(
-      {required dynamic dataModel, required String boxName});
+  Future<Either<Failure, bool>> saveData<T>({
+    required dynamic dataModel,
+    required String boxName,
+  });
 
-  Future<Either<Failure, bool>> deleteData<T>(
-      {required int index, required String boxName});
+  Future<Either<Failure, bool>> deleteData<T>({
+    required int index,
+    required String boxName,
+  });
 
-  Future<void> updateData<T>(
-      {required dynamic newDataModel, required String boxName});
+  Future<void> updateData<T>({
+    required dynamic newDataModel,
+    required String boxName,
+    required int index,
+  });
 }

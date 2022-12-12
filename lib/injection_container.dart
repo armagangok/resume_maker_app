@@ -100,6 +100,7 @@ void initDependencies() {
     ),
   );
 
+
   getIt.registerLazySingleton<GreyPlainTemplate>(
     () => GreyPlainTemplate(
       myRepository: PdfRepo.instance,

@@ -23,7 +23,10 @@ class SkillCubit extends Cubit<SkillState> {
       (failure) {
         return emit(SkillSavingError());
       },
-      (data) async => fetchSkillData(),
+      (data) async {
+        emit(SkillSaved());
+        fetchSkillData();
+      },
     );
   }
 

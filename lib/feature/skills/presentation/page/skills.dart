@@ -9,6 +9,7 @@ import '../../../../core/widget/floating_action_button.dart';
 import '../../../../core/widget/initial_state_widget.dart';
 import '../../../../core/widget/list_item_widget.dart';
 import '../../../../core/widget/snackbar.dart';
+import '../../../../injection_container.dart';
 import '../../data/model/skill_model.dart';
 import '../cubit/skill_cubit/skill_cubit.dart';
 
@@ -26,7 +27,7 @@ class _SkillsPageState extends State<SkillsPage> {
   @override
   void initState() {
     skillController = TextEditingController();
-    _skillCubit = _skillCubit;
+    _skillCubit = getIt<SkillCubit>.call();
     _skillCubit.fetchSkillData();
     super.initState();
   }
