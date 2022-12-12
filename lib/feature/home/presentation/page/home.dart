@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  MenuItemWidget get _viewResumeButton {
+  Widget get _viewResumeButton {
     return MenuItemWidget(
       text: "View Resume",
       iconData: Icons.search,
@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  MenuItemWidget get _createResumeButton {
+  Widget get _createResumeButton {
     return MenuItemWidget(
       text: "Create Resume",
       iconData: Icons.contact_page,
