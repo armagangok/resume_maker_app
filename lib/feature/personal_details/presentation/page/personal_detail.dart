@@ -13,7 +13,6 @@ import '../cubit/pick_image/pick_image_cubit.dart';
 import '../widget/custom_circle_avatar.dart';
 import '../../../../injection_container.dart';
 
-
 class PersonalDetailPage extends StatefulWidget {
   const PersonalDetailPage({super.key});
 
@@ -158,15 +157,10 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
             final personalDataModel =
                 _personalDataCubit.preparePersonalDataModel(state);
 
-            print(_imagePickerCubit.getImageFile.path);
-
-            _personalDataCubit.checkControllersIfEmpty()
-                ? {}
-                : {
-                    await _personalDataCubit
-                        .savePersonalData(personalDataModel),
-                    _personalDataCubit.clearControllers(),
-                  };
+            if (!_personalDataCubit.checkControllersIfEmpty()) {
+              await _personalDataCubit.savePersonalData(personalDataModel);
+              _personalDataCubit.clearControllers();
+            }
           },
           child: const Text("Update"),
         ),
