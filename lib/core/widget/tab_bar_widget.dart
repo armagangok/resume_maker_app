@@ -19,10 +19,11 @@ class TabBarWidget extends StatelessWidget {
   Widget build(BuildContext context) => expandedItems();
 
   Widget expandedItems() => Builder(
-        builder: (context) => SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          physics: const ClampingScrollPhysics(),
+        builder: (context) => SizedBox(
+          width: context.width(1),
           child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: widgetList,
           ),
         ),
@@ -66,16 +67,16 @@ class ExpandedItem extends ConsumerWidget {
               child: Column(
                 children: [
                   Container(
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          width: context.width(0.005),
-                          color: clickedNumber == tabBar.getIndex
-                              ? context.primary
-                              : Colors.transparent,
+                    decoration: const BoxDecoration(
+                        // border: Border(
+                        //   bottom: BorderSide(
+                        //     width: context.width(0.005),
+                        //     color: clickedNumber == tabBar.getIndex
+                        //         ? Colors.white
+                        //         : Colors.transparent,
+                        //   ),
+                        // ),
                         ),
-                      ),
-                    ),
                     child: Text(
                       text,
                       textAlign: TextAlign.center,
@@ -84,7 +85,8 @@ class ExpandedItem extends ConsumerWidget {
                           TextStyle(
                             color: clickedNumber == tabBar.getIndex
                                 ? Colors.white
-                                : Colors.grey,
+                                : Colors.white,
+                                fontSize: 15
                           ),
                     ),
                   ),

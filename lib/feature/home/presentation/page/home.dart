@@ -13,7 +13,13 @@ class HomePage extends StatelessWidget {
       body: NestedScrollView(
         headerSliverBuilder: (context, value) => [
           SliverAppBar(
-            title: const Text('Resume Maker App'),
+            title: Text(
+              'Resume Maker App',
+              style: context.textTheme.headlineLarge!.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             pinned: true,
             floating: true,
             toolbarHeight: context.height(0.05),
@@ -47,7 +53,7 @@ class HomeTabBarWidget extends ConsumerWidget {
     return TabBarWidget(
       widgetList: [
         ExpandedItem(
-          text: "text",
+          text: "My Profile",
           clickedNumber: 0,
           onTap: () {
             tabBar.setIndex = 0;
@@ -61,7 +67,7 @@ class HomeTabBarWidget extends ConsumerWidget {
           },
         ),
         ExpandedItem(
-          text: "text",
+          text: "Settings",
           clickedNumber: 2,
           onTap: () {
             tabBar.setIndex = 2;
