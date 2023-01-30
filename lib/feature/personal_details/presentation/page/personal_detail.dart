@@ -88,8 +88,8 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
           listener: (context, state) {
             if (state is ImageLoaded) {
               getSnackBar(context, ImageLoaded.message);
-            } else if (state is LoadError) {
-              getSnackBar(context, LoadError.message);
+            } else if (state is ImageLoadingError) {
+              getSnackBar(context, ImageLoadingError.message);
             }
           },
           bloc: _imagePickerCubit,
@@ -119,11 +119,18 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
 
   Widget _informationTextStack(DataReceivedContract state) {
     var personalData = state.personalData;
+    _personalDataCubit.aboutMeController.text = state.personalData.aboutMeText;
+    _personalDataCubit.birthdayController.text = state.personalData.birthday;
+    _personalDataCubit.emailController.text = state.personalData.email;
+    _personalDataCubit.linkedinController.text = state.personalData.linkedin;
+    _personalDataCubit.locationController.text = state.personalData.location;
+    _personalDataCubit.nameController.text = state.personalData.name;
+    _personalDataCubit.numberController.text = state.personalData.phoneNumber;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _personalInformationText,
-        _aboutMeTextField(state.personalData),
+        _aboutMeTextField(personalData),
         _nameTextField(personalData),
         _locationTextField(personalData),
         _numberTextField(personalData),
@@ -143,13 +150,6 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
         ),
       );
 
-  Widget get _personalInformationText => Builder(
-        builder: (context) => Text(
-          "Personal Infomarmation",
-          style: context.textTheme.headline5!.copyWith(),
-        ),
-      );
-
   Widget _updateButton(DataReceivedContract state) => SizedBox(
         width: context.width(1),
         child: ElevatedButton(
@@ -158,8 +158,11 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
                 _personalDataCubit.preparePersonalDataModel(state);
 
             if (!_personalDataCubit.checkControllersIfEmpty()) {
+              for (var i = 0; i < 100; i++) {
+                print("i");
+              }
               await _personalDataCubit.savePersonalData(personalDataModel);
-              _personalDataCubit.clearControllers();
+              // _personalDataCubit.clearControllers();
             }
           },
           child: const Text("Update"),
@@ -169,16 +172,15 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
   Widget _nameTextField(PersonalDataModel personalDataModel) => TextField(
         controller: _personalDataCubit.nameController,
         decoration: InputDecoration(
-          hintText: (personalDataModel.name.isEmpty)
-              ? "Name"
-              : personalDataModel.name,
+          hintText:
+              personalDataModel.name.isEmpty ? "Name" : personalDataModel.name,
         ),
       );
 
   Widget _birthDayTextField(PersonalDataModel personalDataModel) => TextField(
         controller: _personalDataCubit.birthdayController,
         decoration: InputDecoration(
-          hintText: (personalDataModel.birthday.isEmpty)
+          hintText: personalDataModel.birthday.isEmpty
               ? "Birthday"
               : personalDataModel.birthday,
         ),
@@ -187,7 +189,7 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
   Widget _linkedinTextField(PersonalDataModel personalDataModel) => TextField(
         controller: _personalDataCubit.linkedinController,
         decoration: InputDecoration(
-          hintText: personalDataModel.linkedin == ""
+          hintText: personalDataModel.linkedin.isEmpty
               ? "Linkedin"
               : personalDataModel.linkedin,
         ),
@@ -215,7 +217,7 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
   Widget _numberTextField(PersonalDataModel personalDataModel) => TextField(
         controller: _personalDataCubit.numberController,
         decoration: InputDecoration(
-          hintText: personalDataModel.phoneNumber == ""
+          hintText: personalDataModel.phoneNumber.isEmpty
               ? "Phone Number"
               : personalDataModel.phoneNumber,
         ),

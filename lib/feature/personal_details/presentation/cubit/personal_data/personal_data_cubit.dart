@@ -43,7 +43,6 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
         }
       },
       (r) {
-        print(r);
         emit(PersonalDataReceived(personalData: r[0]));
       },
     );
@@ -67,7 +66,15 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
   }
 
   PersonalDataModel preparePersonalDataModel(DataReceivedContract state) {
-    var imagePath2 = state.personalData.imagePath;
+    String imagePath;
+    var pickedImagePath = _imagePickerCubit.getImageFile.path;
+
+    if (pickedImagePath.isNotEmpty) {
+      imagePath = pickedImagePath;
+    }
+    imagePath = state.personalData.imagePath;
+
+    print("image path$imagePath");
     var personalDataModel = PersonalDataModel(
       name: _nameController.text.isEmpty
           ? state.personalData.name
@@ -87,8 +94,7 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
       birthday: _birthdayController.text.isEmpty
           ? state.personalData.birthday
           : _birthdayController.text,
-      imagePath:
-          imagePath2.isEmpty ? _imagePickerCubit.getImageFile.path : imagePath2,
+      imagePath: imagePath,
       aboutMeText: _aboutMeController.text.isEmpty
           ? state.personalData.aboutMeText
           : _aboutMeController.text,
@@ -99,19 +105,20 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
   static PersonalDataInitial get _getInitialPersonalModel =>
       PersonalDataInitial(
         personalData: PersonalDataModel(
-            birthday: "Birthday",
-            email: "Email",
-            imagePath: "",
-            linkedin: "Linkedin",
-            location: "Location",
-            name: "Name",
-            phoneNumber: "Phone Number",
-            aboutMeText: "About Me"),
+          birthday: "Birthday",
+          email: "Email",
+          imagePath: "",
+          linkedin: "Linkedin",
+          location: "Location",
+          name: "Name",
+          phoneNumber: "Phone Number",
+          aboutMeText: "About Me",
+        ),
       );
 
-  //
-  // TEXT CONTROLLERS
-  //
+  ////////////////////////////////////////////
+  // TEXT CONTROLLERS ////////////////////////
+  ////////////////////////////////////////////
 
   late final TextEditingController _nameController;
   late final TextEditingController _numberController;
@@ -139,16 +146,6 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
     _aboutMeController = TextEditingController();
   }
 
-  void clearControllers() {
-    _nameController.clear();
-    _numberController.clear();
-    _emailController.clear();
-    _linkedinController.clear();
-    _birthdayController.clear();
-    _locationController.clear();
-    _aboutMeController.clear();
-  }
-
   bool checkControllersIfEmpty() {
     return (_nameController.text.isEmpty &&
             _numberController.text.isEmpty &&
@@ -161,3 +158,15 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
         : false;
   }
 }
+
+
+
+  // void clearControllers() {
+  //   _nameController.clear();
+  //   _numberController.clear();
+  //   _emailController.clear();
+  //   _linkedinController.clear();
+  //   _birthdayController.clear();
+  //   _locationController.clear();
+  //   _aboutMeController.clear();
+  // }

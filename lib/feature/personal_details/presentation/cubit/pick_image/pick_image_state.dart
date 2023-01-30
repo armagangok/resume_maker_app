@@ -16,7 +16,7 @@ class ImageLoaded extends PickImageState {
   static const message = "Image is uploaded successfully!";
 }
 
-class LoadError extends PickImageState {
+class ImageLoadingError extends PickImageState {
   static const message = "An error occured while uploading the image!";
 }
 

@@ -24,17 +24,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      actions: [
-        TextButton(
-          onPressed: () => onTapUpdate(),
-          child: const Text(
-            "Update",
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ],
+      // actions: [
+      //   TextButton(
+      //     onPressed: () => onTapUpdate(),
+      //     child: const Text(
+      //       "Update",
+      //       style: TextStyle(
+      //         color: Colors.white,
+      //       ),
+      //     ),
+      //   ),
+      // ],
       leading: enableBackButton
           ? GestureDetector(
               onTap: onTap != null ? () => onTap!() : () => alternativeOnTap,

@@ -52,9 +52,7 @@ void initDependencies() {
   getIt.registerLazySingleton<PersonalDataCubit>(
     () => PersonalDataCubit(
       repository: LocalDatabaseRepositoryImp.instance,
-      imagePickerCubit: PickImageCubit(
-        pickerRepository: ImagePickerRepositoryImp.instance,
-      ),
+      imagePickerCubit: getIt.call<PickImageCubit>(),
     ),
   );
 
@@ -99,7 +97,6 @@ void initDependencies() {
       repository: LocalDatabaseRepositoryImp.instance,
     ),
   );
-
 
   getIt.registerLazySingleton<GreyPlainTemplate>(
     () => GreyPlainTemplate(

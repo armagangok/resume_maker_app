@@ -28,7 +28,7 @@ class PickImageCubit extends Cubit<PickImageState> {
         if (failure is NullImageFailure) {
           emit(PickImageInitial(imagePath: personImage));
         } else {
-          emit(LoadError());
+          emit(ImageLoadingError());
         }
       },
       (data) async {
