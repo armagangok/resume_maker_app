@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../injection_container.dart';
+import '../injection/injection_container.dart';
 import '../navigation/navigation_service.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -17,7 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Function onTapUpdate;
   final Widget? title;
   final bool enableBackButton;
-  final double? height;
+  final double height;
   final Function? onTap;
   final Widget? action;
 
@@ -47,7 +47,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(height!);
+  Size get preferredSize => Size.fromHeight(height);
 
   void get alternativeOnTap => getIt<NavigationService>().getBack();
 }

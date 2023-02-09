@@ -1,12 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../../../feature/education/education_export.dart';
-import '../../../feature/experience/data/model/experience_model.dart';
-import '../../../feature/language/data/model/language_model.dart';
-import '../../../feature/personal_details/data/model/personal_data_model.dart';
-import '../../../feature/projects/data/model/project_model.dart';
-import '../../../feature/references/data/model/reference_model.dart';
-import '../../../feature/skills/data/model/skill_model.dart';
 import 'hive_keys.dart';
 
 class HiveHelper {
@@ -15,21 +8,8 @@ class HiveHelper {
 
   Future<void> initializeHive() async {
     await Hive.initFlutter();
-    Hive.registerAdapter(EducationDataModelAdapter());
-    Hive.registerAdapter(PersonalDataModelAdapter());
-    Hive.registerAdapter(ExperienceModelAdapter());
-    Hive.registerAdapter(LanguageModelAdapter());
-    Hive.registerAdapter(ReferenceModelAdapter());
-    Hive.registerAdapter(SkillModelAdapter());
-    Hive.registerAdapter(ProjectModelAdapter());
 
-    await Hive.openBox<EducationDataModel>(HiveBoxes.educationDataBox);
-    await Hive.openBox<ExperienceModel>(HiveBoxes.experienceDataBox);
-    await Hive.openBox<PersonalDataModel>(HiveBoxes.personalDataBox);
-    await Hive.openBox<LanguageModel>(HiveBoxes.languageDataBox);
-    await Hive.openBox<ReferenceModel>(HiveBoxes.referenceDataBox);
-    await Hive.openBox<SkillModel>(HiveBoxes.skillDataBox);
-    await Hive.openBox<ProjectModel>(HiveBoxes.projectDataBox);
+    await Hive.openBox<String>(HiveBoxes.userDataBox);
   }
 
   Future<T?> getData<T>(String boxName, dynamic key) async {

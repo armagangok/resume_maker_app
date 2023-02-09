@@ -25,7 +25,7 @@ class LocalDatabaseRepositoryImp extends DatabaseContract {
       }
     } on Exception catch (e) {
       LogHelper.shared.errorPrint("$e");
-      return Left(HiveFetchFailure());
+      return Left(LocalFetchFailure());
     }
   }
 
@@ -43,7 +43,7 @@ class LocalDatabaseRepositoryImp extends DatabaseContract {
       return const Right(true);
     } catch (e) {
       LogHelper.shared.debugPrint("$e");
-      return Left(HiveDeletingFailure());
+      return Left(LocalDeletingFailure());
     }
   }
 

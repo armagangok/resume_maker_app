@@ -83,11 +83,10 @@ class ExpandedItem extends ConsumerWidget {
                       maxLines: 1,
                       style: textStyle ??
                           TextStyle(
-                            color: clickedNumber == tabBar.getIndex
-                                ? Colors.white
-                                : Colors.white,
-                                fontSize: 15
-                          ),
+                              color: clickedNumber == tabBar.getIndex
+                                  ? Colors.blue
+                                  : Colors.blue,
+                              fontSize: 15),
                     ),
                   ),
                 ],

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:resume_maker_app/core/theme/theme_data/dark_theme.dart';
 
 
+import 'core/navigation/constant/routes.dart';
 import 'core/navigation/navigation_route.dart';
 import 'core/navigation/navigation_service.dart';
-import 'feature/home/presentation/page/home.dart';
+import 'features/home/presentation/pages/home_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -12,16 +14,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: const Color.fromARGB(255, 47, 52, 205),
-          // or from RGB
-        ),
-        // primarySwatch: const Color.fromARGB(255, 17, 119, 203),
-        scaffoldBackgroundColor: Colors.grey[300],
-      ),
+      theme: darkTheme,
       navigatorKey: NavigationService.instance.navigatorKey,
       onGenerateRoute: NavigationRoute.instance.generateRoute,
+      initialRoute: KRoute.homePage,
       home: const HomePage(),
     );
   }
