@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 
+import '../extension/context_extension.dart';
+
+
+
 Future<dynamic> customBottomSheet({
   required BuildContext context,
   required Widget widget,
 }) {
   return showModalBottomSheet(
+    isScrollControlled: true,
     context: context,
-    builder: (context) => widget,
+    builder: (context) => SizedBox(
+      height: context.height(0.75),
+      child: widget,
+    ),
   );
 }

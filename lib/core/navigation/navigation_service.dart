@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'contract/base_navigation_service.dart';
 
 class NavigationService extends BaseNavigationService {

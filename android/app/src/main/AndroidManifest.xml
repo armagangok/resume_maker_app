@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.resume_maker_app">
+    package="com.armagangok.resumeMakerApp">
     
    <application
         android:label="resume_maker_app"

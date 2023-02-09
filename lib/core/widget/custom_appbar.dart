@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../core/export/core_export.dart';
+import '../injection/injection_container.dart';
+import '../navigation/navigation_service.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
@@ -16,24 +17,24 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Function onTapUpdate;
   final Widget? title;
   final bool enableBackButton;
-  final double? height;
+  final double height;
   final Function? onTap;
   final Widget? action;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      actions: [
-        TextButton(
-          onPressed: () => onTapUpdate(),
-          child: const Text(
-            "Update",
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ],
+      // actions: [
+      //   TextButton(
+      //     onPressed: () => onTapUpdate(),
+      //     child: const Text(
+      //       "Update",
+      //       style: TextStyle(
+      //         color: Colors.white,
+      //       ),
+      //     ),
+      //   ),
+      // ],
       leading: enableBackButton
           ? GestureDetector(
               onTap: onTap != null ? () => onTap!() : () => alternativeOnTap,
@@ -46,7 +47,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(height!);
+  Size get preferredSize => Size.fromHeight(height);
 
   void get alternativeOnTap => getIt<NavigationService>().getBack();
 }

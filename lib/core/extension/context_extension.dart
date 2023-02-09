@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 extension ContextExtension on BuildContext {
@@ -8,6 +9,17 @@ extension ContextExtension on BuildContext {
     if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
       FocusManager.instance.primaryFocus?.unfocus();
     }
+  }
+
+  void showSnackBar(SnackBar snackBar) {
+    ScaffoldMessenger.of(this).showSnackBar(snackBar);
+  }
+
+  Future<void> cupertinoDialog(Widget widget) async {
+    await showCupertinoDialog(
+      context: this,
+      builder: (_) => widget,
+    );
   }
 }
 
@@ -33,7 +45,9 @@ extension EasyTheme on BuildContext {
   ThemeData get theme => Theme.of(this);
   TextTheme get textTheme => theme.textTheme;
   Color get primary => colors.primary;
+  Color get backgroundColor => theme.colorScheme.background;
   ColorScheme get colors => theme.colorScheme;
+  IconThemeData get iconTheme => theme.iconTheme;
 }
 
 extension EasyPadding on BuildContext {
@@ -41,14 +55,27 @@ extension EasyPadding on BuildContext {
   EdgeInsets get normalPadding => EdgeInsets.all(normalWidth);
   EdgeInsets get mediumPadding => EdgeInsets.all(mediumWidth);
   EdgeInsets get bigPadding => EdgeInsets.all(bigWidth);
+  EdgeInsets padding(double ratio) => EdgeInsets.all(ratio * dynamicWidth);
 
   EdgeInsets symmetricPadding({
     double horizontal = 0.0,
     double vertical = 0.0,
-  }) {
-    return EdgeInsets.symmetric(
-      horizontal: width(1.0) * horizontal,
-      vertical: height(1.0) * vertical,
-    );
-  }
+  }) =>
+      EdgeInsets.symmetric(
+        horizontal: width(1.0) * horizontal,
+        vertical: height(1.0) * vertical,
+      );
+
+  EdgeInsets only({
+    double right = 0.0,
+    double left = 0.0,
+    double top = 0.0,
+    double bottom = 0.0,
+  }) =>
+      EdgeInsets.only(
+        left: left * dynamicWidth,
+        right: right * dynamicWidth,
+        bottom: bottom * dynamicHeight,
+        top: top * dynamicHeight,
+      );
 }
