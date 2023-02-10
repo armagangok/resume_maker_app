@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:resume_maker_app/features/design/presentation/pages/design_page.dart';
 import 'package:resume_maker_app/features/export/presentation/pages/export_page.dart';
@@ -25,36 +26,30 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       bottomNavigationBar: SizedBox(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             BottomNavigationBar(
+              backgroundColor: Colors.black,
               currentIndex: _selectedIndex,
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
+              showSelectedLabels: true,
+              showUnselectedLabels: true,
               items: const [
                 BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.design_services_outlined,
-                  ),
+                  icon: Icon(CupertinoIcons.photo_on_rectangle),
                   label: 'Design',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
+                  icon: Icon(CupertinoIcons.person_crop_circle_fill),
                   label: 'Profile',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.remove_red_eye_outlined,
-                  ),
+                  icon: Icon(CupertinoIcons.eye_fill),
                   label: 'Preview',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.import_export_rounded,
-                  ),
+                  icon: Icon(CupertinoIcons.square_arrow_down_on_square_fill),
                   label: 'Export',
                 ),
               ],
