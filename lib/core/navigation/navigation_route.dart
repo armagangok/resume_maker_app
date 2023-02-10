@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:resume_maker_app/features/design/presentation/pages/design_page.dart';
+import 'package:resume_maker_app/features/home/presentation/pages/home_page.dart';
 
-import '../../features/home/presentation/pages/home_page.dart';
+import '../../features/design/presentation/pages/design_page.dart';
+import '../../features/export/presentation/pages/export_page.dart';
+import '../../features/preview/presentation/pages/preview_page.dart';
+import '../../features/profile/presentation/pages/profile_page.dart';
+import '../../features/root_page/presentation/pages/root_page.dart';
+import '../../features/splash/presentation/pages/splash_page.dart';
 import 'constant/routes.dart';
 
 class NavigationRoute {
@@ -10,43 +15,26 @@ class NavigationRoute {
   NavigationRoute._init();
   Route<dynamic> generateRoute(RouteSettings args) {
     switch (args.name) {
-      case KRoute.homePage:
-        return _getRoute(const HomePage());
-
-      case KRoute.designPage:
+      case rootPage:
+        return _getRoute(const RootPage());
+      case designPage:
         return _getRoute(const DesignPage());
-
-      // case KRoute.createResumePage:
-      //   return _getRoute(const CreateResumePage());
-
-      // case KRoute.languagePage:
-      //   return _getRoute(const LanguagePage());
-
-      // case KRoute.skillsPage:
-      //   return _getRoute(const SkillsPage());
-
-      // case KRoute.personalDetailPage:
-      //   return _getRoute(const PersonalDetailPage());
-
-      // case KRoute.academicPage:
-      //   return _getRoute(const EducationPage());
-
-      // case KRoute.referencesPage:
-      //   return _getRoute(const ReferencePage());
-
-      // case KRoute.experiencesPage:
-      //   return _getRoute(const ExperiencesPage());
-
-      // case KRoute.templatesPage:
-      //   return _getRoute(const TemplatePage());
-
-      // case KRoute.myProjectsPage:
-      //   return _getRoute(const ProjectPage());
-
+      case exportPage:
+        return _getRoute(const ExportPage());
+      case previewPage:
+        return _getRoute(const PreviewPage());
+      case profilePage:
+        return _getRoute(const ProfilePage());
+      case homePage:
+        return _getRoute(const HomePage());
+      case splashrootPage:
+        return _getRoute(const SplashPage());
       default:
         return MaterialPageRoute(
           builder: (context) => const Scaffold(
-            body: Text("Not Found."),
+            body: Center(
+              child: Text("Not Found."),
+            ),
           ),
         );
     }

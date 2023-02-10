@@ -1,68 +1,68 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:resume_maker_app/features/design/presentation/pages/design_page.dart';
-import 'package:resume_maker_app/features/export/presentation/pages/export_page.dart';
-
-import '../../../preview/presentation/pages/preview_page.dart';
-import '../../../profile/presentation/pages/profile_page.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:resume_maker_app/core/extension/context_extension.dart';
+import 'package:resume_maker_app/core/theme/constants/colors.dart';
+import 'package:resume_maker_app/core/widget/custom_container.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
-
-  final List<Widget> _widgetOptions = <Widget>[
-    const DesignPage(),
-    const ProfilePage(),
-    const PreviewPage(),
-    const ExportPage(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: SizedBox(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            BottomNavigationBar(
-              backgroundColor: Colors.black,
-              currentIndex: _selectedIndex,
-              showSelectedLabels: true,
-              showUnselectedLabels: true,
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.photo_on_rectangle),
-                  label: 'Design',
+      appBar: _appBar(),
+      body: _bodyWidget(),
+    );
+  }
+
+  Widget _bodyWidget() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        _createResumeButton(),
+      ],
+    );
+  }
+
+  Widget _createResumeButton() {
+    return Padding(
+      padding: const EdgeInsets.all(30),
+      child: CustomContainer(
+        borderRadius: BorderRadius.zero,
+        borderColor: iconColor,
+        color: primaryColor,
+        child: SizedBox(
+          height: 80.h,
+          child: InkWell(
+            onTap: () {},
+            child: Center(
+              child: Text(
+                "CREATE RESUME",
+                style: context.displayMedium.copyWith(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 32,
                 ),
-                BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.person_crop_circle_fill),
-                  label: 'Profile',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.eye_fill),
-                  label: 'Preview',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.square_arrow_down_on_square_fill),
-                  label: 'Export',
-                ),
-              ],
-              onTap: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
+              ),
             ),
-          ],
+          ),
         ),
       ),
-      body: _widgetOptions.elementAt(_selectedIndex),
+    );
+  }
+
+  AppBar _appBar() {
+    return AppBar(
+      leading: IconButton(
+        onPressed: () {},
+        icon: const Icon(
+          Icons.menu_rounded,
+        ),
+      ),
     );
   }
 }
