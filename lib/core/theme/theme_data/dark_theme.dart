@@ -13,6 +13,7 @@ class CustomThemeData {
 
   static ThemeData get darkTheme => ThemeData.dark().copyWith(
         primaryColor: primaryColor,
+        splashColor: Colors.transparent,
         scaffoldBackgroundColor: Colors.black,
         colorScheme: colorScheme(),
         bottomNavigationBarTheme: bottomNavBarThemeData(),

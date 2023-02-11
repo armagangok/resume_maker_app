@@ -24,7 +24,6 @@ TextTheme textThemeData() => TextTheme(
       ),
       labelLarge: GoogleFonts.poppins(
         fontSize: 15,
-        height: 1.6,
         color: const Color.fromARGB(255, 204, 204, 204),
         fontWeight: FontWeight.w600,
       ),

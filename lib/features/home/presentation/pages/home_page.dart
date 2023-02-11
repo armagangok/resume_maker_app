@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:resume_maker_app/core/extension/context_extension.dart';
+import 'package:resume_maker_app/core/injection/injection_service.dart';
+import 'package:resume_maker_app/core/navigation/constant/routes.dart';
 import 'package:resume_maker_app/core/theme/constants/colors.dart';
 import 'package:resume_maker_app/core/widget/custom_container.dart';
 
@@ -39,7 +41,9 @@ class _HomePageState extends State<HomePage> {
         child: SizedBox(
           height: 80.h,
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              Injection.navigator.navigateTo(path: rootPage);
+            },
             child: Center(
               child: Text(
                 "CREATE RESUME",

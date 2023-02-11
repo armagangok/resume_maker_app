@@ -27,7 +27,7 @@ class NavigationRoute {
         return _getRoute(const ProfilePage());
       case homePage:
         return _getRoute(const HomePage());
-      case splashrootPage:
+      case splashPage:
         return _getRoute(const SplashPage());
       default:
         return MaterialPageRoute(

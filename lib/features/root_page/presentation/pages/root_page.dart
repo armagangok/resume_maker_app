@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:resume_maker_app/core/theme/constants/colors.dart';
 import 'package:resume_maker_app/features/design/presentation/pages/design_page.dart';
 import 'package:resume_maker_app/features/export/presentation/pages/export_page.dart';
 
@@ -26,43 +27,69 @@ class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: SizedBox(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            BottomNavigationBar(
-              backgroundColor: Colors.black,
-              currentIndex: _selectedIndex,
-              showSelectedLabels: true,
-              showUnselectedLabels: true,
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.photo_on_rectangle),
-                  label: 'Design',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.person_crop_circle_fill),
-                  label: 'Profile',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.eye_fill),
-                  label: 'Preview',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.square_arrow_down_on_square_fill),
-                  label: 'Export',
-                ),
-              ],
-              onTap: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-            ),
-          ],
-        ),
-      ),
+      appBar: _appBar(),
+      bottomNavigationBar: _bottomNavBar(),
       body: _widgetOptions.elementAt(_selectedIndex),
+    );
+  }
+
+  AppBar _appBar() => AppBar(
+        leading: IconButton(
+          onPressed: () {},
+          icon: const Icon(
+            Icons.menu_rounded,
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                CupertinoIcons.checkmark_alt_circle_fill,
+                color: selectedItemColor,
+              ),
+            ),
+          )
+        ],
+      );
+
+  SizedBox _bottomNavBar() {
+    return SizedBox(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          BottomNavigationBar(
+            backgroundColor: Colors.black,
+            currentIndex: _selectedIndex,
+            showSelectedLabels: true,
+            showUnselectedLabels: true,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.photo_on_rectangle),
+                label: 'Design',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.person_crop_circle_fill),
+                label: 'Profile',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.eye_fill),
+                label: 'Preview',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.square_arrow_down_on_square_fill),
+                label: 'Export',
+              ),
+            ],
+            onTap: (index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
+          ),
+        ],
+      ),
     );
   }
 }

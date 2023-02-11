@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'contract/base_navigation_service.dart';
 
-class NavigationService extends BaseNavigationService {
+class NavigationService extends NavigationContract {
   static final NavigationService _instance = NavigationService._init();
   static NavigationService get instance => _instance;
   NavigationService._init();
@@ -25,5 +25,6 @@ class NavigationService extends BaseNavigationService {
     );
   }
 
-  void getBack() => navigatorKey.currentState!.pop();
+  @override
+  void pop() => navigatorKey.currentState!.pop();
 }
