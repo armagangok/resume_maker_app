@@ -33,7 +33,7 @@ class _CustomTabBarWidgetState extends State<CustomTabBarWidget> {
           addAutomaticKeepAlives: false,
           addRepaintBoundaries: false,
           scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
+          
           itemCount: widget.itemCount,
           itemBuilder: (context, index) => InkWell(
             onTap: () => widget.onTap(index),

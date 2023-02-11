@@ -30,7 +30,6 @@ class _DesignPageState extends State<DesignPage> {
     return BlocBuilder<DesignCubit, DesignState>(
       bloc: Injection.designCubit,
       builder: (context, state) {
-        print(state);
         return CustomTabBarWidget(
           itemCount: Injection.designCubit.resumeColors.length,
           onTap: (int index) => Injection.designCubit.selectIndex(index),

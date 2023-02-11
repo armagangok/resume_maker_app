@@ -6,3 +6,5 @@ const Color selectedItemColor = Color(0xff007AFE);
 const Color white = Colors.white;
 
 const Color deleteRedColor = Color(0xffEB3223);
+
+const Color iconBackground = Color(0xff7A7A7A);

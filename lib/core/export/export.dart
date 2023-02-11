@@ -20,5 +20,8 @@ export '../util/hive/hive_helper.dart';
 export '../util/hive/hive_keys.dart';
 export '../util/screen_util_helper/screen_util.dart';
 
-
 export 'package:flutter_screenutil/flutter_screenutil.dart';
+
+
+export 'package:resume_maker_app/features/design/presentation/cubit/design_cubit.dart';
+export 'package:resume_maker_app/features/profile/presentation/cubit/profile_cubit.dart';
