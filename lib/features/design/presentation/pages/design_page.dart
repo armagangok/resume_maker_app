@@ -1,7 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import '../../../../core/export/export.dart';
-import '../widgets/color_picker.dart';
+import '../../../../core/widget/custom_tab_bar.dart';
+import '../cubit/design_cubit.dart';
 import '../widgets/resume_list_view.dart';
 
 class DesignPage extends StatefulWidget {
@@ -18,12 +17,26 @@ class _DesignPageState extends State<DesignPage> {
       body: ListView(
         physics: const ClampingScrollPhysics(),
         shrinkWrap: true,
-        children: const [
-          ColorPickerWidget(),
-          CustomDivider(),
-          ResumeListViewBuilder(),
+        children: [
+          _colorPickerWidget(),
+          const CustomDivider(),
+          const ResumeListViewBuilder(),
         ],
       ),
+    );
+  }
+
+  Widget _colorPickerWidget() {
+    return BlocBuilder<DesignCubit, DesignState>(
+      bloc: Injection.designCubit,
+      builder: (context, state) {
+        print(state);
+        return CustomTabBarWidget(
+          itemCount: Injection.designCubit.resumeColors.length,
+          onTap: (int index) => Injection.designCubit.selectIndex(index),
+          itemList: Injection.designCubit.resumeColors,
+        );
+      },
     );
   }
 }

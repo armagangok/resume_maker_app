@@ -5,6 +5,24 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              itemCount: 20,
+              itemBuilder: (context, index) {
+                return const Padding(
+                  padding: EdgeInsets.only(right: 8.0),
+                  child: Text("data"),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
