@@ -8,16 +8,20 @@ part 'design_state.dart';
 class DesignCubit extends Cubit<DesignState> {
   DesignCubit() : super(DesignInitial());
 
-  final int _selectedColorIndex = 0;
-
-  int get selectedColorIndex => _selectedColorIndex;
-
   void selectIndex(int index) {
     resumeColors.forEach((element) {
       element.isSelected = false;
     });
     resumeColors[index].isSelected = true;
     emit(DesignInitial());
+  }
+
+  get selectedColor {
+    for (var element in resumeColors) {
+      if (element.isSelected) {
+        return element.color;
+      }
+    }
   }
 
   List<ResumeColorModel> resumeColors = [

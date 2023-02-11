@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:resume_maker_app/core/widget/custom_divider.dart';
 
 import '../widgets/color_picker.dart';
 import '../widgets/resume_list_view.dart';
@@ -19,10 +20,10 @@ class _DesignPageState extends State<DesignPage> {
       body: ListView(
         physics: const ClampingScrollPhysics(),
         shrinkWrap: true,
-        children: [
-          const ColorPickerWidget(),
-          SizedBox(height: 30.h),
-          const ResumeListViewBuilder(),
+        children: const [
+          ColorPickerWidget(),
+          CustomDivider(),
+          ResumeListViewBuilder(),
         ],
       ),
     );
