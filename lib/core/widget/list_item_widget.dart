@@ -17,7 +17,7 @@ class ListItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: decorationRadius13,
+      decoration: KShape.decorationRadius13,
       // color: Colors.grey[50],
       child: Row(
         children: [

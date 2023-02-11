@@ -1,16 +1,15 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../core/extension/context_extension.dart';
+class KPadding {
+  KPadding._();
 
-class ItemPadding extends StatelessWidget {
-  const ItemPadding({super.key, required this.widget});
-  final Widget widget;
+  static double bigHeight = 30.0.h;
+  static double lowHeight = 10.0.h;
+  static double mediumHeight = 15.0.h;
+  static double normalHeight = 20.0.h;
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: context.lowPadding,
-      child: widget,
-    );
-  }
+  static double bigWidth = 30.0.w;
+  static double lowWidth = 10.0.w;
+  static double mediumWidth = 15.0.w;
+  static double normalWidth = 20.0.w;
 }
