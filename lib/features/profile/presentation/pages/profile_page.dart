@@ -1,5 +1,7 @@
-import 'package:resume_maker_app/core/export/export.dart';
-import 'package:resume_maker_app/core/widget/custom_tab_bar.dart';
+import '../../../../core/export/export.dart';
+import '../../../../core/widget/custom_tab_bar.dart';
+
+import '../widgets/data_category_pageview.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -11,6 +13,7 @@ class ProfilePage extends StatelessWidget {
         shrinkWrap: true,
         children: [
           _userDataTabBar(),
+          const CustomDivider(),
           const DataCategoryPageView(),
         ],
       ),
@@ -22,49 +25,4 @@ class ProfilePage extends StatelessWidget {
         onTap: (int index) => Injection.profileCubit.selectCategory(index),
         itemCount: Injection.profileCubit.categoryList.length,
       );
-}
-
-class DataCategoryPageView extends StatefulWidget {
-  const DataCategoryPageView({
-    super.key,
-  });
-
-  @override
-  State<DataCategoryPageView> createState() => _DataCategoryPageViewState();
-}
-
-class _DataCategoryPageViewState extends State<DataCategoryPageView> {
-  final profileCubit = Injection.profileCubit;
-  int currentPage = 0;
-
-  @override
-  void initState() {
-    super.initState();
-
-    currentPage = 0;
-    profileCubit.controller.addListener(() {
-      setState(() {
-        currentPage = profileCubit.controller.page!.toInt();
-      });
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 400.h,
-      child: BlocBuilder<ProfileCubit, ProfileState>(
-        bloc: Injection.profileCubit,
-        builder: (context, state) {
-          return PageView.builder(
-            controller: profileCubit.controller,
-            itemBuilder: (context, position) {
-              return profileCubit.widgets[position];
-            },
-            itemCount: profileCubit.widgets.length, // Can be null
-          );
-        },
-      ),
-    );
-  }
 }
