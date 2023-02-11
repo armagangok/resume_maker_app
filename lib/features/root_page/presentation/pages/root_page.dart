@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:resume_maker_app/core/theme/constants/colors.dart';
+import 'package:resume_maker_app/core/export/export.dart';
 import 'package:resume_maker_app/features/design/presentation/pages/design_page.dart';
 import 'package:resume_maker_app/features/export/presentation/pages/export_page.dart';
 
@@ -29,7 +28,10 @@ class _RootPageState extends State<RootPage> {
     return Scaffold(
       appBar: _appBar(),
       bottomNavigationBar: _bottomNavBar(),
-      body: _widgetOptions.elementAt(_selectedIndex),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: KPadding.height15),
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
     );
   }
 

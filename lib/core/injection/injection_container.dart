@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:resume_maker_app/features/profile/presentation/cubit/new_item/new_item_cubit.dart';
 
 import '../export/export.dart';
 
@@ -15,5 +16,9 @@ void initDependencies() {
 
   getIt.registerLazySingleton<ProfileCubit>(
     () => ProfileCubit(),
+  );
+
+  getIt.registerLazySingleton<NewItemCubit>(
+    () => NewItemCubit(),
   );
 }

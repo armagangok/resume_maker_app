@@ -7,21 +7,21 @@ BottomNavigationBarThemeData bottomNavBarThemeData() =>
     BottomNavigationBarThemeData(
       selectedIconTheme: const IconThemeData(
         color: selectedItemColor,
-        size: 36
+        size: 28
       ),
       unselectedIconTheme: const IconThemeData(
         color: iconColor,
-        size: 30,
+        size: 25,
       ),
       selectedLabelStyle: GoogleFonts.poppins(
         color: selectedItemColor,
-        fontWeight: FontWeight.bold,
-        fontSize: 16,
+        fontWeight: FontWeight.normal,
+        fontSize: 14,
       ),
       unselectedItemColor: iconColor,
       unselectedLabelStyle: GoogleFonts.poppins(
         color: selectedItemColor,
-        fontSize: 14,
+        fontSize: 12,
       ),
       selectedItemColor: selectedItemColor,
     );
