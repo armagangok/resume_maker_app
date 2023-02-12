@@ -25,3 +25,6 @@ export 'package:flutter_screenutil/flutter_screenutil.dart';
 
 export 'package:resume_maker_app/features/design/presentation/cubit/design_cubit.dart';
 export 'package:resume_maker_app/features/profile/presentation/cubit/profile_cubit.dart';
+
+
+export '../../core/extension/context_extension.dart';

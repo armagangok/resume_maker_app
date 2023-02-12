@@ -9,4 +9,5 @@ class Injection {
   static DesignCubit get designCubit => getIt.call<DesignCubit>();
   static ProfileCubit get profileCubit => getIt.call<ProfileCubit>();
   static NewItemCubit get newItemCubit => getIt.call<NewItemCubit>();
+  static NewItemCubit get emailItemCubit => getIt.call<NewItemCubit>();
 }

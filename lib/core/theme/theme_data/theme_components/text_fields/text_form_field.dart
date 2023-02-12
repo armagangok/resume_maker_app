@@ -10,7 +10,6 @@ InputDecorationTheme inputDecoration() {
     //   ),
     // ),
 
-    // contentPadding: EdgeInsets.zero,
     disabledBorder: const UnderlineInputBorder(
       borderSide: BorderSide(
         color: iconColor,

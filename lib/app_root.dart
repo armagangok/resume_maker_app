@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import 'core/export/export.dart';
 
 class MyApp extends StatelessWidget {

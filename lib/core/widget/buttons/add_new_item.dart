@@ -1,20 +1,20 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
-import 'package:resume_maker_app/core/extension/context_extension.dart';
 
 import '../../export/export.dart';
 
 class NewItemWidget extends StatelessWidget {
   const NewItemWidget({
-    super.key,
-  });
+    Key? key,
+    required this.onTap,
+  }) : super(key: key);
+
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Injection.newItemCubit.addNewItem();
-        
-      },
+      onTap: () => onTap(),
       child: Row(
         children: [
           const Icon(
