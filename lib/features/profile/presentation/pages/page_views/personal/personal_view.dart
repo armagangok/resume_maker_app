@@ -8,8 +8,8 @@ import 'components/phone_new_item_builder.dart';
 import 'components/profile_picture_widget.dart';
 import 'components/email_new_item_builder.dart';
 
-class PersonalDataView extends StatelessWidget {
-  const PersonalDataView({super.key});
+class PersonalView extends StatelessWidget {
+  const PersonalView({super.key});
 
   @override
   Widget build(BuildContext context) {

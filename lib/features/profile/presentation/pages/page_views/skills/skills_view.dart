@@ -1,7 +1,7 @@
 import '../../../../../../core/export/export.dart';
 
-class SkillsDataView extends StatelessWidget {
-  const SkillsDataView({super.key});
+class SkillsView extends StatelessWidget {
+  const SkillsView({super.key});
 
   @override
   Widget build(BuildContext context) {

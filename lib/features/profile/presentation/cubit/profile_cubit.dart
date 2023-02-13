@@ -1,14 +1,12 @@
-import 'package:resume_maker_app/core/export/export.dart';
-
+import '../../../../core/export/export.dart';
 import '../../data/models/data_tabbar_model.dart';
-import '../pages/page_views/education/education_data_view.dart';
-import '../pages/page_views/experience/experience_data_view.dart';
-import '../pages/page_views/language/language_data_view.dart';
-import '../pages/page_views/personal/personal_data_view.dart';
-import '../pages/page_views/qualification/qualifications_data_view.dart';
-import '../pages/page_views/skills/skills_data_view.dart';
+import '../pages/page_views/education/education_view.dart';
+import '../pages/page_views/experience/experience_view.dart';
+import '../pages/page_views/language/language_view.dart';
+import '../pages/page_views/personal/personal_view.dart';
+import '../pages/page_views/qualification/qualifications_view.dart';
+import '../pages/page_views/skills/skills_view.dart';
 import '../widgets/data_category_item.dart';
-
 
 part 'profile_state.dart';
 
@@ -74,11 +72,11 @@ class ProfileCubit extends Cubit<ProfileState> {
   ];
 
   List<Widget> widgets = const [
-    PersonalDataView(),
-    EducationDataView(),
-    QualificationsDataView(),
-    SkillsDataView(),
-    LanguageDataView(),
-    ExperienceDataView(),
+    PersonalView(),
+    EducationView(),
+    QualificationsView(),
+    SkillsView(),
+    LanguageView(),
+    ExperienceView(),
   ];
 }
