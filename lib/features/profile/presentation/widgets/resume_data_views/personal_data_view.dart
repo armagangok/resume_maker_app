@@ -15,7 +15,6 @@ class PersonalDataView extends StatelessWidget {
     return ListView(
       shrinkWrap: true,
       children: [
-        SizedBox(height: KPadding.width20),
         const ProfilePictureWidget(),
         SizedBox(height: KPadding.width20),
         SizedBox(
@@ -25,42 +24,36 @@ class PersonalDataView extends StatelessWidget {
             controller: TextEditingController(),
           ),
         ),
-        SizedBox(height: KPadding.width20),
         SizedBox(
           child: UnderlinedTextField(
             hintText: "Full Name",
             controller: TextEditingController(),
           ),
         ),
-        SizedBox(height: KPadding.width20),
         SizedBox(
           child: UnderlinedTextField(
             hintText: "Birthday",
             controller: TextEditingController(),
           ),
         ),
-        SizedBox(height: KPadding.width20),
         SizedBox(
           child: UnderlinedTextField(
             hintText: "Country",
             controller: TextEditingController(),
           ),
         ),
-        SizedBox(height: KPadding.width20),
         SizedBox(
           child: UnderlinedTextField(
             hintText: "Zip Code",
             controller: TextEditingController(),
           ),
         ),
-        SizedBox(height: KPadding.width20),
         SizedBox(
           child: UnderlinedTextField(
             hintText: "City",
             controller: TextEditingController(),
           ),
         ),
-        SizedBox(height: KPadding.width20),
         SizedBox(
           child: UnderlinedTextField(
             hintText: "Street",
@@ -81,11 +74,9 @@ class PersonalDataView extends StatelessWidget {
           onTap: () => Injection.newItemCubit.addNewItem(),
         ),
         SizedBox(height: 3 * KPadding.width20),
-        SizedBox(
-          child: UnderlinedTextField(
-            hintText: "E-mail",
-            controller: TextEditingController(),
-          ),
+        UnderlinedTextField(
+          hintText: "E-mail",
+          controller: TextEditingController(),
         ),
         EmailNewItemBuilder(
           cubit: Injection.emailItemCubit,
@@ -94,6 +85,26 @@ class PersonalDataView extends StatelessWidget {
           onTap: () {
             Injection.emailItemCubit.addNewItem();
           },
+        ),
+        SizedBox(height: 3 * KPadding.width20),
+        UnderlinedTextField(
+          hintText: "Link",
+          controller: TextEditingController(),
+        ),
+        EmailNewItemBuilder(
+          cubit: Injection.linkItemCubit,
+        ),
+        NewItemWidget(
+          onTap: () {
+            Injection.linkItemCubit.addNewItem();
+          },
+        ),
+        SizedBox(height: 3 * KPadding.width20),
+        UnderlinedTextField(
+          heigth: null,
+          hintText: "Summary",
+          controller: TextEditingController(),
+          maxLines: null,
         )
       ],
     );
