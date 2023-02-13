@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants/colors.dart';
-
 AppBarTheme appBarThemeData() {
   return const AppBarTheme(
-    color: primaryColor,
+    color: Colors.black,
     elevation: 0,
   );
 }

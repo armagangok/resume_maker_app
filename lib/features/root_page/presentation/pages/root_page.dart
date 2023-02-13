@@ -29,7 +29,7 @@ class _RootPageState extends State<RootPage> {
       appBar: _appBar(),
       bottomNavigationBar: _bottomNavBar(),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: KPadding.height15),
+        padding: EdgeInsets.symmetric(horizontal: KPadding.width10),
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
     );
@@ -43,6 +43,7 @@ class _RootPageState extends State<RootPage> {
           ),
         ),
         actions: [
+          
           IconButton(
             onPressed: () {},
             icon: IconButton(
@@ -56,42 +57,41 @@ class _RootPageState extends State<RootPage> {
         ],
       );
 
-  SizedBox _bottomNavBar() {
-    return SizedBox(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          BottomNavigationBar(
-            backgroundColor: Colors.black,
-            currentIndex: _selectedIndex,
-            showSelectedLabels: true,
-            showUnselectedLabels: true,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.photo_on_rectangle),
-                label: 'Design',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.person_crop_circle_fill),
-                label: 'Profile',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.eye_fill),
-                label: 'Preview',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.square_arrow_down_on_square_fill),
-                label: 'Export',
-              ),
-            ],
-            onTap: (index) {
-              setState(() {
-                _selectedIndex = index;
-              });
-            },
-          ),
-        ],
-      ),
-    );
-  }
+  Widget _bottomNavBar() => SizedBox(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            BottomNavigationBar(
+              backgroundColor: Colors.black.withOpacity(0.1),
+              type: BottomNavigationBarType.fixed,
+              currentIndex: _selectedIndex,
+              showSelectedLabels: true,
+              showUnselectedLabels: true,
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons.photo_on_rectangle),
+                  label: 'Design',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons.person_crop_circle_fill),
+                  label: 'Profile',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons.eye_fill),
+                  label: 'Preview',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons.square_arrow_down_on_square_fill),
+                  label: 'Export',
+                ),
+              ],
+              onTap: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
+            ),
+          ],
+        ),
+      );
 }

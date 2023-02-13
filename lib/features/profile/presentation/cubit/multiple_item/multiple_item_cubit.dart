@@ -22,7 +22,9 @@ class MultipleItemCubit extends Cubit<MultipleItemState> {
         startDateController: TextEditingController(),
         endDateController: TextEditingController(),
         itemID: indexID,
-        deleteWidget: const RemoveNewItemWidget(),
+        deleteWidget: RemoveNewItemWidget(
+          index: indexID,
+        ),
       ),
     );
 
@@ -38,12 +40,7 @@ class MultipleItemCubit extends Cubit<MultipleItemState> {
 
   updateWidgetIndex() {
     for (var i = 0; i < newItems.length; i++) {
-      print("${newItems[i].itemID} - $i");
-
       newItems[i].itemID = i;
-      print("----");
-
-      print("${newItems[i].itemID} - $i");
     }
   }
 }

@@ -19,7 +19,8 @@ class MultipleNewItemBuilder extends StatelessWidget {
           itemCount: cubit.newItems.length,
           itemBuilder: (context, index) {
             return Padding(
-              padding: EdgeInsets.only(top: 20.h),
+              padding:
+                  index != 0 ? EdgeInsets.only(top: 30.h) : EdgeInsets.zero,
               child: Column(
                 children: [
                   UnderlinedTextField(
@@ -42,10 +43,7 @@ class MultipleNewItemBuilder extends StatelessWidget {
                     hintText: "End Date",
                     controller: cubit.newItems[index].endDateController,
                   ),
-                  UnderlinedTextField(
-                    hintText: "Email",
-                    controller: cubit.newItems[index].degreeController,
-                  ),
+                  SizedBox(height: KPadding.height5),
                   cubit.newItems[index].deleteWidget,
                 ],
               ),

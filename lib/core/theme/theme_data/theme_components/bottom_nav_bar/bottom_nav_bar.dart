@@ -7,7 +7,7 @@ BottomNavigationBarThemeData bottomNavBarThemeData() =>
     BottomNavigationBarThemeData(
       selectedIconTheme: const IconThemeData(
         color: selectedItemColor,
-        size: 28
+        size: 32
       ),
       unselectedIconTheme: const IconThemeData(
         color: iconColor,
