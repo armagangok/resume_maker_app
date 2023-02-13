@@ -1,4 +1,4 @@
-import '../../../../../core/export/export.dart';
+import '../../../../../../core/export/export.dart';
 
 class LanguageDataView extends StatelessWidget {
   const LanguageDataView({super.key});

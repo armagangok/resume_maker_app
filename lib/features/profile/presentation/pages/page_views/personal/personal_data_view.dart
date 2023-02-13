@@ -1,11 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-import '../../../../../core/export/export.dart';
-import '../../../../../core/widget/buttons/add_new_item.dart';
-import '../../../../../core/widget/buttons/text_field/text_field.dart';
-import '../phone_new_item_builder.dart';
-import '../profile_picture_widget.dart';
-import 'email_new_item_builder.dart';
+import '../../../../../../core/export/export.dart';
+import '../../../../../../core/widget/buttons/add_new_item.dart';
+import '../../../../../../core/widget/buttons/text_field/text_field.dart';
+
+import 'components/phone_new_item_builder.dart';
+import 'components/profile_picture_widget.dart';
+import 'components/email_new_item_builder.dart';
 
 class PersonalDataView extends StatelessWidget {
   const PersonalDataView({super.key});

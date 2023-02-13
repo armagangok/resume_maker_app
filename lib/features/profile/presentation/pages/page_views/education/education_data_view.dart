@@ -1,8 +1,9 @@
-import 'package:resume_maker_app/features/profile/presentation/widgets/resume_data_views/email_new_item_builder.dart';
+import 'package:resume_maker_app/features/profile/presentation/pages/page_views/personal/components/email_new_item_builder.dart';
 
-import '../../../../../core/export/export.dart';
-import '../../../../../core/widget/buttons/add_new_item.dart';
-import '../../../../../core/widget/buttons/text_field/text_field.dart';
+
+import '../../../../../../core/export/export.dart';
+import '../../../../../../core/widget/buttons/add_new_item.dart';
+import '../../../../../../core/widget/buttons/text_field/text_field.dart';
 
 class EducationDataView extends StatelessWidget {
   const EducationDataView({super.key});

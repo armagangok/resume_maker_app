@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../../../core/export/export.dart';
+import '../../../../../../../core/export/export.dart';
 
 class ProfilePictureWidget extends StatelessWidget {
   const ProfilePictureWidget({

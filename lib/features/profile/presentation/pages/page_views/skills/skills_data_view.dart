@@ -1,4 +1,4 @@
-import '../../../../../core/export/export.dart';
+import '../../../../../../core/export/export.dart';
 
 class SkillsDataView extends StatelessWidget {
   const SkillsDataView({super.key});

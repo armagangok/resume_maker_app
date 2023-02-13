@@ -1,4 +1,4 @@
-import '../../../../../core/export/export.dart';
+import '../../../../../../core/export/export.dart';
 
 class QualificationsDataView extends StatelessWidget {
   const QualificationsDataView({super.key});

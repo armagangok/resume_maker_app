@@ -1,4 +1,4 @@
-import '../../../../../core/export/export.dart';
+import '../../../../../../core/export/export.dart';
 
 class ExperienceDataView extends StatelessWidget {
   const ExperienceDataView({super.key});

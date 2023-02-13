@@ -1,11 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-import '../../../../core/export/export.dart';
-import '../../../../core/widget/buttons/text_field/text_field.dart';
-import '../cubit/new_item/new_item_cubit.dart';
+import '../../../../../../../core/export/export.dart';
+import '../../../../../../../core/widget/buttons/text_field/text_field.dart';
 
-class PhoneNewItemBuilder extends StatelessWidget {
-  const PhoneNewItemBuilder({
+import '../../../../cubit/new_item/new_item_cubit.dart';
+
+class EmailNewItemBuilder extends StatelessWidget {
+  const EmailNewItemBuilder({
     Key? key,
     required this.cubit,
   }) : super(key: key);
@@ -23,7 +24,7 @@ class PhoneNewItemBuilder extends StatelessWidget {
           itemCount: cubit.newItems.length,
           itemBuilder: (context, index) {
             return RemovableTextField(
-              hintText: "Phone",
+              hintText: "Email",
               controller: cubit.newItems[index].controller,
               onTapRemoveButton: () {
                 cubit.removeItem(index);
