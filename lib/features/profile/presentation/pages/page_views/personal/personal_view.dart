@@ -2,11 +2,9 @@
 
 import '../../../../../../core/export/export.dart';
 import '../../../../../../core/widget/buttons/add_new_item.dart';
-import '../../../../../../core/widget/buttons/text_field/text_field.dart';
 
-import 'components/phone_new_item_builder.dart';
 import 'components/profile_picture_widget.dart';
-import 'components/email_new_item_builder.dart';
+import '../../../widgets/single_new_item_builder.dart';
 
 class PersonalView extends StatelessWidget {
   const PersonalView({super.key});
@@ -68,19 +66,21 @@ class PersonalView extends StatelessWidget {
             controller: TextEditingController(),
           ),
         ),
-        PhoneNewItemBuilder(
-          cubit: Injection.newItemCubit,
+        SingleNewItemBuilder(
+          cubit: Injection.phoneItemCubit,
+          hintText: 'Phone',
         ),
         NewItemWidget(
-          onTap: () => Injection.newItemCubit.addNewItem(),
+          onTap: () => Injection.phoneItemCubit.addNewItem(),
         ),
         SizedBox(height: 3 * KPadding.width20),
         UnderlinedTextField(
           hintText: "E-mail",
           controller: TextEditingController(),
         ),
-        EmailNewItemBuilder(
+        SingleNewItemBuilder(
           cubit: Injection.emailItemCubit,
+          hintText: "E-mail",
         ),
         NewItemWidget(
           onTap: () {
@@ -92,8 +92,9 @@ class PersonalView extends StatelessWidget {
           hintText: "Link",
           controller: TextEditingController(),
         ),
-        EmailNewItemBuilder(
+        SingleNewItemBuilder(
           cubit: Injection.linkItemCubit,
+          hintText: "Link",
         ),
         NewItemWidget(
           onTap: () {

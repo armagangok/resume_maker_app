@@ -1,8 +1,7 @@
-import 'package:resume_maker_app/features/profile/presentation/pages/page_views/personal/components/email_new_item_builder.dart';
+import 'package:resume_maker_app/features/profile/presentation/widgets/multiple_item_builder.dart';
 
 import '../../../../../../core/export/export.dart';
 import '../../../../../../core/widget/buttons/add_new_item.dart';
-import '../../../../../../core/widget/buttons/text_field/text_field.dart';
 
 class EducationView extends StatelessWidget {
   const EducationView({super.key});
@@ -31,12 +30,12 @@ class EducationView extends StatelessWidget {
           hintText: "End Date",
           controller: TextEditingController(),
         ),
-        EmailNewItemBuilder(
-          cubit: Injection.linkItemCubit,
+        MultipleNewItemBuilder(
+          cubit: Injection.educationCubit,
         ),
         NewItemWidget(
           onTap: () {
-            Injection.linkItemCubit.addNewItem();
+            Injection.educationCubit.addNewItem();
           },
         ),
       ],
