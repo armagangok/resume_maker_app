@@ -43,4 +43,28 @@ class MultipleItemCubit extends Cubit<MultipleItemState> {
       newItems[i].itemID = i;
     }
   }
+
+    bool checkIfOnlyUp(index) {
+    if (index == 0) {
+      if (index == 0) {
+        return false;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  }
+
+  bool checkIfOnlyDown(index) {
+    if (index == Injection.educationCubit.newItems.length - 1) {
+      if (index == Injection.educationCubit.newItems.length - 1) {
+        return false;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  }
 }

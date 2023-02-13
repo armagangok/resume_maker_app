@@ -15,5 +15,5 @@ class Injection {
   static NewItemCubit get phoneItemCubit => _phoneItemCubit;
   static NewItemCubit get emailItemCubit => _emailItemCubit;
   static NewItemCubit get linkItemCubit => _linkItemCubit;
-  static MultipleItemCubit get educationCubit => getIt.call<MultipleItemCubit>();
+  static MultipleItemCubit get educationCubit =>getIt.call<MultipleItemCubit>();
 }
