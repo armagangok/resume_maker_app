@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import '../../../../../core/export/export.dart';
+import '../../../../../data/models/multiple_new_item.dart';
+import '../../pages/page_views/education/education_view.dart';
 
 part 'multiple_item_state.dart';
 
@@ -19,7 +21,8 @@ class MultipleItemCubit extends Cubit<MultipleItemState> {
         universityController: TextEditingController(),
         startDateController: TextEditingController(),
         endDateController: TextEditingController(),
-        indexID: indexID,
+        itemID: indexID,
+        deleteWidget: const RemoveNewItemWidget(),
       ),
     );
 
@@ -29,24 +32,18 @@ class MultipleItemCubit extends Cubit<MultipleItemState> {
 
   void removeItem(int index) {
     newItems.removeAt(index);
+    updateWidgetIndex();
     emit(MultipleItemRemoved());
   }
-}
 
-class MultipleNewItem {
-  final TextEditingController degreeController;
-  final TextEditingController schoolController;
-  final TextEditingController universityController;
-  final TextEditingController startDateController;
-  final TextEditingController endDateController;
-  final int indexID;
+  updateWidgetIndex() {
+    for (var i = 0; i < newItems.length; i++) {
+      print("${newItems[i].itemID} - $i");
 
-  MultipleNewItem({
-    required this.degreeController,
-    required this.schoolController,
-    required this.universityController,
-    required this.startDateController,
-    required this.endDateController,
-    required this.indexID,
-  });
+      newItems[i].itemID = i;
+      print("----");
+
+      print("${newItems[i].itemID} - $i");
+    }
+  }
 }
