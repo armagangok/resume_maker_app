@@ -17,7 +17,6 @@ class EducationView extends StatelessWidget {
         SizedBox(height: KPadding.height5),
         NewItemWidget(
           onTap: () {
-            
             Injection.multipleItemCubit.addNewItem();
           },
         ),

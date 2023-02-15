@@ -10,10 +10,9 @@ class MultipleItemCubit extends Cubit<MultipleItemState> {
   MultipleItemCubit() : super(MultipleItemInitial());
 
   List<MultipleNewItem> newItems = [];
-  int indexID = 0;
 
   void addNewItem() {
-    updateWidgetIndex();
+    String itemId = "${DateTime.now()}";
     newItems.add(
       MultipleNewItem(
         degreeController: TextEditingController(),
@@ -21,26 +20,22 @@ class MultipleItemCubit extends Cubit<MultipleItemState> {
         universityController: TextEditingController(),
         startDateController: TextEditingController(),
         endDateController: TextEditingController(),
-        itemID: indexID,
+        itemID: itemId,
         deleteWidget: RemoveNewItemWidget(
-          index: indexID,
+          itemID: itemId,
         ),
       ),
     );
 
-    indexID++;
     emit(MultipleItemAdded());
   }
 
-  void removeItem(int index) {
-    newItems.removeAt(index);
-    emit(MultipleItemRemoved());
-  }
+  void removeItem(String id) {
+    newItems.removeWhere(
+      (element) => element.itemID == id,
+    );
 
-  updateWidgetIndex() {
-    for (var i = 0; i < newItems.length; i++) {
-      newItems[i].itemID = i;
-    }
+    emit(MultipleItemRemoved());
   }
 
   bool checkIfOnlyUp(index) {

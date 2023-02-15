@@ -6,7 +6,7 @@ class MultipleNewItem {
   final TextEditingController universityController;
   final TextEditingController startDateController;
   final TextEditingController endDateController;
-  int itemID;
+  final String itemID;
   final Widget deleteWidget;
 
   MultipleNewItem({

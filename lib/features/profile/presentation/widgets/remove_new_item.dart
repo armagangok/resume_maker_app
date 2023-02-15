@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 
 import '../../../../core/export/export.dart';
@@ -5,10 +6,10 @@ import '../../../../core/export/export.dart';
 class RemoveNewItemWidget extends StatelessWidget {
   const RemoveNewItemWidget({
     Key? key,
-    required this.index,
+    required this.itemID,
   }) : super(key: key);
 
-  final int index;
+  final String itemID;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,20 @@ class RemoveNewItemWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
-          onTap: () => Injection.multipleItemCubit.removeItem(index),
+          onTap: () {
+            // for (var element in Injection.multipleItemCubit.newItems) {
+            //   print(element.itemID);
+            // }
+
+            print(itemID);
+            // print(
+            //   "item ID: ${Injection.multipleItemCubit.newItems[index].itemID}",
+            // );
+            // print(
+            //   "indexID: ${Injection.multipleItemCubit.indexID}",
+            // );
+            Injection.multipleItemCubit.removeItem(itemID);
+          },
           child: Row(
             children: [
               const Icon(
@@ -36,7 +50,8 @@ class RemoveNewItemWidget extends StatelessWidget {
         BlocBuilder<MultipleItemCubit, MultipleItemState>(
           bloc: Injection.multipleItemCubit,
           builder: (context, state) {
-            print("$index  - ${Injection.multipleItemCubit.indexID}");
+            // print();
+            // print("$index  - ${Injection.multipleItemCubit.indexID}");
             return Row(
               children: [
                 _downWidget(),
@@ -50,7 +65,7 @@ class RemoveNewItemWidget extends StatelessWidget {
   }
 
   Widget _upWidget() => Visibility(
-        visible: Injection.multipleItemCubit.checkIfOnlyUp(index),
+        visible: Injection.multipleItemCubit.checkIfOnlyUp(getIndex()),
         child: Row(
           children: [
             SizedBox(width: KPadding.width5),
@@ -66,7 +81,7 @@ class RemoveNewItemWidget extends StatelessWidget {
       );
 
   Widget _downWidget() => Visibility(
-        visible: Injection.multipleItemCubit.checkIfOnlyDown(index),
+        visible: Injection.multipleItemCubit.checkIfOnlyDown(getIndex()),
         child: GestureDetector(
           onTap: () {},
           child: const RotatedBox(
@@ -75,6 +90,15 @@ class RemoveNewItemWidget extends StatelessWidget {
           ),
         ),
       );
+
+  getIndex() {
+    for (var element in Injection.multipleItemCubit.newItems) {
+      if (element.itemID == itemID) {
+        int index = Injection.multipleItemCubit.newItems.indexOf(element);
+        return index;
+      }
+    }
+  }
 }
 
 
