@@ -16,7 +16,7 @@ class RemoveNewItemWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
-          onTap: () => Injection.educationCubit.removeItem(0),
+          onTap: () => Injection.multipleItemCubit.removeItem(index),
           child: Row(
             children: [
               const Icon(
@@ -34,20 +34,23 @@ class RemoveNewItemWidget extends StatelessWidget {
           ),
         ),
         BlocBuilder<MultipleItemCubit, MultipleItemState>(
-          bloc: Injection.educationCubit,
-          builder: (context, state) => Row(
-            children: [
-              _downWidget(),
-              _upWidget(),
-            ],
-          ),
+          bloc: Injection.multipleItemCubit,
+          builder: (context, state) {
+            print("$index  - ${Injection.multipleItemCubit.indexID}");
+            return Row(
+              children: [
+                _downWidget(),
+                _upWidget(),
+              ],
+            );
+          },
         ),
       ],
     );
   }
 
   Widget _upWidget() => Visibility(
-        visible: Injection.educationCubit.checkIfOnlyUp(index),
+        visible: Injection.multipleItemCubit.checkIfOnlyUp(index),
         child: Row(
           children: [
             SizedBox(width: KPadding.width5),
@@ -63,7 +66,7 @@ class RemoveNewItemWidget extends StatelessWidget {
       );
 
   Widget _downWidget() => Visibility(
-        visible: Injection.educationCubit.checkIfOnlyDown(index),
+        visible: Injection.multipleItemCubit.checkIfOnlyDown(index),
         child: GestureDetector(
           onTap: () {},
           child: const RotatedBox(
@@ -73,7 +76,6 @@ class RemoveNewItemWidget extends StatelessWidget {
         ),
       );
 }
-
 
 
 

@@ -2,7 +2,7 @@
 
 import '../../../../../core/export/export.dart';
 import '../../../../../data/models/multiple_new_item.dart';
-import '../../pages/page_views/education/education_view.dart';
+import '../../widgets/remove_new_item.dart';
 
 part 'multiple_item_state.dart';
 
@@ -10,10 +10,10 @@ class MultipleItemCubit extends Cubit<MultipleItemState> {
   MultipleItemCubit() : super(MultipleItemInitial());
 
   List<MultipleNewItem> newItems = [];
-
   int indexID = 0;
 
   void addNewItem() {
+    updateWidgetIndex();
     newItems.add(
       MultipleNewItem(
         degreeController: TextEditingController(),
@@ -28,13 +28,12 @@ class MultipleItemCubit extends Cubit<MultipleItemState> {
       ),
     );
 
-    emit(MultipleItemAdded());
     indexID++;
+    emit(MultipleItemAdded());
   }
 
   void removeItem(int index) {
     newItems.removeAt(index);
-    updateWidgetIndex();
     emit(MultipleItemRemoved());
   }
 
@@ -44,7 +43,7 @@ class MultipleItemCubit extends Cubit<MultipleItemState> {
     }
   }
 
-    bool checkIfOnlyUp(index) {
+  bool checkIfOnlyUp(index) {
     if (index == 0) {
       if (index == 0) {
         return false;
@@ -57,8 +56,8 @@ class MultipleItemCubit extends Cubit<MultipleItemState> {
   }
 
   bool checkIfOnlyDown(index) {
-    if (index == Injection.educationCubit.newItems.length - 1) {
-      if (index == Injection.educationCubit.newItems.length - 1) {
+    if (index == newItems.length - 1) {
+      if (index == newItems.length - 1) {
         return false;
       } else {
         return false;
