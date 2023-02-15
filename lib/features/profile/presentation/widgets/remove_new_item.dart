@@ -18,17 +18,6 @@ class RemoveNewItemWidget extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {
-            // for (var element in Injection.multipleItemCubit.newItems) {
-            //   print(element.itemID);
-            // }
-
-            print(itemID);
-            // print(
-            //   "item ID: ${Injection.multipleItemCubit.newItems[index].itemID}",
-            // );
-            // print(
-            //   "indexID: ${Injection.multipleItemCubit.indexID}",
-            // );
             Injection.multipleItemCubit.removeItem(itemID);
           },
           child: Row(
