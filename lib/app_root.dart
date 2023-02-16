@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
           theme: CustomThemeData.darkTheme,
           navigatorKey: NavigationService.instance.navigatorKey,
           onGenerateRoute: NavigationRoute.instance.generateRoute,
-          initialRoute: rootPage,
+          initialRoute: homePage,
         ),
       );
 }

@@ -27,6 +27,7 @@ mixin _$Personal {
   String? get zipCode => throw _privateConstructorUsedError;
   String? get city => throw _privateConstructorUsedError;
   String? get street => throw _privateConstructorUsedError;
+  String? get summary => throw _privateConstructorUsedError;
   List<String>? get phones => throw _privateConstructorUsedError;
   List<String>? get emails => throw _privateConstructorUsedError;
   List<String>? get links => throw _privateConstructorUsedError;
@@ -50,6 +51,7 @@ abstract class $PersonalCopyWith<$Res> {
       String? zipCode,
       String? city,
       String? street,
+      String? summary,
       List<String>? phones,
       List<String>? emails,
       List<String>? links});
@@ -75,6 +77,7 @@ class _$PersonalCopyWithImpl<$Res, $Val extends Personal>
     Object? zipCode = freezed,
     Object? city = freezed,
     Object? street = freezed,
+    Object? summary = freezed,
     Object? phones = freezed,
     Object? emails = freezed,
     Object? links = freezed,
@@ -108,6 +111,10 @@ class _$PersonalCopyWithImpl<$Res, $Val extends Personal>
           ? _value.street
           : street // ignore: cast_nullable_to_non_nullable
               as String?,
+      summary: freezed == summary
+          ? _value.summary
+          : summary // ignore: cast_nullable_to_non_nullable
+              as String?,
       phones: freezed == phones
           ? _value.phones
           : phones // ignore: cast_nullable_to_non_nullable
@@ -139,6 +146,7 @@ abstract class _$$_PersonalCopyWith<$Res> implements $PersonalCopyWith<$Res> {
       String? zipCode,
       String? city,
       String? street,
+      String? summary,
       List<String>? phones,
       List<String>? emails,
       List<String>? links});
@@ -162,6 +170,7 @@ class __$$_PersonalCopyWithImpl<$Res>
     Object? zipCode = freezed,
     Object? city = freezed,
     Object? street = freezed,
+    Object? summary = freezed,
     Object? phones = freezed,
     Object? emails = freezed,
     Object? links = freezed,
@@ -195,6 +204,10 @@ class __$$_PersonalCopyWithImpl<$Res>
           ? _value.street
           : street // ignore: cast_nullable_to_non_nullable
               as String?,
+      summary: freezed == summary
+          ? _value.summary
+          : summary // ignore: cast_nullable_to_non_nullable
+              as String?,
       phones: freezed == phones
           ? _value._phones
           : phones // ignore: cast_nullable_to_non_nullable
@@ -222,6 +235,7 @@ class _$_Personal implements _Personal {
       this.zipCode,
       this.city,
       this.street,
+      this.summary,
       final List<String>? phones,
       final List<String>? emails,
       final List<String>? links})
@@ -246,6 +260,8 @@ class _$_Personal implements _Personal {
   final String? city;
   @override
   final String? street;
+  @override
+  final String? summary;
   final List<String>? _phones;
   @override
   List<String>? get phones {
@@ -278,7 +294,7 @@ class _$_Personal implements _Personal {
 
   @override
   String toString() {
-    return 'Personal(title: $title, fullName: $fullName, birthday: $birthday, country: $country, zipCode: $zipCode, city: $city, street: $street, phones: $phones, emails: $emails, links: $links)';
+    return 'Personal(title: $title, fullName: $fullName, birthday: $birthday, country: $country, zipCode: $zipCode, city: $city, street: $street, summary: $summary, phones: $phones, emails: $emails, links: $links)';
   }
 
   @override
@@ -295,6 +311,7 @@ class _$_Personal implements _Personal {
             (identical(other.zipCode, zipCode) || other.zipCode == zipCode) &&
             (identical(other.city, city) || other.city == city) &&
             (identical(other.street, street) || other.street == street) &&
+            (identical(other.summary, summary) || other.summary == summary) &&
             const DeepCollectionEquality().equals(other._phones, _phones) &&
             const DeepCollectionEquality().equals(other._emails, _emails) &&
             const DeepCollectionEquality().equals(other._links, _links));
@@ -311,6 +328,7 @@ class _$_Personal implements _Personal {
       zipCode,
       city,
       street,
+      summary,
       const DeepCollectionEquality().hash(_phones),
       const DeepCollectionEquality().hash(_emails),
       const DeepCollectionEquality().hash(_links));
@@ -338,6 +356,7 @@ abstract class _Personal implements Personal {
       final String? zipCode,
       final String? city,
       final String? street,
+      final String? summary,
       final List<String>? phones,
       final List<String>? emails,
       final List<String>? links}) = _$_Personal;
@@ -358,6 +377,8 @@ abstract class _Personal implements Personal {
   String? get city;
   @override
   String? get street;
+  @override
+  String? get summary;
   @override
   List<String>? get phones;
   @override

@@ -1,116 +1,120 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:resume_maker_app/core/injection/injection_service.dart';
+import 'package:resume_maker_app/core/navigation/constant/routes.dart';
+import 'package:resume_maker_app/core/theme/constants/colors.dart';
 
-import '../injection/injection_container.dart';
 import '../extension/context_extension.dart';
-import '../navigation/navigation_service.dart';
 
-class IosDeleteDialog extends StatelessWidget {
-  const IosDeleteDialog({
-    Key? key,
-    required this.title,
-    required this.message,
-    required this.dialogAction,
-  }) : super(key: key);
+// class IosDeleteDialog extends StatelessWidget {
+//   const IosDeleteDialog({
+//     Key? key,
+//     required this.title,
+//     required this.message,
+//     required this.dialogAction,
+//   }) : super(key: key);
 
-  final String title;
-  final String message;
-  final Function dialogAction;
+//   final String title;
+//   final String message;
+//   final Function dialogAction;
 
-  @override
-  Widget build(BuildContext context) {
-    var navigation = getIt<NavigationService>.call();
-    return Dialog(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(13),
-        ),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          warningText(context),
-          SizedBox(height: context.height(0.02)),
-          messageText(context),
-          const Divider(
-            height: 0,
-            thickness: 1.5,
-          ),
-          IntrinsicHeight(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _dialogButton(
-                  text: "Discard",
-                  onTap: () => navigation.pop(),
-                  color: Colors.red,
-                ),
-                const VerticalDivider(
-                  width: 0,
-                  thickness: 1.5,
-                ),
-                _dialogButton(
-                  text: "Okey",
-                  onTap: () {
-                    dialogAction();
-                    navigation.pop();
-                  },
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     var navigation = getIt<NavigationService>.call();
+//     return Dialog(
+//       backgroundColor: Colors.transparent,
+//       shape: const RoundedRectangleBorder(
+//         borderRadius: BorderRadius.all(
+//           Radius.circular(13),
+//         ),
+//       ),
+//       child: Column(
+//         mainAxisSize: MainAxisSize.min,
+//         children: [
+//           warningText(context),
+//           SizedBox(height: context.height(0.02)),
+//           messageText(context),
+//           const Divider(
+//             height: 0,
+//             thickness: 1.5,
+//           ),
+//           IntrinsicHeight(
+//             child: Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//               children: [
+//                 _dialogButton(
+//                   text: "Discard",
+//                   onTap: () => navigation.pop(),
+//                   color: Colors.red,
+//                 ),
+//                 const VerticalDivider(
+//                   width: 0,
+//                   thickness: 1.5,
+//                 ),
+//                 _dialogButton(
+//                   text: "Okey",
+//                   onTap: () {
+//                     dialogAction();
+//                     navigation.pop();
+//                   },
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
 
-  Padding messageText(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: context.height(0.02)),
-      child: Text(
-        message,
-        style: context.textTheme.bodyText2!.copyWith(),
-      ),
-    );
-  }
+//   Padding messageText(BuildContext context) {
+//     return Padding(
+//       padding: EdgeInsets.only(bottom: context.height(0.02)),
+//       child: Text(
+//         message,
+//         style: context.textTheme.bodyMedium!.copyWith(),
+//       ),
+//     );
+//   }
 
-  Padding warningText(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: context.height(0.02)),
-      child: Text(
-        title,
-        style: context.textTheme.headline5!.copyWith(
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
-  }
+//   Padding warningText(BuildContext context) {
+//     return Padding(
+//       padding: EdgeInsets.only(top: context.height(0.02)),
+//       child: Text(
+//         title,
+//         style: context.textTheme.headlineSmall!.copyWith(
+//           fontWeight: FontWeight.bold,
+//         ),
+//       ),
+//     );
+//   }
 
-  Widget _dialogButton({String? text, Function? onTap, Color? color}) {
-    return Builder(builder: (context) {
-      return Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: context.height(0.02),
-        ),
-        child: GestureDetector(
-          onTap: () => onTap == null ? () {} : onTap(),
-          child: SizedBox(
-            width: context.width(0.18),
-            child: FittedBox(
-              child: Text(
-                text ?? "",
-                maxLines: 1,
-                style: context.textTheme.bodyMedium!.copyWith(
-                  color: color ?? Colors.blue.shade800,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-        ),
-      );
-    });
-  }
-}
+//   Widget _dialogButton({String? text, Function? onTap, Color? color}) {
+//     return Builder(builder: (context) {
+//       return Padding(
+//         padding: EdgeInsets.symmetric(
+//           vertical: context.height(0.02),
+//         ),
+//         child: GestureDetector(
+//           onTap: () => onTap == null ? () {} : onTap(),
+//           child: SizedBox(
+//             width: context.width(0.18),
+//             child: FittedBox(
+//               child: Text(
+//                 text ?? "",
+//                 maxLines: 1,
+//                 style: context.textTheme.bodyMedium!.copyWith(
+//                   color: color ?? Colors.blue.shade800,
+//                   fontWeight: FontWeight.bold,
+//                 ),
+//               ),
+//             ),
+//           ),
+//         ),
+//       );
+//     });
+//   }
+// }
 
 ////////////////////////////////////////////////////
 ////////////////////////////////////////////////////
@@ -130,69 +134,66 @@ class IosChoiceDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var navigation = getIt<NavigationService>.call();
-    return Dialog(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(13),
+    return BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+      child: Dialog(
+        backgroundColor: primaryColor,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(20),
+          ),
         ),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          warningText(context),
-          SizedBox(height: context.height(0.02)),
-          messageText(context),
-          const Divider(
-            height: 0,
-            thickness: 1.5,
-          ),
-
-          IntrinsicHeight(
-            child: _dialogButton(
-              text: "Edit Content",
-              onTap: () {
-                print("edited!");
-                print("edited!");
-                print("edited!");
-              },
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            warningText(context),
+            SizedBox(height: context.height(0.02)),
+            messageText(context),
+            const Divider(
+              height: 0,
+              thickness: 1.5,
             ),
-          ),
 
-          const Divider(
-            height: 0,
-            thickness: 1.5,
-          ),
-
-          IntrinsicHeight(
-            child: _dialogButton(
-              text: "Delete content",
-              onTap: () {
-                print("deleted!");
-                print("deleted!");
-                print("deleted!");
-              },
-              color: Colors.red,
+            IntrinsicHeight(
+              child: _dialogButton(
+                text: "Save Changes",
+                onTap: () => dialogAction(),
+              ),
             ),
-          ),
 
-          // IntrinsicHeight(
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //     children: [
-          //       _dialogButton(
-          //         text: "Discard",
-          //         onTap: () => navigation.getBack(),
-          //         color: Colors.red,
-          //       ),
-          //       const VerticalDivider(
-          //         width: 0,
-          //         thickness: 1.5,
-          //       ),
-          //     ],
-          //   ),
-          // ),
-        ],
+            const Divider(
+              height: 0,
+              thickness: 1.5,
+            ),
+
+            IntrinsicHeight(
+              child: _dialogButton(
+                text: "Delete Changes",
+                onTap: () {
+                  Injection.navigator.navigaToClear(path: homePage);
+                },
+                color: Colors.red,
+              ),
+            ),
+
+            // IntrinsicHeight(
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //     children: [
+            //       _dialogButton(
+            //         text: "Discard",
+            //         onTap: () => navigation.getBack(),
+            //         color: Colors.red,
+            //       ),
+            //       const VerticalDivider(
+            //         width: 0,
+            //         thickness: 1.5,
+            //       ),
+            //     ],
+            //   ),
+            // ),
+          ],
+        ),
       ),
     );
   }
@@ -202,7 +203,7 @@ class IosChoiceDialog extends StatelessWidget {
       padding: EdgeInsets.only(bottom: context.height(0.02)),
       child: Text(
         message,
-        style: context.textTheme.bodyText2!.copyWith(),
+        style: context.bodyLarge.copyWith(),
       ),
     );
   }
@@ -212,7 +213,7 @@ class IosChoiceDialog extends StatelessWidget {
       padding: EdgeInsets.only(top: context.height(0.02)),
       child: Text(
         title,
-        style: context.textTheme.headline5!.copyWith(
+        style: context.titleLarge.copyWith(
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -227,17 +228,12 @@ class IosChoiceDialog extends StatelessWidget {
         ),
         child: GestureDetector(
           onTap: () => onTap == null ? () {} : onTap(),
-          child: SizedBox(
-            width: context.width(0.18),
-            child: FittedBox(
-              child: Text(
-                text ?? "",
-                maxLines: 1,
-                style: context.textTheme.bodyMedium!.copyWith(
-                  color: color ?? Colors.blue.shade800,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+          child: Text(
+            text ?? "",
+            maxLines: 1,
+            style: context.bodyLarge.copyWith(
+              color: color ?? selectedItemColor,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),

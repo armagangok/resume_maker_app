@@ -1,9 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:resume_maker_app/core/export/export.dart';
+import 'package:resume_maker_app/data/models/education/education.dart';
+import 'package:resume_maker_app/data/models/personal/personal.dart';
+import 'package:resume_maker_app/data/models/user_data_model/user_data.dart';
 import 'package:resume_maker_app/features/design/presentation/pages/design_page.dart';
 import 'package:resume_maker_app/features/export/presentation/pages/export_page.dart';
 
+import '../../../../core/widget/ios_dialog.dart';
+import '../../../../data/models/single_new_item_model.dart';
 import '../../../preview/presentation/pages/preview_page.dart';
 import '../../../profile/presentation/pages/profile_page.dart';
 
@@ -15,6 +20,12 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   int _selectedIndex = 0;
 
   final List<Widget> _widgetOptions = <Widget>[
@@ -65,23 +76,85 @@ class _RootPageState extends State<RootPage> {
               ),
             ),
             GestureDetector(
-                onTap: () {},
-                child: CircleAvatar(
-                  backgroundColor: selectedItemColor,
-                  child: Center(
-                    child: Icon(
-                      CupertinoIcons.checkmark_alt,
-                      color: white,
-                      size: 35.h,
-                    ),
+              onTap: () {
+                context.cupertinoDialog(
+                  widget: IosChoiceDialog(
+                    title: "Warning",
+                    message: "Do you wish to save your changes?",
+                    dialogAction: () {
+                      var personalData = Injection.personalDataCubit;
+                      List<String> phones = [];
+                      List<String> emails = [];
+                      List<String> links = [];
+                      phones.add(personalData.phoneController.text);
+                      emails.add(
+                        personalData.linkController.text,
+                      );
+                      links.add(
+                        personalData.linkController.text,
+                      );
+                      for (NewItemModel phoneController
+                          in Injection.phoneItemCubit.newItems) {
+                        phones.add(phoneController.controller.text);
+                      }
+                      for (NewItemModel emailController
+                          in Injection.emailItemCubit.newItems) {
+                        emails.add(emailController.controller.text);
+                      }
+                      for (NewItemModel element
+                          in Injection.linkItemCubit.newItems) {
+                        links.add(element.controller.text);
+                      }
+                      Personal personalDataModel = Personal(
+                        title: Injection
+                            .personalDataCubit.professionTitleController.text,
+                        fullName: personalData.fullNameController.text,
+                        birthday: personalData.birthDayController.text,
+                        country: personalData.countryController.text,
+                        zipCode: personalData.zipCodeController.text,
+                        city: personalData.cityController.text,
+                        street: personalData.streetController.text,
+                        phones: phones,
+                        emails: emails,
+                        links: links,
+                        summary: personalData.summaryController.text,
+                      );
+
+                      List<Education> educationData = [];
+
+                      for (var element in Injection.educationCubit.newItems) {
+                        educationData.add(Education(
+                          degree: element.degreeController!.text,
+                          school: element.schoolController!.text,
+                          university: element.universityController!.text,
+                          startDate: element.startDateController!.text,
+                          endDate: element.endDateController!.text,
+                        ));
+                      }
+
+                      UserData userData = UserData(
+                        personal: personalDataModel,
+                        education: educationData,
+                        languages: [],
+                        skills: [],
+                        experiences: [],
+                        qualifications: [],
+                      );
+                    },
                   ),
-                )
-                // const Icon(
-                //   CupertinoIcons.checkmark_alt_circle_fill,
-                //   color: selectedItemColor,
-                //   size: 45,
-                // ),
+                );
+              },
+              child: CircleAvatar(
+                backgroundColor: selectedItemColor,
+                child: Center(
+                  child: Icon(
+                    CupertinoIcons.checkmark_alt,
+                    color: white,
+                    size: 35.h,
+                  ),
                 ),
+              ),
+            ),
           ],
         ),
       );
@@ -132,3 +205,16 @@ class _RootPageState extends State<RootPage> {
         ),
       );
 }
+
+
+
+                      // print(personalDataModel.birthday);
+                      // print(personalDataModel.city);
+                      // print(personalDataModel.country);
+                      // print(personalDataModel.fullName);
+                      // print(personalDataModel.emails);
+                      // print(personalDataModel.links);
+                      // print(personalDataModel.phones);
+                      // print(personalDataModel.street);
+                      // print(personalDataModel.title);
+                      // print(personalDataModel.summary);
