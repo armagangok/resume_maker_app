@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:resume_maker_app/core/export/export.dart';
-import 'package:resume_maker_app/data/models/education/education.dart';
-import 'package:resume_maker_app/data/models/personal/personal.dart';
-import 'package:resume_maker_app/data/models/user_data_model/user_data.dart';
 import 'package:resume_maker_app/features/design/presentation/pages/design_page.dart';
 import 'package:resume_maker_app/features/export/presentation/pages/export_page.dart';
 
 import '../../../../core/widget/ios_dialog.dart';
+import '../../../../data/models/education/education.dart';
+import '../../../../data/models/personal/personal.dart';
 import '../../../../data/models/single_new_item_model.dart';
+import '../../../../data/models/user_data_model/user_data.dart';
 import '../../../preview/presentation/pages/preview_page.dart';
 import '../../../profile/presentation/pages/profile_page.dart';
 
@@ -40,14 +40,18 @@ class _RootPageState extends State<RootPage> {
     return Scaffold(
       appBar: _appBar(),
       bottomNavigationBar: _bottomNavBar(),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: KPadding.width10),
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+      body: _widgetOptions.elementAt(_selectedIndex),
     );
   }
 
   AppBar _appBar() => AppBar(
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: iconBackground,
+            height: 0.5.h,
+          ),
+        ),
         leading: GestureDetector(
           onTap: () {},
           child: const Icon(

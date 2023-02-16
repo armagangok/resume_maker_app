@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:resume_maker_app/core/export/export.dart';
 
 class CustomDivider extends StatelessWidget {
   const CustomDivider({
@@ -7,8 +7,9 @@ class CustomDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Divider(
-      thickness: 2,
+    return Container(
+      height: 0.5.h,
+      color: iconBackground,
     );
   }
 }
