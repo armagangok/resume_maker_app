@@ -48,8 +48,7 @@ class QualificationsNewItemBuilder extends StatelessWidget {
       index != 0 ? EdgeInsets.only(top: KPadding.height30) : EdgeInsets.zero;
 }
 
-
-class QualificationModel extends ModelEntity {
+class QualificationModel extends UserDataEntity {
   @override
   final TextEditingController? title;
   @override

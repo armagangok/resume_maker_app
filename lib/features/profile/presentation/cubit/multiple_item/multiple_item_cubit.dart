@@ -7,9 +7,9 @@ part 'multiple_item_state.dart';
 class MultipleItemCubit extends Cubit<MultipleItemState> {
   MultipleItemCubit() : super(MultipleItemInitial());
 
-  List<ModelEntity> newItems = [];
+  List<UserDataEntity> newItems = [];
 
-  void addNewItem(ModelEntity data) {
+  void addNewItem(UserDataEntity data) {
     newItems.add(data);
 
     emit(MultipleItemAdded());

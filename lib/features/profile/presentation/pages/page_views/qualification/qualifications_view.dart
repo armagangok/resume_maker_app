@@ -36,7 +36,7 @@ class QualificationsView extends StatelessWidget {
   }
 }
 
-class QualificationModel extends ModelEntity {
+class QualificationModel extends UserDataEntity {
   @override
   final TextEditingController? title;
   @override

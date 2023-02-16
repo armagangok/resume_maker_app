@@ -11,6 +11,8 @@ class Injection {
   static final _skillsCubit = MultipleItemCubit();
   static final _educationCubit = MultipleItemCubit();
   static final _qualificationCubit = MultipleItemCubit();
+  static final _languageCubit = MultipleItemCubit();
+  static final _experienceCubit = MultipleItemCubit();
 
   static NavigationContract get navigator => getIt.call<NavigationContract>();
   static DesignCubit get designCubit => getIt.call<DesignCubit>();
@@ -19,6 +21,8 @@ class Injection {
   static NewItemCubit get emailItemCubit => _emailItemCubit;
   static NewItemCubit get linkItemCubit => _linkItemCubit;
   static MultipleItemCubit get skillsCubit => _skillsCubit;
+  static MultipleItemCubit get languageCubit => _languageCubit;
   static MultipleItemCubit get educationCubit => _educationCubit;
   static MultipleItemCubit get qualificationsCubit => _qualificationCubit;
+  static MultipleItemCubit get experienceCubit => _experienceCubit;
 }

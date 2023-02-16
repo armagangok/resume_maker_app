@@ -1,4 +1,4 @@
-import '../../../../core/export/export.dart';
+import '../../../../../../../core/export/export.dart';
 
 class EducationNewItemBuilder extends StatelessWidget {
   const EducationNewItemBuilder({
