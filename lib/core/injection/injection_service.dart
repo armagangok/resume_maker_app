@@ -25,6 +25,6 @@ class Injection {
   static MultipleItemCubit get educationCubit => _educationCubit;
   static MultipleItemCubit get qualificationsCubit => _qualificationCubit;
   static MultipleItemCubit get experienceCubit => _experienceCubit;
-  static PersonalDataCubit get personalDataCubit =>
-      getIt.call<PersonalDataCubit>();
+  static PersonalDataCubit get personalDataCubit => getIt.call<PersonalDataCubit>();
+  static ImageCubit get imageCubit => getIt.call<ImageCubit>();
 }

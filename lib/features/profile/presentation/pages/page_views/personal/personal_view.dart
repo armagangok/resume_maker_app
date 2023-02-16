@@ -14,6 +14,7 @@ class PersonalView extends StatelessWidget {
     return ListView(
       shrinkWrap: true,
       children: [
+        SizedBox(height: KPadding.height20,),
         const ProfilePictureWidget(),
         SizedBox(height: KPadding.width20),
         SizedBox(

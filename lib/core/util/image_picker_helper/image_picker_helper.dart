@@ -8,10 +8,17 @@ class ImagePickerHelper {
 
   XFile? get getImage => _image;
 
-  Future<XFile?> pickImage() async {
+  Future<XFile?> pickImageFromGallery() async {
     final ImagePicker picker = ImagePicker();
 
     _image = await picker.pickImage(source: ImageSource.gallery);
+    return _image;
+  }
+
+  Future<XFile?> pickImageByCamera() async {
+    final ImagePicker picker = ImagePicker();
+
+    _image = await picker.pickImage(source: ImageSource.camera);
     return _image;
   }
 }

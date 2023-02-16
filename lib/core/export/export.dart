@@ -26,3 +26,5 @@ export '../util/hive/hive_helper.dart';
 export '../util/hive/hive_keys.dart';
 export '../util/screen_util_helper/screen_util.dart';
 export 'package:resume_maker_app/features/profile/presentation/pages/page_views/personal/cubit/personal_data/personal_data_cubit.dart';
+
+export 'package:resume_maker_app/features/profile/presentation/pages/page_views/personal/cubit/image_picker/image_cubit.dart';

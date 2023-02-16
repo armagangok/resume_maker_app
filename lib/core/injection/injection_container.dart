@@ -23,4 +23,8 @@ void initDependencies() {
   getIt.registerLazySingleton<PersonalDataCubit>(
     () => PersonalDataCubit(),
   );
+
+  getIt.registerLazySingleton<ImageCubit>(
+    () => ImageCubit(),
+  );
 }
