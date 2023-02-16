@@ -8,6 +8,7 @@ class Injection {
   static final _phoneItemCubit = NewItemCubit();
   static final _emailItemCubit = NewItemCubit();
   static final _linkItemCubit = NewItemCubit();
+  static final _skillsCubit = MultipleItemCubit();
   static final _educationCubit = MultipleItemCubit();
   static final _qualificationCubit = MultipleItemCubit();
 
@@ -17,6 +18,7 @@ class Injection {
   static NewItemCubit get phoneItemCubit => _phoneItemCubit;
   static NewItemCubit get emailItemCubit => _emailItemCubit;
   static NewItemCubit get linkItemCubit => _linkItemCubit;
+  static MultipleItemCubit get skillsCubit => _skillsCubit;
   static MultipleItemCubit get educationCubit => _educationCubit;
   static MultipleItemCubit get qualificationsCubit => _qualificationCubit;
 }

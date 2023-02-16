@@ -7,6 +7,7 @@ class ModelEntity {
   final TextEditingController? universityController;
   final TextEditingController? startDateController;
   final TextEditingController? endDateController;
+  final TextEditingController? skillsController;
   final String? itemID;
   final Widget? removeWidget;
   final TextEditingController? title;
@@ -15,6 +16,7 @@ class ModelEntity {
   ModelEntity({
     this.degreeController,
     this.schoolController,
+    this.skillsController,
     this.universityController,
     this.startDateController,
     this.endDateController,

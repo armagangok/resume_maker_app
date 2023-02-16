@@ -1,4 +1,6 @@
 import '../../../../../../../core/export/export.dart';
+import '../../../../../../../data/entities/entity.dart';
+import '../../../../widgets/remove_new_item.dart';
 
 class QualificationsNewItemBuilder extends StatelessWidget {
   const QualificationsNewItemBuilder({
@@ -44,4 +46,26 @@ class QualificationsNewItemBuilder extends StatelessWidget {
 
   EdgeInsets getPadding(int index) =>
       index != 0 ? EdgeInsets.only(top: KPadding.height30) : EdgeInsets.zero;
+}
+
+
+class QualificationModel extends ModelEntity {
+  @override
+  final TextEditingController? title;
+  @override
+  final TextEditingController? schoolController;
+  @override
+  final TextEditingController? details;
+  @override
+  final String? itemID;
+  @override
+  RemoveNewItemWidget? removeWidget;
+
+  QualificationModel({
+    required this.title,
+    required this.schoolController,
+    required this.details,
+    required this.itemID,
+    required this.removeWidget,
+  });
 }
