@@ -83,6 +83,7 @@ dependencies:
   google_fonts: ^4.0.3
   flutter_svg: ^2.0.0+1
   flutter_screenutil: ^5.6.1
+  intl: ^0.18.0
   
 
   

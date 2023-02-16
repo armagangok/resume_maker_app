@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 import 'package:resume_maker_app/core/export/export.dart';
 import 'package:resume_maker_app/features/design/presentation/pages/design_page.dart';
 import 'package:resume_maker_app/features/export/presentation/pages/export_page.dart';
@@ -36,26 +37,62 @@ class _RootPageState extends State<RootPage> {
   }
 
   AppBar _appBar() => AppBar(
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(
+        leading: GestureDetector(
+          onTap: () {},
+          child: const Icon(
             Icons.menu_rounded,
+            size: 45,
           ),
         ),
-        actions: [
-          
-          IconButton(
-            onPressed: () {},
-            icon: IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                CupertinoIcons.checkmark_alt_circle_fill,
-                color: selectedItemColor,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Visibility(
+              visible: false,
+              child: GestureDetector(
+                onTap: () {},
+                child: const Icon(
+                  Icons.menu_rounded,
+                  size: 45,
+                ),
               ),
             ),
-          )
-        ],
+            Text(
+              _getDate(),
+              style: context.bodyLarge.copyWith(
+                fontWeight: FontWeight.bold,
+                fontSize: 17,
+              ),
+            ),
+            GestureDetector(
+                onTap: () {},
+                child: CircleAvatar(
+                  backgroundColor: selectedItemColor,
+                  child: Center(
+                    child: Icon(
+                      CupertinoIcons.checkmark_alt,
+                      color: white,
+                      size: 35.h,
+                    ),
+                  ),
+                )
+                // const Icon(
+                //   CupertinoIcons.checkmark_alt_circle_fill,
+                //   color: selectedItemColor,
+                //   size: 45,
+                // ),
+                ),
+          ],
+        ),
       );
+
+  String _getDate() {
+    final DateTime now = DateTime.now();
+    final DateFormat formatter = DateFormat('MMMM dd, yyyy');
+    final String formatted = formatter.format(now);
+
+    return formatted;
+  }
 
   Widget _bottomNavBar() => SizedBox(
         child: Column(
