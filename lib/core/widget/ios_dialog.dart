@@ -41,7 +41,7 @@ class IosDeleteDialog extends StatelessWidget {
               children: [
                 _dialogButton(
                   text: "Discard",
-                  onTap: () => navigation.getBack(),
+                  onTap: () => navigation.pop(),
                   color: Colors.red,
                 ),
                 const VerticalDivider(
@@ -52,7 +52,7 @@ class IosDeleteDialog extends StatelessWidget {
                   text: "Okey",
                   onTap: () {
                     dialogAction();
-                    navigation.getBack();
+                    navigation.pop();
                   },
                 ),
               ],

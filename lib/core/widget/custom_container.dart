@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class CustomContainer extends StatelessWidget {
   const CustomContainer({
     Key? key,
-    this.color = Colors.white,
+    this.color,
     this.borderColor = Colors.transparent,
     this.child,
     this.borderRadius,
@@ -14,7 +14,7 @@ class CustomContainer extends StatelessWidget {
     this.enableShadow = true,
   }) : super(key: key);
 
-  final Color color;
+  final Color? color;
   // final Border? border ;
   final Color borderColor;
   final Widget? child;
@@ -36,12 +36,12 @@ class CustomContainer extends StatelessWidget {
         ),
         boxShadow: enableShadow == true
             ? [
-                BoxShadow(
+                const BoxShadow(
                   // color: Colors.grey.withOpacity(0.5),
-                  color: const Color(0xff4A3F35).withOpacity(0.15),
+
                   spreadRadius: 0,
                   blurRadius: 3,
-                  offset: const Offset(3, 3), // changes position of shadow
+                  offset: Offset(3, 3), // changes position of shadow
                 ),
               ]
             : null,

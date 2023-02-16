@@ -21,6 +21,23 @@ extension ContextExtension on BuildContext {
       builder: (_) => widget,
     );
   }
+
+  Future<void> bottomSheet(
+      {Widget widget = const SizedBox(),
+      bool isScrollControlled = false,
+      borderRadius = const BorderRadius.only(
+        topLeft: Radius.circular(20),
+        topRight: Radius.circular(20),
+      )}) async {
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+        borderRadius: borderRadius,
+      ),
+      isScrollControlled: isScrollControlled,
+      context: this,
+      builder: (_) => widget,
+    );
+  }
 }
 
 extension EasySize on BuildContext {
@@ -43,7 +60,6 @@ extension EasySize on BuildContext {
 
 extension EasyTheme on BuildContext {
   ThemeData get theme => Theme.of(this);
-  TextTheme get textTheme => theme.textTheme;
   Color get primary => colors.primary;
   Color get backgroundColor => theme.colorScheme.background;
   ColorScheme get colors => theme.colorScheme;
@@ -78,4 +94,19 @@ extension EasyPadding on BuildContext {
         bottom: bottom * dynamicHeight,
         top: top * dynamicHeight,
       );
+}
+
+extension EasyText on BuildContext {
+  TextTheme get textTheme => theme.textTheme;
+  TextStyle get titleSmall => theme.textTheme.titleSmall!;
+  TextStyle get titleMedium => theme.textTheme.titleMedium!;
+  TextStyle get titleLarge => theme.textTheme.titleLarge!;
+  TextStyle get bodyLarge => theme.textTheme.bodyLarge!;
+  TextStyle get bodyMedium => theme.textTheme.bodyMedium!;
+  TextStyle get bodySmall => theme.textTheme.bodySmall!;
+  TextStyle get headlineMedium => theme.textTheme.headlineMedium!;
+  TextStyle get headlineSmall => theme.textTheme.headlineMedium!;
+  TextStyle get displayLarge => theme.textTheme.displayLarge!;
+  TextStyle get displayMedium => theme.textTheme.displayMedium!;
+  TextStyle get displaySmall => theme.textTheme.displaySmall!;
 }
