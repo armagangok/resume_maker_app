@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:resume_maker_app/data/entities/entity.dart';
 
-class MultipleNewItem {
+class MultipleNewItem extends ModelEntity {
+  @override
   final TextEditingController degreeController;
+  @override
   final TextEditingController schoolController;
+  @override
   final TextEditingController universityController;
+  @override
   final TextEditingController startDateController;
+  @override
   final TextEditingController endDateController;
+  @override
   final String itemID;
-  final Widget deleteWidget;
+  @override
+  final Widget removeWidget;
 
   MultipleNewItem({
     required this.degreeController,
@@ -16,6 +24,6 @@ class MultipleNewItem {
     required this.startDateController,
     required this.endDateController,
     required this.itemID,
-    required this.deleteWidget,
+    required this.removeWidget,
   });
 }

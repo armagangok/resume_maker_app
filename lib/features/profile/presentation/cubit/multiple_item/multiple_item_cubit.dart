@@ -1,33 +1,23 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:resume_maker_app/data/entities/entity.dart';
 
 import '../../../../../core/export/export.dart';
-import '../../../../../data/models/multiple_new_item.dart';
-import '../../widgets/remove_new_item.dart';
 
 part 'multiple_item_state.dart';
 
 class MultipleItemCubit extends Cubit<MultipleItemState> {
   MultipleItemCubit() : super(MultipleItemInitial());
 
-  List<MultipleNewItem> newItems = [];
+  List<ModelEntity> newItems = [];
 
-  void addNewItem() {
-    String itemId = "${DateTime.now()}";
-    newItems.add(
-      MultipleNewItem(
-        degreeController: TextEditingController(),
-        schoolController: TextEditingController(),
-        universityController: TextEditingController(),
-        startDateController: TextEditingController(),
-        endDateController: TextEditingController(),
-        itemID: itemId,
-        deleteWidget: RemoveNewItemWidget(
-          itemID: itemId,
-        ),
-      ),
-    );
+  void addNewItem(ModelEntity data) {
+    newItems.add(data);
 
     emit(MultipleItemAdded());
+  }
+
+  String getUniqeID() {
+    String itemId = "${DateTime.now()}";
+    return itemId;
   }
 
   void removeItem(String id) {

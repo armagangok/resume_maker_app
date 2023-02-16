@@ -1,48 +1,50 @@
 import '../../../../core/export/export.dart';
 
-class MultipleNewItemBuilder extends StatelessWidget {
-  const MultipleNewItemBuilder({
+class EducationNewItemBuilder extends StatelessWidget {
+  const EducationNewItemBuilder({
     Key? key,
-    required this.cubit,
   }) : super(key: key);
-
-  final dynamic cubit;
 
   @override
   Widget build(BuildContext context) =>
       BlocBuilder<MultipleItemCubit, MultipleItemState>(
-        bloc: cubit,
+        bloc: Injection.educationCubit,
         builder: (context, state) {
           return ListView.builder(
             physics: const ClampingScrollPhysics(),
             shrinkWrap: true,
-            itemCount: cubit.newItems.length,
+            itemCount: Injection.educationCubit.newItems.length,
             itemBuilder: (context, index) => Padding(
               padding: getPadding(index),
               child: Column(
                 children: [
                   UnderlinedTextField(
                     hintText: "Degree",
-                    controller: cubit.newItems[index].degreeController,
+                    controller: Injection
+                        .educationCubit.newItems[index].degreeController!,
                   ),
                   UnderlinedTextField(
                     hintText: "School",
-                    controller: cubit.newItems[index].schoolController,
+                    controller: Injection
+                        .educationCubit.newItems[index].schoolController!,
                   ),
                   UnderlinedTextField(
                     hintText: "University",
-                    controller: cubit.newItems[index].universityController,
+                    controller: Injection
+                        .educationCubit.newItems[index].universityController!,
                   ),
                   UnderlinedTextField(
                     hintText: "Start Date",
-                    controller: cubit.newItems[index].startDateController,
+                    controller: Injection
+                        .educationCubit.newItems[index].startDateController!,
                   ),
                   UnderlinedTextField(
                     hintText: "End Date",
-                    controller: cubit.newItems[index].endDateController,
+                    controller: Injection
+                        .educationCubit.newItems[index].endDateController!,
                   ),
                   SizedBox(height: KPadding.height5),
-                  cubit.newItems[index].deleteWidget,
+                  Injection.educationCubit.newItems[index].removeWidget!,
                 ],
               ),
             ),

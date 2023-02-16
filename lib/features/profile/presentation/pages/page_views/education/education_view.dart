@@ -1,8 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import '../../../../../../core/export/export.dart';
+
 import '../../../../../../core/widget/buttons/add_new_item.dart';
-import '../../../widgets/multiple_item_builder.dart';
+import '../../../../../../data/models/multiple_new_item.dart';
+import '../../../widgets/education_item_builder.dart';
+import '../../../widgets/remove_new_item.dart';
 
 class EducationView extends StatelessWidget {
   const EducationView({super.key});
@@ -11,13 +14,24 @@ class EducationView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        MultipleNewItemBuilder(
-          cubit: Injection.multipleItemCubit,
-        ),
+        const EducationNewItemBuilder(),
         SizedBox(height: KPadding.height5),
         NewItemWidget(
           onTap: () {
-            Injection.multipleItemCubit.addNewItem();
+            String itemId = Injection.educationCubit.getUniqeID();
+            var educationModel = MultipleNewItem(
+              degreeController: TextEditingController(),
+              schoolController: TextEditingController(),
+              universityController: TextEditingController(),
+              startDateController: TextEditingController(),
+              endDateController: TextEditingController(),
+              itemID: itemId,
+              removeWidget: RemoveNewItemWidget(
+                itemID: itemId,
+                cubit: Injection.educationCubit,
+              ),
+            );
+            Injection.educationCubit.addNewItem(educationModel);
           },
         ),
       ],

@@ -7,9 +7,11 @@ class RemoveNewItemWidget extends StatelessWidget {
   const RemoveNewItemWidget({
     Key? key,
     required this.itemID,
+    required this.cubit,
   }) : super(key: key);
 
   final String itemID;
+  final dynamic cubit;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class RemoveNewItemWidget extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {
-            Injection.multipleItemCubit.removeItem(itemID);
+            cubit.removeItem(itemID);
           },
           child: Row(
             children: [
@@ -37,10 +39,8 @@ class RemoveNewItemWidget extends StatelessWidget {
           ),
         ),
         BlocBuilder<MultipleItemCubit, MultipleItemState>(
-          bloc: Injection.multipleItemCubit,
+          bloc: cubit,
           builder: (context, state) {
-            // print();
-            // print("$index  - ${Injection.multipleItemCubit.indexID}");
             return Row(
               children: [
                 _downWidget(),
@@ -54,23 +54,20 @@ class RemoveNewItemWidget extends StatelessWidget {
   }
 
   Widget _upWidget() => Visibility(
-        visible: Injection.multipleItemCubit.checkIfOnlyUp(getIndex()),
+        visible: cubit.checkIfOnlyUp(getIndex()),
         child: Row(
           children: [
             SizedBox(width: KPadding.width5),
             GestureDetector(
               onTap: () {},
-              child: const RotatedBox(
-                quarterTurns: 0,
-                child: Icon(CupertinoIcons.triangle_fill),
-              ),
+              child: const Icon(CupertinoIcons.triangle_fill),
             ),
           ],
         ),
       );
 
   Widget _downWidget() => Visibility(
-        visible: Injection.multipleItemCubit.checkIfOnlyDown(getIndex()),
+        visible: cubit.checkIfOnlyDown(getIndex()),
         child: GestureDetector(
           onTap: () {},
           child: const RotatedBox(
@@ -81,9 +78,9 @@ class RemoveNewItemWidget extends StatelessWidget {
       );
 
   getIndex() {
-    for (var element in Injection.multipleItemCubit.newItems) {
+    for (var element in cubit.newItems) {
       if (element.itemID == itemID) {
-        int index = Injection.multipleItemCubit.newItems.indexOf(element);
+        int index = cubit.newItems.indexOf(element);
         return index;
       }
     }
