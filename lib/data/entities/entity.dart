@@ -1,7 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:resume_maker_app/features/profile/presentation/pages/page_views/language/widget/language_item_builder.dart';
-
 import '../../core/export/export.dart';
+import '../../features/profile/presentation/widgets/slider_widget.dart';
 
 class UserDataEntity {
   final TextEditingController? degreeController;
@@ -11,11 +9,6 @@ class UserDataEntity {
   final TextEditingController? endDateController;
   final TextEditingController? skillsController;
   final TextEditingController? languageController;
-  final String? itemID;
-  final Widget? removeWidget;
-  final SliderWidget? speakingSlider;
-  final SliderWidget? readingSlider;
-  final SliderWidget? writingSlider;
   final TextEditingController? title;
   final TextEditingController? companyName;
   final TextEditingController? jobTitle;
@@ -23,6 +16,13 @@ class UserDataEntity {
   final TextEditingController? details;
   final TextEditingController? jobStartDate;
   final TextEditingController? jobEndDate;
+
+  final String? itemID;
+
+  final Widget? removeWidget;
+  final SliderWidget? speakingSlider;
+  final SliderWidget? readingSlider;
+  final SliderWidget? writingSlider;
 
   UserDataEntity({
     this.degreeController,

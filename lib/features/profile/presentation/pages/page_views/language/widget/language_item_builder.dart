@@ -48,63 +48,10 @@ class _LanguageNewItemBuilderState extends State<LanguageNewItemBuilder> {
       index != 0 ? EdgeInsets.only(top: KPadding.height30) : EdgeInsets.zero;
 }
 
-class SliderWidget extends StatefulWidget {
-  const SliderWidget({
-    Key? key,
-    required this.title,
-  }) : super(key: key);
 
-  final String title;
-
-  @override
-  State<SliderWidget> createState() => _SliderWidgetState();
-}
-
-class _SliderWidgetState extends State<SliderWidget> {
-  int initialValue = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(widget.title),
-            Builder(builder: (context) {
-              switch ("$initialValue") {
-                case "0":
-                  return const Text("Elemantary");
-                case "1":
-                  return const Text("Limited");
-                case "2":
-                  return const Text("Professional");
-                case "3":
-                  return const Text("Full Professional");
-                case "4":
-                  return const Text("Full Professional");
-                default:
-                  return const Text("");
-              }
-            }),
-          ],
-        ),
-        SliderTheme(
-          data: SliderThemeData(overlayShape: SliderComponentShape.noThumb),
-          child: Slider(
-              max: 4.0,
-              activeColor: selectedItemColor,
-              inactiveColor: white.withOpacity(0.25),
-              thumbColor: white,
-              value: initialValue.toDouble(),
-              onChanged: (value) {
-                setState(() {
-                  initialValue = value.toInt();
-                });
-              }),
-        ),
-      ],
-    );
-  }
-}
+// enum SliderValue {
+//   elemantary,
+//   limited,
+//   professional,
+//   fullProfessional,
+// }

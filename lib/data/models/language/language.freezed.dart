@@ -20,8 +20,10 @@ Language _$LanguageFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Language {
-  String? get skillName => throw _privateConstructorUsedError;
-  String? get description => throw _privateConstructorUsedError;
+  String? get languageName => throw _privateConstructorUsedError;
+  String? get writing => throw _privateConstructorUsedError;
+  String? get reading => throw _privateConstructorUsedError;
+  String? get speaking => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +36,11 @@ abstract class $LanguageCopyWith<$Res> {
   factory $LanguageCopyWith(Language value, $Res Function(Language) then) =
       _$LanguageCopyWithImpl<$Res, Language>;
   @useResult
-  $Res call({String? skillName, String? description});
+  $Res call(
+      {String? languageName,
+      String? writing,
+      String? reading,
+      String? speaking});
 }
 
 /// @nodoc
@@ -50,17 +56,27 @@ class _$LanguageCopyWithImpl<$Res, $Val extends Language>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? skillName = freezed,
-    Object? description = freezed,
+    Object? languageName = freezed,
+    Object? writing = freezed,
+    Object? reading = freezed,
+    Object? speaking = freezed,
   }) {
     return _then(_value.copyWith(
-      skillName: freezed == skillName
-          ? _value.skillName
-          : skillName // ignore: cast_nullable_to_non_nullable
+      languageName: freezed == languageName
+          ? _value.languageName
+          : languageName // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      writing: freezed == writing
+          ? _value.writing
+          : writing // ignore: cast_nullable_to_non_nullable
+              as String?,
+      reading: freezed == reading
+          ? _value.reading
+          : reading // ignore: cast_nullable_to_non_nullable
+              as String?,
+      speaking: freezed == speaking
+          ? _value.speaking
+          : speaking // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -73,7 +89,11 @@ abstract class _$$_LanguageCopyWith<$Res> implements $LanguageCopyWith<$Res> {
       __$$_LanguageCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? skillName, String? description});
+  $Res call(
+      {String? languageName,
+      String? writing,
+      String? reading,
+      String? speaking});
 }
 
 /// @nodoc
@@ -87,17 +107,27 @@ class __$$_LanguageCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? skillName = freezed,
-    Object? description = freezed,
+    Object? languageName = freezed,
+    Object? writing = freezed,
+    Object? reading = freezed,
+    Object? speaking = freezed,
   }) {
     return _then(_$_Language(
-      skillName: freezed == skillName
-          ? _value.skillName
-          : skillName // ignore: cast_nullable_to_non_nullable
+      languageName: freezed == languageName
+          ? _value.languageName
+          : languageName // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      writing: freezed == writing
+          ? _value.writing
+          : writing // ignore: cast_nullable_to_non_nullable
+              as String?,
+      reading: freezed == reading
+          ? _value.reading
+          : reading // ignore: cast_nullable_to_non_nullable
+              as String?,
+      speaking: freezed == speaking
+          ? _value.speaking
+          : speaking // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -106,19 +136,24 @@ class __$$_LanguageCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Language implements _Language {
-  const _$_Language({this.skillName, this.description});
+  const _$_Language(
+      {this.languageName, this.writing, this.reading, this.speaking});
 
   factory _$_Language.fromJson(Map<String, dynamic> json) =>
       _$$_LanguageFromJson(json);
 
   @override
-  final String? skillName;
+  final String? languageName;
   @override
-  final String? description;
+  final String? writing;
+  @override
+  final String? reading;
+  @override
+  final String? speaking;
 
   @override
   String toString() {
-    return 'Language(skillName: $skillName, description: $description)';
+    return 'Language(languageName: $languageName, writing: $writing, reading: $reading, speaking: $speaking)';
   }
 
   @override
@@ -126,15 +161,18 @@ class _$_Language implements _Language {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Language &&
-            (identical(other.skillName, skillName) ||
-                other.skillName == skillName) &&
-            (identical(other.description, description) ||
-                other.description == description));
+            (identical(other.languageName, languageName) ||
+                other.languageName == languageName) &&
+            (identical(other.writing, writing) || other.writing == writing) &&
+            (identical(other.reading, reading) || other.reading == reading) &&
+            (identical(other.speaking, speaking) ||
+                other.speaking == speaking));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, skillName, description);
+  int get hashCode =>
+      Object.hash(runtimeType, languageName, writing, reading, speaking);
 
   @JsonKey(ignore: true)
   @override
@@ -152,14 +190,21 @@ class _$_Language implements _Language {
 
 abstract class _Language implements Language {
   const factory _Language(
-      {final String? skillName, final String? description}) = _$_Language;
+      {final String? languageName,
+      final String? writing,
+      final String? reading,
+      final String? speaking}) = _$_Language;
 
   factory _Language.fromJson(Map<String, dynamic> json) = _$_Language.fromJson;
 
   @override
-  String? get skillName;
+  String? get languageName;
   @override
-  String? get description;
+  String? get writing;
+  @override
+  String? get reading;
+  @override
+  String? get speaking;
   @override
   @JsonKey(ignore: true)
   _$$_LanguageCopyWith<_$_Language> get copyWith =>

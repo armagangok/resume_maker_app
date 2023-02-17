@@ -8,6 +8,8 @@ part 'image_state.dart';
 class ImageCubit extends Cubit<ImageState> {
   ImageCubit() : super(ImageInitial());
 
+  String imagePath = "";
+
   final _imagePicker = ImagePickerHelper.instance;
 
   Future<void> pickImgae(ImagePickingChoice choice) async {
@@ -17,9 +19,11 @@ class ImageCubit extends Cubit<ImageState> {
         case ImagePickingChoice.camera:
           var response = await _imagePicker.pickImageByCamera();
           emit(ImagePicked(file: response));
+          imagePath = response!.path;
           break;
         case ImagePickingChoice.gallery:
           var response = await _imagePicker.pickImageFromGallery();
+          imagePath = response!.path;
           emit(ImagePicked(file: response));
           break;
         default:

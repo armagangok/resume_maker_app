@@ -7,12 +7,16 @@ part of 'language.dart';
 // **************************************************************************
 
 _$_Language _$$_LanguageFromJson(Map<String, dynamic> json) => _$_Language(
-      skillName: json['skillName'] as String?,
-      description: json['description'] as String?,
+      languageName: json['languageName'] as String?,
+      writing: json['writing'] as String?,
+      reading: json['reading'] as String?,
+      speaking: json['speaking'] as String?,
     );
 
 Map<String, dynamic> _$$_LanguageToJson(_$_Language instance) =>
     <String, dynamic>{
-      'skillName': instance.skillName,
-      'description': instance.description,
+      'languageName': instance.languageName,
+      'writing': instance.writing,
+      'reading': instance.reading,
+      'speaking': instance.speaking,
     };

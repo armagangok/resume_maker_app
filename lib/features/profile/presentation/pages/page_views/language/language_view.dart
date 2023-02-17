@@ -1,10 +1,8 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:resume_maker_app/data/entities/entity.dart';
-
 import '../../../../../../core/export/export.dart';
 import '../../../../../../core/widget/buttons/add_new_item.dart';
+import '../../../../data/models/lang_model.dart';
 import '../../../widgets/remove_new_item.dart';
-import 'widget/language_item_builder.dart';
+import '../../../widgets/slider_widget.dart';
 
 class LanguageView extends StatelessWidget {
   const LanguageView({super.key});
@@ -21,9 +19,34 @@ class LanguageView extends StatelessWidget {
             var widget = LanguageModel(
               languageController: TextEditingController(),
               itemID: itemId,
-              readingSlider: const SliderWidget(title: "Reading"),
-              writingSlider: const SliderWidget(title: "Writing"),
-              speakingSlider: const SliderWidget(title: "Speaking"),
+              languageCubit: Injection.languageCubit,
+              readingSlider: SliderWidget(
+                title: "Reading",
+                cubit: Injection.languageCubit,
+                onChanged: (val) {
+                  print(val);
+                  Injection.languageCubit.setReading(val);
+                },
+                initialValue: int.parse(Injection.languageCubit.reading),
+              ),
+              writingSlider: SliderWidget(
+                title: "Writing",
+                initialValue: int.parse(Injection.languageCubit.writing),
+                cubit: Injection.languageCubit,
+                onChanged: (val) {
+                  print(val);
+                  Injection.languageCubit.setWriting(val);
+                },
+              ),
+              speakingSlider: SliderWidget(
+                title: "Speaking",
+                onChanged: (val) {
+                  print(val);
+                  Injection.languageCubit.setSpeaking(val);
+                },
+                cubit: Injection.languageCubit,
+                initialValue: int.parse(Injection.languageCubit.speaking),
+              ),
               removeWidget: RemoveNewItemWidget(
                 itemID: itemId,
                 cubit: Injection.languageCubit,
@@ -35,29 +58,4 @@ class LanguageView extends StatelessWidget {
       ],
     );
   }
-}
-
-class LanguageModel extends UserDataEntity {
-  @override
-  final TextEditingController languageController;
-  @override
-  final String itemID;
-  @override
-  RemoveNewItemWidget? removeWidget;
-
-  @override
-  final SliderWidget writingSlider;
-  @override
-  final SliderWidget readingSlider;
-  @override
-  final SliderWidget speakingSlider;
-
-  LanguageModel({
-    required this.languageController,
-    required this.itemID,
-    required this.removeWidget,
-    required this.writingSlider,
-    required this.readingSlider,
-    required this.speakingSlider,
-  });
 }

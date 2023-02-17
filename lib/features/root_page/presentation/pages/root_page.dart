@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:resume_maker_app/core/export/export.dart';
+import 'package:resume_maker_app/data/models/language/language.dart';
 import 'package:resume_maker_app/features/design/presentation/pages/design_page.dart';
 import 'package:resume_maker_app/features/export/presentation/pages/export_page.dart';
 
@@ -122,6 +123,7 @@ class _RootPageState extends State<RootPage> {
                         emails: emails,
                         links: links,
                         summary: personalData.summaryController.text,
+                        imagePath: Injection.imageCubit.imagePath,
                       );
 
                       List<Education> educationData = [];
@@ -136,10 +138,25 @@ class _RootPageState extends State<RootPage> {
                         ));
                       }
 
+                      List<Language> languageData = [];
+
+                      for (var element in Injection.languageCubit.newItems) {
+                        languageData.add(Language(
+                          languageName: element.languageController!.text,
+                          writing: Injection.languageCubit.writing,
+                          reading: Injection.languageCubit.reading,
+                          speaking: Injection.languageCubit.speaking,
+                        ));
+                      }
+
+                      for (var element in languageData) {
+                        print(element);
+                      }
+
                       UserData userData = UserData(
                         personal: personalDataModel,
                         education: educationData,
-                        languages: [],
+                        languages: languageData,
                         skills: [],
                         experiences: [],
                         qualifications: [],
