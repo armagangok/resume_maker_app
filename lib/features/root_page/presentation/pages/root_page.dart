@@ -143,9 +143,9 @@ class _RootPageState extends State<RootPage> {
                       for (var element in Injection.languageCubit.newItems) {
                         languageData.add(Language(
                           languageName: element.languageController!.text,
-                          writing: Injection.languageCubit.writing,
-                          reading: Injection.languageCubit.reading,
-                          speaking: Injection.languageCubit.speaking,
+                          writing: "${Injection.languageCubit.writing}",
+                          reading: "${Injection.languageCubit.reading}",
+                          speaking: "${Injection.languageCubit.speaking}",
                         ));
                       }
 

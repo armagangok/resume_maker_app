@@ -56,21 +56,21 @@ class MultipleItemCubit extends Cubit<MultipleItemState> {
 class LanguageCubit extends MultipleItemCubit {
   LanguageCubit() : super();
 
-  String speaking = "1";
-  String reading = "1";
-  String writing = "0";
+  double speaking = 1.0;
+  double reading = 1.0;
+  double writing = 1.0;
 
-  setSpeaking(String value) {
+  void setSpeaking(double value) {
     speaking = value;
     emit(MultipleItemInitial());
   }
 
-  setReading(String value) {
+  void setReading(double value) {
     reading = value;
     emit(MultipleItemInitial());
   }
 
-  setWriting(String value) {
+  void setWriting(double value) {
     writing = value;
     emit(MultipleItemInitial());
   }

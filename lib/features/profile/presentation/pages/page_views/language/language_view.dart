@@ -9,6 +9,7 @@ class LanguageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Language View");
     return ListView(
       children: [
         const LanguageNewItemBuilder(),
@@ -22,30 +23,15 @@ class LanguageView extends StatelessWidget {
               languageCubit: Injection.languageCubit,
               readingSlider: SliderWidget(
                 title: "Reading",
-                cubit: Injection.languageCubit,
-                onChanged: (val) {
-                  print(val);
-                  Injection.languageCubit.setReading(val);
-                },
-                initialValue: int.parse(Injection.languageCubit.reading),
+                cubit: Injection.readingSliderCubit,
               ),
               writingSlider: SliderWidget(
                 title: "Writing",
-                initialValue: int.parse(Injection.languageCubit.writing),
-                cubit: Injection.languageCubit,
-                onChanged: (val) {
-                  print(val);
-                  Injection.languageCubit.setWriting(val);
-                },
+                cubit: Injection.writingSliderCubit,
               ),
               speakingSlider: SliderWidget(
                 title: "Speaking",
-                onChanged: (val) {
-                  print(val);
-                  Injection.languageCubit.setSpeaking(val);
-                },
-                cubit: Injection.languageCubit,
-                initialValue: int.parse(Injection.languageCubit.speaking),
+                cubit: Injection.speakingSliderCubit,
               ),
               removeWidget: RemoveNewItemWidget(
                 itemID: itemId,
