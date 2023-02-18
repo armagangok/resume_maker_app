@@ -1,3 +1,5 @@
+import 'package:resume_maker_app/features/profile/presentation/cubit/slider/slider_cubit.dart';
+
 import '../../../../../../core/export/export.dart';
 import '../../../../../../core/widget/buttons/add_new_item.dart';
 import '../../../../data/models/lang_model.dart';
@@ -23,15 +25,15 @@ class LanguageView extends StatelessWidget {
               languageCubit: Injection.languageCubit,
               readingSlider: SliderWidget(
                 title: "Reading",
-                cubit: Injection.readingSliderCubit,
+                cubit: SliderCubit(),
               ),
               writingSlider: SliderWidget(
                 title: "Writing",
-                cubit: Injection.writingSliderCubit,
+                cubit: SliderCubit(),
               ),
               speakingSlider: SliderWidget(
                 title: "Speaking",
-                cubit: Injection.speakingSliderCubit,
+                cubit: SliderCubit(),
               ),
               removeWidget: RemoveNewItemWidget(
                 itemID: itemId,
