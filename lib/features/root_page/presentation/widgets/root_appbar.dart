@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import 'package:resume_maker_app/data/models/experience/experience.dart';
+import 'package:resume_maker_app/data/models/qualifications/qualifications.dart';
+import 'package:resume_maker_app/data/models/skills/skills.dart';
 
 import '../../../../core/export/export.dart';
 
@@ -91,10 +96,6 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
                     List<Language> languageData = [];
                     for (var element in Injection.languageCubit.newItems) {
-                      print(element.writingSliderCubit!.getText);
-                      print(element.readingSliderCubit!.getText);
-                      print(element.speakingSliderCubit!.getText);
-
                       languageData.add(
                         Language(
                           languageName: element.languageController!.text,
@@ -105,18 +106,50 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                       );
                     }
 
-                    // for (var element in languageData) {
-                    //   print(element);
-                    // }
+                    List<Skills> skillData = [];
+
+                    for (var element in Injection.skillsCubit.newItems) {
+                      var skillModel = Skills(
+                        skillName: element.skillsController!.text,
+                        description: "",
+                      );
+                      skillData.add(skillModel);
+                    }
+
+                    List<Experience> experiencesData = [];
+
+                    for (var element in Injection.experienceCubit.newItems) {
+                      var experienceModel = Experience(
+                        company: element.companyNameController!.text,
+                        jobDuties: element.jobDutiesController!.text,
+                        jobTitle: element.jobTitleController!.text,
+                        endDate: element.jobEndDateController!.text,
+                        startDate: element.startDateController!.text,
+                      );
+                      experiencesData.add(experienceModel);
+                    }
+                    List<Qualifications> qualificationData = [];
+
+                    for (var element
+                        in Injection.qualificationsCubit.newItems) {
+                      var qualificationModel = Qualifications(
+                        title: element.jobTitleController!.text,
+                        school: element.schoolController!.text,
+                        details: element.details!.text,
+                      );
+                      qualificationData.add(qualificationModel);
+                    }
 
                     UserData userData = UserData(
                       personal: personalDataModel,
                       education: educationData,
                       languages: languageData,
-                      skills: [],
-                      experiences: [],
-                      qualifications: [],
+                      skills: skillData,
+                      experiences: experiencesData,
+                      qualifications: qualificationData,
                     );
+
+                    var encodedJson = json.encode(userData.toJson());
                   },
                 ),
               );

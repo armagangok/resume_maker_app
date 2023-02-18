@@ -13,12 +13,12 @@ class UserDataEntity {
   final TextEditingController? skillsController;
   final TextEditingController? languageController;
   final TextEditingController? title;
-  final TextEditingController? companyName;
-  final TextEditingController? jobTitle;
-  final TextEditingController? jobDuties;
+  final TextEditingController? companyNameController;
+  final TextEditingController? jobTitleController;
+  final TextEditingController? jobDutiesController;
   final TextEditingController? details;
   final TextEditingController? jobStartDate;
-  final TextEditingController? jobEndDate;
+  final TextEditingController? jobEndDateController;
 
   final String? itemID;
 
@@ -40,12 +40,12 @@ class UserDataEntity {
     this.skillsController,
     this.languageController,
     this.title,
-    this.companyName,
-    this.jobTitle,
-    this.jobDuties,
+    this.companyNameController,
+    this.jobTitleController,
+    this.jobDutiesController,
     this.details,
     this.jobStartDate,
-    this.jobEndDate,
+    this.jobEndDateController,
     this.itemID,
     this.removeWidget,
     this.speakingSlider,

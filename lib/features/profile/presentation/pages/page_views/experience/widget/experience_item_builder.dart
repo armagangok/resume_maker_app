@@ -27,20 +27,20 @@ class _ExperienceNewItemBuilderState extends State<ExperienceNewItemBuilder> {
                 children: [
                   UnderlinedTextField(
                     hintText: "Company",
-                    controller:
-                        Injection.experienceCubit.newItems[index].companyName!,
+                    controller: Injection
+                        .experienceCubit.newItems[index].companyNameController!,
                   ),
                   SizedBox(height: KPadding.height5),
                   UnderlinedTextField(
                     hintText: "Job Title",
-                    controller:
-                        Injection.experienceCubit.newItems[index].jobTitle!,
+                    controller: Injection
+                        .experienceCubit.newItems[index].jobTitleController!,
                   ),
                   SizedBox(height: KPadding.height5),
                   UnderlinedTextField(
                     hintText: "Job Duties",
-                    controller:
-                        Injection.experienceCubit.newItems[index].jobDuties!,
+                    controller: Injection
+                        .experienceCubit.newItems[index].jobDutiesController!,
                   ),
                   SizedBox(height: KPadding.height5),
                   UnderlinedTextField(
@@ -51,8 +51,8 @@ class _ExperienceNewItemBuilderState extends State<ExperienceNewItemBuilder> {
                   SizedBox(height: KPadding.height5),
                   UnderlinedTextField(
                     hintText: "End Date",
-                    controller:
-                        Injection.experienceCubit.newItems[index].jobEndDate!,
+                    controller: Injection
+                        .experienceCubit.newItems[index].jobEndDateController!,
                   ),
                   SizedBox(height: KPadding.height30),
                   Injection.experienceCubit.newItems[index].removeWidget!,

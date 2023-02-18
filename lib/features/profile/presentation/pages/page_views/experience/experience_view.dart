@@ -20,11 +20,11 @@ class ExperienceView extends StatelessWidget {
             String itemId = Injection.experienceCubit.getUniqeID();
             var widget = ExperienceModel(
               itemID: itemId,
-              companyName: TextEditingController(),
-              jobTitle: TextEditingController(),
-              jobDuties: TextEditingController(),
+              companyNameController: TextEditingController(),
+              jobTitleController: TextEditingController(),
+              jobDutiesController: TextEditingController(),
               jobStartDate: TextEditingController(),
-              jobEndDate: TextEditingController(),
+              jobEndDateController: TextEditingController(),
               removeWidget: RemoveNewItemWidget(
                 itemID: itemId,
                 cubit: Injection.experienceCubit,
@@ -40,26 +40,26 @@ class ExperienceView extends StatelessWidget {
 
 class ExperienceModel extends UserDataEntity {
   @override
-  final TextEditingController companyName;
+  final TextEditingController companyNameController;
   @override
-  final TextEditingController jobTitle;
+  final TextEditingController jobTitleController;
   @override
-  final TextEditingController jobDuties;
+  final TextEditingController jobDutiesController;
   @override
   final TextEditingController jobStartDate;
   @override
-  final TextEditingController jobEndDate;
+  final TextEditingController jobEndDateController;
   @override
   final String itemID;
   @override
   RemoveNewItemWidget? removeWidget;
 
   ExperienceModel({
-    required this.companyName,
-    required this.jobTitle,
-    required this.jobDuties,
+    required this.companyNameController,
+    required this.jobTitleController,
+    required this.jobDutiesController,
     required this.jobStartDate,
-    required this.jobEndDate,
+    required this.jobEndDateController,
     required this.itemID,
     required this.removeWidget,
   });
