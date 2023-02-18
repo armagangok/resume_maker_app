@@ -28,16 +28,22 @@ class SliderWidget extends StatelessWidget {
                   builder: (context) {
                     switch ("${cubit.sliderValue.toInt()}") {
                       case "0":
+                        cubit.setText = "Elemantary";
                         return const Text("Elemantary");
                       case "1":
+                        cubit.setText = "Limited";
                         return const Text("Limited");
                       case "2":
+                        cubit.setText = "Professional";
                         return const Text("Professional");
                       case "3":
+                        cubit.setText = "Full Professional";
                         return const Text("Full Professional");
                       case "4":
+                        cubit.setText = "Native";
                         return const Text("Native");
                       default:
+                        cubit.setText = "";
                         return const Text("");
                     }
                   },

@@ -8,7 +8,7 @@ class DataCategoryPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 600.h,
+      height: 640.h,
       child: BlocBuilder<ProfileCubit, ProfileState>(
         bloc: Injection.profileCubit,
         builder: (context, state) {

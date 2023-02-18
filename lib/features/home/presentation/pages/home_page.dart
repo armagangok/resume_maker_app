@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _createResumeButton() {
     return Padding(
-      padding: const EdgeInsets.all(30),
+      padding: EdgeInsets.all(30.h),
       child: CustomContainer(
         borderRadius: BorderRadius.zero,
         borderColor: iconColor,

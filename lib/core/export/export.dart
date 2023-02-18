@@ -28,3 +28,13 @@ export '../theme/theme_data/dark_theme.dart';
 export '../util/hive/hive_helper.dart';
 export '../util/hive/hive_keys.dart';
 export '../util/screen_util_helper/screen_util.dart';
+
+
+
+
+export 'package:resume_maker_app/core/widget/ios_dialog.dart';
+export 'package:resume_maker_app/data/models/education/education.dart';
+export 'package:resume_maker_app/data/models/language/language.dart';
+export 'package:resume_maker_app/data/models/personal/personal.dart';
+export 'package:resume_maker_app/data/models/single_new_item_model.dart';
+export 'package:resume_maker_app/data/models/user_data_model/user_data.dart';

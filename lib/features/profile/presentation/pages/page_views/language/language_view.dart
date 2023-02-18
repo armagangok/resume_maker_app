@@ -11,7 +11,6 @@ class LanguageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Language View");
     return ListView(
       children: [
         const LanguageNewItemBuilder(),
@@ -19,28 +18,36 @@ class LanguageView extends StatelessWidget {
         NewItemWidget(
           onTap: () {
             String itemId = Injection.languageCubit.getUniqeID();
-            var widget = LanguageModel(
+
+            SliderCubit readingCubit = SliderCubit();
+            SliderCubit writingCubit = SliderCubit();
+            SliderCubit speakingCubit = SliderCubit();
+
+            var languageModel = LanguageModel(
+              readingSliderCubit: readingCubit,
+              writingSliderCubit: writingCubit,
+              speakingSliderCubit: speakingCubit,
               languageController: TextEditingController(),
               itemID: itemId,
-              languageCubit: Injection.languageCubit,
+              
               readingSlider: SliderWidget(
                 title: "Reading",
-                cubit: SliderCubit(),
+                cubit: readingCubit,
               ),
               writingSlider: SliderWidget(
                 title: "Writing",
-                cubit: SliderCubit(),
+                cubit: writingCubit,
               ),
               speakingSlider: SliderWidget(
                 title: "Speaking",
-                cubit: SliderCubit(),
+                cubit: speakingCubit,
               ),
               removeWidget: RemoveNewItemWidget(
                 itemID: itemId,
                 cubit: Injection.languageCubit,
               ),
             );
-            Injection.languageCubit.addNewItem(widget);
+            Injection.languageCubit.addNewItem(languageModel);
           },
         ),
       ],

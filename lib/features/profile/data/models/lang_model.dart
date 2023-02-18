@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:resume_maker_app/features/profile/presentation/cubit/slider/slider_cubit.dart';
+
 import '../../../../core/export/export.dart';
 import '../../../../data/entities/entity.dart';
 import '../../presentation/widgets/remove_new_item.dart';
@@ -8,8 +11,7 @@ class LanguageModel extends UserDataEntity {
   final TextEditingController languageController;
   @override
   final String itemID;
-  @override
-  final LanguageCubit languageCubit;
+
   @override
   RemoveNewItemWidget? removeWidget;
 
@@ -20,6 +22,13 @@ class LanguageModel extends UserDataEntity {
   @override
   final SliderWidget speakingSlider;
 
+  @override
+  final SliderCubit readingSliderCubit;
+  @override
+  final SliderCubit writingSliderCubit;
+  @override
+  final SliderCubit speakingSliderCubit;
+
   LanguageModel({
     required this.languageController,
     required this.itemID,
@@ -27,6 +36,8 @@ class LanguageModel extends UserDataEntity {
     required this.writingSlider,
     required this.readingSlider,
     required this.speakingSlider,
-    required this.languageCubit,
+    required this.readingSliderCubit,
+    required this.writingSliderCubit,
+    required this.speakingSliderCubit,
   });
 }
