@@ -6,7 +6,9 @@ import '../../../../domain/usecases/user_data_usecase.dart';
 part 'root_state.dart';
 
 class RootCubit extends Cubit<RootState> {
-  RootCubit() : super(RootInitial());
+  RootCubit() : super(RootInitial()) {
+    fetchUserData();
+  }
 
   final _userDataUsecase = UserDataUsecase.instance;
 
@@ -18,9 +20,10 @@ class RootCubit extends Cubit<RootState> {
         print(l);
         emit(UserDataSavingFailure());
       },
-      (r) {
+      (r) async{
         print(r);
         emit(UserDataSaved());
+        await fetchUserData();
       },
     );
   }

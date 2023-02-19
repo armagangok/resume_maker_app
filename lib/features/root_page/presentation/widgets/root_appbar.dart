@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:resume_maker_app/data/models/experience/experience.dart';
 import 'package:resume_maker_app/data/models/qualifications/qualifications.dart';
 import 'package:resume_maker_app/data/models/skills/skills.dart';
-import 'package:resume_maker_app/domain/usecases/user_data_usecase.dart';
 
 import '../../../../core/export/export.dart';
 
@@ -151,9 +150,8 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                     );
 
                     var encodedJson = json.encode(userData.toJson());
-
-                    // Injection.rootCubit.saveUserData(encodedJson);
-                    Injection.rootCubit.fetchUserData();
+                    Injection.rootCubit.saveUserData(encodedJson);
+                    Injection.navigator.navigaToClear(path: homePage);
                   },
                 ),
               );

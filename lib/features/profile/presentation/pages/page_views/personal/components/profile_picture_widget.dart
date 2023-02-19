@@ -38,8 +38,6 @@ class ProfilePictureWidget extends StatelessWidget {
                     ),
                   );
                 } else if (state is ImagePicked) {
-                  print("image show");
-
                   return CircleAvatar(
                     radius: 61.2.h,
                     backgroundColor: white,
