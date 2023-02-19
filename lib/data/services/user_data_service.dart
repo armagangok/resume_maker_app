@@ -16,7 +16,7 @@ class UserDataServiceImp {
   }
 
   Future<dynamic> fetchUserData() async {
-    var response = await HiveHelper.shared.getAll(HiveBoxes.userDataBox);
+    var response = await HiveHelper.shared.getAll<String>(HiveBoxes.userDataBox);
 
     LogHelper.shared.debugPrint("$response");
     return response;

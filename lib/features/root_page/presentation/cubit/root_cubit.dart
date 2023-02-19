@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../../../../core/export/export.dart';
 import '../../../../domain/usecases/user_data_usecase.dart';
 
@@ -12,8 +14,14 @@ class RootCubit extends Cubit<RootState> {
     var response = await _userDataUsecase.saveUserData(userData);
 
     response.fold(
-      (l) => emit(UserDataSavingFailure()),
-      (r) => emit(UserDataSaved()),
+      (l) {
+        print(l);
+        emit(UserDataSavingFailure());
+      },
+      (r) {
+        print(r);
+        emit(UserDataSaved());
+      },
     );
   }
 
@@ -30,8 +38,21 @@ class RootCubit extends Cubit<RootState> {
     var response = await _userDataUsecase.fetchUserData();
 
     response.fold(
-      (l) => emit(UserDataFetchFailure()),
-      (r) => emit(UserDataFetched()),
+      (l) {
+        emit(UserDataFetchFailure());
+      },
+      (r) {
+        List<UserData> userDataList = [];
+        if (r != null) {
+          for (var element in r as List<String>) {
+            var model = UserData.fromJson(jsonDecode(element));
+            userDataList.add(model);
+          }
+          emit(UserDataFetched(userDataList: userDataList));
+        } else {
+          emit(UserDataFetched(userDataList: userDataList));
+        }
+      },
     );
   }
 }

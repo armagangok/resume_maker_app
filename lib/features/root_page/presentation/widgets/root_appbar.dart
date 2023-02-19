@@ -152,7 +152,8 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
                     var encodedJson = json.encode(userData.toJson());
 
-                    
+                    // Injection.rootCubit.saveUserData(encodedJson);
+                    Injection.rootCubit.fetchUserData();
                   },
                 ),
               );

@@ -6,6 +6,8 @@ import 'package:resume_maker_app/core/navigation/constant/routes.dart';
 import 'package:resume_maker_app/core/theme/constants/colors.dart';
 import 'package:resume_maker_app/core/widget/custom_container.dart';
 
+import '../../../../core/constant/padding_constant.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -14,6 +16,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    Injection.rootCubit.fetchUserData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,8 +32,24 @@ class _HomePageState extends State<HomePage> {
 
   Widget _bodyWidget() {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        Expanded(
+          child: GridView.builder(
+            shrinkWrap: true,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+            ),
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: EdgeInsets.all(KPadding.height10),
+                child: Container(
+                  color: Colors.red,
+                ),
+              );
+            },
+          ),
+        ),
         _createResumeButton(),
       ],
     );
