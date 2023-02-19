@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:resume_maker_app/core/injection/injection_service.dart';
+import 'package:resume_maker_app/core/util/pdf_maker/cloud_template.dart';
 
 import '../cubit/design_cubit.dart';
 
-class ResumeListViewBuilder extends StatelessWidget {
-  const ResumeListViewBuilder({
+class ResumeTemplateBuilder extends StatelessWidget {
+  const ResumeTemplateBuilder({
     super.key,
   });
 
@@ -18,17 +19,26 @@ class ResumeListViewBuilder extends StatelessWidget {
         return GridView.builder(
           shrinkWrap: true,
           physics: const ClampingScrollPhysics(),
-          itemCount: Injection.designCubit.resumeColors.length,
+          itemCount: 1,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
           ),
           itemBuilder: (context, index) {
             return Padding(
               padding: EdgeInsets.all(8.0.h),
-              child: Container(
-                height: 300.h,
-                color: Injection.designCubit.selectedColor,
-                child: const Text("Resume Template"),
+              child: GestureDetector(
+                onTap: () async {
+                  var cloud = CloudTemplate();
+                  var file = await cloud.createPdf();
+                  await cloud.savePdfFile("${DateTime.now()}", file);
+                },
+                child: Container(
+                  height: 300.h,
+                  color: Injection.designCubit.selectedColor,
+                  child: const Center(
+                    child: Text("Cloud Template"),
+                  ),
+                ),
               ),
             );
           },

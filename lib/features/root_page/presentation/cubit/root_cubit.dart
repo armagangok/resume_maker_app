@@ -17,11 +17,9 @@ class RootCubit extends Cubit<RootState> {
 
     response.fold(
       (l) {
-        print(l);
         emit(UserDataSavingFailure());
       },
       (r) async{
-        print(r);
         emit(UserDataSaved());
         await fetchUserData();
       },

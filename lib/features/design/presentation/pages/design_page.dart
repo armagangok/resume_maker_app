@@ -20,7 +20,7 @@ class _DesignPageState extends State<DesignPage> {
         children: [
           _colorPickerWidget(),
           const CustomDivider(),
-          const ResumeListViewBuilder(),
+          const ResumeTemplateBuilder(),
         ],
       ),
     );

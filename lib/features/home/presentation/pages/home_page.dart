@@ -75,8 +75,7 @@ class _HomePageState extends State<HomePage> {
                                 backgroundColor: iconBackground,
                                 radius: 60.h,
                                 child: state.userDataList[index].personal!
-                                            .imagePath !=
-                                        null
+                                        .imagePath!.isNotEmpty
                                     ? ClipOval(
                                         child: Image.file(
                                           File(state.userDataList[index]
