@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:resume_maker_app/data/models/experience/experience.dart';
 import 'package:resume_maker_app/data/models/qualifications/qualifications.dart';
 import 'package:resume_maker_app/data/models/skills/skills.dart';
+import 'package:resume_maker_app/domain/usecases/user_data_usecase.dart';
 
 import '../../../../core/export/export.dart';
 
@@ -37,7 +38,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
           GestureDetector(
-            onTap: () {
+            onTap: () async {
               context.cupertinoDialog(
                 widget: IosChoiceDialog(
                   title: "Warning",
@@ -150,6 +151,8 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                     );
 
                     var encodedJson = json.encode(userData.toJson());
+
+                    
                   },
                 ),
               );

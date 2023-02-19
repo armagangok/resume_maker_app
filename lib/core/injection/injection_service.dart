@@ -1,4 +1,5 @@
 import 'package:resume_maker_app/core/export/export.dart';
+import 'package:resume_maker_app/features/root_page/presentation/cubit/root_cubit.dart';
 
 import '../../features/profile/presentation/cubit/new_item/new_item_cubit.dart';
 
@@ -25,8 +26,8 @@ class Injection {
   static MultipleItemCubit get educationCubit => _educationCubit;
   static MultipleItemCubit get qualificationsCubit => _qualificationCubit;
   static MultipleItemCubit get experienceCubit => _experienceCubit;
+  static RootCubit get rootCubit => getIt.call<RootCubit>();
 
-  static PersonalDataCubit get personalDataCubit =>
-      getIt.call<PersonalDataCubit>();
+  static PersonalDataCubit get personalDataCubit => getIt.call<PersonalDataCubit>();
   static ImageCubit get imageCubit => getIt.call<ImageCubit>();
 }
