@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:pdf/pdf.dart';
@@ -16,15 +15,15 @@ Uint8List? uint8ListData;
 pw.Widget symmetricPadding(pw.Widget column) {
   return pw.Padding(
     padding: pw.EdgeInsets.symmetric(
-      horizontal: width * 0.03,
-      vertical: width * 0.03,
+      horizontal: 20.w,
+      vertical: 20.w,
     ),
     child: column,
   );
 }
 
 pw.Widget get sizedBox015 => pw.SizedBox(
-      height: height * 0.02,
+      height: 10.h,
     );
 
 pw.Widget head1Text(String text) {
@@ -51,7 +50,7 @@ pw.Widget sideTextBody(String text) {
 
 pw.Divider customDivider() => pw.Divider(
       height: 0,
-      thickness: 1,
+      thickness: 1.h,
       color: PdfColors.grey600,
     );
 
@@ -101,7 +100,7 @@ pw.Widget educationText({required List<Education> educationList}) {
         );
       },
       separatorBuilder: (context, index) {
-        return pw.SizedBox(height: height * 0.01);
+        return pw.SizedBox(height: 10.h);
       },
       itemCount: educationList.length);
 }
@@ -143,24 +142,24 @@ pw.Widget contactText({required Personal personalModel}) {
   );
 }
 
-pw.Widget getPersonImage1(String imagePath) {
-  var image = File(imagePath);
-  final byte = pw.MemoryImage(image.readAsBytesSync());
+// pw.Widget getPersonImage1(String imagePath) {
+//   var image = File(imagePath);
+//   final byte = pw.MemoryImage(image.readAsBytesSync());
 
-  return pw.Container(
-    width: width * 0.4,
-    height: width * 0.4,
-    decoration: pw.BoxDecoration(
-      color: PdfColors.orange,
-      // shape: BoxShape.circle,
-      borderRadius: borderRadius6(),
-      image: pw.DecorationImage(
-        image: byte,
-        fit: pw.BoxFit.cover,
-      ),
-    ),
-  );
-}
+//   return pw.Container(
+//     width: width * 0.4,
+//     height: width * 0.4,
+//     decoration: pw.BoxDecoration(
+//       color: PdfColors.orange,
+//       // shape: BoxShape.circle,
+//       borderRadius: borderRadius6(),
+//       image: pw.DecorationImage(
+//         image: byte,
+//         fit: pw.BoxFit.cover,
+//       ),
+//     ),
+//   );
+// }
 
 pw.Widget skillText({required List<Skills> skills}) {
   var column = pw.Wrap(

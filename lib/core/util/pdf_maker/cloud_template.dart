@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
@@ -10,16 +11,23 @@ import 'package:resume_maker_app/core/util/pdf_maker/repository/repo.dart';
 
 import '../logger.dart';
 import 'components/pdf_components.dart';
+import 'contract/template_contract.dart';
 
 // const String path = 'assets/person.png';
 
-class CloudTemplate {
-  CloudTemplate();
+class CloudTemplate extends ResumeTemplateContract {
+  CloudTemplate() {
+    _buildUpPDF();
+  }
+
+  @override
+  final String templateName = 'Cloud Template';
 
   List<pw.Widget> widgets = [];
   final pdf = pw.Document();
   final PdfRepo _pdfRepo = PdfRepo.instance;
 
+  @override
   Future<Uint8List> createPdf() async {
     pdf.addPage(
       pw.MultiPage(
@@ -40,10 +48,10 @@ class CloudTemplate {
     return await pdf.save();
   }
 
-  void buildUpPDF() {
-    var profilePicture = _pdfRepo.getUserData.personal!.imagePath == null
-        ? pw.SizedBox()
-        : getPersonImage1(_pdfRepo.getUserData.personal!.imagePath!);
+  void _buildUpPDF() {
+    // var profilePicture = _pdfRepo.getUserData.personal!.imagePath == null
+    //     ? pw.SizedBox()
+    //     : getPersonImage1(_pdfRepo.getUserData.personal!.imagePath!);
 
     var aboutmeWidget = _pdfRepo.getUserData.personal!.summary == null
         ? pw.SizedBox()
@@ -52,11 +60,11 @@ class CloudTemplate {
     var educationContainer = _pdfRepo.getUserData.education == null
         ? pw.SizedBox()
         : pw.Padding(
-            padding: pw.EdgeInsets.only(top: width * 0.025),
+            padding: pw.EdgeInsets.only(top: 20.h),
             child: pw.Container(
               decoration: _blueBoxDecoration(),
               width: double.infinity,
-              padding: pw.EdgeInsets.all(width * 0.015),
+              padding: pw.EdgeInsets.all(20.w),
               child: pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
@@ -75,11 +83,11 @@ class CloudTemplate {
     var languageContainer = _pdfRepo.getUserData.languages == null
         ? pw.SizedBox()
         : pw.Padding(
-            padding: pw.EdgeInsets.only(top: width * 0.025),
+            padding: pw.EdgeInsets.only(top: 20.h),
             child: pw.Container(
               decoration: _blueBoxDecoration(),
               width: double.infinity,
-              padding: pw.EdgeInsets.all(width * 0.015),
+              padding: pw.EdgeInsets.all(20.w),
               child: pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
@@ -99,11 +107,11 @@ class CloudTemplate {
     var skillsContainer = _pdfRepo.getUserData.skills == null
         ? pw.SizedBox()
         : pw.Padding(
-            padding: pw.EdgeInsets.only(top: width * 0.025),
+            padding: pw.EdgeInsets.only(top: 20.h),
             child: pw.Container(
               decoration: _blueBoxDecoration(),
               width: double.infinity,
-              padding: pw.EdgeInsets.all(width * 0.015),
+              padding: pw.EdgeInsets.all(20.w),
               child: pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
@@ -123,11 +131,11 @@ class CloudTemplate {
     var contactContainer = _pdfRepo.getUserData.personal == null
         ? pw.SizedBox()
         : pw.Padding(
-            padding: pw.EdgeInsets.only(top: width * 0.025),
+            padding: pw.EdgeInsets.only(top: 20.h),
             child: pw.Container(
               decoration: _blueBoxDecoration(),
               width: double.infinity,
-              padding: pw.EdgeInsets.all(width * 0.015),
+              padding: pw.EdgeInsets.all(20.w),
               child: pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
@@ -148,8 +156,8 @@ class CloudTemplate {
           ? pw.SizedBox()
           : pw.Row(
               children: [
-                pw.Center(child: profilePicture),
-                pw.SizedBox(width: width * 0.05),
+                // pw.Center(child: profilePicture),
+                pw.SizedBox(width: 30.w),
                 pw.Expanded(
                   child: pw.SizedBox(
                     child: pw.Column(
@@ -219,6 +227,7 @@ class CloudTemplate {
     );
   }
 
+  @override
   Future<void> savePdfFile(
     String fileName,
     Uint8List byteList,

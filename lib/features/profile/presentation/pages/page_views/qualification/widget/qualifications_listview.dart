@@ -21,14 +21,9 @@ class QualificationsNewItemBuilder extends StatelessWidget {
               child: Column(
                 children: [
                   UnderlinedTextField(
-                    hintText: "Title",
-                    controller:
-                        Injection.qualificationsCubit.newItems[index].title!,
-                  ),
-                  UnderlinedTextField(
-                    hintText: "School",
-                    controller: Injection
-                        .qualificationsCubit.newItems[index].schoolController!,
+                    hintText: "Job Title",
+                    controller: Injection.qualificationsCubit.newItems[index]
+                        .jobTitleController!,
                   ),
                   UnderlinedTextField(
                     hintText: "Details",

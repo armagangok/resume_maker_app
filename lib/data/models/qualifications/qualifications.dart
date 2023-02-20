@@ -7,7 +7,6 @@ part 'qualifications.g.dart';
 abstract class Qualifications with _$Qualifications {
   const factory Qualifications({
     String? title,
-    String? school,
     String? details,
   }) = _Qualifications;
 

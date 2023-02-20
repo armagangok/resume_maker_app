@@ -9,12 +9,11 @@ class PdfRepo {
   }
   static final instance = PdfRepo._();
 
-
   final UserDataUsecase usecase = UserDataUsecase.instance;
 
   List<UserData> userDataList = [];
 
-  UserData get getUserData => userDataList[0];
+  UserData get getUserData => userDataList[4];
 
   void initializeRepositories() {
     usecase.fetchUserData().then(
@@ -30,5 +29,6 @@ class PdfRepo {
         );
       },
     );
+    // print(getUserData);
   }
 }

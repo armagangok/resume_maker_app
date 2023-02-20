@@ -124,7 +124,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                         jobDuties: element.jobDutiesController!.text,
                         jobTitle: element.jobTitleController!.text,
                         endDate: element.jobEndDateController!.text,
-                        startDate: element.startDateController!.text,
+                        startDate: "element.startDateController!.text",
                       );
                       experiencesData.add(experienceModel);
                     }
@@ -134,7 +134,6 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                         in Injection.qualificationsCubit.newItems) {
                       var qualificationModel = Qualifications(
                         title: element.jobTitleController!.text,
-                        school: element.schoolController!.text,
                         details: element.details!.text,
                       );
                       qualificationData.add(qualificationModel);

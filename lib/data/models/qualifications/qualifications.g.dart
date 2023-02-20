@@ -9,13 +9,11 @@ part of 'qualifications.dart';
 _$_Qualifications _$$_QualificationsFromJson(Map<String, dynamic> json) =>
     _$_Qualifications(
       title: json['title'] as String?,
-      school: json['school'] as String?,
       details: json['details'] as String?,
     );
 
 Map<String, dynamic> _$$_QualificationsToJson(_$_Qualifications instance) =>
     <String, dynamic>{
       'title': instance.title,
-      'school': instance.school,
       'details': instance.details,
     };
