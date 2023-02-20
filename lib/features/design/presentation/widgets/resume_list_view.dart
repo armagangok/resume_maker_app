@@ -40,7 +40,8 @@ class ResumeTemplateBuilder extends StatelessWidget {
       child: GestureDetector(
         onTap: () async {
           resumeTemplateList[index].createPdf().then((value) async {
-            await resumeTemplateList[index].savePdfFile("${DateTime.now()}", value);
+            await resumeTemplateList[index]
+                .savePdfFile("${DateTime.now()}", value);
           });
         },
         child: Container(

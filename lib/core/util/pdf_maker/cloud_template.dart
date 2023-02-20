@@ -16,9 +16,7 @@ import 'contract/template_contract.dart';
 // const String path = 'assets/person.png';
 
 class CloudTemplate extends ResumeTemplateContract {
-  CloudTemplate() {
-    _buildUpPDF();
-  }
+  CloudTemplate();
 
   @override
   final String templateName = 'Cloud Template';
@@ -48,7 +46,7 @@ class CloudTemplate extends ResumeTemplateContract {
     return await pdf.save();
   }
 
-  void _buildUpPDF() {
+  void buildUpPDF() {
     // var profilePicture = _pdfRepo.getUserData.personal!.imagePath == null
     //     ? pw.SizedBox()
     //     : getPersonImage1(_pdfRepo.getUserData.personal!.imagePath!);
@@ -232,6 +230,7 @@ class CloudTemplate extends ResumeTemplateContract {
     String fileName,
     Uint8List byteList,
   ) async {
+    buildUpPDF();
     final output = await getTemporaryDirectory();
     var filePath = "${output.path}/$fileName.pdf";
 
