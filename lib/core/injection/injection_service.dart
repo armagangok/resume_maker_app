@@ -1,4 +1,5 @@
 import 'package:resume_maker_app/core/export/export.dart';
+import 'package:resume_maker_app/features/preview/presentation/cubit/preview_cubit.dart';
 import 'package:resume_maker_app/features/root_page/presentation/cubit/root_cubit.dart';
 
 import '../../features/profile/presentation/cubit/new_item/new_item_cubit.dart';
@@ -17,6 +18,7 @@ class Injection {
 
   static NavigationContract get navigator => getIt.call<NavigationContract>();
   static DesignCubit get designCubit => getIt.call<DesignCubit>();
+  static PreviewCubit get previewCubit => getIt.call<PreviewCubit>();
   static ProfileCubit get profileCubit => getIt.call<ProfileCubit>();
   static NewItemCubit get phoneItemCubit => _phoneItemCubit;
   static NewItemCubit get emailItemCubit => _emailItemCubit;
@@ -28,6 +30,7 @@ class Injection {
   static MultipleItemCubit get experienceCubit => _experienceCubit;
   static RootCubit get rootCubit => getIt.call<RootCubit>();
 
-  static PersonalDataCubit get personalDataCubit => getIt.call<PersonalDataCubit>();
+  static PersonalDataCubit get personalDataCubit =>
+      getIt.call<PersonalDataCubit>();
   static ImageCubit get imageCubit => getIt.call<ImageCubit>();
 }

@@ -21,10 +21,18 @@ class GreyPlainTemplate extends ResumeTemplateContract {
 
   @override
   final templateName = 'Grey Plain Template';
+
+  @override
+  bool isSelected = false;
+
+  @override
+  String filePath = "";
+
   final PdfRepo _pdfRepo = PdfRepo.instance;
 
   final pdf = pw.Document();
 
+  @override
   Future<Uint8List> createPdf() async {
     // pw.ThemeData myTheme = pw.ThemeData.withFont(
     //   base: Font.ttf(
@@ -195,6 +203,7 @@ class GreyPlainTemplate extends ResumeTemplateContract {
     );
   }
 
+  @override
   Future<void> savePdfFile(
     String fileName,
     Uint8List byteList,

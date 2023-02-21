@@ -22,6 +22,12 @@ class PeachPuffTemplate extends ResumeTemplateContract {
   @override
   final String templateName = "Peach Puff Template";
 
+  @override
+  bool isSelected = false;
+
+  @override
+  String filePath = "";
+
   final pdf = pw.Document();
   List<pw.Widget> widgets = [];
 

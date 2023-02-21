@@ -16,10 +16,18 @@ import 'contract/template_contract.dart';
 // const String path = 'assets/person.png';
 
 class CloudTemplate extends ResumeTemplateContract {
-  CloudTemplate();
+  CloudTemplate._();
+
+  static final instance = CloudTemplate._();
 
   @override
   final String templateName = 'Cloud Template';
+
+  @override
+  bool isSelected = true;
+
+  @override
+  String filePath = "";
 
   List<pw.Widget> widgets = [];
   final pdf = pw.Document();

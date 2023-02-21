@@ -84,6 +84,7 @@ dependencies:
   flutter_svg: ^2.0.0+1
   flutter_screenutil: ^5.6.1
   intl: ^0.18.0
+  pdf_viewer_plugin: ^2.0.1
   
 
   
