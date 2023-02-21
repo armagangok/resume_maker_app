@@ -12,6 +12,12 @@ class PreviewPage extends StatefulWidget {
 class _PreviewPageState extends State<PreviewPage> {
   @override
   void initState() {
+    Injection.previewCubit.selectedTemplate.buildUpPDF();
+    Injection.previewCubit.selectedTemplate.createPdf().then((value) async {
+      await Injection.previewCubit.selectedTemplate
+          .savePdfFile("${DateTime.now()}", value);
+    });
+
     super.initState();
   }
 

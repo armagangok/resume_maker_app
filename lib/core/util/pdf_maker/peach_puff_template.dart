@@ -15,7 +15,9 @@ import 'contract/template_contract.dart';
 // const String path = 'assets/person.png';
 
 class PeachPuffTemplate extends ResumeTemplateContract {
-  PeachPuffTemplate();
+  PeachPuffTemplate._();
+
+  static final instance = PeachPuffTemplate._();
 
   final _myrepo = PdfRepo.instance;
 
@@ -207,6 +209,11 @@ class PeachPuffTemplate extends ResumeTemplateContract {
     } catch (e) {
       print("$e");
     }
+  }
+  
+  @override
+  void buildUpPDF() {
+    // TODO: implement buildUpPDF
   }
 
   // Future<void> savePdfFile(

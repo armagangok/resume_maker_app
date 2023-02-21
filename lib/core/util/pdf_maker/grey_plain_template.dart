@@ -17,7 +17,9 @@ import 'components/pdf_components.dart';
 // const String path = 'assets/person.png';
 
 class GreyPlainTemplate extends ResumeTemplateContract {
-  GreyPlainTemplate();
+  GreyPlainTemplate._();
+
+  static final instance = GreyPlainTemplate._();
 
   @override
   final templateName = 'Grey Plain Template';
@@ -219,6 +221,9 @@ class GreyPlainTemplate extends ResumeTemplateContract {
       print("$e");
     }
   }
+
+  @override
+  void buildUpPDF() {}
 }
 
 // "I have been learning and implementing Flutter for the last year. I recently use Feature Based Clean Architecture and Cubit state management to deal with my projects."

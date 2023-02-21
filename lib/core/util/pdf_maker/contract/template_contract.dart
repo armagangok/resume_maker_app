@@ -11,4 +11,6 @@ abstract class ResumeTemplateContract {
     String fileName,
     Uint8List byteList,
   );
+
+  void buildUpPDF();
 }

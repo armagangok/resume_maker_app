@@ -18,14 +18,14 @@ class PreviewCubit extends Cubit<PreviewState> {
     }
 
     resumeTemplateList[index].isSelected = true;
-    
+
     selectedTemplate = resumeTemplateList[index];
     emit(PreviewInitial());
   }
 
   List<ResumeTemplateContract> resumeTemplateList = [
     CloudTemplate.instance,
-    GreyPlainTemplate(),
-    PeachPuffTemplate(),
+    GreyPlainTemplate.instance,
+    PeachPuffTemplate.instance,
   ];
 }
