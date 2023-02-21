@@ -28,9 +28,9 @@ class ResumeColorItem extends StatelessWidget {
                 child: Visibility(
                   visible: colorModel.isSelected,
                   child: Icon(
-                    CupertinoIcons.check_mark,
+                    CupertinoIcons.checkmark_alt,
                     color: white,
-                    size: 17.h,
+                    size: 30.h,
                   ),
                 ),
               ),

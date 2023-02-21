@@ -1,6 +1,5 @@
 import '../../../../core/export/export.dart';
 import '../../../../core/widget/custom_tab_bar.dart';
-import '../cubit/design_cubit.dart';
 import '../widgets/resume_list_view.dart';
 
 class DesignPage extends StatefulWidget {

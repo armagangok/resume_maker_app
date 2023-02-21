@@ -1,15 +1,12 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:resume_maker_app/core/util/pdf_maker/repository/repo.dart';
 
-import '../logger.dart';
 import 'components/pdf_components.dart';
 import 'contract/template_contract.dart';
 
@@ -33,7 +30,7 @@ class CloudTemplate extends ResumeTemplateContract {
   final PdfRepo _pdfRepo = PdfRepo.instance;
 
   @override
-  Future<Uint8List> createPdf() async {
+  Future<Uint8List> getcreatedPdf() async {
     pdf.addPage(
       pw.MultiPage(
         pageFormat: PdfPageFormat.letter.copyWith(
@@ -234,20 +231,13 @@ class CloudTemplate extends ResumeTemplateContract {
   }
 
   @override
-  Future<void> savePdfFile(
-    String fileName,
-    Uint8List byteList,
-  ) async {
-    buildUpPDF();
+  Future<String> getFilePathToSave() async {
     final output = await getTemporaryDirectory();
-    var filePath = "${output.path}/$fileName.pdf";
+    // final file = File(filePath);
+    filePath = "${output.path}/${DateTime.now()}.pdf";
+    // final file = File("example.pdf");
 
-    final file = File(filePath);
-    try {
-      await file.writeAsBytes(byteList);
-      await OpenFile.open(filePath);
-    } catch (e) {
-      LogHelper.shared.debugPrint("$e");
-    }
+    // await OpenFile.open(filePath);
+    return filePath;
   }
 }

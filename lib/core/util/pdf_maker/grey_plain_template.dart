@@ -1,9 +1,7 @@
 // ignoreforfile: avoidprint
 
-import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -35,7 +33,7 @@ class GreyPlainTemplate extends ResumeTemplateContract {
   final pdf = pw.Document();
 
   @override
-  Future<Uint8List> createPdf() async {
+  Future<Uint8List> getcreatedPdf() async {
     // pw.ThemeData myTheme = pw.ThemeData.withFont(
     //   base: Font.ttf(
     //     await rootBundle.load("assets/fonts/Lato/Lato-Regular.ttf"),
@@ -206,20 +204,20 @@ class GreyPlainTemplate extends ResumeTemplateContract {
   }
 
   @override
-  Future<void> savePdfFile(
-    String fileName,
-    Uint8List byteList,
-  ) async {
+  Future<String> getFilePathToSave() async {
     final output = await getTemporaryDirectory();
-    var filePath = "${output.path}/$fileName.pdf";
 
-    final file = File(filePath);
-    try {
-      await file.writeAsBytes(byteList);
-      await OpenFile.open(filePath);
-    } catch (e) {
-      print("$e");
-    }
+    filePath = "${output.path}/${"${DateTime.now()}"}.pdf";
+
+    return filePath;
+
+    // final file = File(filePath);
+    // try {
+    //   // await file.writeAsBytes(byteList);
+    //   // await OpenFile.open(filePath);
+    // } catch (e) {
+    //   print("$e");
+    // }
   }
 
   @override
