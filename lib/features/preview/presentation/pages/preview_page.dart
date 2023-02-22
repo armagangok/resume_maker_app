@@ -23,17 +23,20 @@ class _PreviewPageState extends State<PreviewPage> {
       body: BlocConsumer<PreviewCubit, PreviewState>(
         bloc: Injection.previewCubit,
         listener: (context, state) {
-          if (state is PreviewLoadingError || state is  PreviewLoaded) {
-            
+          if (state is PreviewLoadingError || state is PreviewLoaded) {
             context.showSnackBar(
-               SnackBar(
-                content: Text(state.pdfFilePath),
+              SnackBar(
+                backgroundColor: primaryColor.withOpacity(0.5),
+                content: Text(
+                  state.pdfFilePath,
+                  style: context.bodyLarge,
+                ),
               ),
             );
           }
         },
         builder: (context, state) {
-          if (state is PreviewLoading ) {
+          if (state is PreviewLoading) {
             return _loadPreview();
           } else if (state is PreviewLoaded) {
             return PdfView(

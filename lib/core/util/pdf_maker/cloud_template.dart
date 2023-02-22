@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
@@ -232,10 +232,13 @@ class CloudTemplate extends ResumeTemplateContract {
 
   @override
   Future<String> getFilePathToSave() async {
-    final output = await getTemporaryDirectory();
-    // final file = File(filePath);
+    final output = await path_provider.getApplicationDocumentsDirectory();
+
+    print(filePath);
+
     filePath = "${output.path}/${DateTime.now()}.pdf";
-    // final file = File("example.pdf");
+
+    print(filePath);
 
     // await OpenFile.open(filePath);
     return filePath;
