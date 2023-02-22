@@ -21,14 +21,9 @@ class QualificationsNewItemBuilder extends StatelessWidget {
               child: Column(
                 children: [
                   UnderlinedTextField(
-                    hintText: "Title",
-                    controller:
-                        Injection.qualificationsCubit.newItems[index].title!,
-                  ),
-                  UnderlinedTextField(
-                    hintText: "School",
-                    controller: Injection
-                        .qualificationsCubit.newItems[index].schoolController!,
+                    hintText: "Job Title",
+                    controller: Injection.qualificationsCubit.newItems[index]
+                        .jobTitleController!,
                   ),
                   UnderlinedTextField(
                     hintText: "Details",
@@ -48,8 +43,7 @@ class QualificationsNewItemBuilder extends StatelessWidget {
       index != 0 ? EdgeInsets.only(top: KPadding.height30) : EdgeInsets.zero;
 }
 
-
-class QualificationModel extends ModelEntity {
+class QualificationModel extends UserDataEntity {
   @override
   final TextEditingController? title;
   @override

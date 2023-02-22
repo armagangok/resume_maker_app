@@ -14,56 +14,57 @@ class PersonalView extends StatelessWidget {
     return ListView(
       shrinkWrap: true,
       children: [
+        SizedBox(height: KPadding.height20,),
         const ProfilePictureWidget(),
         SizedBox(height: KPadding.width20),
         SizedBox(
           child: UnderlinedTextField(
             hintText: "Profession Title",
             helperText: "Example: Software Developer",
-            controller: TextEditingController(),
+            controller: Injection.personalDataCubit.professionTitleController,
           ),
         ),
         SizedBox(
           child: UnderlinedTextField(
             hintText: "Full Name",
-            controller: TextEditingController(),
+            controller: Injection.personalDataCubit.fullNameController,
           ),
         ),
         SizedBox(
           child: UnderlinedTextField(
             hintText: "Birthday",
-            controller: TextEditingController(),
+            controller: Injection.personalDataCubit.birthDayController,
           ),
         ),
         SizedBox(
           child: UnderlinedTextField(
             hintText: "Country",
-            controller: TextEditingController(),
+            controller: Injection.personalDataCubit.countryController,
           ),
         ),
         SizedBox(
           child: UnderlinedTextField(
             hintText: "Zip Code",
-            controller: TextEditingController(),
+            controller: Injection.personalDataCubit.zipCodeController,
           ),
         ),
         SizedBox(
           child: UnderlinedTextField(
             hintText: "City",
-            controller: TextEditingController(),
+            controller: Injection.personalDataCubit.cityController,
           ),
         ),
         SizedBox(
           child: UnderlinedTextField(
             hintText: "Street",
-            controller: TextEditingController(),
+            controller: Injection.personalDataCubit.streetController,
           ),
         ),
         SizedBox(height: 3 * KPadding.width20),
         SizedBox(
           child: UnderlinedTextField(
             hintText: "Phone",
-            controller: TextEditingController(),
+            controller: Injection.personalDataCubit.phoneController,
           ),
         ),
         SingleNewItemBuilder(
@@ -76,7 +77,7 @@ class PersonalView extends StatelessWidget {
         SizedBox(height: 3 * KPadding.width20),
         UnderlinedTextField(
           hintText: "E-mail",
-          controller: TextEditingController(),
+          controller: Injection.personalDataCubit.emailController,
         ),
         SingleNewItemBuilder(
           cubit: Injection.emailItemCubit,
@@ -90,7 +91,7 @@ class PersonalView extends StatelessWidget {
         SizedBox(height: 3 * KPadding.width20),
         UnderlinedTextField(
           hintText: "Link",
-          controller: TextEditingController(),
+          controller: Injection.personalDataCubit.linkController,
         ),
         SingleNewItemBuilder(
           cubit: Injection.linkItemCubit,
@@ -105,7 +106,7 @@ class PersonalView extends StatelessWidget {
         UnderlinedTextField(
           heigth: null,
           hintText: "Summary",
-          controller: TextEditingController(),
+          controller: Injection.personalDataCubit.summaryController,
           maxLines: null,
         )
       ],

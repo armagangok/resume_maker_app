@@ -13,6 +13,8 @@ abstract class Personal with _$Personal {
     String? zipCode,
     String? city,
     String? street,
+    String? summary,
+    String? imagePath,
     List<String>? phones,
     List<String>? emails,
     List<String>? links,

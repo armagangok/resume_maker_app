@@ -34,7 +34,7 @@ class SkillsView extends StatelessWidget {
   }
 }
 
-class SkillsModel extends ModelEntity {
+class SkillsModel extends UserDataEntity {
   @override
   final TextEditingController? skillsController;
   @override

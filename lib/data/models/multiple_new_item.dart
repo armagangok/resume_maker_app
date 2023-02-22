@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:resume_maker_app/data/entities/entity.dart';
 
-class MultipleNewItem extends ModelEntity {
+class MultipleNewItem extends UserDataEntity {
   @override
   final TextEditingController degreeController;
   @override

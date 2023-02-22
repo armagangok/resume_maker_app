@@ -6,9 +6,12 @@ part 'language.g.dart';
 @freezed
 abstract class Language with _$Language {
   const factory Language({
-    String? skillName,
-    String? description,
+    String? languageName,
+    String? writing,
+    String? reading,
+    String? speaking,
   }) = _Language;
 
-  factory Language.fromJson(Map<String, dynamic> json) => _$LanguageFromJson(json);
+  factory Language.fromJson(Map<String, dynamic> json) =>
+      _$LanguageFromJson(json);
 }

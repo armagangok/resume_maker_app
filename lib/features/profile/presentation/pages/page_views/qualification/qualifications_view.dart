@@ -18,17 +18,16 @@ class QualificationsView extends StatelessWidget {
         NewItemWidget(
           onTap: () {
             String itemId = Injection.qualificationsCubit.getUniqeID();
-            var widget = QualificationModel(
+            var qualification = QualificationModel(
               details: TextEditingController(),
-              schoolController: TextEditingController(),
-              title: TextEditingController(),
+              jobTitleController: TextEditingController(),
               itemID: itemId,
               removeWidget: RemoveNewItemWidget(
                 itemID: itemId,
                 cubit: Injection.qualificationsCubit,
               ),
             );
-            Injection.qualificationsCubit.addNewItem(widget);
+            Injection.qualificationsCubit.addNewItem(qualification);
           },
         ),
       ],
@@ -36,11 +35,10 @@ class QualificationsView extends StatelessWidget {
   }
 }
 
-class QualificationModel extends ModelEntity {
+class QualificationModel extends UserDataEntity {
   @override
-  final TextEditingController? title;
+  final TextEditingController? jobTitleController;
   @override
-  final TextEditingController? schoolController;
   @override
   final TextEditingController? details;
   @override
@@ -49,8 +47,7 @@ class QualificationModel extends ModelEntity {
   RemoveNewItemWidget? removeWidget;
 
   QualificationModel({
-    required this.title,
-    required this.schoolController,
+    required this.jobTitleController,
     required this.details,
     required this.itemID,
     required this.removeWidget,

@@ -21,7 +21,6 @@ Qualifications _$QualificationsFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Qualifications {
   String? get title => throw _privateConstructorUsedError;
-  String? get school => throw _privateConstructorUsedError;
   String? get details => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -36,7 +35,7 @@ abstract class $QualificationsCopyWith<$Res> {
           Qualifications value, $Res Function(Qualifications) then) =
       _$QualificationsCopyWithImpl<$Res, Qualifications>;
   @useResult
-  $Res call({String? title, String? school, String? details});
+  $Res call({String? title, String? details});
 }
 
 /// @nodoc
@@ -53,17 +52,12 @@ class _$QualificationsCopyWithImpl<$Res, $Val extends Qualifications>
   @override
   $Res call({
     Object? title = freezed,
-    Object? school = freezed,
     Object? details = freezed,
   }) {
     return _then(_value.copyWith(
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String?,
-      school: freezed == school
-          ? _value.school
-          : school // ignore: cast_nullable_to_non_nullable
               as String?,
       details: freezed == details
           ? _value.details
@@ -81,7 +75,7 @@ abstract class _$$_QualificationsCopyWith<$Res>
       __$$_QualificationsCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? title, String? school, String? details});
+  $Res call({String? title, String? details});
 }
 
 /// @nodoc
@@ -96,17 +90,12 @@ class __$$_QualificationsCopyWithImpl<$Res>
   @override
   $Res call({
     Object? title = freezed,
-    Object? school = freezed,
     Object? details = freezed,
   }) {
     return _then(_$_Qualifications(
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String?,
-      school: freezed == school
-          ? _value.school
-          : school // ignore: cast_nullable_to_non_nullable
               as String?,
       details: freezed == details
           ? _value.details
@@ -119,7 +108,7 @@ class __$$_QualificationsCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Qualifications implements _Qualifications {
-  const _$_Qualifications({this.title, this.school, this.details});
+  const _$_Qualifications({this.title, this.details});
 
   factory _$_Qualifications.fromJson(Map<String, dynamic> json) =>
       _$$_QualificationsFromJson(json);
@@ -127,13 +116,11 @@ class _$_Qualifications implements _Qualifications {
   @override
   final String? title;
   @override
-  final String? school;
-  @override
   final String? details;
 
   @override
   String toString() {
-    return 'Qualifications(title: $title, school: $school, details: $details)';
+    return 'Qualifications(title: $title, details: $details)';
   }
 
   @override
@@ -142,13 +129,12 @@ class _$_Qualifications implements _Qualifications {
         (other.runtimeType == runtimeType &&
             other is _$_Qualifications &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.school, school) || other.school == school) &&
             (identical(other.details, details) || other.details == details));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, title, school, details);
+  int get hashCode => Object.hash(runtimeType, title, details);
 
   @JsonKey(ignore: true)
   @override
@@ -165,18 +151,14 @@ class _$_Qualifications implements _Qualifications {
 }
 
 abstract class _Qualifications implements Qualifications {
-  const factory _Qualifications(
-      {final String? title,
-      final String? school,
-      final String? details}) = _$_Qualifications;
+  const factory _Qualifications({final String? title, final String? details}) =
+      _$_Qualifications;
 
   factory _Qualifications.fromJson(Map<String, dynamic> json) =
       _$_Qualifications.fromJson;
 
   @override
   String? get title;
-  @override
-  String? get school;
   @override
   String? get details;
   @override

@@ -10,6 +10,8 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - pdf_viewer_plugin (0.0.1):
+    - Flutter
   - printing (1.0.0):
     - Flutter
   - ReachabilitySwift (5.0.0)
@@ -20,6 +22,7 @@ DEPENDENCIES:
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - open_file (from `.symlinks/plugins/open_file/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
+  - pdf_viewer_plugin (from `.symlinks/plugins/pdf_viewer_plugin/ios`)
   - printing (from `.symlinks/plugins/printing/ios`)
 
 SPEC REPOS:
@@ -37,6 +40,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/open_file/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/ios"
+  pdf_viewer_plugin:
+    :path: ".symlinks/plugins/pdf_viewer_plugin/ios"
   printing:
     :path: ".symlinks/plugins/printing/ios"
 
@@ -46,6 +51,7 @@ SPEC CHECKSUMS:
   image_picker_ios: b786a5dcf033a8336a657191401bfdf12017dabb
   open_file: 02eb5cb6b21264bd3a696876f5afbfb7ca4f4b7d
   path_provider_foundation: 37748e03f12783f9de2cb2c4eadfaa25fe6d4852
+  pdf_viewer_plugin: 45fc2233c590780ca0ca623a1f575e4bd0a72b3a
   printing: eafa00acb682c0ca029d4d98d0798f55a1e27102
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
 

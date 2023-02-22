@@ -1,94 +1,34 @@
-// import 'package:resume_maker_app/data/repository/local_database_repository_imp.dart';
+import 'dart:convert';
 
-// import '../../../../data/contracts/database_contract.dart';
-// import '../../../../feature/education/data/model/education_model.dart';
-// import '../../../../feature/experience/data/model/experience_model.dart';
-// import '../../../../feature/language/data/model/language_model.dart';
-// import '../../../../feature/personal_details/data/model/personal_data_model.dart';
-// import '../../../../feature/projects/data/model/project_model.dart';
-// import '../../../../feature/references/data/model/reference_model.dart';
-// import '../../../../feature/skills/data/model/skill_model.dart';
-// import '../../hive/hive_keys.dart';
-// import '../../logger.dart';
+import 'package:resume_maker_app/core/export/export.dart';
+import 'package:resume_maker_app/domain/usecases/user_data_usecase.dart';
 
-// class PdfRepo {
-//   PdfRepo._({required DatabaseContract database}) {
-//     myrepo = database;
-//     initializeRepositories();
-//   }
+class PdfRepo {
+  PdfRepo._() {
+    initializeRepositories();
+  }
+  static final instance = PdfRepo._();
 
-//   static final instance = PdfRepo._(
-//     database: LocalDatabaseRepositoryImp.instance,
-//   );
+  final UserDataUsecase usecase = UserDataUsecase.instance;
 
-//   late final DatabaseContract myrepo;
-//   List<ExperienceModel>? experienceList;
-//   PersonalDataModel? personalDataModel;
-//   List<EducationDataModel>? educationDataModel;
-//   List<ReferenceModel>? referenceDataList;
-//   List<LanguageModel>? languageList;
-//   List<SkillModel>? skillsList;
-//   List<ProjectModel>? projectList;
+  List<UserData> userDataList = [];
 
-//   void initializeRepositories() {
-//     myrepo
-//         .fetchData<PersonalDataModel>(
-//           boxName: HiveBoxes.personalDataBox,
-//         )
-//         .then(
-//           (value) => value.fold(
-//             (failure) => LogHelper.shared.debugPrint("$failure"),
-//             (data) => personalDataModel = data[0],
-//           ),
-//         );
+  UserData get getUserData => userDataList[4];
 
-//     myrepo
-//         .fetchData<ExperienceModel>(boxName: HiveBoxes.experienceDataBox)
-//         .then(
-//           (value) => value.fold(
-//             (failure) async =>
-//                 (failure) => LogHelper.shared.debugPrint("$failure"),
-//             (data) => experienceList = data,
-//           ),
-//         );
-
-//     myrepo
-//         .fetchData<EducationDataModel>(
-//           boxName: HiveBoxes.educationDataBox,
-//         )
-//         .then(
-//           (value) => value.fold(
-//             (failure) => LogHelper.shared.debugPrint("$failure"),
-//             (r) => educationDataModel = r,
-//           ),
-//         );
-
-//     myrepo.fetchData<ReferenceModel>(boxName: HiveBoxes.referenceDataBox).then(
-//           (value) => value.fold(
-//             (failure) => LogHelper.shared.debugPrint("$failure"),
-//             (r) => referenceDataList = r,
-//           ),
-//         );
-
-//     myrepo.fetchData<LanguageModel>(boxName: HiveBoxes.languageDataBox).then(
-//           (value) => value.fold(
-//             (failure) => LogHelper.shared.debugPrint("$failure"),
-//             (data) => languageList = data,
-//           ),
-//         );
-
-//     myrepo.fetchData<SkillModel>(boxName: HiveBoxes.skillDataBox).then(
-//           (value) => value.fold(
-//             (failure) => LogHelper.shared.debugPrint("$failure"),
-//             (r) => skillsList = r,
-//           ),
-//         );
-
-//     myrepo.fetchData<ProjectModel>(boxName: HiveBoxes.projectDataBox).then(
-//           (value) => value.fold(
-//             (failure) => LogHelper.shared.debugPrint("$failure"),
-//             (r) => projectList = r,
-//           ),
-//         );
-//   }
-// }
+  void initializeRepositories() {
+    usecase.fetchUserData().then(
+      (value) {
+        value.fold(
+          (l) => null,
+          (r) {
+            for (var element in r) {
+              var model = UserData.fromJson(jsonDecode(element));
+              userDataList.add(model);
+            }
+          },
+        );
+      },
+    );
+    // print(getUserData);
+  }
+}

@@ -5,6 +5,7 @@ import 'package:resume_maker_app/features/export/presentation/pages/export_page.
 
 import '../../../preview/presentation/pages/preview_page.dart';
 import '../../../profile/presentation/pages/profile_page.dart';
+import '../widgets/root_appbar.dart';
 
 class RootPage extends StatefulWidget {
   const RootPage({super.key});
@@ -14,6 +15,11 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   int _selectedIndex = 0;
 
   final List<Widget> _widgetOptions = <Widget>[
@@ -26,36 +32,11 @@ class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _appBar(),
+      appBar: const HomeAppBar(),
       bottomNavigationBar: _bottomNavBar(),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: KPadding.width10),
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+      body: _widgetOptions.elementAt(_selectedIndex),
     );
   }
-
-  AppBar _appBar() => AppBar(
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.menu_rounded,
-          ),
-        ),
-        actions: [
-          
-          IconButton(
-            onPressed: () {},
-            icon: IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                CupertinoIcons.checkmark_alt_circle_fill,
-                color: selectedItemColor,
-              ),
-            ),
-          )
-        ],
-      );
 
   Widget _bottomNavBar() => SizedBox(
         child: Column(
@@ -95,3 +76,15 @@ class _RootPageState extends State<RootPage> {
         ),
       );
 }
+
+// print(personalDataModel.birthday);
+// print(personalDataModel.city);
+// print(personalDataModel.country);
+// print(personalDataModel.fullName);
+// print(personalDataModel.emails);
+// print(personalDataModel.links);
+// print(personalDataModel.phones);
+// print(personalDataModel.street);
+// print(personalDataModel.title);
+// print(personalDataModel.summary);
+

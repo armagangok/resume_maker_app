@@ -4,7 +4,7 @@ import '../../../../../../core/export/export.dart';
 
 import '../../../../../../core/widget/buttons/add_new_item.dart';
 import '../../../../../../data/models/multiple_new_item.dart';
-import '../../../widgets/education_item_builder.dart';
+import 'widget/education_item_builder.dart';
 import '../../../widgets/remove_new_item.dart';
 
 class EducationView extends StatelessWidget {

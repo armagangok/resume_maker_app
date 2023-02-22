@@ -15,8 +15,12 @@ extension ContextExtension on BuildContext {
     ScaffoldMessenger.of(this).showSnackBar(snackBar);
   }
 
-  Future<void> cupertinoDialog(Widget widget) async {
+  Future<void> cupertinoDialog({
+    required Widget widget,
+    bool barrierDismissible = true,
+  }) async {
     await showCupertinoDialog(
+      barrierDismissible: barrierDismissible,
       context: this,
       builder: (_) => widget,
     );

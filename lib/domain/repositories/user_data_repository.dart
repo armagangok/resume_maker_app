@@ -3,12 +3,14 @@ import 'package:resume_maker_app/core/error/failure.dart';
 import 'package:resume_maker_app/data/services/user_data_service.dart';
 
 class UserDataRepository {
+  UserDataRepository._();
+  static final instance = UserDataRepository._();
+
   final _userDataService = UserDataServiceImp.instance;
 
   Future<Either<Failure, bool>> saveUserData(String userData) async {
     try {
       await _userDataService.saveUserData(userData);
-
       return const Right(true);
     } catch (e) {
       return Left(LocalDeletingFailure());
@@ -18,7 +20,6 @@ class UserDataRepository {
   Future<Either<Failure, dynamic>> fetchUserData() async {
     try {
       var response = await _userDataService.fetchUserData();
-
       return Right(response);
     } catch (e) {
       return Left(LocalFetchFailure());
@@ -28,7 +29,6 @@ class UserDataRepository {
   Future<Either<Failure, bool>> deleteUserData(int index) async {
     try {
       await _userDataService.deleteUserData(index);
-
       return const Right(true);
     } catch (e) {
       return Left(LocalFetchFailure());

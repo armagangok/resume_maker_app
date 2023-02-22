@@ -27,7 +27,7 @@ class _CustomTabBarWidgetState extends State<CustomTabBarWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50.h,
+      height: 65.h,
       child: Center(
         child: ListView.separated(
           addAutomaticKeepAlives: false,
