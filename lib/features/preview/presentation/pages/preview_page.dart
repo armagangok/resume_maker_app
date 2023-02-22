@@ -37,13 +37,13 @@ class _PreviewPageState extends State<PreviewPage> {
         },
         builder: (context, state) {
           if (state is PreviewLoading) {
-            return _loadPreview();
+            return _loadPreview;
           } else if (state is PreviewLoaded) {
             return PdfView(
               path: state.pdfFilePath,
             );
           } else if (state is PreviewLoadingError) {
-            return _loadPreviewError();
+            return _loadPreviewError;
           } else {
             return const Text("");
           }
@@ -52,30 +52,26 @@ class _PreviewPageState extends State<PreviewPage> {
     );
   }
 
-  Center _loadPreviewError() {
-    return Center(
-      child: Column(
-        children: const [
-          Icon(
-            CupertinoIcons.exclamationmark_triangle,
-            color: Colors.red,
-          ),
-          Text("Error occurred while pdf preview loading.")
-        ],
-      ),
-    );
-  }
+  Widget get _loadPreviewError => Center(
+        child: Column(
+          children: const [
+            Icon(
+              CupertinoIcons.exclamationmark_triangle,
+              color: Colors.red,
+            ),
+            Text("Error occurred while pdf preview loading.")
+          ],
+        ),
+      );
 
-  Center _loadPreview() {
-    return Center(
-      child: Column(
-        children: const [
-          Text("Pdf Preview Is Being Loaded.."),
-          CircularProgressIndicator(
-            color: white,
-          ),
-        ],
-      ),
-    );
-  }
+  Widget get _loadPreview => Center(
+        child: Column(
+          children: const [
+            Text("Pdf Preview Is Being Loaded.."),
+            CircularProgressIndicator(
+              color: white,
+            ),
+          ],
+        ),
+      );
 }

@@ -12,6 +12,8 @@ class PreviewLoading extends PreviewState {}
 class PreviewLoaded extends PreviewState {
   @override
   final String pdfFilePath;
+
+  static const message = "Preview loadded successfully";
   PreviewLoaded({
     required this.pdfFilePath,
   });
