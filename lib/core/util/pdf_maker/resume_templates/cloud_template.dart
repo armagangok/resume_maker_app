@@ -16,7 +16,7 @@ class CloudTemplate extends ResumeTemplateContract {
   final String templateName = 'Cloud Template';
 
   @override
-  bool isSelected = true;
+  bool isSelected = false;
 
   @override
   String filePath = "";

@@ -6,8 +6,9 @@ import 'package:resume_maker_app/core/export/export.dart';
 import 'package:resume_maker_app/data/models/skills/skills.dart';
 import '../../../../data/models/experience/experience.dart';
 
-final width = PdfPageFormat.a4.availableWidth;
-final height = PdfPageFormat.a4.availableHeight;
+final width = PdfPageFormat.letter.availableWidth;
+final height = PdfPageFormat.letter.availableHeight;
+
 Uint8List? uint8ListData;
 
 pw.Widget symmetricPadding(pw.Widget column) {
@@ -58,15 +59,17 @@ pw.Text aboutMeText({required String aboutMeText}) {
   );
 }
 
-pw.Text nameText(String name) {
-  return pw.Text(
-    name.toUpperCase(),
-    style: pw.TextStyle(
-      fontSize: 30,
-      fontWeight: FontWeight.bold,
-      fontBold: Font.helveticaBold(),
+pw.Widget nameText(String name) {
+  return pw.FittedBox(
+    child: pw.Text(
+      name.toUpperCase(),
+      style: pw.TextStyle(
+        fontSize: 45,
+        fontWeight: FontWeight.bold,
+        fontBold: Font.helveticaBold(),
+      ),
+      maxLines: 1,
     ),
-    maxLines: 1,
   );
 }
 
@@ -110,14 +113,14 @@ pw.Widget contactText({required Personal personalModel}) {
     children: [
       pw.ListView.builder(
         itemBuilder: (context, index) {
-          return pw.Text("Email: ${personalModel.emails![index]}");
+          return pw.Text(personalModel.emails![index]);
         },
         itemCount: personalModel.emails!.length,
       ),
       pw.ListView.builder(
         itemBuilder: (context, index) {
           return pw.Text(
-            "Contact number: ${personalModel.phones![index]}",
+            personalModel.phones![index],
             maxLines: 1,
           );
         },
@@ -126,14 +129,14 @@ pw.Widget contactText({required Personal personalModel}) {
       pw.ListView.builder(
         itemBuilder: (context, index) {
           return pw.Text(
-            "Link: ${personalModel.links![index]}",
+            personalModel.links![index],
             maxLines: 1,
           );
         },
         itemCount: personalModel.links!.length,
       ),
       pw.Text(
-        "Location: ${personalModel.country}, ${personalModel.city} ${personalModel.street}, ${personalModel.zipCode}",
+        "${personalModel.country}, ${personalModel.city} ${personalModel.street}, ${personalModel.zipCode}",
       ),
     ],
   );
@@ -141,7 +144,7 @@ pw.Widget contactText({required Personal personalModel}) {
 
 // pw.Widget getPersonImage1(String imagePath) {
 //   var image = File(imagePath);
-//   final byte = pw.MemoryImage(image.readAsBytesSync());
+//   final memoryImage = pw.MemoryImage(image.readAsBytesSync());
 
 //   return pw.Container(
 //     width: width * 0.4,
@@ -151,7 +154,7 @@ pw.Widget contactText({required Personal personalModel}) {
 //       // shape: BoxShape.circle,
 //       borderRadius: borderRadius6(),
 //       image: pw.DecorationImage(
-//         image: byte,
+//         image: memoryImage,
 //         fit: pw.BoxFit.cover,
 //       ),
 //     ),
@@ -164,7 +167,9 @@ pw.Widget skillText({required List<Skills> skills}) {
   );
   for (var index = 0; index < skills.length; index++) {
     column.children.add(sideTextBody(skills[index].skillName!));
-    if (index != skills.length - 1) column.children.add(pw.Text(", "));
+    if (index != skills.length - 1) {
+      column.children.add(pw.Text(", "));
+    }
   }
 
   return column;
@@ -320,17 +325,18 @@ pw.Widget whiteHeadContainer({required pw.Widget column}) {
       vertical: width * 0.01,
     ),
     child: pw.Container(
-      width: width * 0.35,
-      decoration: const pw.BoxDecoration(
-        color: PdfColors.white,
-        borderRadius: pw.BorderRadius.all(
-          Radius.circular(3),
-        ),
-      ),
-      padding: pw.EdgeInsets.symmetric(
-        horizontal: width * 0.005,
-        vertical: width * 0.0025,
-      ),
+      width: width * 0.38,
+
+      // decoration: const pw.BoxDecoration(
+      //   color: PdfColors.white,
+      //   borderRadius: pw.BorderRadius.all(
+      //     Radius.circular(3),
+      //   ),
+      // ),
+      // padding: pw.EdgeInsets.symmetric(
+      //   horizontal: width * 0.005,
+      //   vertical: width * 0.0025,
+      // ),
       child: column,
     ),
   );

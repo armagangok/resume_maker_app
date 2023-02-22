@@ -1,21 +1,15 @@
 import 'dart:io';
-import 'dart:typed_data';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter/services.dart';
 
 import '../../../../core/export/export.dart';
-
-import '../../../../core/util/pdf_maker/contract/template_contract.dart';
-
-
 
 part 'preview_state.dart';
 
 class PreviewCubit extends Cubit<PreviewState> {
   PreviewCubit() : super(PreviewInitial());
 
-  ResumeTemplateContract selectedTemplate = CloudTemplate.instance;
+  ResumeTemplateContract selectedTemplate = ModernTemplate.instance;
 
   void selectTemplate(int index) {
     for (var element in resumeTemplateList) {
@@ -29,6 +23,7 @@ class PreviewCubit extends Cubit<PreviewState> {
   }
 
   List<ResumeTemplateContract> resumeTemplateList = [
+    ModernTemplate.instance,
     CloudTemplate.instance,
     GreyPlainTemplate.instance,
     PeachPuffTemplate.instance,
@@ -45,8 +40,8 @@ class PreviewCubit extends Cubit<PreviewState> {
         await file.writeAsBytes(pdfFile);
 
         emit(PreviewLoaded(pdfFilePath: PreviewLoaded.message));
-      } catch (e) {
-        emit(PreviewLoadingError(pdfFilePath: "Error while loading PDF"));
+      } on PlatformException catch (e) {
+        emit(PreviewLoadingError(pdfFilePath: "${e.message}"));
       }
     } else {
       emit(PreviewLoaded(pdfFilePath: selectedTemplate.filePath));
