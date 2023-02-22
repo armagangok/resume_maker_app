@@ -169,9 +169,7 @@ class IosChoiceDialog extends StatelessWidget {
             IntrinsicHeight(
               child: _dialogButton(
                 text: "Delete Changes",
-                onTap: () {
-                  Injection.navigator.navigaToClear(path: homePage);
-                },
+                onTap: () => Injection.navigator.navigaToClear(path: homePage),
                 color: Colors.red,
               ),
             ),
@@ -198,46 +196,43 @@ class IosChoiceDialog extends StatelessWidget {
     );
   }
 
-  Padding messageText(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: context.height(0.02)),
-      child: Text(
-        message,
-        style: context.bodyLarge.copyWith(),
-      ),
-    );
-  }
-
-  Padding warningText(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: context.height(0.02)),
-      child: Text(
-        title,
-        style: context.titleLarge.copyWith(
-          fontWeight: FontWeight.bold,
+  Padding messageText(BuildContext context) => Padding(
+        padding: EdgeInsets.only(bottom: context.height(0.02)),
+        child: Text(
+          message,
+          textAlign: TextAlign.center,
+          style: context.bodyLarge.copyWith(),
         ),
-      ),
-    );
-  }
+      );
 
-  Widget _dialogButton({String? text, Function? onTap, Color? color}) {
-    return Builder(builder: (context) {
-      return Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: context.height(0.02),
+  Widget warningText(BuildContext context) => Padding(
+        padding: EdgeInsets.only(top: context.height(0.02)),
+        child: Text(
+          title,
+          textAlign: TextAlign.center,
+          style: context.titleLarge.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        child: GestureDetector(
-          onTap: () => onTap == null ? () {} : onTap(),
-          child: Text(
-            text ?? "",
-            maxLines: 1,
-            style: context.bodyLarge.copyWith(
-              color: color ?? selectedItemColor,
-              fontWeight: FontWeight.bold,
+      );
+
+  Widget _dialogButton({String? text, Function? onTap, Color? color}) =>
+      Builder(
+        builder: (context) => Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: context.height(0.02),
+          ),
+          child: GestureDetector(
+            onTap: () => onTap == null ? () {} : onTap(),
+            child: Text(
+              text ?? "",
+              maxLines: 1,
+              style: context.bodyLarge.copyWith(
+                color: color ?? selectedItemColor,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
       );
-    });
-  }
 }
