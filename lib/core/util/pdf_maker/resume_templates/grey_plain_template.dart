@@ -10,7 +10,7 @@ import 'package:printing/printing.dart';
 import 'package:resume_maker_app/core/util/pdf_maker/contract/template_contract.dart';
 import 'package:resume_maker_app/core/util/pdf_maker/repository/repo.dart';
 
-import 'components/pdf_components.dart';
+import '../components/pdf_components.dart';
 
 // const String path = 'assets/person.png';
 

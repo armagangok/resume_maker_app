@@ -1,14 +1,10 @@
 import 'dart:typed_data';
 
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:printing/printing.dart';
-import 'package:resume_maker_app/core/util/pdf_maker/repository/repo.dart';
 
-import 'components/pdf_components.dart';
-import 'contract/template_contract.dart';
+import '../../../export/export.dart';
+import '../components/pdf_components.dart';
 
 // const String path = 'assets/person.png';
 
@@ -133,24 +129,21 @@ class CloudTemplate extends ResumeTemplateContract {
 
     var contactContainer = _pdfRepo.getUserData.personal == null
         ? pw.SizedBox()
-        : pw.Padding(
-            padding: pw.EdgeInsets.only(top: 20.h),
-            child: pw.Container(
-              decoration: _blueBoxDecoration(),
-              width: double.infinity,
-              padding: pw.EdgeInsets.all(20.w),
-              child: pw.Column(
-                crossAxisAlignment: pw.CrossAxisAlignment.start,
-                children: [
-                  pw.Row(
-                    children: [
-                      getIcon(0xe0ba),
-                      head1Text("CONTACT"),
-                    ],
-                  ),
-                  contactText(personalModel: _pdfRepo.getUserData.personal!),
-                ],
-              ),
+        : pw.Container(
+            padding: pw.EdgeInsets.all(20.w),
+            decoration: _blueBoxDecoration(),
+            width: double.infinity,
+            child: pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                pw.Row(
+                  children: [
+                    getIcon(0xe0ba),
+                    head1Text("CONTACT"),
+                  ],
+                ),
+                contactText(personalModel: _pdfRepo.getUserData.personal!),
+              ],
             ),
           );
 
@@ -172,7 +165,6 @@ class CloudTemplate extends ResumeTemplateContract {
                               _pdfRepo.getUserData.personal!.fullName!),
                         ),
                         sizedBox015,
-                        contactContainer,
                       ],
                     ),
                   ),
@@ -180,6 +172,8 @@ class CloudTemplate extends ResumeTemplateContract {
               ],
             ),
     );
+
+    widgets.add(contactContainer);
 
     widgets.add(sizedBox015);
     widgets.add(
@@ -207,15 +201,15 @@ class CloudTemplate extends ResumeTemplateContract {
     //   }
     // }
 
-    // if (_pdfRepo.experienceList != null) {
-    //   widgets.add(head1Text("EXPERIENCE"));
-    //   widgets.add(customDivider());
-    //   widgets.add(pw.SizedBox(height: height * 0.001));
-    //   for (var experience in _pdfRepo.experienceList!) {
-    //     widgets.add(experienceWidget(experienceModel: experience));
-    //     widgets.add(pw.SizedBox(height: height * 0.01));
-    //   }
-    // }
+    if (_pdfRepo.getUserData.experiences != null) {
+      widgets.add(head1Text("EXPERIENCE"));
+      widgets.add(customDivider());
+      widgets.add(pw.SizedBox(height: height * 0.001));
+      for (var experience in _pdfRepo.getUserData.experiences!) {
+        widgets.add(experienceWidget(experienceModel: experience));
+        widgets.add(pw.SizedBox(height: height * 0.01));
+      }
+    }
 
     widgets.add(sizedBox015);
   }
@@ -234,11 +228,7 @@ class CloudTemplate extends ResumeTemplateContract {
   Future<String> getFilePathToSave() async {
     final output = await path_provider.getApplicationDocumentsDirectory();
 
-    print(filePath);
-
     filePath = "${output.path}/${DateTime.now()}.pdf";
-
-    print(filePath);
 
     // await OpenFile.open(filePath);
     return filePath;

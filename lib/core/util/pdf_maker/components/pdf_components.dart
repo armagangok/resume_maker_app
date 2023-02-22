@@ -1,11 +1,9 @@
 import 'dart:typed_data';
 
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:resume_maker_app/core/export/export.dart';
 import 'package:resume_maker_app/data/models/skills/skills.dart';
-
 import '../../../../data/models/experience/experience.dart';
 
 final width = PdfPageFormat.a4.availableWidth;
@@ -80,15 +78,16 @@ pw.Widget educationText({required List<Education> educationList}) {
         return pw.Column(
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
-            // educationModel.university == null
-            //     ? pw.SizedBox()
-            //     : pw.Text("School: ${educationModel.university!}"),
-            // educationModel.school == null
-            //     ? pw.SizedBox()
-            //     : pw.Text("Major: ${educationModel.major!}"),
-            // educationModel.grade == null
-            //     ? pw.SizedBox()
-            //     : pw.Text("Grade: ${educationModel.grade!}"),
+            educationModel.university == null
+                ? pw.SizedBox()
+                : pw.Text(educationModel.university!),
+            educationModel.school == null
+                ? pw.SizedBox()
+                : pw.Text(educationModel.school!),
+            educationModel.startDate == null
+                ? pw.SizedBox()
+                : pw.Text(
+                    "Grade: ${educationModel.startDate!} - ${educationModel.endDate!}"),
             // pw.Row(
             //   children: [
             //     pw.Text(
@@ -106,39 +105,37 @@ pw.Widget educationText({required List<Education> educationList}) {
 }
 
 pw.Widget contactText({required Personal personalModel}) {
-  return pw.FittedBox(
-    child: pw.Column(
-      crossAxisAlignment: pw.CrossAxisAlignment.start,
-      children: [
-        pw.ListView.builder(
-          itemBuilder: (context, index) {
-            return pw.Text("Email: ${personalModel.emails![index]}");
-          },
-          itemCount: personalModel.emails!.length,
-        ),
-        pw.ListView.builder(
-          itemBuilder: (context, index) {
-            return pw.Text(
-              "Contact number: ${personalModel.phones![index]}",
-              maxLines: 1,
-            );
-          },
-          itemCount: personalModel.phones!.length,
-        ),
-        pw.ListView.builder(
-          itemBuilder: (context, index) {
-            return pw.Text(
-              "Link: ${personalModel.links![index]}",
-              maxLines: 1,
-            );
-          },
-          itemCount: personalModel.links!.length,
-        ),
-        pw.Text(
-          "Location: ${personalModel.country}, ${personalModel.city} \n${personalModel.street}, ${personalModel.zipCode}",
-        ),
-      ],
-    ),
+  return pw.Column(
+    crossAxisAlignment: pw.CrossAxisAlignment.start,
+    children: [
+      pw.ListView.builder(
+        itemBuilder: (context, index) {
+          return pw.Text("Email: ${personalModel.emails![index]}");
+        },
+        itemCount: personalModel.emails!.length,
+      ),
+      pw.ListView.builder(
+        itemBuilder: (context, index) {
+          return pw.Text(
+            "Contact number: ${personalModel.phones![index]}",
+            maxLines: 1,
+          );
+        },
+        itemCount: personalModel.phones!.length,
+      ),
+      pw.ListView.builder(
+        itemBuilder: (context, index) {
+          return pw.Text(
+            "Link: ${personalModel.links![index]}",
+            maxLines: 1,
+          );
+        },
+        itemCount: personalModel.links!.length,
+      ),
+      pw.Text(
+        "Location: ${personalModel.country}, ${personalModel.city} ${personalModel.street}, ${personalModel.zipCode}",
+      ),
+    ],
   );
 }
 
@@ -201,16 +198,13 @@ pw.Widget experienceWidget({required Experience experienceModel}) {
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
         pw.Text(
-          "Company name: ${experienceModel.company}",
+          "${experienceModel.company}, ${2022} - ${experienceModel.endDate}",
           style: pw.TextStyle(
-            fontWeight: FontWeight.bold,
+            fontWeight: pw.FontWeight.bold,
           ),
         ),
-        pw.Text("Job role: ${experienceModel.jobTitle}"),
-        pw.Text("Skills: ${experienceModel.jobDuties}"),
-        pw.Text(
-          "Start date: ${experienceModel.startDate}   End date: ${experienceModel.endDate}",
-        ),
+        pw.Text("${experienceModel.jobTitle}"),
+        pw.Text("${experienceModel.jobDuties}"),
       ],
     ),
   );
