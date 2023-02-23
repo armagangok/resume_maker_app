@@ -176,6 +176,7 @@ class CloudTemplate extends ResumeTemplateContract {
     widgets.add(contactContainer);
 
     widgets.add(sizedBox015);
+
     widgets.add(
       pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -205,10 +206,9 @@ class CloudTemplate extends ResumeTemplateContract {
       widgets.add(head1Text("EXPERIENCE"));
       widgets.add(customDivider());
       widgets.add(pw.SizedBox(height: height * 0.001));
-      for (var experience in _pdfRepo.getUserData.experiences!) {
-        widgets.add(experienceWidget(experienceModel: experience));
-        widgets.add(pw.SizedBox(height: height * 0.01));
-      }
+      var a =
+          experienceWidget(experienceList: _pdfRepo.getUserData.experiences!);
+      widgets.add(a);
     }
 
     widgets.add(sizedBox015);

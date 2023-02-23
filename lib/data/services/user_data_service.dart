@@ -23,7 +23,7 @@ class UserDataServiceImp {
   }
 
   Future<dynamic> deleteUserData(int index) async {
-    await HiveHelper.shared.deleteDataAt(
+    await HiveHelper.shared.deleteDataAt<String>(
       HiveBoxes.userDataBox,
       index,
     );

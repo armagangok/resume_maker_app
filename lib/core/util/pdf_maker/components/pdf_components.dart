@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:pdf/widgets.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:resume_maker_app/core/export/export.dart';
+import 'package:resume_maker_app/data/models/qualifications/qualifications.dart';
 import 'package:resume_maker_app/data/models/skills/skills.dart';
 import '../../../../data/models/experience/experience.dart';
 
@@ -175,6 +176,18 @@ pw.Widget skillText({required List<Skills> skills}) {
   return column;
 }
 
+pw.Widget qualificationsText({required List<Qualifications> qualifications}) {
+  var column = pw.Wrap(
+    children: [],
+  );
+  for (var index = 0; index < qualifications.length; index++) {
+    column.children.add(sideTextBody(qualifications[index].title!));
+    column.children.add(sideTextBody(qualifications[index].details!));
+  }
+
+  return column;
+}
+
 pw.Widget languagesText({required List<Language> languageList}) {
   var column = pw.Column(
     crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -183,36 +196,53 @@ pw.Widget languagesText({required List<Language> languageList}) {
   for (var languageModel in languageList) {
     column.children.add(
       sideTextBody(
-          "Languages: -${languageModel.languageName}\n${languageModel.speaking}, ${languageModel.reading}, ${languageModel.writing}"),
+        "-${languageModel.languageName}\n${languageModel.speaking}, ${languageModel.reading}, ${languageModel.writing}",
+      ),
     );
   }
 
   return column;
 }
 
-pw.Widget experienceWidget({required Experience experienceModel}) {
-  return pw.Container(
-    decoration: pw.BoxDecoration(
-      color: PdfColors.grey100,
-      border: pw.Border.all(color: PdfColors.grey200),
-      borderRadius: borderRadius6(),
-    ),
-    padding: pw.EdgeInsets.all(width * 0.015),
-    width: double.infinity,
-    child: pw.Column(
-      crossAxisAlignment: pw.CrossAxisAlignment.start,
-      children: [
-        pw.Text(
-          "${experienceModel.company}, ${2022} - ${experienceModel.endDate}",
-          style: pw.TextStyle(
-            fontWeight: pw.FontWeight.bold,
-          ),
-        ),
-        pw.Text("${experienceModel.jobTitle}"),
-        pw.Text("${experienceModel.jobDuties}"),
-      ],
-    ),
+pw.Widget experienceWidget({
+  required List<Experience> experienceList,
+}) {
+  var column = pw.Column(
+    crossAxisAlignment: pw.CrossAxisAlignment.start,
+    children: [],
   );
+
+  for (var element in experienceList) {
+    var item = pw.Container(
+      decoration: pw.BoxDecoration(
+        color: PdfColors.grey100,
+        border: pw.Border.all(color: PdfColors.grey200),
+        borderRadius: borderRadius6(),
+      ),
+      padding: pw.EdgeInsets.all(width * 0.015),
+      width: double.infinity,
+      child: pw.Column(
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
+        children: [
+          pw.Text(
+            "${element.company}, ${2022} - ${element.endDate}",
+            style: pw.TextStyle(
+              fontWeight: pw.FontWeight.bold,
+            ),
+          ),
+          pw.Text("${element.jobTitle}"),
+          pw.Text("${element.jobDuties}"),
+        ],
+      ),
+    );
+    column.children.add(item);
+
+    if (element != experienceList.last) {
+      column.children.add(pw.SizedBox(height: 2.5.h));
+    }
+  }
+
+  return column;
 }
 
 pw.BorderRadius borderRadius6() {
