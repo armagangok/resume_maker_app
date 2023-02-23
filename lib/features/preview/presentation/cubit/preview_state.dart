@@ -1,9 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'preview_cubit.dart';
 
-abstract class PreviewState {
-  late final String pdfFilePath;
-}
+abstract class PreviewState {}
 
 class PreviewInitial extends PreviewState {}
 
@@ -19,10 +17,4 @@ class PreviewLoaded extends PreviewState {
   });
 }
 
-class PreviewLoadingError extends PreviewState {
-  @override
-  final String pdfFilePath;
-  PreviewLoadingError({
-    required this.pdfFilePath,
-  });
-}
+class PreviewLoadingError extends PreviewState {}

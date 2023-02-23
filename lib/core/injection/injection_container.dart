@@ -1,7 +1,4 @@
 import 'package:get_it/get_it.dart';
-import 'package:resume_maker_app/features/home/presentation/cubit/home_cubit.dart';
-import 'package:resume_maker_app/features/preview/presentation/cubit/preview_cubit.dart';
-import 'package:resume_maker_app/features/root_page/presentation/cubit/root_cubit.dart';
 
 import '../export/export.dart';
 

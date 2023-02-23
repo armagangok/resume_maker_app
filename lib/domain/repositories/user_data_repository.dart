@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:resume_maker_app/core/error/failure.dart';
 import 'package:resume_maker_app/data/services/user_data_service.dart';
 
+
 class UserDataRepository {
   UserDataRepository._();
   static final instance = UserDataRepository._();

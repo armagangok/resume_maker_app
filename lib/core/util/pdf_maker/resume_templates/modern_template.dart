@@ -162,7 +162,6 @@ class ModernTemplate extends ResumeTemplateContract {
       );
 
   pw.Expanded rightContainer() {
-    print(_pdfRepo.getUserData);
     return pw.Expanded(
       child: pw.Container(
         padding: EdgeInsets.all(20.w),

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../core/export/export.dart';
-import '../cubit/home_cubit.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -53,7 +52,6 @@ class _HomePageState extends State<HomePage> {
             }
           },
           onAccept: (int data) async {
-            print(data);
             await Injection.homeCubit.deleteHomeUserData(data);
             await Injection.homeCubit.fetchHomeUserData();
           },
@@ -132,9 +130,7 @@ class _HomePageState extends State<HomePage> {
           selectIndex = index;
         });
       },
-      onDragEnd: (details) {
-        // print(details.offset);
-      },
+      onDragEnd: (details) {},
       onDraggableCanceled: (velocity, offset) {
         setState(() {
           dragStarted = false;
