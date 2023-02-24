@@ -34,9 +34,11 @@ class PreviewCubit extends Cubit<PreviewState> {
     if (selectedTemplate.filePath.isEmpty) {
       try {
         selectedTemplate.buildUpPDF();
+
         Uint8List pdfFile = await selectedTemplate.getcreatedPdf();
         String path = await selectedTemplate.getFilePathToSave();
 
+        print(path);
         final file = File(path);
         await file.writeAsBytes(pdfFile);
 

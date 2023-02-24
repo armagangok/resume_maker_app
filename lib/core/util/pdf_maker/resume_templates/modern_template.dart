@@ -2,7 +2,7 @@
 
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
@@ -239,9 +239,9 @@ class ModernTemplate extends ResumeTemplateContract {
 
   @override
   Future<String> getFilePathToSave() async {
-    final output = await getTemporaryDirectory();
+    final output = await path_provider.getExternalStorageDirectory();
 
-    filePath = "${output.path}/${"${DateTime.now()}"}.pdf";
+    filePath = "${output!.path}/${"${DateTime.now()}"}.pdf";
 
     return filePath;
   }

@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:file_manager/file_manager.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
 
 import '../../../../core/export/export.dart';
 
@@ -12,6 +14,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final controller = FileManagerController();
+
   @override
   void initState() {
     super.initState();
@@ -68,6 +72,8 @@ class _HomePageState extends State<HomePage> {
         );
 
   Widget _bodyWidget() {
+    // return getPdfFiles();
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -96,17 +102,82 @@ class _HomePageState extends State<HomePage> {
                     child: Text("Please create a new resume for yourself!"),
                   );
                 } else {
-                  return GridView.builder(
-                    itemCount: state.userDataList.length,
-                    shrinkWrap: true,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                    ),
-                    itemBuilder: (context, index) {
-                      return dragableItem(index, state);
+                  return FutureBuilder(
+                    future: getPath(),
+                    builder: (context, AsyncSnapshot<String> snapshot) {
+                      if (snapshot.hasData) {
+                        var path = snapshot.data;
+                        var fileList = Directory(path!).listSync();
+
+                        return GridView.builder(
+                          itemCount: fileList.length,
+                          shrinkWrap: true,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                          ),
+                          itemBuilder: (context, index) {
+                            return dragableItem(
+                              index,
+                              state,
+                              fileList[index].path,
+                            );
+                          },
+                        );
+                      } else {
+                        return const Center();
+                      }
                     },
                   );
+                  // return FileManager(
+                  //   controller: controller,
+                  //   builder: (context, snapshot) {
+                  //     final List<FileSystemEntity> entities = snapshot;
+                  //     print(entities);
+                  //     return ListView.builder(
+                  //       itemCount: entities.length,
+                  //       itemBuilder: (context, index) {
+                  //         return Card(
+                  //           child: ListTile(
+                  //             leading: FileManager.isFile(entities[index])
+                  //                 ? const Icon(Icons.feed_outlined)
+                  //                 : const Icon(Icons.folder),
+                  //             title:
+                  //                 Text(FileManager.basename(entities[index])),
+                  //             onTap: () {
+                  //               if (FileManager.isDirectory(entities[index])) {
+                  //                 controller.openDirectory(
+                  //                   entities[index],
+                  //                 ); // open directory
+                  //               } else {
+                  //                  controller.openDirectory(
+                  //                   entities[index],
+                  //                 ); // open dir
+                  //                 // Perform file-related tasks.
+                  //               }
+                  //             },
+                  //           ),
+                  //         );
+                  //       },
+                  //     );
+                  //   },
+                  // );
+                  // return FutureBuilder(
+                  //     future: getPath(),
+                  //     builder: (context, AsyncSnapshot<String> snapshot) {
+                  //       if (snapshot.hasData) {
+                  //         print(snapshot.data);
+                  //         return Text(snapshot.data!);
+                  //       } else {
+                  //         return const FittedBox(
+                  //           child: Text(
+                  //             "No data",
+                  //             style: TextStyle(),
+                  //             maxLines: 1,
+                  //           ),
+                  //         );
+                  //       }
+                  //     });
                 }
               } else {
                 return const Text("data");
@@ -118,12 +189,17 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget dragableItem(int index, state) {
+  Future<String> getPath() async {
+    final output = await getExternalStorageDirectory();
+    return output!.path;
+  }
+
+  Widget dragableItem(int index, state, path) {
     return Draggable(
       data: index,
-      feedback: item(state, index),
+      feedback: item(state, index, path),
       childWhenDragging: const SizedBox(),
-      child: item(state, index),
+      child: item(state, index, path),
       onDragStarted: () {
         setState(() {
           dragStarted = true;
@@ -144,41 +220,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget item(state, index) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Center(
-          child: CircleAvatar(
-            radius: 61.2.h,
-            backgroundColor: white,
-            child: CircleAvatar(
-              backgroundColor: iconBackground,
-              radius: 60.h,
-              child: state.userDataList[index].personal!.imagePath!.isNotEmpty
-                  ? ClipOval(
-                      child: Image.file(
-                        File(state.userDataList[index].personal!.imagePath!),
-                        fit: BoxFit.fill,
-                        width: double.infinity,
-                        height: double.infinity,
-                      ),
-                    )
-                  : Icon(
-                      CupertinoIcons.person_solid,
-                      color: white,
-                      size: 60.h,
-                    ),
-            ),
-          ),
-        ),
-        // Text(
-        //   state.userDataList[index].personal!.fullName!,
-        // ),
-        // Text(
-        //   state.userDataList[index].personal!.title!,
-        // ),
-      ],
+  Widget item(state, index, path) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: PdfView(path: path),
     );
   }
 }

@@ -49,3 +49,6 @@ export '/features/profile/presentation/pages/page_views/language/widget/language
 export '/features/profile/presentation/pages/page_views/personal/cubit/image_picker/image_cubit.dart';
 export '/features/profile/presentation/pages/page_views/personal/cubit/personal_data/personal_data_cubit.dart';
 export '/features/root_page/presentation/cubit/root_cubit.dart';
+
+
+export 'package:path_provider/path_provider.dart' ;
