@@ -9,7 +9,7 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial()) {
     getPath();
-    fetchHomeUserData();
+    // fetchHomeUserData();
   }
 
   final _userDataUsecase = UserDataUsecase.instance;
@@ -21,8 +21,10 @@ class HomeCubit extends Cubit<HomeState> {
     var path = output!.path;
     fileList = Directory(path).listSync();
 
+    print(fileList);
+
     return fileList;
-  }
+  } 
 
   Future<void> saveHomeUserData(String userData) async {
     var response = await _userDataUsecase.saveUserData(userData);

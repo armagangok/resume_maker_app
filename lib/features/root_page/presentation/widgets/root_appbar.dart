@@ -150,6 +150,8 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             qualificationData.add(qualificationModel);
           }
 
+          var pdfPathToSave = await Injection.previewCubit.createPdf();
+
           UserData userData = UserData(
             personal: personalDataModel,
             education: educationData,
@@ -157,6 +159,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             skills: skillData,
             experiences: experiencesData,
             qualifications: qualificationData,
+            pdfPath: pdfPathToSave,
           );
 
           var encodedJson = json.encode(userData.toJson());

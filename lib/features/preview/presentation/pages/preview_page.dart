@@ -45,7 +45,6 @@ class _PreviewPageState extends State<PreviewPage> {
           }
         },
         builder: (context, state) {
-          print(state);
           if (state is PreviewLoading) {
             return _loadPreview;
           } else if (state is PreviewLoaded) {

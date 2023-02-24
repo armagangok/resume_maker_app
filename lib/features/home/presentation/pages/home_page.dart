@@ -19,6 +19,14 @@ class _HomePageState extends State<HomePage> {
   // bool accepted = false;
 
   int selectIndex = -1;
+
+  @override
+  void initState() {
+    Injection.homeCubit;
+    print("list" "${Injection.homeCubit.fileList}");
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,29 +97,33 @@ class _HomePageState extends State<HomePage> {
             },
             bloc: Injection.homeCubit,
             builder: (context, state) {
+              List<Widget> widgetList = [];
+
+              print("list1" "${Injection.homeCubit.fileList}");
+
+              for (var i = 0; i < Injection.homeCubit.fileList.length; i++,) {
+                widgetList.add(
+                  dragableItem(
+                    i,
+                    state,
+                    Injection.homeCubit.fileList[i].path,
+                  ),
+                );
+              }
+              return GridView.count(
+                crossAxisCount: 2,
+                childAspectRatio: (0.8),
+                controller: ScrollController(keepScrollOffset: false),
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                children: widgetList,
+              );
               if (state is HomeUserDataFetched) {
                 if (state.userDataList.isEmpty) {
                   return const Center(
                     child: Text("Please create a new resume for yourself!"),
                   );
-                } else {
-                  List<Widget> widgetList = [];
-
-                  for (var i = 0;
-                      i < Injection.homeCubit.fileList.length;
-                      i++,) {
-                    widgetList.add(dragableItem(
-                        i, state, Injection.homeCubit.fileList[i].path));
-                  }
-                  return GridView.count(
-                    crossAxisCount: 2,
-                    childAspectRatio: (0.8),
-                    controller: ScrollController(keepScrollOffset: false),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    children: widgetList,
-                  );
-                }
+                } else {}
               } else {
                 return const Text("data");
               }

@@ -8,34 +8,41 @@ void initDependencies() {
   getIt.registerLazySingleton<NavigationContract>(
     () => NavigationService.instance,
   );
+}
 
+void registerUsecases() {}
+void registerRepositories() {}
+void registerDataSources() {}
+
+//  SETUP VIEWMODELS
+void setupViewmodels() {
   getIt.registerLazySingleton<DesignCubit>(
-    () => DesignCubit(),
+    () => getIt(),
   );
 
   getIt.registerLazySingleton<ProfileCubit>(
-    () => ProfileCubit(),
+    () => getIt(),
   );
 
   getIt.registerLazySingleton<MultipleItemCubit>(
-    () => MultipleItemCubit(),
+    () => getIt(),
   );
   getIt.registerLazySingleton<PersonalDataCubit>(
-    () => PersonalDataCubit(),
+    () => getIt(),
   );
 
   getIt.registerLazySingleton<ImageCubit>(
-    () => ImageCubit(),
+    () => getIt(),
   );
   getIt.registerLazySingleton<RootCubit>(
-    () => RootCubit(),
+    () => getIt(),
   );
 
   getIt.registerLazySingleton<PreviewCubit>(
-    () => PreviewCubit(),
+    () => getIt(),
   );
 
   getIt.registerLazySingleton<HomeCubit>(
-    () => HomeCubit(),
+    () => getIt(),
   );
 }

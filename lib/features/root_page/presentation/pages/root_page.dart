@@ -1,10 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:resume_maker_app/core/export/export.dart';
-import 'package:resume_maker_app/features/design/presentation/pages/design_page.dart';
-import 'package:resume_maker_app/features/export/presentation/pages/export_page.dart';
 
-import '../../../preview/presentation/pages/preview_page.dart';
-import '../../../profile/presentation/pages/profile_page.dart';
+import '../../../../core/export/export.dart';
 import '../widgets/root_appbar.dart';
 
 class RootPage extends StatefulWidget {
@@ -87,4 +83,3 @@ class _RootPageState extends State<RootPage> {
 // print(personalDataModel.street);
 // print(personalDataModel.title);
 // print(personalDataModel.summary);
-

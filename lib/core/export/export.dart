@@ -2,6 +2,7 @@ export 'package:flutter/material.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:flutter_riverpod/flutter_riverpod.dart';
 export 'package:flutter_screenutil/flutter_screenutil.dart';
+export 'package:path_provider/path_provider.dart';
 export 'package:pdf/pdf.dart';
 export 'package:printing/printing.dart';
 
@@ -40,15 +41,16 @@ export '/data/models/single_new_item_model.dart';
 export '/data/models/skills/skills.dart';
 export '/data/models/user_data_model/user_data.dart';
 export '/features/design/presentation/cubit/design_cubit.dart';
+export '/features/design/presentation/pages/design_page.dart';
+export '/features/export/presentation/pages/export_page.dart';
 export '/features/home/presentation/cubit/home_cubit.dart';
 export '/features/preview/presentation/cubit/preview_cubit.dart';
+export '/features/preview/presentation/pages/preview_page.dart';
 export '/features/profile/presentation/cubit/multiple_item/multiple_item_cubit.dart';
 export '/features/profile/presentation/cubit/new_item/new_item_cubit.dart';
 export '/features/profile/presentation/cubit/profile_cubit.dart';
 export '/features/profile/presentation/pages/page_views/language/widget/language_item_builder.dart';
 export '/features/profile/presentation/pages/page_views/personal/cubit/image_picker/image_cubit.dart';
 export '/features/profile/presentation/pages/page_views/personal/cubit/personal_data/personal_data_cubit.dart';
+export '/features/profile/presentation/pages/profile_page.dart';
 export '/features/root_page/presentation/cubit/root_cubit.dart';
-
-
-export 'package:path_provider/path_provider.dart' ;

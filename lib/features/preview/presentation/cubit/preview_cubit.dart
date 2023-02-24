@@ -33,21 +33,25 @@ class PreviewCubit extends Cubit<PreviewState> {
     emit(PreviewLoading());
     if (selectedTemplate.filePath.isEmpty) {
       try {
-        selectedTemplate.buildUpPDF();
-
-        Uint8List pdfFile = await selectedTemplate.getcreatedPdf();
-        String path = await selectedTemplate.getFilePathToSave();
-
-        final file = File(path);
-        await file.writeAsBytes(pdfFile);
-
-        emit(PreviewLoaded(pdfFilePath: file.path));
-      } on PlatformException catch (e) {
-        print("cubitmessage" "${e.message}");
+        var path = await createPdf();
+        emit(PreviewLoaded(pdfFilePath: path));
+      } on PlatformException {
         emit(PreviewLoadingError());
       }
     } else {
       emit(PreviewLoaded(pdfFilePath: selectedTemplate.filePath));
     }
+  }
+
+  Future<String> createPdf() async {
+    selectedTemplate.buildUpPDF();
+
+    Uint8List pdfFile = await selectedTemplate.getcreatedPdf();
+    String path = await selectedTemplate.getFilePathToSave();
+
+    final file = File(path);
+    await file.writeAsBytes(pdfFile);
+
+    return file.path;
   }
 }
