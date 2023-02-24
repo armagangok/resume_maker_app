@@ -1,10 +1,8 @@
-import 'dart:io';
-
+import 'package:file_manager/file_manager.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:resume_maker_app/core/widget/custom_container.dart';
+import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
 
 import '../../../../core/export/export.dart';
-import '../../../root_page/presentation/cubit/root_cubit.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,94 +12,104 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-  }
+  final controller = FileManagerController();
 
+  bool dragStarted = false;
+
+  // bool accepted = false;
+
+  int selectIndex = -1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _appBar(),
       body: _bodyWidget(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: _floatingActionButton(),
     );
   }
 
+  Widget _floatingActionButton() => dragStarted
+      ? DragTarget(
+          builder: (context, candidateData, rejectedData) {
+            return FloatingActionButton(
+              backgroundColor: Colors.red,
+              child: Icon(
+                CupertinoIcons.trash,
+                size: 30.h,
+                color: white,
+              ),
+              onPressed: () {},
+            );
+          },
+          onWillAccept: (data) {
+            if (data is int) {
+              return true;
+            } else {
+              return false;
+            }
+          },
+          onAccept: (int data) async {
+            await Injection.homeCubit.deleteHomeUserData(data);
+            await Injection.homeCubit.fetchHomeUserData();
+          },
+        )
+      : FloatingActionButton(
+          backgroundColor: white,
+          child: Icon(
+            CupertinoIcons.add,
+            size: 30.h,
+          ),
+          onPressed: () {
+            Injection.navigator.navigaToClear(path: rootPage);
+          },
+        );
+
   Widget _bodyWidget() {
+    // return getPdfFiles();
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
-          child: BlocConsumer<RootCubit, RootState>(
+          child: BlocConsumer<HomeCubit, HomeState>(
             listener: (context, state) {
-              if (state is UserDataDeleteFailure) {
+              if (state is HomeUserDataDeleteFailure) {
                 context.showSnackBar(const SnackBar(
                   content: Text("Failed to delete user resume data."),
                 ));
-              } else if (state is UserDataSaved) {
+              } else if (state is HomeUserDataSaved) {
                 context.showSnackBar(const SnackBar(
                   content: Text("User resume data saved successfuly."),
                 ));
-              } else if (state is UserDataSavingFailure) {
+              } else if (state is HomeUserDataSavingFailure) {
                 context.showSnackBar(const SnackBar(
                   content: Text("Failed to save user resume data."),
                 ));
               }
             },
-            bloc: Injection.rootCubit,
+            bloc: Injection.homeCubit,
             builder: (context, state) {
-              if (state is UserDataFetched) {
+              if (state is HomeUserDataFetched) {
                 if (state.userDataList.isEmpty) {
                   return const Center(
                     child: Text("Please create a new resume for yourself!"),
                   );
                 } else {
-                  return GridView.builder(
-                    itemCount: state.userDataList.length,
+                  List<Widget> widgetList = [];
+
+                  for (var i = 0;
+                      i < Injection.homeCubit.fileList.length;
+                      i++,) {
+                    widgetList.add(dragableItem(
+                        i, state, Injection.homeCubit.fileList[i].path));
+                  }
+                  return GridView.count(
+                    crossAxisCount: 2,
+                    childAspectRatio: (0.8),
+                    controller: ScrollController(keepScrollOffset: false),
                     shrinkWrap: true,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                    ),
-                    itemBuilder: (context, index) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Center(
-                            child: CircleAvatar(
-                              radius: 61.2.h,
-                              backgroundColor: white,
-                              child: CircleAvatar(
-                                backgroundColor: iconBackground,
-                                radius: 60.h,
-                                child: state.userDataList[index].personal!
-                                        .imagePath!.isNotEmpty
-                                    ? ClipOval(
-                                        child: Image.file(
-                                          File(state.userDataList[index]
-                                              .personal!.imagePath!),
-                                          fit: BoxFit.fill,
-                                          width: double.infinity,
-                                          height: double.infinity,
-                                        ),
-                                      )
-                                    : Icon(
-                                        CupertinoIcons.person_solid,
-                                        color: white,
-                                        size: 60.h,
-                                      ),
-                              ),
-                            ),
-                          ),
-                          Text(
-                            state.userDataList[index].personal!.fullName!,
-                          ),
-                          Text(
-                            state.userDataList[index].personal!.title!,
-                          ),
-                        ],
-                      );
-                    },
+                    scrollDirection: Axis.vertical,
+                    children: widgetList,
                   );
                 }
               } else {
@@ -110,47 +118,48 @@ class _HomePageState extends State<HomePage> {
             },
           ),
         ),
-        _createResumeButton(),
       ],
     );
   }
 
-  Widget _createResumeButton() {
-    return Padding(
-      padding: EdgeInsets.all(30.h),
-      child: CustomContainer(
-        borderRadius: BorderRadius.zero,
-        borderColor: iconColor,
-        color: primaryColor,
-        child: SizedBox(
-          height: 80.h,
-          child: InkWell(
-            onTap: () {
-              Injection.navigator.navigateTo(path: rootPage);
-            },
-            child: Center(
-              child: Text(
-                "CREATE RESUME",
-                style: context.displayMedium.copyWith(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 32,
-                ),
-              ),
-            ),
-          ),
-        ),
+  Widget dragableItem(int index, state, path) {
+    return SizedBox(
+      height: 100.h,
+      child: Draggable(
+        data: index,
+        feedback: item(state, index, path),
+        childWhenDragging: const SizedBox(),
+        child: item(state, index, path),
+        onDragStarted: () {
+          setState(() {
+            dragStarted = true;
+            selectIndex = index;
+          });
+        },
+        onDragEnd: (details) {},
+        onDraggableCanceled: (velocity, offset) {
+          setState(() {
+            dragStarted = false;
+          });
+        },
+        onDragCompleted: () {
+          setState(() {
+            dragStarted = false;
+          });
+        },
       ),
     );
   }
 
-  AppBar _appBar() {
-    return AppBar(
-      leading: IconButton(
-        onPressed: () {},
-        icon: const Icon(
-          Icons.menu_rounded,
-        ),
+  Widget item(state, index, path) {
+    return SizedBox(
+      height: 100.h,
+      child: Padding(
+        padding: EdgeInsets.all(5.w),
+        child: PdfView(path: path),
       ),
     );
   }
 }
+
+// /Users/armagangok/Library/Developer/CoreSimulator/Devices/181F7EF9-7AA0-4250-95D2-3AAE345E042A/data/Containers/Data/Application/15BC2199-FE4D-4777-A842-98ED691378CB/Documents

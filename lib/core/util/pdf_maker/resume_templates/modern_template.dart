@@ -2,7 +2,7 @@
 
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
@@ -11,8 +11,6 @@ import 'package:resume_maker_app/core/util/pdf_maker/contract/template_contract.
 import 'package:resume_maker_app/core/util/pdf_maker/repository/repo.dart';
 
 import '../components/pdf_components.dart';
-
-// const String path = 'assets/person.png';
 
 class ModernTemplate extends ResumeTemplateContract {
   ModernTemplate._();
@@ -36,12 +34,6 @@ class ModernTemplate extends ResumeTemplateContract {
 
   @override
   Future<Uint8List> getcreatedPdf() async {
-    // pw.ThemeData myTheme = pw.ThemeData.withFont(
-    //   base: Font.ttf(
-    //     await rootBundle.load("assets/fonts/Lato/Lato-Regular.ttf"),
-    //   ),
-    // );
-
     pdf.addPage(
       pw.MultiPage(
         pageFormat: PdfPageFormat.letter.copyWith(
@@ -80,7 +72,7 @@ class ModernTemplate extends ResumeTemplateContract {
                     children: [
                       Container(
                         padding: EdgeInsets.all(10.w),
-                        color:  PdfColors.grey700,
+                        color: PdfColors.grey700,
                         child: Column(
                           children: [
                             _pdfRepo.getUserData.personal!.fullName == null
@@ -109,31 +101,78 @@ class ModernTemplate extends ResumeTemplateContract {
                           ],
                         ),
                       ),
-                      SizedBox(height: 20.h),
-                      pw.Row(
-                        children: [
-                          head1Text("CONTACT"),
-                        ],
-                      ),
-                      contactText(
-                        personalModel: _pdfRepo.getUserData.personal!,
-                      ),
                     ],
                   ),
-            sizedBox015,
+            pw.SizedBox(height: 20.h),
+            pw.Padding(
+              padding: const pw.EdgeInsets.symmetric(horizontal: 5),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Row(
+                    children: [
+                      head1Text("CONTACT"),
+                    ],
+                  ),
+                  contactText(
+                    personalModel: _pdfRepo.getUserData.personal!,
+                  ),
+                  SizedBox(height: 20.h),
+                  _pdfRepo.getUserData.qualifications != null
+                      ? pw.Column(
+                          children: [
+                            pw.Row(
+                              children: [
+                                head1Text("QUALIFICATIONS"),
+                                customDivider(),
+                              ],
+                            ),
+                            qualificationsText(
+                              qualifications:
+                                  _pdfRepo.getUserData.qualifications!,
+                            )
+                          ],
+                        )
+                      : SizedBox(),
+                  sizedBox015,
+                  _pdfRepo.getUserData.skills == null
+                      ? pw.SizedBox()
+                      : pw.Column(
+                          crossAxisAlignment: pw.CrossAxisAlignment.start,
+                          children: [
+                            head1Text("SKILLS"),
+                            skillText(skills: _pdfRepo.getUserData.skills!),
+                          ],
+                        ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
 
-            _pdfRepo.getUserData.skills == null
+  pw.Expanded rightContainer() {
+    return pw.Expanded(
+      child: pw.Container(
+        padding: EdgeInsets.all(20.w),
+        height: height,
+        color: PdfColors.white,
+        child: pw.Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          children: [
+            sizedBox015,
+            _pdfRepo.getUserData.personal == null
                 ? pw.SizedBox()
                 : pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
-                      head1Text("SKILLS"),
-                      skillText(skills: _pdfRepo.getUserData.skills!),
+                      head1Text("ABOUT ME"),
+                      customDivider(),
+                      aboutMeText(
+                          aboutMeText: _pdfRepo.getUserData.personal!.summary!)
                     ],
                   ),
-            // _pdfRepo.getUserData.personal!.imagePath == null
-            //     ? SizedBox()
-            //     : getPersonImage1(_pdfRepo.getUserData.personal!.imagePath!),
             sizedBox015,
             pw.Column(
               mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
@@ -146,6 +185,7 @@ class ModernTemplate extends ResumeTemplateContract {
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
                           head1Text("EDUCATION"),
+                          customDivider(),
                           educationText(
                             educationList: _pdfRepo.getUserData.education!,
                           ),
@@ -158,97 +198,83 @@ class ModernTemplate extends ResumeTemplateContract {
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
                           head1Text("LANGUAGES"),
+                          customDivider(),
                           languagesText(
                             languageList: _pdfRepo.getUserData.languages!,
                           ),
-                          sizedBox015,
                         ],
                       ),
                 sizedBox015,
               ],
             ),
+            _pdfRepo.getUserData.experiences == null
+                ? SizedBox()
+                : pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    children: [
+                      head1Text("EXPERIENCE"),
+                      customDivider(),
+                      pw.SizedBox(height: 2.5),
+                      experienceWidget(
+                        experienceList: _pdfRepo.getUserData.experiences!,
+                      ),
+                    ],
+                  ),
+            sizedBox015,
           ],
         ),
-      );
-
-  pw.Expanded rightContainer() => pw.Expanded(
-        child: pw.Container(
-          height: height,
-          color: PdfColors.white,
-          child: pw.Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: pw.CrossAxisAlignment.start,
-            children: [
-              sizedBox015,
-              _pdfRepo.getUserData.personal == null
-                  ? pw.SizedBox()
-                  : pw.Column(
-                      crossAxisAlignment: pw.CrossAxisAlignment.start,
-                      children: [
-                        head1Text("ABOUT ME"),
-                        customDivider(),
-                        aboutMeText(
-                            aboutMeText:
-                                _pdfRepo.getUserData.personal!.summary!)
-                      ],
-                    ),
-              sizedBox015,
-              // _pdfRepo.referenceDataList == null
-              //     ? SizedBox()
-              //     : pw.Column(
-              //         crossAxisAlignment: pw.CrossAxisAlignment.start,
-              //         children: [
-              //           head1Text("REFERENCE"),
-              //           customDivider(),
-              //           // referenceModel(referenceList: referenceDataList!),
-              //         ],
-              //       ),
-              sizedBox015,
-              // experienceList == null
-              //     ? SizedBox()
-              //     : pw.Column(
-              //         crossAxisAlignment: pw.CrossAxisAlignment.start,
-              //         children: [
-              //           head1Text("EXPERIENCE"),
-              //           customDivider(),
-              //           experienceWidget(experienceModel: experienceList!),
-              //         ],
-              //       ),
-              // sizedBox015,
-            ],
-          ),
-        ),
-      );
+      ),
+    );
+  }
 
   @override
   Future<String> getFilePathToSave() async {
-    final output = await getTemporaryDirectory();
+    final output = await path_provider.getExternalStorageDirectory();
 
-    filePath = "${output.path}/${"${DateTime.now()}"}.pdf";
+    filePath = "${output!.path}/${"${DateTime.now()}"}.pdf";
 
     return filePath;
-
-    // final file = File(filePath);
-    // try {
-    //   // await file.writeAsBytes(byteList);
-    //   // await OpenFile.open(filePath);
-    // } catch (e) {
-    //   print("$e");
-    // }
   }
 
   @override
   void buildUpPDF() {
-    _widgets.add(
-      pw.Row(
-        crossAxisAlignment: pw.CrossAxisAlignment.start,
-        children: [
-          leftContainer(),
-          rightContainer(),
-        ],
-      ),
-    );
+    pw.Row(children: [
+      leftContainer(),
+      rightContainer(),
+    ]);
   }
+
+  void buildRightContainer() {}
 }
 
 // "I have been learning and implementing Flutter for the last year. I recently use Feature Based Clean Architecture and Cubit state management to deal with my projects."
+
+// final file = File(filePath);
+// try {
+//   // await file.writeAsBytes(byteList);
+//   // await OpenFile.open(filePath);
+// } catch (e) {
+//   print("$e");
+// }
+
+// const String path = 'assets/person.png';
+
+// pw.ThemeData myTheme = pw.ThemeData.withFont(
+//   base: Font.ttf(
+//     await rootBundle.load("assets/fonts/Lato/Lato-Regular.ttf"),
+//   ),
+// );
+// _pdfRepo.referenceDataList == null
+//     ? SizedBox()
+//     : pw.Column(
+//         crossAxisAlignment: pw.CrossAxisAlignment.start,
+//         children: [
+//           head1Text("REFERENCE"),
+//           customDivider(),
+//           // referenceModel(referenceList: referenceDataList!),
+//         ],
+//       ),
+
+// _pdfRepo.getUserData.personal!.imagePath == null
+//     ? SizedBox()
+//     : getPersonImage1(_pdfRepo.getUserData.personal!.imagePath!),

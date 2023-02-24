@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
 import '../../../../core/export/export.dart';
-import '../cubit/preview_cubit.dart';
 
 class PreviewPage extends StatefulWidget {
   const PreviewPage({super.key});
@@ -23,12 +22,22 @@ class _PreviewPageState extends State<PreviewPage> {
       body: BlocConsumer<PreviewCubit, PreviewState>(
         bloc: Injection.previewCubit,
         listener: (context, state) {
-          if (state is PreviewLoadingError || state is PreviewLoaded) {
+          if (state is PreviewLoaded) {
             context.showSnackBar(
               SnackBar(
                 backgroundColor: primaryColor.withOpacity(0.5),
                 content: Text(
-                  state.pdfFilePath,
+                  PreviewLoaded.stateMessage,
+                  style: context.bodyLarge,
+                ),
+              ),
+            );
+          } else if (state is PreviewLoading) {
+            context.showSnackBar(
+              SnackBar(
+                backgroundColor: primaryColor.withOpacity(0.5),
+                content: Text(
+                  PreviewLoaded.stateMessage,
                   style: context.bodyLarge,
                 ),
               ),
@@ -36,6 +45,7 @@ class _PreviewPageState extends State<PreviewPage> {
           }
         },
         builder: (context, state) {
+          print(state);
           if (state is PreviewLoading) {
             return _loadPreview;
           } else if (state is PreviewLoaded) {
