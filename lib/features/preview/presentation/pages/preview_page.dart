@@ -32,8 +32,7 @@ class _PreviewPageState extends State<PreviewPage> {
                 ),
               ),
             );
-          }
-         else if (state is PreviewLoading) {
+          } else if (state is PreviewLoading) {
             context.showSnackBar(
               SnackBar(
                 backgroundColor: primaryColor.withOpacity(0.5),
@@ -46,6 +45,7 @@ class _PreviewPageState extends State<PreviewPage> {
           }
         },
         builder: (context, state) {
+          print(state);
           if (state is PreviewLoading) {
             return _loadPreview;
           } else if (state is PreviewLoaded) {

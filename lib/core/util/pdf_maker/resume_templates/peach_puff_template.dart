@@ -1,14 +1,9 @@
 import 'dart:typed_data';
 
-import 'package:path_provider/path_provider.dart';
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:pdf/widgets.dart';
-import 'package:printing/printing.dart';
-import 'package:resume_maker_app/core/util/pdf_maker/repository/repo.dart';
 
+import '../../../export/export.dart';
 import '../components/pdf_components.dart';
-import '../contract/template_contract.dart';
 
 // const String path = 'assets/person.png';
 
@@ -33,14 +28,8 @@ class PeachPuffTemplate extends ResumeTemplateContract {
 
   @override
   Future<Uint8List> getcreatedPdf() async {
-    // pw.ThemeData myTheme = pw.ThemeData.withFont(
-    //   base: Font.ttf(
-    //     await rootBundle.load("assets/fonts/Lato/Lato-Regular.ttf"),
-    //   ),
-    // );
-
     pdf.addPage(
-      pw.Page(
+      pw.MultiPage(
         pageFormat: PdfPageFormat.letter.copyWith(
           marginTop: 0,
           marginLeft: 0,
@@ -53,12 +42,7 @@ class PeachPuffTemplate extends ResumeTemplateContract {
           icons: await PdfGoogleFonts.materialIcons(),
         ),
         build: (pw.Context context) {
-          return Row(
-            children: [
-              leftContainer(),
-              rightContainer(),
-            ],
-          );
+          return widgets;
         },
       ),
     );
@@ -81,14 +65,15 @@ class PeachPuffTemplate extends ResumeTemplateContract {
               children: [
                 sizedBox015,
                 _myrepo.getUserData.languages == null
-                    ? SizedBox()
+                    ? pw.SizedBox()
                     : pw.Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
                           _myrepo.getUserData.education == null
-                              ? SizedBox()
+                              ? pw.SizedBox()
                               : pw.Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment:
+                                      pw.CrossAxisAlignment.start,
                                   children: [
                                     head1Text("EDUCATION"),
                                     educationText(
@@ -111,7 +96,7 @@ class PeachPuffTemplate extends ResumeTemplateContract {
                 _myrepo.getUserData.skills == null
                     ? pw.SizedBox()
                     : pw.Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
                           pw.Row(
                             children: [
@@ -124,9 +109,9 @@ class PeachPuffTemplate extends ResumeTemplateContract {
                       ),
                 pw.Spacer(),
                 _myrepo.getUserData.personal == null
-                    ? SizedBox()
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                    ? pw.SizedBox()
+                    : pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
                           head1Text("CONTACT"),
                           contactText(
@@ -150,13 +135,13 @@ class PeachPuffTemplate extends ResumeTemplateContract {
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
             _myrepo.getUserData.personal == null
-                ? SizedBox()
+                ? pw.SizedBox()
                 : nameText(_myrepo.getUserData.personal!.fullName!),
             sizedBox015,
             _myrepo.getUserData.personal == null
                 ? pw.SizedBox()
                 : pw.Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       head1Text("ABOUT ME"),
                       customDivider(),
@@ -164,28 +149,6 @@ class PeachPuffTemplate extends ResumeTemplateContract {
                           aboutMeText: _myrepo.getUserData.personal!.summary!)
                     ],
                   ),
-            // sizedBox015,
-            // _myrepo.referenceDataList == null
-            //     ? SizedBox()
-            //     : pw.Column(
-            //         crossAxisAlignment: CrossAxisAlignment.start,
-            //         children: [
-            //           head1Text("REFERENCE"),
-            //           customDivider(),
-            //           // referenceModel(referenceList: referenceDataList!),
-            //         ],
-            //       ),
-            sizedBox015,
-            // experienceList == null
-            //     ? SizedBox()
-            //     : pw.Column(
-            //         crossAxisAlignment: CrossAxisAlignment.start,
-            //         children: [
-            //           head1Text("EXPERIENCE"),
-            //           customDivider(),
-            //           experienceWidget(experienceModel: experienceList!),
-            //         ],
-            //       ),
           ],
         ),
       ),
@@ -194,24 +157,23 @@ class PeachPuffTemplate extends ResumeTemplateContract {
 
   @override
   Future<String> getFilePathToSave() async {
-    final output = await getTemporaryDirectory();
+    final output = await getExternalStorageDirectory();
 
-    filePath = "${output.path}/${"${DateTime.now()}"}.pdf";
+    filePath = "${output!.path}/${"${DateTime.now()}"}.pdf";
 
     return filePath;
-
-    // final file = File(_filePath);
-    // try {
-    //   await file.writeAsBytes(byteList);
-    //   // await OpenFile.open(filePath);
-    // } catch (e) {
-    //   print("$e");
-    // }
   }
 
   @override
   void buildUpPDF() {
-    // TODO: implement buildUpPDF
+    widgets.add(
+      pw.Row(
+        children: [
+          leftContainer(),
+          rightContainer(),
+        ],
+      ),
+    );
   }
 
   // Future<void> savePdfFile(

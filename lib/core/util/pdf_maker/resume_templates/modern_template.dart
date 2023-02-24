@@ -30,17 +30,7 @@ class ModernTemplate extends ResumeTemplateContract {
 
   final pdf = pw.Document();
 
-  final List<pw.Row> _widgets = [
-    pw.Row(
-      children: [
-        Container(
-          width: width * 0.35,
-          child: Column(),
-        ),
-        Column(),
-      ],
-    ),
-  ];
+  final List<pw.Widget> _widgets = [];
 
   @override
   Future<Uint8List> getcreatedPdf() async {
@@ -248,25 +238,10 @@ class ModernTemplate extends ResumeTemplateContract {
 
   @override
   void buildUpPDF() {
-    var left = _widgets[0].children[0];
-
-    // left = pw.Column();
-
-    var right = _widgets[0].children[1];
-
-    right = pw.Column();
-
-    // .add(leftContainer());
-    _widgets[0].children[1] = (rightContainer());
-    _widgets[0].children[0] = (leftContainer());
-    // _widgets.add(
-    //   pw.Row(
-    //     crossAxisAlignment: pw.CrossAxisAlignment.start,
-    //     children: [
-    //       rightContainer(),
-    //     ],
-    //   ),
-    // );
+    pw.Row(children: [
+      leftContainer(),
+      rightContainer(),
+    ]);
   }
 
   void buildRightContainer() {}

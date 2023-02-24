@@ -2,14 +2,9 @@
 
 import 'dart:typed_data';
 
-import 'package:path_provider/path_provider.dart';
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:pdf/widgets.dart';
-import 'package:printing/printing.dart';
-import 'package:resume_maker_app/core/util/pdf_maker/contract/template_contract.dart';
-import 'package:resume_maker_app/core/util/pdf_maker/repository/repo.dart';
 
+import '../../../export/export.dart';
 import '../components/pdf_components.dart';
 
 // const String path = 'assets/person.png';
@@ -28,7 +23,7 @@ class GreyPlainTemplate extends ResumeTemplateContract {
   @override
   String filePath = "";
 
-  final PdfRepo _pdfRepo = PdfRepo.instance;
+  final _pdfRepo = PdfRepo.instance;
 
   final pdf = pw.Document();
 
@@ -76,7 +71,7 @@ class GreyPlainTemplate extends ResumeTemplateContract {
       color: PdfColors.grey300,
       child: pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
+        mainAxisSize: pw.MainAxisSize.max,
         children: [
           // _pdfRepo.getUserData.personal == null
           //     ? SizedBox()
@@ -85,7 +80,7 @@ class GreyPlainTemplate extends ResumeTemplateContract {
           pw.Column(
             mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
             crossAxisAlignment: pw.CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
+            mainAxisSize: pw.MainAxisSize.max,
             children: [
               _pdfRepo.getUserData.education == null
                   ? pw.SizedBox()
@@ -102,7 +97,7 @@ class GreyPlainTemplate extends ResumeTemplateContract {
                     ),
               sizedBox015,
               _pdfRepo.getUserData.languages == null
-                  ? SizedBox()
+                  ? pw.SizedBox()
                   : pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
@@ -125,8 +120,8 @@ class GreyPlainTemplate extends ResumeTemplateContract {
                     ),
               sizedBox015,
               _pdfRepo.getUserData.personal == null
-                  ? SizedBox()
-                  : Column(
+                  ? pw.SizedBox()
+                  : pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         pw.Row(
@@ -160,7 +155,7 @@ class GreyPlainTemplate extends ResumeTemplateContract {
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
             _pdfRepo.getUserData.personal == null
-                ? SizedBox()
+                ? pw.SizedBox()
                 : nameText(_pdfRepo.getUserData.personal!.fullName!),
             sizedBox015,
             _pdfRepo.getUserData.personal == null

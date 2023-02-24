@@ -21,7 +21,7 @@ class CloudTemplate extends ResumeTemplateContract {
   @override
   String filePath = "";
 
-  List<pw.Widget> widgets = [];
+  final List<pw.Widget> _widgets = [];
   final pdf = pw.Document();
   final PdfRepo _pdfRepo = PdfRepo.instance;
 
@@ -40,7 +40,7 @@ class CloudTemplate extends ResumeTemplateContract {
           bold: await PdfGoogleFonts.varelaRoundRegular(),
           icons: await PdfGoogleFonts.materialIcons(),
         ),
-        build: (pw.Context context) => widgets,
+        build: (pw.Context context) => _widgets,
       ),
     );
     return await pdf.save();
@@ -48,10 +48,6 @@ class CloudTemplate extends ResumeTemplateContract {
 
   @override
   void buildUpPDF() {
-    // var profilePicture = _pdfRepo.getUserData.personal!.imagePath == null
-    //     ? pw.SizedBox()
-    //     : getPersonImage1(_pdfRepo.getUserData.personal!.imagePath!);
-
     var aboutmeWidget = _pdfRepo.getUserData.personal!.summary == null
         ? pw.SizedBox()
         : aboutMeText(aboutMeText: _pdfRepo.getUserData.personal!.summary!);
@@ -147,12 +143,11 @@ class CloudTemplate extends ResumeTemplateContract {
             ),
           );
 
-    widgets.add(
+    _widgets.add(
       _pdfRepo.getUserData.personal == null
           ? pw.SizedBox()
           : pw.Row(
               children: [
-                // pw.Center(child: profilePicture),
                 pw.SizedBox(width: 30.w),
                 pw.Expanded(
                   child: pw.SizedBox(
@@ -173,11 +168,11 @@ class CloudTemplate extends ResumeTemplateContract {
             ),
     );
 
-    widgets.add(contactContainer);
+    _widgets.add(contactContainer);
 
-    widgets.add(sizedBox015);
+    _widgets.add(sizedBox015);
 
-    widgets.add(
+    _widgets.add(
       pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
@@ -188,30 +183,21 @@ class CloudTemplate extends ResumeTemplateContract {
       ),
     );
 
-    widgets.add(educationContainer);
-    widgets.add(languageContainer);
-    widgets.add(skillsContainer);
-    widgets.add(sizedBox015);
-
-    // if (_pdfRepo.referenceDataList != null) {
-    //   widgets.add(head1Text("REFERENCE"));
-    //   widgets.add(customDivider());
-    //   for (var element in _pdfRepo.referenceDataList!) {
-    //     widgets.add(referenceModel(referenceModel: element));
-    //     widgets.add(sizedBox015);
-    //   }
-    // }
+    _widgets.add(educationContainer);
+    _widgets.add(languageContainer);
+    _widgets.add(skillsContainer);
+    _widgets.add(sizedBox015);
 
     if (_pdfRepo.getUserData.experiences != null) {
-      widgets.add(head1Text("EXPERIENCE"));
-      widgets.add(customDivider());
-      widgets.add(pw.SizedBox(height: height * 0.001));
+      _widgets.add(head1Text("EXPERIENCE"));
+      _widgets.add(customDivider());
+      _widgets.add(pw.SizedBox(height: height * 0.001));
       var a =
           experienceWidget(experienceList: _pdfRepo.getUserData.experiences!);
-      widgets.add(a);
+      _widgets.add(a);
     }
 
-    widgets.add(sizedBox015);
+    _widgets.add(sizedBox015);
   }
 
   pw.BoxDecoration _blueBoxDecoration() {
@@ -226,9 +212,9 @@ class CloudTemplate extends ResumeTemplateContract {
 
   @override
   Future<String> getFilePathToSave() async {
-    final output = await path_provider.getApplicationDocumentsDirectory();
+    final output = await path_provider.getExternalStorageDirectory();
 
-    filePath = "${output.path}/${DateTime.now()}.pdf";
+    filePath = "${output!.path}/${DateTime.now()}.pdf";
 
     // await OpenFile.open(filePath);
     return filePath;

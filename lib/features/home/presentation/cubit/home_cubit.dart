@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import '../../../../core/export/export.dart';
 import '../../../../domain/usecases/user_data_usecase.dart';
@@ -7,10 +8,21 @@ part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial()) {
+    getPath();
     fetchHomeUserData();
   }
 
   final _userDataUsecase = UserDataUsecase.instance;
+
+  List<FileSystemEntity> fileList = [];
+
+  Future<List<FileSystemEntity>> getPath() async {
+    final output = await getExternalStorageDirectory();
+    var path = output!.path;
+    fileList = Directory(path).listSync();
+
+    return fileList;
+  }
 
   Future<void> saveHomeUserData(String userData) async {
     var response = await _userDataUsecase.saveUserData(userData);
@@ -37,11 +49,9 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> fetchHomeUserData() async {
     var response = await _userDataUsecase.fetchUserData();
-    
 
     response.fold(
       (l) {
-        
         emit(HomeUserDataFetchFailure());
       },
       (r) {

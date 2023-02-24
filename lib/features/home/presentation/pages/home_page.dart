@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:file_manager/file_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
@@ -15,19 +13,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final controller = FileManagerController();
-
-  late final String path;
-
-  List<FileSystemEntity> fileList = [];
-
-  @override
-  void initState() {
-    getPath().then((value) {
-      path = value;
-      fileList = Directory(path).listSync();
-    });
-    super.initState();
-  }
 
   bool dragStarted = false;
 
@@ -104,7 +89,6 @@ class _HomePageState extends State<HomePage> {
             },
             bloc: Injection.homeCubit,
             builder: (context, state) {
-              print("object");
               if (state is HomeUserDataFetched) {
                 if (state.userDataList.isEmpty) {
                   return const Center(
@@ -113,8 +97,11 @@ class _HomePageState extends State<HomePage> {
                 } else {
                   List<Widget> widgetList = [];
 
-                  for (var i = 0; i < fileList.length; i++) {
-                    widgetList.add(dragableItem(i, state, fileList[i].path));
+                  for (var i = 0;
+                      i < Injection.homeCubit.fileList.length;
+                      i++,) {
+                    widgetList.add(dragableItem(
+                        i, state, Injection.homeCubit.fileList[i].path));
                   }
                   return GridView.count(
                     crossAxisCount: 2,
@@ -133,11 +120,6 @@ class _HomePageState extends State<HomePage> {
         ),
       ],
     );
-  }
-
-  Future<String> getPath() async {
-    final output = await getExternalStorageDirectory();
-    return output!.path;
   }
 
   Widget dragableItem(int index, state, path) {

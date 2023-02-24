@@ -38,12 +38,12 @@ class PreviewCubit extends Cubit<PreviewState> {
         Uint8List pdfFile = await selectedTemplate.getcreatedPdf();
         String path = await selectedTemplate.getFilePathToSave();
 
-        print(path);
         final file = File(path);
         await file.writeAsBytes(pdfFile);
 
         emit(PreviewLoaded(pdfFilePath: file.path));
-      } on PlatformException {
+      } on PlatformException catch (e) {
+        print("cubitmessage" "${e.message}");
         emit(PreviewLoadingError());
       }
     } else {

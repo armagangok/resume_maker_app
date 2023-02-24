@@ -19,6 +19,7 @@ abstract class UserData with _$UserData {
     List<Qualifications>? qualifications,
     List<Skills>? skills,
     List<Experience>? experiences,
+    String? pdfPath,
   }) = _UserData;
 
   factory UserData.fromJson(Map<String, dynamic> json) => _$UserDataFromJson(
