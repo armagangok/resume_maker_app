@@ -16,8 +16,16 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final controller = FileManagerController();
 
+  late final String path;
+
+  List<FileSystemEntity> fileList = [];
+
   @override
   void initState() {
+    getPath().then((value) {
+      path = value;
+      fileList = Directory(path).listSync();
+    });
     super.initState();
   }
 
@@ -96,88 +104,26 @@ class _HomePageState extends State<HomePage> {
             },
             bloc: Injection.homeCubit,
             builder: (context, state) {
+              print("object");
               if (state is HomeUserDataFetched) {
                 if (state.userDataList.isEmpty) {
                   return const Center(
                     child: Text("Please create a new resume for yourself!"),
                   );
                 } else {
-                  return FutureBuilder(
-                    future: getPath(),
-                    builder: (context, AsyncSnapshot<String> snapshot) {
-                      if (snapshot.hasData) {
-                        var path = snapshot.data;
-                        var fileList = Directory(path!).listSync();
+                  List<Widget> widgetList = [];
 
-                        return GridView.builder(
-                          itemCount: fileList.length,
-                          shrinkWrap: true,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                          ),
-                          itemBuilder: (context, index) {
-                            return dragableItem(
-                              index,
-                              state,
-                              fileList[index].path,
-                            );
-                          },
-                        );
-                      } else {
-                        return const Center();
-                      }
-                    },
+                  for (var i = 0; i < fileList.length; i++) {
+                    widgetList.add(dragableItem(i, state, fileList[i].path));
+                  }
+                  return GridView.count(
+                    crossAxisCount: 2,
+                    childAspectRatio: (0.8),
+                    controller: ScrollController(keepScrollOffset: false),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    children: widgetList,
                   );
-                  // return FileManager(
-                  //   controller: controller,
-                  //   builder: (context, snapshot) {
-                  //     final List<FileSystemEntity> entities = snapshot;
-                  //     print(entities);
-                  //     return ListView.builder(
-                  //       itemCount: entities.length,
-                  //       itemBuilder: (context, index) {
-                  //         return Card(
-                  //           child: ListTile(
-                  //             leading: FileManager.isFile(entities[index])
-                  //                 ? const Icon(Icons.feed_outlined)
-                  //                 : const Icon(Icons.folder),
-                  //             title:
-                  //                 Text(FileManager.basename(entities[index])),
-                  //             onTap: () {
-                  //               if (FileManager.isDirectory(entities[index])) {
-                  //                 controller.openDirectory(
-                  //                   entities[index],
-                  //                 ); // open directory
-                  //               } else {
-                  //                  controller.openDirectory(
-                  //                   entities[index],
-                  //                 ); // open dir
-                  //                 // Perform file-related tasks.
-                  //               }
-                  //             },
-                  //           ),
-                  //         );
-                  //       },
-                  //     );
-                  //   },
-                  // );
-                  // return FutureBuilder(
-                  //     future: getPath(),
-                  //     builder: (context, AsyncSnapshot<String> snapshot) {
-                  //       if (snapshot.hasData) {
-                  //         print(snapshot.data);
-                  //         return Text(snapshot.data!);
-                  //       } else {
-                  //         return const FittedBox(
-                  //           child: Text(
-                  //             "No data",
-                  //             style: TextStyle(),
-                  //             maxLines: 1,
-                  //           ),
-                  //         );
-                  //       }
-                  //     });
                 }
               } else {
                 return const Text("data");
@@ -195,35 +141,41 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget dragableItem(int index, state, path) {
-    return Draggable(
-      data: index,
-      feedback: item(state, index, path),
-      childWhenDragging: const SizedBox(),
-      child: item(state, index, path),
-      onDragStarted: () {
-        setState(() {
-          dragStarted = true;
-          selectIndex = index;
-        });
-      },
-      onDragEnd: (details) {},
-      onDraggableCanceled: (velocity, offset) {
-        setState(() {
-          dragStarted = false;
-        });
-      },
-      onDragCompleted: () {
-        setState(() {
-          dragStarted = false;
-        });
-      },
+    return SizedBox(
+      height: 100.h,
+      child: Draggable(
+        data: index,
+        feedback: item(state, index, path),
+        childWhenDragging: const SizedBox(),
+        child: item(state, index, path),
+        onDragStarted: () {
+          setState(() {
+            dragStarted = true;
+            selectIndex = index;
+          });
+        },
+        onDragEnd: (details) {},
+        onDraggableCanceled: (velocity, offset) {
+          setState(() {
+            dragStarted = false;
+          });
+        },
+        onDragCompleted: () {
+          setState(() {
+            dragStarted = false;
+          });
+        },
+      ),
     );
   }
 
   Widget item(state, index, path) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: PdfView(path: path),
+    return SizedBox(
+      height: 100.h,
+      child: Padding(
+        padding: EdgeInsets.all(5.w),
+        child: PdfView(path: path),
+      ),
     );
   }
 }
