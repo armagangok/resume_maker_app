@@ -48,7 +48,6 @@ export '/features/design/presentation/viewmodels/color_picker/color_picker_cubit
 export '/features/design/presentation/viewmodels/resume_template/resume_template_cubit.dart';
 export '/features/design/presentation/widgets/resume_list_view.dart';
 export '/features/export/presentation/pages/export_page.dart';
-export '/features/home/presentation/cubit/home_cubit.dart';
 export '/features/preview/presentation/cubit/preview_cubit.dart';
 export '/features/preview/presentation/pages/preview_page.dart';
 export '/features/profile/presentation/cubit/multiple_item/multiple_item_cubit.dart';
@@ -59,3 +58,5 @@ export '/features/profile/presentation/pages/page_views/personal/cubit/image_pic
 export '/features/profile/presentation/pages/page_views/personal/cubit/personal_data/personal_data_cubit.dart';
 export '/features/profile/presentation/pages/profile_page.dart';
 export '/features/root_page/presentation/cubit/root_cubit.dart';
+
+export '/features/home/presentation/viewmodels/home_cubit.dart';
