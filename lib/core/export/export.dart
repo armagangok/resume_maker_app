@@ -55,7 +55,7 @@ export '/features/home/data/datasources/home_data_source.dart';
 export '/features/home/domain/contract/home_repository_contract.dart';
 export '/features/home/domain/repositories/home_repository.dart';
 export '/features/home/domain/usecases/home_usecase.dart';
-export '/features/home/presentation/viewmodels/home_cubit.dart';
+export '/features/home/presentation/viewmodels/home/home_cubit.dart';
 export '/features/preview/presentation/cubit/preview_cubit.dart';
 export '/features/preview/presentation/pages/preview_page.dart';
 export '/features/profile/presentation/cubit/multiple_item/multiple_item_cubit.dart';

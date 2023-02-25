@@ -1,4 +1,5 @@
 import 'package:resume_maker_app/core/export/export.dart';
+import 'package:resume_maker_app/features/home/presentation/viewmodels/file_entity/file_entity_cubit.dart';
 
 class Injection {
   Injection._();
@@ -28,6 +29,7 @@ class Injection {
   static RootCubit get rootCubit => getit.call<RootCubit>();
   static HomeCubit get homeCubit => getit.call<HomeCubit>();
   static ResumeTemplateCubit get resumeTemplateCubit => getit();
+  static FileEntityCubit get fileEntityCubit => getit();
 
   static PersonalDataCubit get personalDataCubit =>
       getit.call<PersonalDataCubit>();

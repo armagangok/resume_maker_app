@@ -1,8 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-import 'dart:io';
 
-import '../../../../core/export/export.dart';
+import '../../../../../core/export/export.dart';
 
 part 'home_state.dart';
 
@@ -12,22 +11,6 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   late final HomeUsecase _homeUsecase;
-
-  List<FileSystemEntity> fileList = [];
-
-  Future<List<FileSystemEntity>> getPath() async {
-    var response = await _homeUsecase.fetchFileEntityList();
-
-    return response.when(
-      success: (data) {
-        print(data);
-        return data;
-      },
-      failure: (failure) {
-        return [];
-      },
-    );
-  }
 
   Future<void> saveHomeUserData(String userData) async {
     var response = await UserDataUsecase.instance.saveUserData(userData);
@@ -41,15 +24,6 @@ class HomeCubit extends Cubit<HomeState> {
         emit(HomeUserDataSavingFailure());
       },
     );
-
-    // fold(
-    //   (l) {
-    //
-    //   },
-    //   (r) async {
-
-    //   },
-    // );
   }
 
   Future<void> deleteHomeUserData(int index) async {
