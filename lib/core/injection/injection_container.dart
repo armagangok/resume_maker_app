@@ -5,6 +5,7 @@ import '../export/export.dart';
 final getIt = GetIt.instance;
 
 void initDependencies() {
+  setupViewmodels();
   getIt.registerLazySingleton<NavigationContract>(
     () => NavigationService.instance,
   );
@@ -12,37 +13,39 @@ void initDependencies() {
 
 void registerUsecases() {}
 void registerRepositories() {}
-void registerDataSources() {}
+void registerDataSources() {
+  
+}
 
 //  SETUP VIEWMODELS
 void setupViewmodels() {
-  getIt.registerLazySingleton<DesignCubit>(
-    () => getIt(),
+  getIt.registerLazySingleton<ColorPickerCubit>(
+    () => ColorPickerCubit(),
   );
 
   getIt.registerLazySingleton<ProfileCubit>(
-    () => getIt(),
+    () => ProfileCubit(),
   );
 
   getIt.registerLazySingleton<MultipleItemCubit>(
-    () => getIt(),
+    () => MultipleItemCubit(),
   );
   getIt.registerLazySingleton<PersonalDataCubit>(
-    () => getIt(),
+    () => PersonalDataCubit(),
   );
 
   getIt.registerLazySingleton<ImageCubit>(
-    () => getIt(),
+    () => ImageCubit(),
   );
   getIt.registerLazySingleton<RootCubit>(
-    () => getIt(),
+    () => RootCubit(),
   );
 
   getIt.registerLazySingleton<PreviewCubit>(
-    () => getIt(),
+    () => PreviewCubit(),
   );
 
   getIt.registerLazySingleton<HomeCubit>(
-    () => getIt(),
+    () => HomeCubit(),
   );
 }

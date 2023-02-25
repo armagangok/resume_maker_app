@@ -1,7 +1,5 @@
 import 'package:resume_maker_app/core/export/export.dart';
 
-
-
 class Injection {
   Injection._();
 
@@ -15,7 +13,8 @@ class Injection {
   static final _experienceCubit = MultipleItemCubit();
 
   static NavigationContract get navigator => getIt.call<NavigationContract>();
-  static DesignCubit get designCubit => getIt.call<DesignCubit>();
+  static ColorPickerCubit get colorPickerCubit =>
+      getIt.call<ColorPickerCubit>();
   static PreviewCubit get previewCubit => getIt.call<PreviewCubit>();
   static ProfileCubit get profileCubit => getIt.call<ProfileCubit>();
   static NewItemCubit get phoneItemCubit => _phoneItemCubit;

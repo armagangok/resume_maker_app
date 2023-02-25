@@ -1,12 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:resume_maker_app/core/injection/injection_service.dart';
-import 'package:resume_maker_app/core/theme/constants/colors.dart';
 
-import '../../../preview/presentation/cubit/preview_cubit.dart';
-import '../cubit/design_cubit.dart';
+import '../../../../core/export/export.dart';
 
 class ResumeTemplateBuilder extends StatelessWidget {
   const ResumeTemplateBuilder({
@@ -15,8 +9,8 @@ class ResumeTemplateBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DesignCubit, DesignState>(
-      bloc: Injection.designCubit,
+    return BlocBuilder<ColorPickerCubit, ColorPickerState>(
+      bloc: Injection.colorPickerCubit,
       builder: (context, state) {
         return BlocBuilder<PreviewCubit, PreviewState>(
           bloc: Injection.previewCubit,
@@ -49,7 +43,7 @@ class ResumeTemplateBuilder extends StatelessWidget {
             },
             child: Container(
               height: 300.h,
-              color: Injection.designCubit.selectedColor,
+              color: Injection.colorPickerCubit.selectedColor,
               child: Center(
                 child: Text(
                   Injection.previewCubit.resumeTemplateList[index].templateName,
