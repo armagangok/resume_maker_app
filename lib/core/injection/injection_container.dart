@@ -6,9 +6,9 @@ final getit = GetIt.instance;
 
 void initDependencies() {
   setupViewmodels();
-  getit.registerLazySingleton<NavigationContract>(
-    () => NavigationService.instance,
-  );
+  setupDataSources();
+  setupUsecases();
+  setupRepositories();
 }
 
 void setupUsecases() {}
@@ -43,6 +43,10 @@ void setupViewmodels() {
     () => RootCubit(),
   );
 
+  getit.registerLazySingleton<NavigationContract>(
+    () => NavigationService.instance,
+  );
+
   getit.registerLazySingleton<PreviewCubit>(
     () => PreviewCubit(),
   );
@@ -52,6 +56,6 @@ void setupViewmodels() {
   );
 
   getit.registerLazySingleton<ResumeTemplateCubit>(
-    () => ResumeTemplateCubit(),
+    () => ResumeTemplateCubit(designDataSource: getit()),
   );
 }

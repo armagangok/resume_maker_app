@@ -1,9 +1,5 @@
 import '../../../../core/export/export.dart';
 
 abstract class DesignDataSourceContract {
-  
-
-
-
-  fetchResumeTemplates();
+  List<ResumeTemplateContract> get fetchResumeTemplates;
 }

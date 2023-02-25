@@ -1,27 +1,30 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import '../../../../../core/export/export.dart';
 
 part 'resume_template_state.dart';
 
 class ResumeTemplateCubit extends Cubit<ResumeTemplateState> {
-  ResumeTemplateCubit() : super(ResumeTemplateInitial());
+  ResumeTemplateCubit({
+    required this.designDataSource,
+  }) : super(ResumeTemplateInitial()) {
+    _resumeTemplateList = designDataSource.fetchResumeTemplates;
+  }
+
+  List<ResumeTemplateContract> _resumeTemplateList = [];
+  List<ResumeTemplateContract> get resumeTemplateList => _resumeTemplateList;
+
+  late final DesignDataSourceContract designDataSource;
 
   ResumeTemplateContract selectedTemplate = ModernTemplate.instance;
 
-  List<ResumeTemplateContract> resumeTemplateList = [
-    ModernTemplate.instance,
-    CloudTemplate.instance,
-    GreyPlainTemplate.instance,
-    PeachPuffTemplate.instance,
-  ];
-
   void selectTemplate(int index) {
-    for (var element in resumeTemplateList) {
+    for (var element in _resumeTemplateList) {
       element.isSelected = false;
     }
 
-    resumeTemplateList[index].isSelected = true;
+    _resumeTemplateList[index].isSelected = true;
 
-    selectedTemplate = resumeTemplateList[index];
+    selectedTemplate = _resumeTemplateList[index];
     emit(ResumeTemplateInitial());
   }
 }
