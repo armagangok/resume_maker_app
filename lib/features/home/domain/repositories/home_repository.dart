@@ -2,18 +2,19 @@
 
 import 'dart:io';
 
+import '../../../../core/exception_handling/handler/my_exceptions_handler.dart';
 import '../../../../core/export/export.dart';
 import '../../../../core/result_types/result/result.dart';
 
 class HomeRepository extends HomeRepositoryContract {
   HomeRepository({
     required HomeDataSourceContract homeDataSourceContract,
-    required CustomException exceptionHandler,
+    required ExceptionHandler exceptionHandler,
   })  : _exceptionHandler = exceptionHandler,
         _homeDataSourceContract = homeDataSourceContract;
 
   final HomeDataSourceContract _homeDataSourceContract;
-  final CustomException _exceptionHandler;
+  final ExceptionHandler _exceptionHandler;
 
   @override
   Future<Result<List<FileSystemEntity>>> fetchFileEntityList() async {
