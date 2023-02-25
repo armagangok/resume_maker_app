@@ -1,5 +1,5 @@
 import 'package:get_it/get_it.dart';
-
+import 'package:resume_maker_app/features/home/domain/contract/home_repository_contract.dart';
 
 import '../export/export.dart';
 
@@ -13,10 +13,22 @@ void initDependencies() {
 }
 
 void setupUsecases() {}
-void setupRepositories() {}
+
+void setupRepositories() {
+  getit.registerLazySingleton<HomeRepositoryContract>(
+    () => HomeRepository(
+      homeDataSourceContract: getit.get(),
+    ),
+  );
+}
+
+// SETUP DATA SOURCES
 void setupDataSources() {
   getit.registerLazySingleton<DesignDataSourceContract>(
     () => DesignDataSource(),
+  );
+  getit.registerLazySingleton<HomeDataSourceContract>(
+    () => HomeDataSource(),
   );
 }
 

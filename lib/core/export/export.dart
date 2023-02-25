@@ -20,6 +20,7 @@ export '/core/navigation/navigation_route.dart';
 export '/core/navigation/navigation_service.dart';
 export '/core/theme/constants/colors.dart';
 export '/core/theme/theme_data/dark_theme.dart';
+export '/core/util/directory_helper/directory_helper.dart';
 export '/core/util/hive/hive_helper.dart';
 export '/core/util/hive/hive_keys.dart';
 export '/core/util/pdf_maker/contract/template_contract.dart';
@@ -48,6 +49,11 @@ export '/features/design/presentation/viewmodels/color_picker/color_picker_cubit
 export '/features/design/presentation/viewmodels/resume_template/resume_template_cubit.dart';
 export '/features/design/presentation/widgets/resume_list_view.dart';
 export '/features/export/presentation/pages/export_page.dart';
+export '/features/home/data/contract/home_data_source_contract.dart';
+export '/features/home/data/datasources/home_data_source.dart';
+export '/features/home/domain/contract/home_repository_contract.dart';
+export '/features/home/domain/repositories/home_repository.dart';
+export '/features/home/presentation/viewmodels/home_cubit.dart';
 export '/features/preview/presentation/cubit/preview_cubit.dart';
 export '/features/preview/presentation/pages/preview_page.dart';
 export '/features/profile/presentation/cubit/multiple_item/multiple_item_cubit.dart';
@@ -58,5 +64,3 @@ export '/features/profile/presentation/pages/page_views/personal/cubit/image_pic
 export '/features/profile/presentation/pages/page_views/personal/cubit/personal_data/personal_data_cubit.dart';
 export '/features/profile/presentation/pages/profile_page.dart';
 export '/features/root_page/presentation/cubit/root_cubit.dart';
-
-export '/features/home/presentation/viewmodels/home_cubit.dart';

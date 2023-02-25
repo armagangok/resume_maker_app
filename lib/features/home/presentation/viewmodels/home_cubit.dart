@@ -17,14 +17,10 @@ class HomeCubit extends Cubit<HomeState> {
   List<FileSystemEntity> fileList = [];
 
   Future<List<FileSystemEntity>> getPath() async {
-    final output = await getExternalStorageDirectory();
-    var path = output!.path;
-    fileList = Directory(path).listSync();
-
     print(fileList);
 
     return fileList;
-  } 
+  }
 
   Future<void> saveHomeUserData(String userData) async {
     var response = await _userDataUsecase.saveUserData(userData);

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 abstract class HomeDataSourceContract {
-  fetchLocalPdfFiles();
+  Future<List<FileSystemEntity>> fetchFileEntityList();
 }
