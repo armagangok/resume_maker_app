@@ -11,24 +11,6 @@ class PreviewCubit extends Cubit<PreviewState> {
 
   ResumeTemplateContract selectedTemplate = ModernTemplate.instance;
 
-  void selectTemplate(int index) {
-    for (var element in resumeTemplateList) {
-      element.isSelected = false;
-    }
-
-    resumeTemplateList[index].isSelected = true;
-
-    selectedTemplate = resumeTemplateList[index];
-    emit(PreviewInitial());
-  }
-
-  List<ResumeTemplateContract> resumeTemplateList = [
-    ModernTemplate.instance,
-    CloudTemplate.instance,
-    GreyPlainTemplate.instance,
-    PeachPuffTemplate.instance,
-  ];
-
   void loadPreview() async {
     emit(PreviewLoading());
     if (selectedTemplate.filePath.isEmpty) {

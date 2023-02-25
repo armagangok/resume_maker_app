@@ -1,4 +1,5 @@
 import 'package:resume_maker_app/core/export/export.dart';
+import 'package:resume_maker_app/features/design/presentation/viewmodels/resume_template/resume_template_cubit.dart';
 
 class Injection {
   Injection._();
@@ -27,6 +28,7 @@ class Injection {
   static MultipleItemCubit get experienceCubit => _experienceCubit;
   static RootCubit get rootCubit => getIt.call<RootCubit>();
   static HomeCubit get homeCubit => getIt.call<HomeCubit>();
+  static ResumeTemplateCubit get resumeTemplateCubit => getIt.call<ResumeTemplateCubit>();
 
   static PersonalDataCubit get personalDataCubit =>
       getIt.call<PersonalDataCubit>();

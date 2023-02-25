@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../core/export/export.dart';
+import '../viewmodels/resume_template/resume_template_cubit.dart';
 
 class ResumeTemplateBuilder extends StatelessWidget {
   const ResumeTemplateBuilder({
@@ -12,13 +13,14 @@ class ResumeTemplateBuilder extends StatelessWidget {
     return BlocBuilder<ColorPickerCubit, ColorPickerState>(
       bloc: Injection.colorPickerCubit,
       builder: (context, state) {
-        return BlocBuilder<PreviewCubit, PreviewState>(
-          bloc: Injection.previewCubit,
+        return BlocBuilder<ResumeTemplateCubit, ResumeTemplateState>(
+          bloc: Injection.resumeTemplateCubit,
           builder: (context, state) {
             return GridView.builder(
               shrinkWrap: true,
               physics: const ClampingScrollPhysics(),
-              itemCount: Injection.previewCubit.resumeTemplateList.length,
+              itemCount:
+                  Injection.resumeTemplateCubit.resumeTemplateList.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),
@@ -39,21 +41,22 @@ class ResumeTemplateBuilder extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              Injection.previewCubit.selectTemplate(index);
+              Injection.resumeTemplateCubit.selectTemplate(index);
             },
             child: Container(
               height: 300.h,
               color: Injection.colorPickerCubit.selectedColor,
               child: Center(
                 child: Text(
-                  Injection.previewCubit.resumeTemplateList[index].templateName,
+                  Injection.resumeTemplateCubit.resumeTemplateList[index]
+                      .templateName,
                 ),
               ),
             ),
           ),
           Visibility(
-            visible:
-                Injection.previewCubit.resumeTemplateList[index].isSelected,
+            visible: Injection
+                .resumeTemplateCubit.resumeTemplateList[index].isSelected,
             child: Positioned(
               bottom: 5.w,
               right: 5.w,

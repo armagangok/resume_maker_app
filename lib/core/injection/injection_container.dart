@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:resume_maker_app/features/design/presentation/viewmodels/resume_template/resume_template_cubit.dart';
 
 import '../export/export.dart';
 
@@ -47,5 +48,9 @@ void setupViewmodels() {
 
   getIt.registerLazySingleton<HomeCubit>(
     () => HomeCubit(),
+  );
+
+  getIt.registerLazySingleton<ResumeTemplateCubit>(
+    () => ResumeTemplateCubit(),
   );
 }
