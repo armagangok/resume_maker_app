@@ -15,35 +15,35 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$PathProviderException {
+mixin _$CustomException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() noCachedException,
     required TResult Function() unknownLocalException,
-    required TResult Function() deletingPathProviderException,
+    required TResult Function() deletingCustomException,
     required TResult Function() unknownRemoteException,
     required TResult Function() noInternetException,
-    required TResult Function() forbiddenPathProviderException,
+    required TResult Function() forbiddenCustomException,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? noCachedException,
     TResult? Function()? unknownLocalException,
-    TResult? Function()? deletingPathProviderException,
+    TResult? Function()? deletingCustomException,
     TResult? Function()? unknownRemoteException,
     TResult? Function()? noInternetException,
-    TResult? Function()? forbiddenPathProviderException,
+    TResult? Function()? forbiddenCustomException,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? noCachedException,
     TResult Function()? unknownLocalException,
-    TResult Function()? deletingPathProviderException,
+    TResult Function()? deletingCustomException,
     TResult Function()? unknownRemoteException,
     TResult Function()? noInternetException,
-    TResult Function()? forbiddenPathProviderException,
+    TResult Function()? forbiddenCustomException,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -52,54 +52,49 @@ mixin _$PathProviderException {
     required TResult Function(NoCachedException value) noCachedException,
     required TResult Function(UnknownLocalException value)
         unknownLocalException,
-    required TResult Function(DeletingPathProviderException value)
-        deletingPathProviderException,
+    required TResult Function(DeletingCustomException value)
+        deletingCustomException,
     required TResult Function(UnknownRemoteException value)
         unknownRemoteException,
     required TResult Function(NoInternetException value) noInternetException,
-    required TResult Function(ForbiddenPathProviderException value)
-        forbiddenPathProviderException,
+    required TResult Function(ForbiddenCustomException value)
+        forbiddenCustomException,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(NoCachedException value)? noCachedException,
     TResult? Function(UnknownLocalException value)? unknownLocalException,
-    TResult? Function(DeletingPathProviderException value)?
-        deletingPathProviderException,
+    TResult? Function(DeletingCustomException value)? deletingCustomException,
     TResult? Function(UnknownRemoteException value)? unknownRemoteException,
     TResult? Function(NoInternetException value)? noInternetException,
-    TResult? Function(ForbiddenPathProviderException value)?
-        forbiddenPathProviderException,
+    TResult? Function(ForbiddenCustomException value)? forbiddenCustomException,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NoCachedException value)? noCachedException,
     TResult Function(UnknownLocalException value)? unknownLocalException,
-    TResult Function(DeletingPathProviderException value)?
-        deletingPathProviderException,
+    TResult Function(DeletingCustomException value)? deletingCustomException,
     TResult Function(UnknownRemoteException value)? unknownRemoteException,
     TResult Function(NoInternetException value)? noInternetException,
-    TResult Function(ForbiddenPathProviderException value)?
-        forbiddenPathProviderException,
+    TResult Function(ForbiddenCustomException value)? forbiddenCustomException,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $PathProviderExceptionCopyWith<$Res> {
-  factory $PathProviderExceptionCopyWith(PathProviderException value,
-          $Res Function(PathProviderException) then) =
-      _$PathProviderExceptionCopyWithImpl<$Res, PathProviderException>;
+abstract class $CustomExceptionCopyWith<$Res> {
+  factory $CustomExceptionCopyWith(
+          CustomException value, $Res Function(CustomException) then) =
+      _$CustomExceptionCopyWithImpl<$Res, CustomException>;
 }
 
 /// @nodoc
-class _$PathProviderExceptionCopyWithImpl<$Res,
-        $Val extends PathProviderException>
-    implements $PathProviderExceptionCopyWith<$Res> {
-  _$PathProviderExceptionCopyWithImpl(this._value, this._then);
+class _$CustomExceptionCopyWithImpl<$Res, $Val extends CustomException>
+    implements $CustomExceptionCopyWith<$Res> {
+  _$CustomExceptionCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -116,7 +111,7 @@ abstract class _$$NoCachedExceptionCopyWith<$Res> {
 
 /// @nodoc
 class __$$NoCachedExceptionCopyWithImpl<$Res>
-    extends _$PathProviderExceptionCopyWithImpl<$Res, _$NoCachedException>
+    extends _$CustomExceptionCopyWithImpl<$Res, _$NoCachedException>
     implements _$$NoCachedExceptionCopyWith<$Res> {
   __$$NoCachedExceptionCopyWithImpl(
       _$NoCachedException _value, $Res Function(_$NoCachedException) _then)
@@ -130,7 +125,7 @@ class _$NoCachedException implements NoCachedException {
 
   @override
   String toString() {
-    return 'PathProviderException.noCachedException()';
+    return 'CustomException.noCachedException()';
   }
 
   @override
@@ -147,10 +142,10 @@ class _$NoCachedException implements NoCachedException {
   TResult when<TResult extends Object?>({
     required TResult Function() noCachedException,
     required TResult Function() unknownLocalException,
-    required TResult Function() deletingPathProviderException,
+    required TResult Function() deletingCustomException,
     required TResult Function() unknownRemoteException,
     required TResult Function() noInternetException,
-    required TResult Function() forbiddenPathProviderException,
+    required TResult Function() forbiddenCustomException,
   }) {
     return noCachedException();
   }
@@ -160,10 +155,10 @@ class _$NoCachedException implements NoCachedException {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? noCachedException,
     TResult? Function()? unknownLocalException,
-    TResult? Function()? deletingPathProviderException,
+    TResult? Function()? deletingCustomException,
     TResult? Function()? unknownRemoteException,
     TResult? Function()? noInternetException,
-    TResult? Function()? forbiddenPathProviderException,
+    TResult? Function()? forbiddenCustomException,
   }) {
     return noCachedException?.call();
   }
@@ -173,10 +168,10 @@ class _$NoCachedException implements NoCachedException {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? noCachedException,
     TResult Function()? unknownLocalException,
-    TResult Function()? deletingPathProviderException,
+    TResult Function()? deletingCustomException,
     TResult Function()? unknownRemoteException,
     TResult Function()? noInternetException,
-    TResult Function()? forbiddenPathProviderException,
+    TResult Function()? forbiddenCustomException,
     required TResult orElse(),
   }) {
     if (noCachedException != null) {
@@ -191,13 +186,13 @@ class _$NoCachedException implements NoCachedException {
     required TResult Function(NoCachedException value) noCachedException,
     required TResult Function(UnknownLocalException value)
         unknownLocalException,
-    required TResult Function(DeletingPathProviderException value)
-        deletingPathProviderException,
+    required TResult Function(DeletingCustomException value)
+        deletingCustomException,
     required TResult Function(UnknownRemoteException value)
         unknownRemoteException,
     required TResult Function(NoInternetException value) noInternetException,
-    required TResult Function(ForbiddenPathProviderException value)
-        forbiddenPathProviderException,
+    required TResult Function(ForbiddenCustomException value)
+        forbiddenCustomException,
   }) {
     return noCachedException(this);
   }
@@ -207,12 +202,10 @@ class _$NoCachedException implements NoCachedException {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(NoCachedException value)? noCachedException,
     TResult? Function(UnknownLocalException value)? unknownLocalException,
-    TResult? Function(DeletingPathProviderException value)?
-        deletingPathProviderException,
+    TResult? Function(DeletingCustomException value)? deletingCustomException,
     TResult? Function(UnknownRemoteException value)? unknownRemoteException,
     TResult? Function(NoInternetException value)? noInternetException,
-    TResult? Function(ForbiddenPathProviderException value)?
-        forbiddenPathProviderException,
+    TResult? Function(ForbiddenCustomException value)? forbiddenCustomException,
   }) {
     return noCachedException?.call(this);
   }
@@ -222,12 +215,10 @@ class _$NoCachedException implements NoCachedException {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NoCachedException value)? noCachedException,
     TResult Function(UnknownLocalException value)? unknownLocalException,
-    TResult Function(DeletingPathProviderException value)?
-        deletingPathProviderException,
+    TResult Function(DeletingCustomException value)? deletingCustomException,
     TResult Function(UnknownRemoteException value)? unknownRemoteException,
     TResult Function(NoInternetException value)? noInternetException,
-    TResult Function(ForbiddenPathProviderException value)?
-        forbiddenPathProviderException,
+    TResult Function(ForbiddenCustomException value)? forbiddenCustomException,
     required TResult orElse(),
   }) {
     if (noCachedException != null) {
@@ -237,7 +228,7 @@ class _$NoCachedException implements NoCachedException {
   }
 }
 
-abstract class NoCachedException implements PathProviderException, Exception {
+abstract class NoCachedException implements CustomException, Exception {
   const factory NoCachedException() = _$NoCachedException;
 }
 
@@ -250,7 +241,7 @@ abstract class _$$UnknownLocalExceptionCopyWith<$Res> {
 
 /// @nodoc
 class __$$UnknownLocalExceptionCopyWithImpl<$Res>
-    extends _$PathProviderExceptionCopyWithImpl<$Res, _$UnknownLocalException>
+    extends _$CustomExceptionCopyWithImpl<$Res, _$UnknownLocalException>
     implements _$$UnknownLocalExceptionCopyWith<$Res> {
   __$$UnknownLocalExceptionCopyWithImpl(_$UnknownLocalException _value,
       $Res Function(_$UnknownLocalException) _then)
@@ -264,7 +255,7 @@ class _$UnknownLocalException implements UnknownLocalException {
 
   @override
   String toString() {
-    return 'PathProviderException.unknownLocalException()';
+    return 'CustomException.unknownLocalException()';
   }
 
   @override
@@ -281,10 +272,10 @@ class _$UnknownLocalException implements UnknownLocalException {
   TResult when<TResult extends Object?>({
     required TResult Function() noCachedException,
     required TResult Function() unknownLocalException,
-    required TResult Function() deletingPathProviderException,
+    required TResult Function() deletingCustomException,
     required TResult Function() unknownRemoteException,
     required TResult Function() noInternetException,
-    required TResult Function() forbiddenPathProviderException,
+    required TResult Function() forbiddenCustomException,
   }) {
     return unknownLocalException();
   }
@@ -294,10 +285,10 @@ class _$UnknownLocalException implements UnknownLocalException {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? noCachedException,
     TResult? Function()? unknownLocalException,
-    TResult? Function()? deletingPathProviderException,
+    TResult? Function()? deletingCustomException,
     TResult? Function()? unknownRemoteException,
     TResult? Function()? noInternetException,
-    TResult? Function()? forbiddenPathProviderException,
+    TResult? Function()? forbiddenCustomException,
   }) {
     return unknownLocalException?.call();
   }
@@ -307,10 +298,10 @@ class _$UnknownLocalException implements UnknownLocalException {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? noCachedException,
     TResult Function()? unknownLocalException,
-    TResult Function()? deletingPathProviderException,
+    TResult Function()? deletingCustomException,
     TResult Function()? unknownRemoteException,
     TResult Function()? noInternetException,
-    TResult Function()? forbiddenPathProviderException,
+    TResult Function()? forbiddenCustomException,
     required TResult orElse(),
   }) {
     if (unknownLocalException != null) {
@@ -325,13 +316,13 @@ class _$UnknownLocalException implements UnknownLocalException {
     required TResult Function(NoCachedException value) noCachedException,
     required TResult Function(UnknownLocalException value)
         unknownLocalException,
-    required TResult Function(DeletingPathProviderException value)
-        deletingPathProviderException,
+    required TResult Function(DeletingCustomException value)
+        deletingCustomException,
     required TResult Function(UnknownRemoteException value)
         unknownRemoteException,
     required TResult Function(NoInternetException value) noInternetException,
-    required TResult Function(ForbiddenPathProviderException value)
-        forbiddenPathProviderException,
+    required TResult Function(ForbiddenCustomException value)
+        forbiddenCustomException,
   }) {
     return unknownLocalException(this);
   }
@@ -341,12 +332,10 @@ class _$UnknownLocalException implements UnknownLocalException {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(NoCachedException value)? noCachedException,
     TResult? Function(UnknownLocalException value)? unknownLocalException,
-    TResult? Function(DeletingPathProviderException value)?
-        deletingPathProviderException,
+    TResult? Function(DeletingCustomException value)? deletingCustomException,
     TResult? Function(UnknownRemoteException value)? unknownRemoteException,
     TResult? Function(NoInternetException value)? noInternetException,
-    TResult? Function(ForbiddenPathProviderException value)?
-        forbiddenPathProviderException,
+    TResult? Function(ForbiddenCustomException value)? forbiddenCustomException,
   }) {
     return unknownLocalException?.call(this);
   }
@@ -356,12 +345,10 @@ class _$UnknownLocalException implements UnknownLocalException {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NoCachedException value)? noCachedException,
     TResult Function(UnknownLocalException value)? unknownLocalException,
-    TResult Function(DeletingPathProviderException value)?
-        deletingPathProviderException,
+    TResult Function(DeletingCustomException value)? deletingCustomException,
     TResult Function(UnknownRemoteException value)? unknownRemoteException,
     TResult Function(NoInternetException value)? noInternetException,
-    TResult Function(ForbiddenPathProviderException value)?
-        forbiddenPathProviderException,
+    TResult Function(ForbiddenCustomException value)? forbiddenCustomException,
     required TResult orElse(),
   }) {
     if (unknownLocalException != null) {
@@ -371,45 +358,41 @@ class _$UnknownLocalException implements UnknownLocalException {
   }
 }
 
-abstract class UnknownLocalException
-    implements PathProviderException, Exception {
+abstract class UnknownLocalException implements CustomException, Exception {
   const factory UnknownLocalException() = _$UnknownLocalException;
 }
 
 /// @nodoc
-abstract class _$$DeletingPathProviderExceptionCopyWith<$Res> {
-  factory _$$DeletingPathProviderExceptionCopyWith(
-          _$DeletingPathProviderException value,
-          $Res Function(_$DeletingPathProviderException) then) =
-      __$$DeletingPathProviderExceptionCopyWithImpl<$Res>;
+abstract class _$$DeletingCustomExceptionCopyWith<$Res> {
+  factory _$$DeletingCustomExceptionCopyWith(_$DeletingCustomException value,
+          $Res Function(_$DeletingCustomException) then) =
+      __$$DeletingCustomExceptionCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$DeletingPathProviderExceptionCopyWithImpl<$Res>
-    extends _$PathProviderExceptionCopyWithImpl<$Res,
-        _$DeletingPathProviderException>
-    implements _$$DeletingPathProviderExceptionCopyWith<$Res> {
-  __$$DeletingPathProviderExceptionCopyWithImpl(
-      _$DeletingPathProviderException _value,
-      $Res Function(_$DeletingPathProviderException) _then)
+class __$$DeletingCustomExceptionCopyWithImpl<$Res>
+    extends _$CustomExceptionCopyWithImpl<$Res, _$DeletingCustomException>
+    implements _$$DeletingCustomExceptionCopyWith<$Res> {
+  __$$DeletingCustomExceptionCopyWithImpl(_$DeletingCustomException _value,
+      $Res Function(_$DeletingCustomException) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$DeletingPathProviderException implements DeletingPathProviderException {
-  const _$DeletingPathProviderException();
+class _$DeletingCustomException implements DeletingCustomException {
+  const _$DeletingCustomException();
 
   @override
   String toString() {
-    return 'PathProviderException.deletingPathProviderException()';
+    return 'CustomException.deletingCustomException()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DeletingPathProviderException);
+            other is _$DeletingCustomException);
   }
 
   @override
@@ -420,12 +403,12 @@ class _$DeletingPathProviderException implements DeletingPathProviderException {
   TResult when<TResult extends Object?>({
     required TResult Function() noCachedException,
     required TResult Function() unknownLocalException,
-    required TResult Function() deletingPathProviderException,
+    required TResult Function() deletingCustomException,
     required TResult Function() unknownRemoteException,
     required TResult Function() noInternetException,
-    required TResult Function() forbiddenPathProviderException,
+    required TResult Function() forbiddenCustomException,
   }) {
-    return deletingPathProviderException();
+    return deletingCustomException();
   }
 
   @override
@@ -433,12 +416,12 @@ class _$DeletingPathProviderException implements DeletingPathProviderException {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? noCachedException,
     TResult? Function()? unknownLocalException,
-    TResult? Function()? deletingPathProviderException,
+    TResult? Function()? deletingCustomException,
     TResult? Function()? unknownRemoteException,
     TResult? Function()? noInternetException,
-    TResult? Function()? forbiddenPathProviderException,
+    TResult? Function()? forbiddenCustomException,
   }) {
-    return deletingPathProviderException?.call();
+    return deletingCustomException?.call();
   }
 
   @override
@@ -446,14 +429,14 @@ class _$DeletingPathProviderException implements DeletingPathProviderException {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? noCachedException,
     TResult Function()? unknownLocalException,
-    TResult Function()? deletingPathProviderException,
+    TResult Function()? deletingCustomException,
     TResult Function()? unknownRemoteException,
     TResult Function()? noInternetException,
-    TResult Function()? forbiddenPathProviderException,
+    TResult Function()? forbiddenCustomException,
     required TResult orElse(),
   }) {
-    if (deletingPathProviderException != null) {
-      return deletingPathProviderException();
+    if (deletingCustomException != null) {
+      return deletingCustomException();
     }
     return orElse();
   }
@@ -464,15 +447,15 @@ class _$DeletingPathProviderException implements DeletingPathProviderException {
     required TResult Function(NoCachedException value) noCachedException,
     required TResult Function(UnknownLocalException value)
         unknownLocalException,
-    required TResult Function(DeletingPathProviderException value)
-        deletingPathProviderException,
+    required TResult Function(DeletingCustomException value)
+        deletingCustomException,
     required TResult Function(UnknownRemoteException value)
         unknownRemoteException,
     required TResult Function(NoInternetException value) noInternetException,
-    required TResult Function(ForbiddenPathProviderException value)
-        forbiddenPathProviderException,
+    required TResult Function(ForbiddenCustomException value)
+        forbiddenCustomException,
   }) {
-    return deletingPathProviderException(this);
+    return deletingCustomException(this);
   }
 
   @override
@@ -480,14 +463,12 @@ class _$DeletingPathProviderException implements DeletingPathProviderException {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(NoCachedException value)? noCachedException,
     TResult? Function(UnknownLocalException value)? unknownLocalException,
-    TResult? Function(DeletingPathProviderException value)?
-        deletingPathProviderException,
+    TResult? Function(DeletingCustomException value)? deletingCustomException,
     TResult? Function(UnknownRemoteException value)? unknownRemoteException,
     TResult? Function(NoInternetException value)? noInternetException,
-    TResult? Function(ForbiddenPathProviderException value)?
-        forbiddenPathProviderException,
+    TResult? Function(ForbiddenCustomException value)? forbiddenCustomException,
   }) {
-    return deletingPathProviderException?.call(this);
+    return deletingCustomException?.call(this);
   }
 
   @override
@@ -495,25 +476,21 @@ class _$DeletingPathProviderException implements DeletingPathProviderException {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NoCachedException value)? noCachedException,
     TResult Function(UnknownLocalException value)? unknownLocalException,
-    TResult Function(DeletingPathProviderException value)?
-        deletingPathProviderException,
+    TResult Function(DeletingCustomException value)? deletingCustomException,
     TResult Function(UnknownRemoteException value)? unknownRemoteException,
     TResult Function(NoInternetException value)? noInternetException,
-    TResult Function(ForbiddenPathProviderException value)?
-        forbiddenPathProviderException,
+    TResult Function(ForbiddenCustomException value)? forbiddenCustomException,
     required TResult orElse(),
   }) {
-    if (deletingPathProviderException != null) {
-      return deletingPathProviderException(this);
+    if (deletingCustomException != null) {
+      return deletingCustomException(this);
     }
     return orElse();
   }
 }
 
-abstract class DeletingPathProviderException
-    implements PathProviderException, Exception {
-  const factory DeletingPathProviderException() =
-      _$DeletingPathProviderException;
+abstract class DeletingCustomException implements CustomException, Exception {
+  const factory DeletingCustomException() = _$DeletingCustomException;
 }
 
 /// @nodoc
@@ -525,7 +502,7 @@ abstract class _$$UnknownRemoteExceptionCopyWith<$Res> {
 
 /// @nodoc
 class __$$UnknownRemoteExceptionCopyWithImpl<$Res>
-    extends _$PathProviderExceptionCopyWithImpl<$Res, _$UnknownRemoteException>
+    extends _$CustomExceptionCopyWithImpl<$Res, _$UnknownRemoteException>
     implements _$$UnknownRemoteExceptionCopyWith<$Res> {
   __$$UnknownRemoteExceptionCopyWithImpl(_$UnknownRemoteException _value,
       $Res Function(_$UnknownRemoteException) _then)
@@ -539,7 +516,7 @@ class _$UnknownRemoteException implements UnknownRemoteException {
 
   @override
   String toString() {
-    return 'PathProviderException.unknownRemoteException()';
+    return 'CustomException.unknownRemoteException()';
   }
 
   @override
@@ -556,10 +533,10 @@ class _$UnknownRemoteException implements UnknownRemoteException {
   TResult when<TResult extends Object?>({
     required TResult Function() noCachedException,
     required TResult Function() unknownLocalException,
-    required TResult Function() deletingPathProviderException,
+    required TResult Function() deletingCustomException,
     required TResult Function() unknownRemoteException,
     required TResult Function() noInternetException,
-    required TResult Function() forbiddenPathProviderException,
+    required TResult Function() forbiddenCustomException,
   }) {
     return unknownRemoteException();
   }
@@ -569,10 +546,10 @@ class _$UnknownRemoteException implements UnknownRemoteException {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? noCachedException,
     TResult? Function()? unknownLocalException,
-    TResult? Function()? deletingPathProviderException,
+    TResult? Function()? deletingCustomException,
     TResult? Function()? unknownRemoteException,
     TResult? Function()? noInternetException,
-    TResult? Function()? forbiddenPathProviderException,
+    TResult? Function()? forbiddenCustomException,
   }) {
     return unknownRemoteException?.call();
   }
@@ -582,10 +559,10 @@ class _$UnknownRemoteException implements UnknownRemoteException {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? noCachedException,
     TResult Function()? unknownLocalException,
-    TResult Function()? deletingPathProviderException,
+    TResult Function()? deletingCustomException,
     TResult Function()? unknownRemoteException,
     TResult Function()? noInternetException,
-    TResult Function()? forbiddenPathProviderException,
+    TResult Function()? forbiddenCustomException,
     required TResult orElse(),
   }) {
     if (unknownRemoteException != null) {
@@ -600,13 +577,13 @@ class _$UnknownRemoteException implements UnknownRemoteException {
     required TResult Function(NoCachedException value) noCachedException,
     required TResult Function(UnknownLocalException value)
         unknownLocalException,
-    required TResult Function(DeletingPathProviderException value)
-        deletingPathProviderException,
+    required TResult Function(DeletingCustomException value)
+        deletingCustomException,
     required TResult Function(UnknownRemoteException value)
         unknownRemoteException,
     required TResult Function(NoInternetException value) noInternetException,
-    required TResult Function(ForbiddenPathProviderException value)
-        forbiddenPathProviderException,
+    required TResult Function(ForbiddenCustomException value)
+        forbiddenCustomException,
   }) {
     return unknownRemoteException(this);
   }
@@ -616,12 +593,10 @@ class _$UnknownRemoteException implements UnknownRemoteException {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(NoCachedException value)? noCachedException,
     TResult? Function(UnknownLocalException value)? unknownLocalException,
-    TResult? Function(DeletingPathProviderException value)?
-        deletingPathProviderException,
+    TResult? Function(DeletingCustomException value)? deletingCustomException,
     TResult? Function(UnknownRemoteException value)? unknownRemoteException,
     TResult? Function(NoInternetException value)? noInternetException,
-    TResult? Function(ForbiddenPathProviderException value)?
-        forbiddenPathProviderException,
+    TResult? Function(ForbiddenCustomException value)? forbiddenCustomException,
   }) {
     return unknownRemoteException?.call(this);
   }
@@ -631,12 +606,10 @@ class _$UnknownRemoteException implements UnknownRemoteException {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NoCachedException value)? noCachedException,
     TResult Function(UnknownLocalException value)? unknownLocalException,
-    TResult Function(DeletingPathProviderException value)?
-        deletingPathProviderException,
+    TResult Function(DeletingCustomException value)? deletingCustomException,
     TResult Function(UnknownRemoteException value)? unknownRemoteException,
     TResult Function(NoInternetException value)? noInternetException,
-    TResult Function(ForbiddenPathProviderException value)?
-        forbiddenPathProviderException,
+    TResult Function(ForbiddenCustomException value)? forbiddenCustomException,
     required TResult orElse(),
   }) {
     if (unknownRemoteException != null) {
@@ -646,8 +619,7 @@ class _$UnknownRemoteException implements UnknownRemoteException {
   }
 }
 
-abstract class UnknownRemoteException
-    implements PathProviderException, Exception {
+abstract class UnknownRemoteException implements CustomException, Exception {
   const factory UnknownRemoteException() = _$UnknownRemoteException;
 }
 
@@ -660,7 +632,7 @@ abstract class _$$NoInternetExceptionCopyWith<$Res> {
 
 /// @nodoc
 class __$$NoInternetExceptionCopyWithImpl<$Res>
-    extends _$PathProviderExceptionCopyWithImpl<$Res, _$NoInternetException>
+    extends _$CustomExceptionCopyWithImpl<$Res, _$NoInternetException>
     implements _$$NoInternetExceptionCopyWith<$Res> {
   __$$NoInternetExceptionCopyWithImpl(
       _$NoInternetException _value, $Res Function(_$NoInternetException) _then)
@@ -674,7 +646,7 @@ class _$NoInternetException implements NoInternetException {
 
   @override
   String toString() {
-    return 'PathProviderException.noInternetException()';
+    return 'CustomException.noInternetException()';
   }
 
   @override
@@ -691,10 +663,10 @@ class _$NoInternetException implements NoInternetException {
   TResult when<TResult extends Object?>({
     required TResult Function() noCachedException,
     required TResult Function() unknownLocalException,
-    required TResult Function() deletingPathProviderException,
+    required TResult Function() deletingCustomException,
     required TResult Function() unknownRemoteException,
     required TResult Function() noInternetException,
-    required TResult Function() forbiddenPathProviderException,
+    required TResult Function() forbiddenCustomException,
   }) {
     return noInternetException();
   }
@@ -704,10 +676,10 @@ class _$NoInternetException implements NoInternetException {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? noCachedException,
     TResult? Function()? unknownLocalException,
-    TResult? Function()? deletingPathProviderException,
+    TResult? Function()? deletingCustomException,
     TResult? Function()? unknownRemoteException,
     TResult? Function()? noInternetException,
-    TResult? Function()? forbiddenPathProviderException,
+    TResult? Function()? forbiddenCustomException,
   }) {
     return noInternetException?.call();
   }
@@ -717,10 +689,10 @@ class _$NoInternetException implements NoInternetException {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? noCachedException,
     TResult Function()? unknownLocalException,
-    TResult Function()? deletingPathProviderException,
+    TResult Function()? deletingCustomException,
     TResult Function()? unknownRemoteException,
     TResult Function()? noInternetException,
-    TResult Function()? forbiddenPathProviderException,
+    TResult Function()? forbiddenCustomException,
     required TResult orElse(),
   }) {
     if (noInternetException != null) {
@@ -735,13 +707,13 @@ class _$NoInternetException implements NoInternetException {
     required TResult Function(NoCachedException value) noCachedException,
     required TResult Function(UnknownLocalException value)
         unknownLocalException,
-    required TResult Function(DeletingPathProviderException value)
-        deletingPathProviderException,
+    required TResult Function(DeletingCustomException value)
+        deletingCustomException,
     required TResult Function(UnknownRemoteException value)
         unknownRemoteException,
     required TResult Function(NoInternetException value) noInternetException,
-    required TResult Function(ForbiddenPathProviderException value)
-        forbiddenPathProviderException,
+    required TResult Function(ForbiddenCustomException value)
+        forbiddenCustomException,
   }) {
     return noInternetException(this);
   }
@@ -751,12 +723,10 @@ class _$NoInternetException implements NoInternetException {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(NoCachedException value)? noCachedException,
     TResult? Function(UnknownLocalException value)? unknownLocalException,
-    TResult? Function(DeletingPathProviderException value)?
-        deletingPathProviderException,
+    TResult? Function(DeletingCustomException value)? deletingCustomException,
     TResult? Function(UnknownRemoteException value)? unknownRemoteException,
     TResult? Function(NoInternetException value)? noInternetException,
-    TResult? Function(ForbiddenPathProviderException value)?
-        forbiddenPathProviderException,
+    TResult? Function(ForbiddenCustomException value)? forbiddenCustomException,
   }) {
     return noInternetException?.call(this);
   }
@@ -766,12 +736,10 @@ class _$NoInternetException implements NoInternetException {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NoCachedException value)? noCachedException,
     TResult Function(UnknownLocalException value)? unknownLocalException,
-    TResult Function(DeletingPathProviderException value)?
-        deletingPathProviderException,
+    TResult Function(DeletingCustomException value)? deletingCustomException,
     TResult Function(UnknownRemoteException value)? unknownRemoteException,
     TResult Function(NoInternetException value)? noInternetException,
-    TResult Function(ForbiddenPathProviderException value)?
-        forbiddenPathProviderException,
+    TResult Function(ForbiddenCustomException value)? forbiddenCustomException,
     required TResult orElse(),
   }) {
     if (noInternetException != null) {
@@ -781,45 +749,41 @@ class _$NoInternetException implements NoInternetException {
   }
 }
 
-abstract class NoInternetException implements PathProviderException, Exception {
+abstract class NoInternetException implements CustomException, Exception {
   const factory NoInternetException() = _$NoInternetException;
 }
 
 /// @nodoc
-abstract class _$$ForbiddenPathProviderExceptionCopyWith<$Res> {
-  factory _$$ForbiddenPathProviderExceptionCopyWith(
-          _$ForbiddenPathProviderException value,
-          $Res Function(_$ForbiddenPathProviderException) then) =
-      __$$ForbiddenPathProviderExceptionCopyWithImpl<$Res>;
+abstract class _$$ForbiddenCustomExceptionCopyWith<$Res> {
+  factory _$$ForbiddenCustomExceptionCopyWith(_$ForbiddenCustomException value,
+          $Res Function(_$ForbiddenCustomException) then) =
+      __$$ForbiddenCustomExceptionCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$ForbiddenPathProviderExceptionCopyWithImpl<$Res>
-    extends _$PathProviderExceptionCopyWithImpl<$Res,
-        _$ForbiddenPathProviderException>
-    implements _$$ForbiddenPathProviderExceptionCopyWith<$Res> {
-  __$$ForbiddenPathProviderExceptionCopyWithImpl(
-      _$ForbiddenPathProviderException _value,
-      $Res Function(_$ForbiddenPathProviderException) _then)
+class __$$ForbiddenCustomExceptionCopyWithImpl<$Res>
+    extends _$CustomExceptionCopyWithImpl<$Res, _$ForbiddenCustomException>
+    implements _$$ForbiddenCustomExceptionCopyWith<$Res> {
+  __$$ForbiddenCustomExceptionCopyWithImpl(_$ForbiddenCustomException _value,
+      $Res Function(_$ForbiddenCustomException) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$ForbiddenPathProviderException
-    implements ForbiddenPathProviderException {
-  const _$ForbiddenPathProviderException();
+class _$ForbiddenCustomException implements ForbiddenCustomException {
+  const _$ForbiddenCustomException();
 
   @override
   String toString() {
-    return 'PathProviderException.forbiddenPathProviderException()';
+    return 'CustomException.forbiddenCustomException()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ForbiddenPathProviderException);
+            other is _$ForbiddenCustomException);
   }
 
   @override
@@ -830,12 +794,12 @@ class _$ForbiddenPathProviderException
   TResult when<TResult extends Object?>({
     required TResult Function() noCachedException,
     required TResult Function() unknownLocalException,
-    required TResult Function() deletingPathProviderException,
+    required TResult Function() deletingCustomException,
     required TResult Function() unknownRemoteException,
     required TResult Function() noInternetException,
-    required TResult Function() forbiddenPathProviderException,
+    required TResult Function() forbiddenCustomException,
   }) {
-    return forbiddenPathProviderException();
+    return forbiddenCustomException();
   }
 
   @override
@@ -843,12 +807,12 @@ class _$ForbiddenPathProviderException
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? noCachedException,
     TResult? Function()? unknownLocalException,
-    TResult? Function()? deletingPathProviderException,
+    TResult? Function()? deletingCustomException,
     TResult? Function()? unknownRemoteException,
     TResult? Function()? noInternetException,
-    TResult? Function()? forbiddenPathProviderException,
+    TResult? Function()? forbiddenCustomException,
   }) {
-    return forbiddenPathProviderException?.call();
+    return forbiddenCustomException?.call();
   }
 
   @override
@@ -856,14 +820,14 @@ class _$ForbiddenPathProviderException
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? noCachedException,
     TResult Function()? unknownLocalException,
-    TResult Function()? deletingPathProviderException,
+    TResult Function()? deletingCustomException,
     TResult Function()? unknownRemoteException,
     TResult Function()? noInternetException,
-    TResult Function()? forbiddenPathProviderException,
+    TResult Function()? forbiddenCustomException,
     required TResult orElse(),
   }) {
-    if (forbiddenPathProviderException != null) {
-      return forbiddenPathProviderException();
+    if (forbiddenCustomException != null) {
+      return forbiddenCustomException();
     }
     return orElse();
   }
@@ -874,15 +838,15 @@ class _$ForbiddenPathProviderException
     required TResult Function(NoCachedException value) noCachedException,
     required TResult Function(UnknownLocalException value)
         unknownLocalException,
-    required TResult Function(DeletingPathProviderException value)
-        deletingPathProviderException,
+    required TResult Function(DeletingCustomException value)
+        deletingCustomException,
     required TResult Function(UnknownRemoteException value)
         unknownRemoteException,
     required TResult Function(NoInternetException value) noInternetException,
-    required TResult Function(ForbiddenPathProviderException value)
-        forbiddenPathProviderException,
+    required TResult Function(ForbiddenCustomException value)
+        forbiddenCustomException,
   }) {
-    return forbiddenPathProviderException(this);
+    return forbiddenCustomException(this);
   }
 
   @override
@@ -890,14 +854,12 @@ class _$ForbiddenPathProviderException
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(NoCachedException value)? noCachedException,
     TResult? Function(UnknownLocalException value)? unknownLocalException,
-    TResult? Function(DeletingPathProviderException value)?
-        deletingPathProviderException,
+    TResult? Function(DeletingCustomException value)? deletingCustomException,
     TResult? Function(UnknownRemoteException value)? unknownRemoteException,
     TResult? Function(NoInternetException value)? noInternetException,
-    TResult? Function(ForbiddenPathProviderException value)?
-        forbiddenPathProviderException,
+    TResult? Function(ForbiddenCustomException value)? forbiddenCustomException,
   }) {
-    return forbiddenPathProviderException?.call(this);
+    return forbiddenCustomException?.call(this);
   }
 
   @override
@@ -905,23 +867,19 @@ class _$ForbiddenPathProviderException
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NoCachedException value)? noCachedException,
     TResult Function(UnknownLocalException value)? unknownLocalException,
-    TResult Function(DeletingPathProviderException value)?
-        deletingPathProviderException,
+    TResult Function(DeletingCustomException value)? deletingCustomException,
     TResult Function(UnknownRemoteException value)? unknownRemoteException,
     TResult Function(NoInternetException value)? noInternetException,
-    TResult Function(ForbiddenPathProviderException value)?
-        forbiddenPathProviderException,
+    TResult Function(ForbiddenCustomException value)? forbiddenCustomException,
     required TResult orElse(),
   }) {
-    if (forbiddenPathProviderException != null) {
-      return forbiddenPathProviderException(this);
+    if (forbiddenCustomException != null) {
+      return forbiddenCustomException(this);
     }
     return orElse();
   }
 }
 
-abstract class ForbiddenPathProviderException
-    implements PathProviderException, Exception {
-  const factory ForbiddenPathProviderException() =
-      _$ForbiddenPathProviderException;
+abstract class ForbiddenCustomException implements CustomException, Exception {
+  const factory ForbiddenCustomException() = _$ForbiddenCustomException;
 }

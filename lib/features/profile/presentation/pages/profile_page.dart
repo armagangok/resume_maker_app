@@ -1,5 +1,4 @@
 import '../../../../core/export/export.dart';
-import '../../../../core/widget/custom_tab_bar.dart';
 
 import '../widgets/data_category_pageview.dart';
 

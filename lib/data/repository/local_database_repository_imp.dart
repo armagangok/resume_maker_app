@@ -1,6 +1,6 @@
-import 'package:dartz/dartz.dart';
+import 'package:resume_maker_app/core/error/custom_failure.dart';
 
-import '../../core/error/failure.dart';
+import '../../core/result_types/result/result.dart';
 import '../../core/util/hive/hive_helper.dart';
 import '../../core/util/logger.dart';
 import '../contracts/database_contract.dart';
@@ -12,25 +12,27 @@ class LocalDatabaseRepositoryImp extends DatabaseContract {
   final HiveHelper _hiveHelper = HiveHelper.shared;
 
   @override
-  Future<Either<Failure, dynamic>> fetchData<T>({
+  Future<Result<dynamic>> fetchData<T>({
     required String boxName,
   }) async {
     try {
       var response = await _hiveHelper.getAll<T>(boxName);
 
-      if (response.isEmpty) {
-        return Left(HiveNullData());
-      } else {
-        return Right(response);
-      }
+      return Result.success(response);
+
+      // if (response.isEmpty) {
+      //   return Result.success(response);
+      // } else {
+      //   return Result.success(response);
+      // }
     } on Exception catch (e) {
       LogHelper.shared.errorPrint("$e");
-      return Left(LocalFetchFailure());
+      return Result.failure(CustomFailure(message: "message"));
     }
   }
 
   @override
-  Future<Either<Failure, bool>> deleteData<T>({
+  Future<Result<bool>> deleteData<T>({
     required int index,
     required String boxName,
   }) async {
@@ -40,15 +42,15 @@ class LocalDatabaseRepositoryImp extends DatabaseContract {
         index,
       );
 
-      return const Right(true);
+      return const Result.success(true);
     } catch (e) {
       LogHelper.shared.debugPrint("$e");
-      return Left(LocalDeletingFailure());
+      return Result.failure(CustomFailure(message: "message"));
     }
   }
 
   @override
-  Future<Either<Failure, bool>> saveData<T>({
+  Future<Result<bool>> saveData<T>({
     required dataModel,
     required String boxName,
   }) async {
@@ -57,10 +59,10 @@ class LocalDatabaseRepositoryImp extends DatabaseContract {
         boxName,
         dataModel,
       );
-      return const Right(true);
+      return const Result.success(true);
     } on Exception catch (e) {
       LogHelper.shared.debugPrint("$e");
-      return Left(HiveSavingFailure());
+      return Result.failure(CustomFailure(message: "message"));
     }
   }
 

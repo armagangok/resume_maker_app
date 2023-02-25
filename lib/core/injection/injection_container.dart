@@ -1,5 +1,4 @@
 import 'package:get_it/get_it.dart';
-import 'package:resume_maker_app/features/home/domain/contract/home_repository_contract.dart';
 
 import '../export/export.dart';
 
@@ -12,12 +11,19 @@ void initDependencies() {
   setupRepositories();
 }
 
-void setupUsecases() {}
+void setupUsecases() {
+  getit.registerLazySingleton<HomeUsecase>(
+    () => HomeUsecase(
+      homeRepository: getit.get(),
+    ),
+  );
+}
 
 void setupRepositories() {
   getit.registerLazySingleton<HomeRepositoryContract>(
     () => HomeRepository(
       homeDataSourceContract: getit.get(),
+      exceptionHandler: getit.get(),
     ),
   );
 }
@@ -65,7 +71,7 @@ void setupViewmodels() {
   );
 
   getit.registerLazySingleton<HomeCubit>(
-    () => HomeCubit(),
+    () => HomeCubit(homeUsecase: getit.get()),
   );
 
   getit.registerLazySingleton<ResumeTemplateCubit>(

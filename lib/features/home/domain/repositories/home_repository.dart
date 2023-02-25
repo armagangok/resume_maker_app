@@ -2,23 +2,25 @@
 
 import 'dart:io';
 
-import 'package:resume_maker_app/core/result_types/result/result.dart';
-
 import '../../../../core/export/export.dart';
+import '../../../../core/result_types/result/result.dart';
 
 class HomeRepository extends HomeRepositoryContract {
   HomeRepository({
-    required this.homeDataSourceContract,
-  });
+    required HomeDataSourceContract homeDataSourceContract,
+    required CustomException exceptionHandler,
+  })  : _exceptionHandler = exceptionHandler,
+        _homeDataSourceContract = homeDataSourceContract;
 
-  final HomeDataSourceContract homeDataSourceContract;
+  final HomeDataSourceContract _homeDataSourceContract;
+  final CustomException _exceptionHandler;
 
   @override
   Future<Result<List<FileSystemEntity>>> fetchFileEntityList() async {
     try {
-      var response = await homeDataSourceContract.fetchFileEntityList();
+      var response = await _homeDataSourceContract.fetchFileEntityList();
       return Result.success(response);
-    } catch (e) {
+    } on Exception {
       rethrow;
     }
   }

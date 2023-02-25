@@ -1,7 +1,7 @@
-import 'package:dartz/dartz.dart';
-import 'package:resume_maker_app/core/error/failure.dart';
+import 'package:resume_maker_app/core/error/custom_failure.dart';
 import 'package:resume_maker_app/data/services/user_data_service.dart';
 
+import '../../core/result_types/result/result.dart';
 
 class UserDataRepository {
   UserDataRepository._();
@@ -9,30 +9,30 @@ class UserDataRepository {
 
   final _userDataService = UserDataServiceImp.instance;
 
-  Future<Either<Failure, bool>> saveUserData(String userData) async {
+  Future<Result<bool>> saveUserData(String userData) async {
     try {
       await _userDataService.saveUserData(userData);
-      return const Right(true);
+      return const Result.success(true);
     } catch (e) {
-      return Left(LocalDeletingFailure());
+      return Result.failure(CustomFailure(message: "message"));
     }
   }
 
-  Future<Either<Failure, dynamic>> fetchUserData() async {
+  Future<Result<dynamic>> fetchUserData() async {
     try {
       var response = await _userDataService.fetchUserData();
-      return Right(response);
+      return Result.success(response);
     } catch (e) {
-      return Left(LocalFetchFailure());
+      return Result.failure(CustomFailure(message: "message"));
     }
   }
 
-  Future<Either<Failure, bool>> deleteUserData(int index) async {
+  Future<Result<bool>> deleteUserData(int index) async {
     try {
       await _userDataService.deleteUserData(index);
-      return const Right(true);
+      return const Result.success(true);
     } catch (e) {
-      return Left(LocalFetchFailure());
+      return Result.failure(CustomFailure(message: "message"));
     }
   }
 }

@@ -3,22 +3,22 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'path_provider_exceptions.freezed.dart';
 
 @freezed
-class PathProviderException with _$PathProviderException {
+class CustomException with _$CustomException {
   @Implements<Exception>()
-  const factory PathProviderException.noCachedException() = NoCachedException;
+  const factory CustomException.noCachedException() = NoCachedException;
   @Implements<Exception>()
-  const factory PathProviderException.unknownLocalException() =
+  const factory CustomException.unknownLocalException() =
       UnknownLocalException;
   @Implements<Exception>()
-  const factory PathProviderException.deletingPathProviderException() =
-      DeletingPathProviderException;
+  const factory CustomException.deletingCustomException() =
+      DeletingCustomException;
   @Implements<Exception>()
-  const factory PathProviderException.unknownRemoteException() =
+  const factory CustomException.unknownRemoteException() =
       UnknownRemoteException;
   @Implements<Exception>()
-  const factory PathProviderException.noInternetException() =
+  const factory CustomException.noInternetException() =
       NoInternetException;
   @Implements<Exception>()
-  const factory PathProviderException.forbiddenPathProviderException() =
-      ForbiddenPathProviderException;
+  const factory CustomException.forbiddenCustomException() =
+      ForbiddenCustomException;
 }

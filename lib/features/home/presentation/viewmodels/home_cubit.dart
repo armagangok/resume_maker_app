@@ -1,61 +1,78 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 import 'dart:io';
 
 import '../../../../core/export/export.dart';
-import '../../../../domain/usecases/user_data_usecase.dart';
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeInitial()) {
-    getPath();
-    // fetchHomeUserData();
+  HomeCubit({required HomeUsecase homeUsecase}) : super(HomeInitial()) {
+    _homeUsecase = homeUsecase;
   }
 
-  final _userDataUsecase = UserDataUsecase.instance;
+  late final HomeUsecase _homeUsecase;
 
   List<FileSystemEntity> fileList = [];
 
   Future<List<FileSystemEntity>> getPath() async {
-    print(fileList);
+    var response = await _homeUsecase.fetchFileEntityList();
 
-    return fileList;
-  }
-
-  Future<void> saveHomeUserData(String userData) async {
-    var response = await _userDataUsecase.saveUserData(userData);
-
-    response.fold(
-      (l) {
-        emit(HomeUserDataSavingFailure());
+    return response.when(
+      success: (data) {
+        print(data);
+        return data;
       },
-      (r) async {
-        emit(HomeUserDataSaved());
-        await fetchHomeUserData();
+      failure: (failure) {
+        return [];
       },
     );
   }
 
-  Future<void> deleteHomeUserData(int index) async {
-    var response = await _userDataUsecase.deleteUserData(index);
+  Future<void> saveHomeUserData(String userData) async {
+    var response = await UserDataUsecase.instance.saveUserData(userData);
 
-    response.fold(
-      (l) => emit(HomeUserDataDeleteFailure()),
-      (r) => emit(HomeUserDataDeleted()),
+    response.when(
+      success: (data) async {
+        emit(HomeUserDataSaved());
+        await fetchHomeUserData();
+      },
+      failure: (failure) {
+        emit(HomeUserDataSavingFailure());
+      },
+    );
+
+    // fold(
+    //   (l) {
+    //
+    //   },
+    //   (r) async {
+
+    //   },
+    // );
+  }
+
+  Future<void> deleteHomeUserData(int index) async {
+    var response = await UserDataUsecase.instance.deleteUserData(index);
+
+    response.when(
+      success: (data) {
+        print(data);
+      },
+      failure: (failure) {
+        print(failure);
+      },
     );
   }
 
   Future<void> fetchHomeUserData() async {
-    var response = await _userDataUsecase.fetchUserData();
+    var response = await UserDataUsecase.instance.fetchUserData();
 
-    response.fold(
-      (l) {
-        emit(HomeUserDataFetchFailure());
-      },
-      (r) {
+    response.when(
+      success: (data) {
         List<UserData> userDataList = [];
-        if (r != null) {
-          for (var element in r as List<String>) {
+        if (data != null) {
+          for (var element in data as List<String>) {
             var model = UserData.fromJson(jsonDecode(element));
             userDataList.add(model);
           }
@@ -63,6 +80,9 @@ class HomeCubit extends Cubit<HomeState> {
         } else {
           emit(HomeUserDataFetched(userDataList: userDataList));
         }
+      },
+      failure: (failure) {
+        emit(HomeUserDataFetchFailure());
       },
     );
   }
