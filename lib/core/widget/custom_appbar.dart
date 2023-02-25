@@ -49,5 +49,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(height);
 
-  void get alternativeOnTap => getIt<NavigationService>().pop();
+  void get alternativeOnTap => getit<NavigationService>().pop();
 }
