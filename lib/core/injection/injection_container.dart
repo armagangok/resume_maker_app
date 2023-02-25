@@ -1,5 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:resume_maker_app/core/exception_handling/handler/my_exceptions_handler.dart';
+import 'package:resume_maker_app/core/exception_handling/handler/exceptions_handler.dart';
 
 import '../export/export.dart';
 

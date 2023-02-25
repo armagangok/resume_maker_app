@@ -2,7 +2,7 @@
 
 import 'dart:io';
 
-import '../../../../core/exception_handling/handler/my_exceptions_handler.dart';
+import '../../../../core/exception_handling/handler/exceptions_handler.dart';
 import '../../../../core/export/export.dart';
 import '../../../../core/result_types/result/result.dart';
 

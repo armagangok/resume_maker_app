@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'my_exceptions.freezed.dart';
+part 'exceptions.freezed.dart';
 
 @freezed
 class MyException with _$MyException {
