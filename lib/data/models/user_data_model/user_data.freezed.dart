@@ -27,7 +27,7 @@ mixin _$UserData {
       throw _privateConstructorUsedError;
   List<Skills>? get skills => throw _privateConstructorUsedError;
   List<Experience>? get experiences => throw _privateConstructorUsedError;
-  String? get pdfID => throw _privateConstructorUsedError;
+  String? get pdfPath => throw _privateConstructorUsedError;
   int? get resumeTemplateID => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,7 +48,7 @@ abstract class $UserDataCopyWith<$Res> {
       List<Qualifications>? qualifications,
       List<Skills>? skills,
       List<Experience>? experiences,
-      String? pdfID,
+      String? pdfPath,
       int? resumeTemplateID});
 
   $PersonalCopyWith<$Res>? get personal;
@@ -73,7 +73,7 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
     Object? qualifications = freezed,
     Object? skills = freezed,
     Object? experiences = freezed,
-    Object? pdfID = freezed,
+    Object? pdfPath = freezed,
     Object? resumeTemplateID = freezed,
   }) {
     return _then(_value.copyWith(
@@ -101,9 +101,9 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
           ? _value.experiences
           : experiences // ignore: cast_nullable_to_non_nullable
               as List<Experience>?,
-      pdfID: freezed == pdfID
-          ? _value.pdfID
-          : pdfID // ignore: cast_nullable_to_non_nullable
+      pdfPath: freezed == pdfPath
+          ? _value.pdfPath
+          : pdfPath // ignore: cast_nullable_to_non_nullable
               as String?,
       resumeTemplateID: freezed == resumeTemplateID
           ? _value.resumeTemplateID
@@ -139,7 +139,7 @@ abstract class _$$_UserDataCopyWith<$Res> implements $UserDataCopyWith<$Res> {
       List<Qualifications>? qualifications,
       List<Skills>? skills,
       List<Experience>? experiences,
-      String? pdfID,
+      String? pdfPath,
       int? resumeTemplateID});
 
   @override
@@ -163,7 +163,7 @@ class __$$_UserDataCopyWithImpl<$Res>
     Object? qualifications = freezed,
     Object? skills = freezed,
     Object? experiences = freezed,
-    Object? pdfID = freezed,
+    Object? pdfPath = freezed,
     Object? resumeTemplateID = freezed,
   }) {
     return _then(_$_UserData(
@@ -191,9 +191,9 @@ class __$$_UserDataCopyWithImpl<$Res>
           ? _value._experiences
           : experiences // ignore: cast_nullable_to_non_nullable
               as List<Experience>?,
-      pdfID: freezed == pdfID
-          ? _value.pdfID
-          : pdfID // ignore: cast_nullable_to_non_nullable
+      pdfPath: freezed == pdfPath
+          ? _value.pdfPath
+          : pdfPath // ignore: cast_nullable_to_non_nullable
               as String?,
       resumeTemplateID: freezed == resumeTemplateID
           ? _value.resumeTemplateID
@@ -213,7 +213,7 @@ class _$_UserData implements _UserData {
       final List<Qualifications>? qualifications,
       final List<Skills>? skills,
       final List<Experience>? experiences,
-      this.pdfID,
+      this.pdfPath,
       this.resumeTemplateID})
       : _education = education,
         _languages = languages,
@@ -277,13 +277,13 @@ class _$_UserData implements _UserData {
   }
 
   @override
-  final String? pdfID;
+  final String? pdfPath;
   @override
   final int? resumeTemplateID;
 
   @override
   String toString() {
-    return 'UserData(personal: $personal, education: $education, languages: $languages, qualifications: $qualifications, skills: $skills, experiences: $experiences, pdfID: $pdfID, resumeTemplateID: $resumeTemplateID)';
+    return 'UserData(personal: $personal, education: $education, languages: $languages, qualifications: $qualifications, skills: $skills, experiences: $experiences, pdfPath: $pdfPath, resumeTemplateID: $resumeTemplateID)';
   }
 
   @override
@@ -302,7 +302,7 @@ class _$_UserData implements _UserData {
             const DeepCollectionEquality().equals(other._skills, _skills) &&
             const DeepCollectionEquality()
                 .equals(other._experiences, _experiences) &&
-            (identical(other.pdfID, pdfID) || other.pdfID == pdfID) &&
+            (identical(other.pdfPath, pdfPath) || other.pdfPath == pdfPath) &&
             (identical(other.resumeTemplateID, resumeTemplateID) ||
                 other.resumeTemplateID == resumeTemplateID));
   }
@@ -317,7 +317,7 @@ class _$_UserData implements _UserData {
       const DeepCollectionEquality().hash(_qualifications),
       const DeepCollectionEquality().hash(_skills),
       const DeepCollectionEquality().hash(_experiences),
-      pdfID,
+      pdfPath,
       resumeTemplateID);
 
   @JsonKey(ignore: true)
@@ -342,7 +342,7 @@ abstract class _UserData implements UserData {
       final List<Qualifications>? qualifications,
       final List<Skills>? skills,
       final List<Experience>? experiences,
-      final String? pdfID,
+      final String? pdfPath,
       final int? resumeTemplateID}) = _$_UserData;
 
   factory _UserData.fromJson(Map<String, dynamic> json) = _$_UserData.fromJson;
@@ -360,7 +360,7 @@ abstract class _UserData implements UserData {
   @override
   List<Experience>? get experiences;
   @override
-  String? get pdfID;
+  String? get pdfPath;
   @override
   int? get resumeTemplateID;
   @override

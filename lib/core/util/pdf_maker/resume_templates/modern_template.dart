@@ -5,7 +5,6 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
-import '../../directory_helper/directory_helper.dart';
 import '../components/pdf_components.dart';
 import '../contract/template_contract.dart';
 import '../repository/repo.dart';
@@ -235,17 +234,7 @@ class ModernTemplate extends ResumeTemplateContract {
 
   @override
   Future<String> getFilePathToSave(String pdfID) async {
-    // final output = await path_provider.getExternalStorageDirectory();
-
-    // var await Directory('pdf_folder').create();
-
-    String path = await DirectoryHelper.createFolderInAppDocDir(
-      "resume_folder",
-    );
-
-    filePath = "$path/$pdfID.pdf";
-
-    return filePath;
+    return await super.getFilePathToSave(pdfID);
   }
 
   @override

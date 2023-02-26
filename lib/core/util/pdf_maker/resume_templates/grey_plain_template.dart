@@ -203,19 +203,7 @@ class GreyPlainTemplate extends ResumeTemplateContract {
 
   @override
   Future<String> getFilePathToSave(String pdfID) async {
-    final output = await getTemporaryDirectory();
-
-    filePath = "${output.path}/$pdfID.pdf";
-
-    return filePath;
-
-    // final file = File(filePath);
-    // try {
-    //   // await file.writeAsBytes(byteList);
-    //   // await OpenFile.open(filePath);
-    // } catch (e) {
-    //   print("$e");
-    // }
+    return await super.getFilePathToSave(pdfID);
   }
 
   @override

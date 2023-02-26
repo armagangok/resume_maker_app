@@ -157,7 +157,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             qualifications: qualificationData,
             resumeTemplateID:
                 Injection.resumeTemplateCubit.selectedTemplate.resumeTemplateID,
-            pdfID: pdfId,
+            pdfPath: pdfPathToSave,
           );
 
           UserDataProvider.setUserData = userData;

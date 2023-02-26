@@ -19,7 +19,7 @@ abstract class UserData with _$UserData {
     List<Qualifications>? qualifications,
     List<Skills>? skills,
     List<Experience>? experiences,
-    String? pdfID,
+    String? pdfPath,
     int? resumeTemplateID,
   }) = _UserData;
 
