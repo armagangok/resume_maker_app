@@ -109,14 +109,20 @@ class ModernTemplate extends ResumeTemplateContract {
               child: pw.Column(
                 mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                 children: [
-                  pw.Row(
-                    children: [
-                      head1Text("CONTACT"),
-                    ],
-                  ),
-                  contactText(
-                    personalModel: _pdfRepo.getUserData.personal!,
-                  ),
+                  _pdfRepo.getUserData.personal != null
+                      ? pw.Column(
+                          children: [
+                            pw.Row(
+                              children: [
+                                head1Text("CONTACT"),
+                              ],
+                            ),
+                            contactText(
+                              personalModel: _pdfRepo.getUserData.personal!,
+                            )
+                          ],
+                        )
+                      : pw.SizedBox(),
                   pw.SizedBox(height: 20),
                   _pdfRepo.getUserData.qualifications != null
                       ? pw.Column(

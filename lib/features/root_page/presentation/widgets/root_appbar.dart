@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import 'package:resume_maker_app/data/user_data_provider.dart';
 
 import '../../../../core/export/export.dart';
 
@@ -158,6 +159,8 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                 Injection.resumeTemplateCubit.selectedTemplate.resumeTemplateID,
             pdfID: pdfId,
           );
+
+          UserDataProvider.setUserData = userData;
 
           var encodedJson = json.encode(userData.toJson());
           await Injection.rootCubit.saveUserData(encodedJson);
