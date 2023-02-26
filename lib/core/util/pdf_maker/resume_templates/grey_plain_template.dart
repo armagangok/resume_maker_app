@@ -27,6 +27,7 @@ class GreyPlainTemplate extends ResumeTemplateContract {
 
   final pdf = pw.Document();
 
+  @override
   final int resumeTemplateID = 1;
 
   @override
@@ -201,10 +202,10 @@ class GreyPlainTemplate extends ResumeTemplateContract {
   }
 
   @override
-  Future<String> getFilePathToSave() async {
+  Future<String> getFilePathToSave(String pdfID) async {
     final output = await getTemporaryDirectory();
 
-    filePath = "${output.path}/${"${DateTime.now()}"}.pdf";
+    filePath = "${output.path}/$pdfID.pdf";
 
     return filePath;
 

@@ -143,14 +143,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           }
 
           DateTime now = DateTime.now();
-          String pdfId = DateFormat('yyyy-MM-dd – kk:mm').format(now);
-
-          print(pdfId);
-          print(pdfId);
-          print(pdfId);
-          print(pdfId);
-          print(pdfId);
-          print(pdfId);
+          String pdfId = DateFormat('yyyy-MM-dd  kk:mm').format(now);
 
           var pdfPathToSave = await Injection.previewCubit.createPdf(pdfId);
 
@@ -161,7 +154,8 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             skills: skillData,
             experiences: experiencesData,
             qualifications: qualificationData,
-            resumeTemplateID: Injection.resumeTemplateCubit.selectedTemplate.resumeTemplateID,
+            resumeTemplateID:
+                Injection.resumeTemplateCubit.selectedTemplate.resumeTemplateID,
             pdfID: pdfId,
           );
 

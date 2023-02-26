@@ -5,7 +5,7 @@ abstract class ResumeTemplateContract {
   bool isSelected = false;
   String filePath = "";
   Future<Uint8List> getcreatedPdf();
-  Future<String> getFilePathToSave();
+  Future<String> getFilePathToSave(String pdfID);
   void buildUpPDF();
   late final int resumeTemplateID;
 }

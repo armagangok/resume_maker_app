@@ -1,16 +1,14 @@
 // ignoreforfile: avoidprint
 
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
-import 'package:resume_maker_app/core/util/pdf_maker/contract/template_contract.dart';
-import 'package:resume_maker_app/core/util/pdf_maker/repository/repo.dart';
 
+import '../../directory_helper/directory_helper.dart';
 import '../components/pdf_components.dart';
+import '../contract/template_contract.dart';
+import '../repository/repo.dart';
 
 class ModernTemplate extends ResumeTemplateContract {
   ModernTemplate._();
@@ -65,23 +63,23 @@ class ModernTemplate extends ResumeTemplateContract {
         height: height,
         color: PdfColors.grey300,
         child: pw.Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: pw.CrossAxisAlignment.center,
+          mainAxisSize: pw.MainAxisSize.max,
           children: [
             _pdfRepo.getUserData.personal == null
-                ? SizedBox()
-                : Column(
+                ? pw.SizedBox()
+                : pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        padding: EdgeInsets.all(10.w),
+                      pw.Container(
+                        padding: const pw.EdgeInsets.all(10),
                         color: PdfColors.grey700,
-                        child: Column(
+                        child: pw.Column(
                           children: [
                             _pdfRepo.getUserData.personal!.fullName == null
-                                ? SizedBox()
-                                : FittedBox(
-                                    child: Text(
+                                ? pw.SizedBox()
+                                : pw.FittedBox(
+                                    child: pw.Text(
                                       _pdfRepo.getUserData.personal!.fullName!,
                                       style: const pw.TextStyle(
                                         color: PdfColors.white,
@@ -91,13 +89,12 @@ class ModernTemplate extends ResumeTemplateContract {
                                     ),
                                   ),
                             _pdfRepo.getUserData.personal!.title == null
-                                ? SizedBox()
-                                : FittedBox(
-                                    child: Text(
+                                ? pw.SizedBox()
+                                : pw.FittedBox(
+                                    child: pw.Text(
                                       _pdfRepo.getUserData.personal!.title!,
                                       style: const pw.TextStyle(
-                                        color: PdfColors.white,
-                                      ),
+                                          color: PdfColors.white),
                                       maxLines: 1,
                                     ),
                                   ),
@@ -106,11 +103,11 @@ class ModernTemplate extends ResumeTemplateContract {
                       ),
                     ],
                   ),
-            pw.SizedBox(height: 20.h),
+            pw.SizedBox(height: 20),
             pw.Padding(
               padding: const pw.EdgeInsets.symmetric(horizontal: 5),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: pw.Column(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                 children: [
                   pw.Row(
                     children: [
@@ -120,7 +117,7 @@ class ModernTemplate extends ResumeTemplateContract {
                   contactText(
                     personalModel: _pdfRepo.getUserData.personal!,
                   ),
-                  SizedBox(height: 20.h),
+                  pw.SizedBox(height: 20),
                   _pdfRepo.getUserData.qualifications != null
                       ? pw.Column(
                           children: [
@@ -136,7 +133,7 @@ class ModernTemplate extends ResumeTemplateContract {
                             )
                           ],
                         )
-                      : SizedBox(),
+                      : pw.SizedBox(),
                   sizedBox015,
                   _pdfRepo.getUserData.skills == null
                       ? pw.SizedBox()
@@ -157,11 +154,11 @@ class ModernTemplate extends ResumeTemplateContract {
   pw.Expanded rightContainer() {
     return pw.Expanded(
       child: pw.Container(
-        padding: EdgeInsets.all(20.w),
+        padding: const pw.EdgeInsets.all(20),
         height: height,
         color: PdfColors.white,
         child: pw.Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: pw.MainAxisAlignment.start,
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
             sizedBox015,
@@ -180,7 +177,7 @@ class ModernTemplate extends ResumeTemplateContract {
             pw.Column(
               mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
               crossAxisAlignment: pw.CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
+              mainAxisSize: pw.MainAxisSize.max,
               children: [
                 _pdfRepo.getUserData.education == null
                     ? pw.SizedBox()
@@ -196,7 +193,7 @@ class ModernTemplate extends ResumeTemplateContract {
                       ),
                 sizedBox015,
                 _pdfRepo.getUserData.languages == null
-                    ? SizedBox()
+                    ? pw.SizedBox()
                     : pw.Column(
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
@@ -211,7 +208,7 @@ class ModernTemplate extends ResumeTemplateContract {
               ],
             ),
             _pdfRepo.getUserData.experiences == null
-                ? SizedBox()
+                ? pw.SizedBox()
                 : pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
@@ -231,10 +228,16 @@ class ModernTemplate extends ResumeTemplateContract {
   }
 
   @override
-  Future<String> getFilePathToSave() async {
-    final output = await path_provider.getExternalStorageDirectory();
+  Future<String> getFilePathToSave(String pdfID) async {
+    // final output = await path_provider.getExternalStorageDirectory();
 
-    filePath = "${output!.path}/${"${DateTime.now()}"}.pdf";
+    // var await Directory('pdf_folder').create();
+
+    String path = await DirectoryHelper.createFolderInAppDocDir(
+      "resume_folder",
+    );
+
+    filePath = "$path/$pdfID.pdf";
 
     return filePath;
   }

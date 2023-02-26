@@ -214,10 +214,10 @@ class CloudTemplate extends ResumeTemplateContract {
   }
 
   @override
-  Future<String> getFilePathToSave() async {
+  Future<String> getFilePathToSave(String pdfID) async {
     final output = await path_provider.getExternalStorageDirectory();
 
-    filePath = "${output!.path}/${DateTime.now()}.pdf";
+    String filePath = "${output!.path}/$pdfID.pdf";
 
     // await OpenFile.open(filePath);
     return filePath;

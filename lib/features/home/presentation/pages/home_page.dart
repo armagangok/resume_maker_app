@@ -1,9 +1,12 @@
+import 'dart:io';
 import 'package:file_manager/file_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
 import 'package:resume_maker_app/features/home/presentation/viewmodels/file_entity/file_entity_cubit.dart';
 
 import '../../../../core/export/export.dart';
+
+import 'package:path/path.dart' as p;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -108,23 +111,15 @@ class _HomePageState extends State<HomePage> {
                 } else {
                   List<Widget> widgetList = [];
 
-                  for (var element in state.fileSystemEntity) {
-                    print(element.path);
-                    print(element.path);
-                    print(element.path);
-                    print(element.path);
-                    print(element.path);
-                    print(element.path);
-                    print(element.path);
-                    print(element.path);
-                    print(element.path);
-                    print(element.path);
-                    print(element.path);
-                    print(element.path);
-                    widgetList.add(Padding(
-                      padding: EdgeInsets.all(5.h),
-                      child: PdfView(path: element.path),
-                    ));
+                  for (var file in state.fileSystemEntity) {
+                    if (ifFileIsPdf(file)) {
+                      widgetList.add(
+                        Padding(
+                          padding: EdgeInsets.all(5.h),
+                          child: Text(file.path),
+                        ),
+                      );
+                    }
                   }
 
                   return GridView.count(
@@ -145,6 +140,9 @@ class _HomePageState extends State<HomePage> {
       ],
     );
   }
+
+  bool ifFileIsPdf(FileSystemEntity element) =>
+      ".pdf" == p.extension(element.path);
 
   Widget dragableItem(int index, state, path) {
     return SizedBox(

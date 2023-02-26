@@ -29,7 +29,7 @@ class PreviewCubit extends Cubit<PreviewState> {
     selectedTemplate.buildUpPDF();
 
     Uint8List pdfFile = await selectedTemplate.getcreatedPdf();
-    String path = await selectedTemplate.getFilePathToSave();
+    String path = await selectedTemplate.getFilePathToSave(pdfID);
 
     final file = File(path);
     await file.writeAsBytes(pdfFile);
