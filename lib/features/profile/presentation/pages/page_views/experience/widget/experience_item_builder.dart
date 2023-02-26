@@ -45,8 +45,8 @@ class _ExperienceNewItemBuilderState extends State<ExperienceNewItemBuilder> {
                   SizedBox(height: KPadding.height5),
                   UnderlinedTextField(
                     hintText: "Start Date",
-                    controller:
-                        Injection.experienceCubit.newItems[index].jobStartDate!,
+                    controller: Injection.experienceCubit.newItems[index]
+                        .jobStartDateController!,
                   ),
                   SizedBox(height: KPadding.height5),
                   UnderlinedTextField(

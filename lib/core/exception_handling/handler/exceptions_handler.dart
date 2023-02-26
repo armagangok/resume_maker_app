@@ -2,7 +2,7 @@ import '../../error/custom_failure.dart';
 import '../exceptions/exceptions.dart';
 
 class ExceptionHandler {
-  CustomFailure handleException(MyException exception) {
+  CustomFailure handleException(CustomException exception) {
     return exception.when(
       noCachedException: () {
         return CustomFailure(

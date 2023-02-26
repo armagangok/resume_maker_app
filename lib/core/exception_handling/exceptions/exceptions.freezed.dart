@@ -85,12 +85,12 @@ mixin _$MyException {
 /// @nodoc
 abstract class $MyExceptionCopyWith<$Res> {
   factory $MyExceptionCopyWith(
-          MyException value, $Res Function(MyException) then) =
-      _$MyExceptionCopyWithImpl<$Res, MyException>;
+          CustomException value, $Res Function(CustomException) then) =
+      _$MyExceptionCopyWithImpl<$Res, CustomException>;
 }
 
 /// @nodoc
-class _$MyExceptionCopyWithImpl<$Res, $Val extends MyException>
+class _$MyExceptionCopyWithImpl<$Res, $Val extends CustomException>
     implements $MyExceptionCopyWith<$Res> {
   _$MyExceptionCopyWithImpl(this._value, this._then);
 
@@ -224,7 +224,7 @@ class _$NoCachedException implements NoCachedException {
   }
 }
 
-abstract class NoCachedException implements MyException {
+abstract class NoCachedException implements CustomException {
   const factory NoCachedException() = _$NoCachedException;
 }
 
@@ -352,7 +352,7 @@ class _$UnknownLocalException implements UnknownLocalException {
   }
 }
 
-abstract class UnknownLocalException implements MyException {
+abstract class UnknownLocalException implements CustomException {
   const factory UnknownLocalException() = _$UnknownLocalException;
 }
 
@@ -480,7 +480,7 @@ class _$DeletingMyException implements DeletingMyException {
   }
 }
 
-abstract class DeletingMyException implements MyException {
+abstract class DeletingMyException implements CustomException {
   const factory DeletingMyException() = _$DeletingMyException;
 }
 
@@ -608,7 +608,7 @@ class _$UnknownRemoteException implements UnknownRemoteException {
   }
 }
 
-abstract class UnknownRemoteException implements MyException {
+abstract class UnknownRemoteException implements CustomException {
   const factory UnknownRemoteException() = _$UnknownRemoteException;
 }
 
@@ -736,7 +736,7 @@ class _$NoInternetException implements NoInternetException {
   }
 }
 
-abstract class NoInternetException implements MyException {
+abstract class NoInternetException implements CustomException {
   const factory NoInternetException() = _$NoInternetException;
 }
 
@@ -864,6 +864,6 @@ class _$ForbiddenMyException implements ForbiddenMyException {
   }
 }
 
-abstract class ForbiddenMyException implements MyException {
+abstract class ForbiddenMyException implements CustomException {
   const factory ForbiddenMyException() = _$ForbiddenMyException;
 }

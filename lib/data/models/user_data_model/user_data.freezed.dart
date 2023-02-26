@@ -27,7 +27,7 @@ mixin _$UserData {
       throw _privateConstructorUsedError;
   List<Skills>? get skills => throw _privateConstructorUsedError;
   List<Experience>? get experiences => throw _privateConstructorUsedError;
-  String? get pdfPath => throw _privateConstructorUsedError;
+  String? get pdfID => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -47,7 +47,7 @@ abstract class $UserDataCopyWith<$Res> {
       List<Qualifications>? qualifications,
       List<Skills>? skills,
       List<Experience>? experiences,
-      String? pdfPath});
+      String? pdfID});
 
   $PersonalCopyWith<$Res>? get personal;
 }
@@ -71,7 +71,7 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
     Object? qualifications = freezed,
     Object? skills = freezed,
     Object? experiences = freezed,
-    Object? pdfPath = freezed,
+    Object? pdfID = freezed,
   }) {
     return _then(_value.copyWith(
       personal: freezed == personal
@@ -98,9 +98,9 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
           ? _value.experiences
           : experiences // ignore: cast_nullable_to_non_nullable
               as List<Experience>?,
-      pdfPath: freezed == pdfPath
-          ? _value.pdfPath
-          : pdfPath // ignore: cast_nullable_to_non_nullable
+      pdfID: freezed == pdfID
+          ? _value.pdfID
+          : pdfID // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -132,7 +132,7 @@ abstract class _$$_UserDataCopyWith<$Res> implements $UserDataCopyWith<$Res> {
       List<Qualifications>? qualifications,
       List<Skills>? skills,
       List<Experience>? experiences,
-      String? pdfPath});
+      String? pdfID});
 
   @override
   $PersonalCopyWith<$Res>? get personal;
@@ -155,7 +155,7 @@ class __$$_UserDataCopyWithImpl<$Res>
     Object? qualifications = freezed,
     Object? skills = freezed,
     Object? experiences = freezed,
-    Object? pdfPath = freezed,
+    Object? pdfID = freezed,
   }) {
     return _then(_$_UserData(
       personal: freezed == personal
@@ -182,9 +182,9 @@ class __$$_UserDataCopyWithImpl<$Res>
           ? _value._experiences
           : experiences // ignore: cast_nullable_to_non_nullable
               as List<Experience>?,
-      pdfPath: freezed == pdfPath
-          ? _value.pdfPath
-          : pdfPath // ignore: cast_nullable_to_non_nullable
+      pdfID: freezed == pdfID
+          ? _value.pdfID
+          : pdfID // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -200,7 +200,7 @@ class _$_UserData implements _UserData {
       final List<Qualifications>? qualifications,
       final List<Skills>? skills,
       final List<Experience>? experiences,
-      this.pdfPath})
+      this.pdfID})
       : _education = education,
         _languages = languages,
         _qualifications = qualifications,
@@ -263,11 +263,11 @@ class _$_UserData implements _UserData {
   }
 
   @override
-  final String? pdfPath;
+  final String? pdfID;
 
   @override
   String toString() {
-    return 'UserData(personal: $personal, education: $education, languages: $languages, qualifications: $qualifications, skills: $skills, experiences: $experiences, pdfPath: $pdfPath)';
+    return 'UserData(personal: $personal, education: $education, languages: $languages, qualifications: $qualifications, skills: $skills, experiences: $experiences, pdfID: $pdfID)';
   }
 
   @override
@@ -286,7 +286,7 @@ class _$_UserData implements _UserData {
             const DeepCollectionEquality().equals(other._skills, _skills) &&
             const DeepCollectionEquality()
                 .equals(other._experiences, _experiences) &&
-            (identical(other.pdfPath, pdfPath) || other.pdfPath == pdfPath));
+            (identical(other.pdfID, pdfID) || other.pdfID == pdfID));
   }
 
   @JsonKey(ignore: true)
@@ -299,7 +299,7 @@ class _$_UserData implements _UserData {
       const DeepCollectionEquality().hash(_qualifications),
       const DeepCollectionEquality().hash(_skills),
       const DeepCollectionEquality().hash(_experiences),
-      pdfPath);
+      pdfID);
 
   @JsonKey(ignore: true)
   @override
@@ -323,7 +323,7 @@ abstract class _UserData implements UserData {
       final List<Qualifications>? qualifications,
       final List<Skills>? skills,
       final List<Experience>? experiences,
-      final String? pdfPath}) = _$_UserData;
+      final String? pdfID}) = _$_UserData;
 
   factory _UserData.fromJson(Map<String, dynamic> json) = _$_UserData.fromJson;
 
@@ -340,7 +340,7 @@ abstract class _UserData implements UserData {
   @override
   List<Experience>? get experiences;
   @override
-  String? get pdfPath;
+  String? get pdfID;
   @override
   @JsonKey(ignore: true)
   _$$_UserDataCopyWith<_$_UserData> get copyWith =>

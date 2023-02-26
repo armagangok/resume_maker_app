@@ -136,7 +136,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               jobDuties: element.jobDutiesController!.text,
               jobTitle: element.jobTitleController!.text,
               endDate: element.jobEndDateController!.text,
-              startDate: "element.startDateController!.text",
+              startDate: element.jobStartDateController!.text,
             );
             experiencesData.add(experienceModel);
           }
@@ -150,7 +150,10 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             qualificationData.add(qualificationModel);
           }
 
-          // var pdfPathToSave = await Injection.previewCubit.createPdf();
+          DateTime now = DateTime.now();
+          String pdfId = DateFormat('yyyy-MM-dd – kk:mm').format(now);
+
+          var pdfPathToSave = await Injection.previewCubit.createPdf(pdfId);
 
           UserData userData = UserData(
             personal: personalDataModel,
@@ -159,7 +162,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             skills: skillData,
             experiences: experiencesData,
             qualifications: qualificationData,
-            // pdfPath: pdfPathToSave,
+            pdfID: pdfId,
           );
 
           var encodedJson = json.encode(userData.toJson());

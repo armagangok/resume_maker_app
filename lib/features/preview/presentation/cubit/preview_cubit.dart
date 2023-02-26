@@ -15,7 +15,7 @@ class PreviewCubit extends Cubit<PreviewState> {
     emit(PreviewLoading());
     if (selectedTemplate.filePath.isEmpty) {
       try {
-        var path = await createPdf();
+        var path = await createPdf("");
         emit(PreviewLoaded(pdfFilePath: path));
       } on PlatformException {
         emit(PreviewLoadingError());
@@ -25,7 +25,7 @@ class PreviewCubit extends Cubit<PreviewState> {
     }
   }
 
-  Future<String> createPdf() async {
+  Future<String> createPdf(String pdfID) async {
     selectedTemplate.buildUpPDF();
 
     Uint8List pdfFile = await selectedTemplate.getcreatedPdf();

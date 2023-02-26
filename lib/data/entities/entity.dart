@@ -17,7 +17,7 @@ class UserDataEntity {
   final TextEditingController? jobTitleController;
   final TextEditingController? jobDutiesController;
   final TextEditingController? details;
-  final TextEditingController? jobStartDate;
+  final TextEditingController? jobStartDateController;
   final TextEditingController? jobEndDateController;
 
   final String? itemID;
@@ -44,7 +44,7 @@ class UserDataEntity {
     this.jobTitleController,
     this.jobDutiesController,
     this.details,
-    this.jobStartDate,
+    this.jobStartDateController,
     this.jobEndDateController,
     this.itemID,
     this.removeWidget,
