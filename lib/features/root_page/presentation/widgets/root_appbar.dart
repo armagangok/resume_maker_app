@@ -79,19 +79,11 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           for (NewItemModel element in Injection.linkItemCubit.newItems) {
             links.add(element.controller.text);
           }
-          Personal personalDataModel = Personal(
-            title: Injection.personalDataCubit.professionTitleController.text,
-            fullName: personalData.fullNameController.text,
-            birthday: personalData.birthDayController.text,
-            country: personalData.countryController.text,
-            zipCode: personalData.zipCodeController.text,
-            city: personalData.cityController.text,
-            street: personalData.streetController.text,
-            phones: phones,
-            emails: emails,
-            links: links,
-            summary: personalData.summaryController.text,
-            imagePath: Injection.imageCubit.imagePath,
+          Personal personalDataModel = _preparePersonalData(
+            personalData,
+            phones,
+            emails,
+            links,
           );
 
           List<Education> educationData = [];
@@ -162,6 +154,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             skills: skillData,
             experiences: experiencesData,
             qualifications: qualificationData,
+            resumeTemplateID: 0,
             pdfID: pdfId,
           );
 
@@ -171,6 +164,28 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           Injection.navigator.navigaToClear(path: homePage);
         },
       );
+
+  Personal _preparePersonalData(
+    PersonalDataCubit personalData,
+    List<String> phones,
+    List<String> emails,
+    List<String> links,
+  ) {
+    return Personal(
+      title: Injection.personalDataCubit.professionTitleController.text,
+      fullName: personalData.fullNameController.text,
+      birthday: personalData.birthDayController.text,
+      country: personalData.countryController.text,
+      zipCode: personalData.zipCodeController.text,
+      city: personalData.cityController.text,
+      street: personalData.streetController.text,
+      phones: phones,
+      emails: emails,
+      links: links,
+      summary: personalData.summaryController.text,
+      imagePath: Injection.imageCubit.imagePath,
+    );
+  }
 
   PreferredSize _bottomDivider() => PreferredSize(
         preferredSize: Size.fromHeight(4.0.h),

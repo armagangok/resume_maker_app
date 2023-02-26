@@ -101,14 +101,26 @@ class _HomePageState extends State<HomePage> {
             bloc: Injection.fileEntityCubit,
             builder: (context, state) {
               if (state is FileEntityFetched) {
-                if (state.userDataList.isEmpty) {
+                if (state.fileSystemEntity.isEmpty) {
                   return const Center(
                     child: Text("Please create a new resume for yourself!"),
                   );
                 } else {
                   List<Widget> widgetList = [];
 
-                  for (var element in state.userDataList) {
+                  for (var element in state.fileSystemEntity) {
+                    print(element.path);
+                    print(element.path);
+                    print(element.path);
+                    print(element.path);
+                    print(element.path);
+                    print(element.path);
+                    print(element.path);
+                    print(element.path);
+                    print(element.path);
+                    print(element.path);
+                    print(element.path);
+                    print(element.path);
                     widgetList.add(Padding(
                       padding: EdgeInsets.all(5.h),
                       child: PdfView(path: element.path),

@@ -1,17 +1,15 @@
 import 'dart:io';
 
-
-
 import '../../../../core/export/export.dart';
-
-
 
 class HomeDataSource extends HomeDataSourceContract {
   @override
   Future<List<FileSystemEntity>> fetchFileEntityList() async {
-    Directory directory = await DirectoryHelper.applicationDocumentsDirectory;
+    Directory directory = await DirectoryHelper.externalStorageDirectory;
 
     var filePathList = Directory(directory.path).listSync();
+
+    print(filePathList);
 
     return filePathList;
   }

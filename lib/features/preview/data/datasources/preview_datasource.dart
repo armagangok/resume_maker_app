@@ -6,7 +6,7 @@ import '../contract/preview_data_source_contract.dart';
 class PreviewDataSource extends PreviewDataSourceContract {
   @override
   Future<List<FileSystemEntity>> fetchFileEntityList() async {
-    Directory directory = await DirectoryHelper.applicationDocumentsDirectory;
+    Directory directory = await DirectoryHelper.externalStorageDirectory;
 
     var filePathList = Directory(directory.path).listSync();
 

@@ -7,4 +7,5 @@ abstract class ResumeTemplateContract {
   Future<Uint8List> getcreatedPdf();
   Future<String> getFilePathToSave();
   void buildUpPDF();
+  late final int resumeTemplateID;
 }

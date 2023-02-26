@@ -27,6 +27,8 @@ class GreyPlainTemplate extends ResumeTemplateContract {
 
   final pdf = pw.Document();
 
+  final int resumeTemplateID = 1;
+
   @override
   Future<Uint8List> getcreatedPdf() async {
     // pw.ThemeData myTheme = pw.ThemeData.withFont(

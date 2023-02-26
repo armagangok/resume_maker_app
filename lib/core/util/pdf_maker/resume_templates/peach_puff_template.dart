@@ -23,6 +23,9 @@ class PeachPuffTemplate extends ResumeTemplateContract {
   @override
   String filePath = "";
 
+  @override
+  final int resumeTemplateID = 3;
+
   final pdf = pw.Document();
   List<pw.Widget> widgets = [];
 

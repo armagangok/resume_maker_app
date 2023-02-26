@@ -26,6 +26,7 @@ _$_UserData _$$_UserDataFromJson(Map<String, dynamic> json) => _$_UserData(
           ?.map((e) => Experience.fromJson(e as Map<String, dynamic>))
           .toList(),
       pdfID: json['pdfID'] as String?,
+      resumeTemplateID: json['resumeTemplateID'] as int?,
     );
 
 Map<String, dynamic> _$$_UserDataToJson(_$_UserData instance) =>
@@ -37,4 +38,5 @@ Map<String, dynamic> _$$_UserDataToJson(_$_UserData instance) =>
       'skills': instance.skills,
       'experiences': instance.experiences,
       'pdfID': instance.pdfID,
+      'resumeTemplateID': instance.resumeTemplateID,
     };

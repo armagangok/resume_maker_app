@@ -21,6 +21,9 @@ class CloudTemplate extends ResumeTemplateContract {
   @override
   String filePath = "";
 
+  @override
+  final int resumeTemplateID = 0;
+
   final List<pw.Widget> _widgets = [];
   final pdf = pw.Document();
   final PdfRepo _pdfRepo = PdfRepo.instance;

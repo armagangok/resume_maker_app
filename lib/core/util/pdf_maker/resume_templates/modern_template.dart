@@ -33,6 +33,9 @@ class ModernTemplate extends ResumeTemplateContract {
   final List<pw.Widget> _widgets = [];
 
   @override
+  final int resumeTemplateID = 2;
+
+  @override
   Future<Uint8List> getcreatedPdf() async {
     pdf.addPage(
       pw.MultiPage(
