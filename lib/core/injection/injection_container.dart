@@ -1,41 +1,89 @@
 import 'package:get_it/get_it.dart';
+import 'package:resume_maker_app/core/exception_handling/handler/exceptions_handler.dart';
 
+import '../../features/home/presentation/viewmodels/file_entity/file_entity_cubit.dart';
 import '../export/export.dart';
 
-final getIt = GetIt.instance;
+final getit = GetIt.instance;
 
 void initDependencies() {
-  getIt.registerLazySingleton<NavigationContract>(
-    () => NavigationService.instance,
+  setupViewmodels();
+  setupDataSources();
+  setupUsecases();
+  setupRepositories();
+}
+
+void setupUsecases() {
+  getit.registerLazySingleton<HomeUsecase>(
+    () => HomeUsecase(
+      homeRepository: getit.get(),
+    ),
+  );
+}
+
+void setupRepositories() {
+  getit.registerLazySingleton<HomeRepositoryContract>(
+    () => HomeRepository(
+      homeDataSourceContract: getit.get(),
+      exceptionHandler: getit.get(),
+    ),
+  );
+}
+
+// SETUP DATA SOURCES
+void setupDataSources() {
+  getit.registerLazySingleton<DesignDataSourceContract>(
+    () => DesignDataSource(),
+  );
+  getit.registerLazySingleton<HomeDataSourceContract>(
+    () => HomeDataSource(),
   );
 
-  getIt.registerLazySingleton<DesignCubit>(
-    () => DesignCubit(),
+  getit.registerLazySingleton<ExceptionHandler>(
+    () => ExceptionHandler(),
+  );
+}
+
+//  SETUP VIEWMODELS
+void setupViewmodels() {
+  getit.registerLazySingleton<ColorPickerCubit>(
+    () => ColorPickerCubit(),
   );
 
-  getIt.registerLazySingleton<ProfileCubit>(
+  getit.registerLazySingleton<ProfileCubit>(
     () => ProfileCubit(),
   );
 
-  getIt.registerLazySingleton<MultipleItemCubit>(
+  getit.registerLazySingleton<MultipleItemCubit>(
     () => MultipleItemCubit(),
   );
-  getIt.registerLazySingleton<PersonalDataCubit>(
+  getit.registerLazySingleton<PersonalDataCubit>(
     () => PersonalDataCubit(),
   );
 
-  getIt.registerLazySingleton<ImageCubit>(
+  getit.registerLazySingleton<ImageCubit>(
     () => ImageCubit(),
   );
-  getIt.registerLazySingleton<RootCubit>(
+  getit.registerLazySingleton<RootCubit>(
     () => RootCubit(),
   );
 
-  getIt.registerLazySingleton<PreviewCubit>(
-    () => PreviewCubit(),
+  getit.registerLazySingleton<NavigationContract>(
+    () => NavigationService.instance,
   );
 
-  getIt.registerLazySingleton<HomeCubit>(
-    () => HomeCubit(),
+  getit.registerLazySingleton<PreviewCubit>(
+    () => PreviewCubit(),
+  );
+  getit.registerLazySingleton<FileEntityCubit>(
+    () => FileEntityCubit(homeUsecase: getit.get()),
+  );
+
+  getit.registerLazySingleton<HomeCubit>(
+    () => HomeCubit(homeUsecase: getit.get()),
+  );
+
+  getit.registerLazySingleton<ResumeTemplateCubit>(
+    () => ResumeTemplateCubit(designDataSource: getit()),
   );
 }

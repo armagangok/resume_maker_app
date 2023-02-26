@@ -1,6 +1,5 @@
 import 'package:resume_maker_app/core/export/export.dart';
-
-
+import 'package:resume_maker_app/features/home/presentation/viewmodels/file_entity/file_entity_cubit.dart';
 
 class Injection {
   Injection._();
@@ -14,10 +13,11 @@ class Injection {
   static final _languageCubit = MultipleItemCubit();
   static final _experienceCubit = MultipleItemCubit();
 
-  static NavigationContract get navigator => getIt.call<NavigationContract>();
-  static DesignCubit get designCubit => getIt.call<DesignCubit>();
-  static PreviewCubit get previewCubit => getIt.call<PreviewCubit>();
-  static ProfileCubit get profileCubit => getIt.call<ProfileCubit>();
+  static NavigationContract get navigator => getit.call<NavigationContract>();
+  static ColorPickerCubit get colorPickerCubit =>
+      getit.call<ColorPickerCubit>();
+  static PreviewCubit get previewCubit => getit.call<PreviewCubit>();
+  static ProfileCubit get profileCubit => getit.call<ProfileCubit>();
   static NewItemCubit get phoneItemCubit => _phoneItemCubit;
   static NewItemCubit get emailItemCubit => _emailItemCubit;
   static NewItemCubit get linkItemCubit => _linkItemCubit;
@@ -26,10 +26,12 @@ class Injection {
   static MultipleItemCubit get educationCubit => _educationCubit;
   static MultipleItemCubit get qualificationsCubit => _qualificationCubit;
   static MultipleItemCubit get experienceCubit => _experienceCubit;
-  static RootCubit get rootCubit => getIt.call<RootCubit>();
-  static HomeCubit get homeCubit => getIt.call<HomeCubit>();
+  static RootCubit get rootCubit => getit.call<RootCubit>();
+  static HomeCubit get homeCubit => getit.call<HomeCubit>();
+  static ResumeTemplateCubit get resumeTemplateCubit => getit();
+  static FileEntityCubit get fileEntityCubit => getit();
 
   static PersonalDataCubit get personalDataCubit =>
-      getIt.call<PersonalDataCubit>();
-  static ImageCubit get imageCubit => getIt.call<ImageCubit>();
+      getit.call<PersonalDataCubit>();
+  static ImageCubit get imageCubit => getit.call<ImageCubit>();
 }

@@ -1,6 +1,7 @@
 import 'package:file_manager/file_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
+import 'package:resume_maker_app/features/home/presentation/viewmodels/file_entity/file_entity_cubit.dart';
 
 import '../../../../core/export/export.dart';
 
@@ -19,12 +20,21 @@ class _HomePageState extends State<HomePage> {
   // bool accepted = false;
 
   int selectIndex = -1;
+
+  @override
+  void initState() {
+    Injection.fileEntityCubit;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _bodyWidget(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: _floatingActionButton(),
+    return SafeArea(
+      child: Scaffold(
+        body: _bodyWidget(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: _floatingActionButton(),
+      ),
     );
   }
 
@@ -49,8 +59,9 @@ class _HomePageState extends State<HomePage> {
             }
           },
           onAccept: (int data) async {
-            await Injection.homeCubit.deleteHomeUserData(data);
-            await Injection.homeCubit.fetchHomeUserData();
+            print(data);
+            // await Injection.fileEntityCubit.deleteFileEntityUserData(data);
+            // await Injection.fileEntityCubit.fetchFileEntityUserData();
           },
         )
       : FloatingActionButton(
@@ -71,25 +82,25 @@ class _HomePageState extends State<HomePage> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
-          child: BlocConsumer<HomeCubit, HomeState>(
+          child: BlocConsumer<FileEntityCubit, FileEntityState>(
             listener: (context, state) {
-              if (state is HomeUserDataDeleteFailure) {
+              if (state is FileEntityDeleteFailure) {
                 context.showSnackBar(const SnackBar(
                   content: Text("Failed to delete user resume data."),
                 ));
-              } else if (state is HomeUserDataSaved) {
+              } else if (state is FileEntitySaved) {
                 context.showSnackBar(const SnackBar(
                   content: Text("User resume data saved successfuly."),
                 ));
-              } else if (state is HomeUserDataSavingFailure) {
+              } else if (state is FileEntityDeleteFailure) {
                 context.showSnackBar(const SnackBar(
                   content: Text("Failed to save user resume data."),
                 ));
               }
             },
-            bloc: Injection.homeCubit,
+            bloc: Injection.fileEntityCubit,
             builder: (context, state) {
-              if (state is HomeUserDataFetched) {
+              if (state is FileEntityFetched) {
                 if (state.userDataList.isEmpty) {
                   return const Center(
                     child: Text("Please create a new resume for yourself!"),
@@ -97,12 +108,13 @@ class _HomePageState extends State<HomePage> {
                 } else {
                   List<Widget> widgetList = [];
 
-                  for (var i = 0;
-                      i < Injection.homeCubit.fileList.length;
-                      i++,) {
-                    widgetList.add(dragableItem(
-                        i, state, Injection.homeCubit.fileList[i].path));
+                  for (var element in state.userDataList) {
+                    widgetList.add(Padding(
+                      padding: EdgeInsets.all(5.h),
+                      child: PdfView(path: element.path),
+                    ));
                   }
+
                   return GridView.count(
                     crossAxisCount: 2,
                     childAspectRatio: (0.8),

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import '../../../../core/export/export.dart';
-import '../../../../domain/usecases/user_data_usecase.dart';
 
 part 'root_state.dart';
 
@@ -15,13 +14,13 @@ class RootCubit extends Cubit<RootState> {
   Future<void> saveUserData(String userData) async {
     var response = await _userDataUsecase.saveUserData(userData);
 
-    response.fold(
-      (l) {
-        emit(UserDataSavingFailure());
-      },
-      (r) async{
+    response.when(
+      success: (success) async {
         emit(UserDataSaved());
         await fetchUserData();
+      },
+      failure: (failure) {
+        emit(UserDataSavingFailure());
       },
     );
   }
@@ -29,23 +28,24 @@ class RootCubit extends Cubit<RootState> {
   Future<void> deleteUserData(int index) async {
     var response = await _userDataUsecase.deleteUserData(index);
 
-    response.fold(
-      (l) => emit(UserDataDeleteFailure()),
-      (r) => emit(UserDataDeleted()),
+    response.when(
+      success: (data) {
+        emit(UserDataDeleted());
+      },
+      failure: (failure) {
+        emit(UserDataDeleteFailure());
+      },
     );
   }
 
   Future<void> fetchUserData() async {
     var response = await _userDataUsecase.fetchUserData();
 
-    response.fold(
-      (l) {
-        emit(UserDataFetchFailure());
-      },
-      (r) {
+    response.when(
+      success: (data) {
         List<UserData> userDataList = [];
-        if (r != null) {
-          for (var element in r as List<String>) {
+        if (data != null) {
+          for (var element in data as List<String>) {
             var model = UserData.fromJson(jsonDecode(element));
             userDataList.add(model);
           }
@@ -53,6 +53,9 @@ class RootCubit extends Cubit<RootState> {
         } else {
           emit(UserDataFetched(userDataList: userDataList));
         }
+      },
+      failure: (failure) {
+        emit(UserDataFetchFailure());
       },
     );
   }

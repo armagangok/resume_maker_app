@@ -1,6 +1,4 @@
 import '../../../../core/export/export.dart';
-import '../../../../core/widget/custom_tab_bar.dart';
-import '../widgets/resume_list_view.dart';
 
 class DesignPage extends StatefulWidget {
   const DesignPage({super.key});
@@ -26,13 +24,13 @@ class _DesignPageState extends State<DesignPage> {
   }
 
   Widget _colorPickerWidget() {
-    return BlocBuilder<DesignCubit, DesignState>(
-      bloc: Injection.designCubit,
+    return BlocBuilder<ColorPickerCubit, ColorPickerState>(
+      bloc: Injection.colorPickerCubit,
       builder: (context, state) {
         return CustomTabBarWidget(
-          itemCount: Injection.designCubit.resumeColors.length,
-          onTap: (int index) => Injection.designCubit.selectIndex(index),
-          itemList: Injection.designCubit.resumeColors,
+          itemCount: Injection.colorPickerCubit.resumeColors.length,
+          onTap: (int index) => Injection.colorPickerCubit.selectIndex(index),
+          itemList: Injection.colorPickerCubit.resumeColors,
         );
       },
     );

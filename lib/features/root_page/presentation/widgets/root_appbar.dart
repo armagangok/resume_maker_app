@@ -150,6 +150,8 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             qualificationData.add(qualificationModel);
           }
 
+          // var pdfPathToSave = await Injection.previewCubit.createPdf();
+
           UserData userData = UserData(
             personal: personalDataModel,
             education: educationData,
@@ -157,6 +159,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             skills: skillData,
             experiences: experiencesData,
             qualifications: qualificationData,
+            // pdfPath: pdfPathToSave,
           );
 
           var encodedJson = json.encode(userData.toJson());
@@ -166,25 +169,21 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         },
       );
 
-  PreferredSize _bottomDivider() {
-    return PreferredSize(
-      preferredSize: Size.fromHeight(4.0.h),
-      child: Container(
-        color: iconBackground,
-        height: 0.5.h,
-      ),
-    );
-  }
+  PreferredSize _bottomDivider() => PreferredSize(
+        preferredSize: Size.fromHeight(4.0.h),
+        child: Container(
+          color: iconBackground,
+          height: 0.5.h,
+        ),
+      );
 
-  GestureDetector _menuButton() {
-    return GestureDetector(
-      onTap: () {},
-      child: Icon(
-        Icons.menu_rounded,
-        size: 45.h,
-      ),
-    );
-  }
+  GestureDetector _menuButton() => GestureDetector(
+        onTap: () {},
+        child: Icon(
+          Icons.menu_rounded,
+          size: 45.h,
+        ),
+      );
 
   String get _getDate {
     final DateTime now = DateTime.now();

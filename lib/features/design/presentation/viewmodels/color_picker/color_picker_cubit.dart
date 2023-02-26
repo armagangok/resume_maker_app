@@ -3,19 +3,21 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../widgets/item.dart';
+import '../../widgets/item.dart';
 
-part 'design_state.dart';
 
-class DesignCubit extends Cubit<DesignState> {
-  DesignCubit() : super(DesignInitial());
+
+part 'color_picker_state.dart';
+
+class ColorPickerCubit extends Cubit<ColorPickerState> {
+  ColorPickerCubit() : super(ColorPickerInitial());
 
   void selectIndex(int index) {
     resumeColors.forEach((element) {
       element.colorModel.isSelected = false;
     });
     resumeColors[index].colorModel.isSelected = true;
-    emit(DesignInitial());
+    emit(ColorPickerInitial());
   }
 
   get selectedColor {

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../core/export/export.dart';
+import '../viewmodels/color_picker/color_picker_cubit.dart';
 
 class ResumeColorItem extends StatelessWidget {
   const ResumeColorItem({
@@ -12,8 +13,8 @@ class ResumeColorItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DesignCubit, DesignState>(
-      bloc: Injection.designCubit,
+    return BlocBuilder<ColorPickerCubit, ColorPickerState>(
+      bloc: Injection.colorPickerCubit,
       builder: (context, state) {
         return CircleAvatar(
           radius: 25.5.h,

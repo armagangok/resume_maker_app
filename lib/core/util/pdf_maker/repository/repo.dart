@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:resume_maker_app/core/export/export.dart';
-import 'package:resume_maker_app/domain/usecases/user_data_usecase.dart';
 
 class PdfRepo {
   PdfRepo._() {
@@ -18,13 +17,15 @@ class PdfRepo {
   void initializeRepositories() {
     usecase.fetchUserData().then(
       (value) {
-        value.fold(
-          (l) => null,
-          (r) {
-            for (var element in r) {
+        value.when(
+          success: (data) {
+            for (var element in data) {
               var model = UserData.fromJson(jsonDecode(element));
               userDataList.add(model);
             }
+          },
+          failure: (failure) {
+            print(failure);
           },
         );
       },

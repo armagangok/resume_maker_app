@@ -1,0 +1,24 @@
+part of 'file_entity_cubit.dart';
+
+abstract class FileEntityState {}
+
+class FileEntityInitial extends FileEntityState {}
+
+
+class FileEntitySavingFailure extends FileEntityState {}
+
+class FileEntitySaved extends FileEntityState {}
+
+class FileEntityDeleted extends FileEntityState {}
+
+class FileEntityDeleteFailure extends FileEntityState {}
+
+class FileEntityFetched extends FileEntityState {
+  List<FileSystemEntity>  userDataList;
+
+  FileEntityFetched({
+    required this.userDataList,
+  });
+}
+
+class FileEntityFetchFailure extends FileEntityState {}

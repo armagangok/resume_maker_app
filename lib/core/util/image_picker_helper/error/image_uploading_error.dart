@@ -1,6 +1,4 @@
-import '../../../error/failure.dart';
-
-abstract class ImagePickingFailure extends Failure {}
+abstract class ImagePickingFailure {}
 
 class NullImageFailure extends ImagePickingFailure {}
 

@@ -1,20 +1,18 @@
-import 'package:dartz/dartz.dart';
-
-import '../../core/error/failure.dart';
+import '../../core/result_types/result/result.dart';
 
 // Base CRUD operations for repositories.
 // Repositories will be extended from this DatabaseContract class.
 abstract class DatabaseContract {
-  Future<Either<Failure, dynamic>> fetchData<T>({
+  Future<Result<dynamic>> fetchData<T>({
     required String boxName,
   });
 
-  Future<Either<Failure, bool>> saveData<T>({
+  Future<Result<bool>> saveData<T>({
     required dynamic dataModel,
     required String boxName,
   });
 
-  Future<Either<Failure, bool>> deleteData<T>({
+  Future<Result<bool>> deleteData<T>({
     required int index,
     required String boxName,
   });

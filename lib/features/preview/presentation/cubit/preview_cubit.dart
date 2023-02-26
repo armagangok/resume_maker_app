@@ -11,43 +11,29 @@ class PreviewCubit extends Cubit<PreviewState> {
 
   ResumeTemplateContract selectedTemplate = ModernTemplate.instance;
 
-  void selectTemplate(int index) {
-    for (var element in resumeTemplateList) {
-      element.isSelected = false;
-    }
-
-    resumeTemplateList[index].isSelected = true;
-
-    selectedTemplate = resumeTemplateList[index];
-    emit(PreviewInitial());
-  }
-
-  List<ResumeTemplateContract> resumeTemplateList = [
-    ModernTemplate.instance,
-    CloudTemplate.instance,
-    GreyPlainTemplate.instance,
-    PeachPuffTemplate.instance,
-  ];
-
   void loadPreview() async {
     emit(PreviewLoading());
     if (selectedTemplate.filePath.isEmpty) {
       try {
-        selectedTemplate.buildUpPDF();
-
-        Uint8List pdfFile = await selectedTemplate.getcreatedPdf();
-        String path = await selectedTemplate.getFilePathToSave();
-
-        final file = File(path);
-        await file.writeAsBytes(pdfFile);
-
-        emit(PreviewLoaded(pdfFilePath: file.path));
-      } on PlatformException catch (e) {
-        print("cubitmessage" "${e.message}");
+        var path = await createPdf();
+        emit(PreviewLoaded(pdfFilePath: path));
+      } on PlatformException {
         emit(PreviewLoadingError());
       }
     } else {
       emit(PreviewLoaded(pdfFilePath: selectedTemplate.filePath));
     }
+  }
+
+  Future<String> createPdf() async {
+    selectedTemplate.buildUpPDF();
+
+    Uint8List pdfFile = await selectedTemplate.getcreatedPdf();
+    String path = await selectedTemplate.getFilePathToSave();
+
+    final file = File(path);
+    await file.writeAsBytes(pdfFile);
+
+    return file.path;
   }
 }
