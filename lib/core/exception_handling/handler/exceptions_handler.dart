@@ -2,7 +2,7 @@ import '../../error/custom_failure.dart';
 import '../exceptions/exceptions.dart';
 
 class ExceptionHandler {
-  CustomFailure handleException(MyException exception) {
+  CustomFailure handleException(CustomException exception) {
     return exception.when(
       noCachedException: () {
         return CustomFailure(
@@ -15,7 +15,7 @@ class ExceptionHandler {
           message: "Oh! Something went wrong with your device :(",
         );
       },
-      deletingMyException: () {
+      deletingCustomException: () {
         return CustomFailure(
           message: "Oh! We couldn't delete this favorite.",
         );
@@ -30,7 +30,7 @@ class ExceptionHandler {
           message: "It seems like you have some connection problems.",
         );
       },
-      forbiddenMyException: () {
+      forbiddenCustomException: () {
         return CustomFailure(
           message: "Oh! What you are trying to do is forbidden.",
         );

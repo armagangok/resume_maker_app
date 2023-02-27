@@ -1,7 +1,9 @@
+import 'dart:io';
+
 import 'package:file_manager/file_manager.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:path/path.dart';
 import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
-import 'package:resume_maker_app/features/home/presentation/viewmodels/file_entity/file_entity_cubit.dart';
 
 import '../../../../core/export/export.dart';
 
@@ -23,7 +25,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    Injection.fileEntityCubit;
+    Injection.homeCubit.fetchHomeUserData();
     super.initState();
   }
 
@@ -78,41 +80,51 @@ class _HomePageState extends State<HomePage> {
   Widget _bodyWidget() {
     // return getPdfFiles();
 
+// HomeInitial
+// HomeUserDataSavingFailure
+// HomeUserDataSaved
+// HomeUserDataDeleted
+// HomeUserDataDeleteFailure
+//  HomeUserDataFetched
+// HomeUserDataFetchFailure
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
-          child: BlocConsumer<FileEntityCubit, FileEntityState>(
+          child: BlocConsumer<HomeCubit, HomeState>(
             listener: (context, state) {
-              if (state is FileEntityDeleteFailure) {
+              if (state is HomeUserDataDeleteFailure) {
                 context.showSnackBar(const SnackBar(
                   content: Text("Failed to delete user resume data."),
                 ));
-              } else if (state is FileEntitySaved) {
+              } else if (state is HomeUserDataSaved) {
                 context.showSnackBar(const SnackBar(
                   content: Text("User resume data saved successfuly."),
                 ));
-              } else if (state is FileEntityDeleteFailure) {
+              } else if (state is HomeUserDataSavingFailure) {
                 context.showSnackBar(const SnackBar(
                   content: Text("Failed to save user resume data."),
                 ));
               }
             },
-            bloc: Injection.fileEntityCubit,
+            bloc: Injection.homeCubit,
             builder: (context, state) {
-              if (state is FileEntityFetched) {
+              List<Widget> widgetList = [];
+              if (state is HomeUserDataFetched) {
                 if (state.userDataList.isEmpty) {
                   return const Center(
                     child: Text("Please create a new resume for yourself!"),
                   );
                 } else {
-                  List<Widget> widgetList = [];
-
-                  for (var element in state.userDataList) {
-                    widgetList.add(Padding(
-                      padding: EdgeInsets.all(5.h),
-                      child: PdfView(path: element.path),
-                    ));
+                  
+                  for (var userDataModel in state.userDataList) {
+                    widgetList.add(
+                      Padding(
+                        padding: EdgeInsets.all(5.h),
+                        child: PdfView(path: userDataModel.pdfPath ?? ""),
+                      ),
+                    );
                   }
 
                   return GridView.count(
@@ -133,6 +145,9 @@ class _HomePageState extends State<HomePage> {
       ],
     );
   }
+
+  bool ifFileIsPdf(FileSystemEntity element) =>
+      ".pdf" == extension(element.path);
 
   Widget dragableItem(int index, state, path) {
     return SizedBox(

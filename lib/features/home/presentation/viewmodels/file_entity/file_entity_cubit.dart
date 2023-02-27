@@ -20,7 +20,7 @@ class FileEntityCubit extends Cubit<FileEntityState> {
 
     response.when(
       success: (data) {
-        emit(FileEntityFetched(userDataList: data));
+        emit(FileEntityFetched(fileSystemEntity: data));
       },
       failure: (failure) {
         emit(FileEntityFetchFailure());

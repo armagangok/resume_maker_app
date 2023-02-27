@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:resume_maker_app/core/export/export.dart';
 
+import '../../../../data/user_data_provider.dart';
+
 class PdfRepo {
   PdfRepo._() {
-    initializeRepositories();
+    _initializeRepositories;
   }
   static final instance = PdfRepo._();
 
@@ -12,24 +14,19 @@ class PdfRepo {
 
   List<UserData> userDataList = [];
 
-  UserData get getUserData => userDataList[0];
+  UserData get getUserData => UserDataProvider.getUserData ?? const UserData();
 
-  void initializeRepositories() {
+  Future<void> get _initializeRepositories async {
     usecase.fetchUserData().then(
-      (value) {
-        value.when(
-          success: (data) {
-            for (var element in data) {
-              var model = UserData.fromJson(jsonDecode(element));
-              userDataList.add(model);
-            }
-          },
-          failure: (failure) {
-            print(failure);
-          },
+          (value) => value.when(
+            success: (data) {
+              for (var element in data) {
+                var model = UserData.fromJson(jsonDecode(element));
+                userDataList.add(model);
+              }
+            },
+            failure: (failure) => print(failure),
+          ),
         );
-      },
-    );
-    // print(getUserData);
   }
 }

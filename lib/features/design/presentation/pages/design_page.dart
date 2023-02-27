@@ -23,8 +23,7 @@ class _DesignPageState extends State<DesignPage> {
     );
   }
 
-  Widget _colorPickerWidget() {
-    return BlocBuilder<ColorPickerCubit, ColorPickerState>(
+  Widget _colorPickerWidget() => BlocBuilder<ColorPickerCubit, ColorPickerState>(
       bloc: Injection.colorPickerCubit,
       builder: (context, state) {
         return CustomTabBarWidget(
@@ -34,5 +33,4 @@ class _DesignPageState extends State<DesignPage> {
         );
       },
     );
-  }
 }

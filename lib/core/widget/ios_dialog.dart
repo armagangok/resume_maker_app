@@ -168,8 +168,21 @@ class IosChoiceDialog extends StatelessWidget {
 
             IntrinsicHeight(
               child: _dialogButton(
-                text: "Delete Changes",
+                text: "Don't Save",
                 onTap: () => Injection.navigator.navigaToClear(path: homePage),
+                color: Colors.red,
+              ),
+            ),
+
+            const Divider(
+              height: 0,
+              thickness: 1.5,
+            ),
+
+            IntrinsicHeight(
+              child: _dialogButton(
+                text: "Get Back",
+                onTap: () => Injection.navigator.pop(),
                 color: Colors.red,
               ),
             ),

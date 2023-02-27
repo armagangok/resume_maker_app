@@ -23,7 +23,7 @@ class ExperienceView extends StatelessWidget {
               companyNameController: TextEditingController(),
               jobTitleController: TextEditingController(),
               jobDutiesController: TextEditingController(),
-              jobStartDate: TextEditingController(),
+              jobStartDateController: TextEditingController(),
               jobEndDateController: TextEditingController(),
               removeWidget: RemoveNewItemWidget(
                 itemID: itemId,
@@ -46,7 +46,7 @@ class ExperienceModel extends UserDataEntity {
   @override
   final TextEditingController jobDutiesController;
   @override
-  final TextEditingController jobStartDate;
+  final TextEditingController jobStartDateController;
   @override
   final TextEditingController jobEndDateController;
   @override
@@ -58,7 +58,7 @@ class ExperienceModel extends UserDataEntity {
     required this.companyNameController,
     required this.jobTitleController,
     required this.jobDutiesController,
-    required this.jobStartDate,
+    required this.jobStartDateController,
     required this.jobEndDateController,
     required this.itemID,
     required this.removeWidget,

@@ -1,10 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:resume_maker_app/features/profile/presentation/cubit/slider/slider_cubit.dart';
+
 
 import '../../core/export/export.dart';
-import '../../features/profile/presentation/widgets/slider_widget.dart';
 
-class UserDataEntity {
+
+class UserDataEntity {  
   final TextEditingController? degreeController;
   final TextEditingController? schoolController;
   final TextEditingController? universityController;
@@ -17,7 +16,7 @@ class UserDataEntity {
   final TextEditingController? jobTitleController;
   final TextEditingController? jobDutiesController;
   final TextEditingController? details;
-  final TextEditingController? jobStartDate;
+  final TextEditingController? jobStartDateController;
   final TextEditingController? jobEndDateController;
 
   final String? itemID;
@@ -26,7 +25,6 @@ class UserDataEntity {
   final SliderWidget? speakingSlider;
   final SliderWidget? readingSlider;
   final SliderWidget? writingSlider;
-
   final SliderCubit? readingSliderCubit;
   final SliderCubit? writingSliderCubit;
   final SliderCubit? speakingSliderCubit;
@@ -44,7 +42,7 @@ class UserDataEntity {
     this.jobTitleController,
     this.jobDutiesController,
     this.details,
-    this.jobStartDate,
+    this.jobStartDateController,
     this.jobEndDateController,
     this.itemID,
     this.removeWidget,

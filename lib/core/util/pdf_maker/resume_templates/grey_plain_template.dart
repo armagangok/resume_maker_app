@@ -28,6 +28,9 @@ class GreyPlainTemplate extends ResumeTemplateContract {
   final pdf = pw.Document();
 
   @override
+  final int resumeTemplateID = 1;
+
+  @override
   Future<Uint8List> getcreatedPdf() async {
     // pw.ThemeData myTheme = pw.ThemeData.withFont(
     //   base: Font.ttf(
@@ -199,20 +202,8 @@ class GreyPlainTemplate extends ResumeTemplateContract {
   }
 
   @override
-  Future<String> getFilePathToSave() async {
-    final output = await getTemporaryDirectory();
-
-    filePath = "${output.path}/${"${DateTime.now()}"}.pdf";
-
-    return filePath;
-
-    // final file = File(filePath);
-    // try {
-    //   // await file.writeAsBytes(byteList);
-    //   // await OpenFile.open(filePath);
-    // } catch (e) {
-    //   print("$e");
-    // }
+  Future<String> getFilePathToSave(String pdfID) async {
+    return await super.getFilePathToSave(pdfID);
   }
 
   @override

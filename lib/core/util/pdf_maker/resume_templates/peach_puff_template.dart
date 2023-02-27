@@ -23,6 +23,9 @@ class PeachPuffTemplate extends ResumeTemplateContract {
   @override
   String filePath = "";
 
+  @override
+  final int resumeTemplateID = 3;
+
   final pdf = pw.Document();
   List<pw.Widget> widgets = [];
 
@@ -146,7 +149,8 @@ class PeachPuffTemplate extends ResumeTemplateContract {
                       head1Text("ABOUT ME"),
                       customDivider(),
                       aboutMeText(
-                          aboutMeText: _myrepo.getUserData.personal!.summary!)
+                        aboutMeText: _myrepo.getUserData.personal!.summary!,
+                      )
                     ],
                   ),
           ],
@@ -156,12 +160,8 @@ class PeachPuffTemplate extends ResumeTemplateContract {
   }
 
   @override
-  Future<String> getFilePathToSave() async {
-    final output = await getExternalStorageDirectory();
-
-    filePath = "${output!.path}/${"${DateTime.now()}"}.pdf";
-
-    return filePath;
+  Future<String> getFilePathToSave(String pdfID) async {
+    return await super.getFilePathToSave(pdfID);
   }
 
   @override

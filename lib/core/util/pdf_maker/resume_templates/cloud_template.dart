@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:pdf/widgets.dart' as pw;
 
 import '../../../export/export.dart';
@@ -20,6 +19,9 @@ class CloudTemplate extends ResumeTemplateContract {
 
   @override
   String filePath = "";
+
+  @override
+  final int resumeTemplateID = 0;
 
   final List<pw.Widget> _widgets = [];
   final pdf = pw.Document();
@@ -211,12 +213,7 @@ class CloudTemplate extends ResumeTemplateContract {
   }
 
   @override
-  Future<String> getFilePathToSave() async {
-    final output = await path_provider.getExternalStorageDirectory();
-
-    filePath = "${output!.path}/${DateTime.now()}.pdf";
-
-    // await OpenFile.open(filePath);
-    return filePath;
+  Future<String> getFilePathToSave(String pdfID) async {
+    return await super.getFilePathToSave(pdfID);
   }
 }

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import 'package:resume_maker_app/data/user_data_provider.dart';
 
 import '../../../../core/export/export.dart';
 
@@ -79,19 +80,11 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           for (NewItemModel element in Injection.linkItemCubit.newItems) {
             links.add(element.controller.text);
           }
-          Personal personalDataModel = Personal(
-            title: Injection.personalDataCubit.professionTitleController.text,
-            fullName: personalData.fullNameController.text,
-            birthday: personalData.birthDayController.text,
-            country: personalData.countryController.text,
-            zipCode: personalData.zipCodeController.text,
-            city: personalData.cityController.text,
-            street: personalData.streetController.text,
-            phones: phones,
-            emails: emails,
-            links: links,
-            summary: personalData.summaryController.text,
-            imagePath: Injection.imageCubit.imagePath,
+          Personal personalDataModel = _preparePersonalData(
+            personalData,
+            phones,
+            emails,
+            links,
           );
 
           List<Education> educationData = [];
@@ -136,7 +129,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               jobDuties: element.jobDutiesController!.text,
               jobTitle: element.jobTitleController!.text,
               endDate: element.jobEndDateController!.text,
-              startDate: "element.startDateController!.text",
+              startDate: element.jobStartDateController!.text,
             );
             experiencesData.add(experienceModel);
           }
@@ -150,7 +143,10 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             qualificationData.add(qualificationModel);
           }
 
-          // var pdfPathToSave = await Injection.previewCubit.createPdf();
+          DateTime now = DateTime.now();
+          String pdfId = DateFormat('yyyy-MM-dd  kk:mm').format(now);
+
+          var pdfPathToSave = await Injection.previewCubit.createPdf(pdfId);
 
           UserData userData = UserData(
             personal: personalDataModel,
@@ -159,8 +155,12 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             skills: skillData,
             experiences: experiencesData,
             qualifications: qualificationData,
-            // pdfPath: pdfPathToSave,
+            resumeTemplateID:
+                Injection.resumeTemplateCubit.selectedTemplate.resumeTemplateID,
+            pdfPath: pdfPathToSave,
           );
+
+          UserDataProvider.setUserData = userData;
 
           var encodedJson = json.encode(userData.toJson());
           await Injection.rootCubit.saveUserData(encodedJson);
@@ -168,6 +168,28 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           Injection.navigator.navigaToClear(path: homePage);
         },
       );
+
+  Personal _preparePersonalData(
+    PersonalDataCubit personalData,
+    List<String> phones,
+    List<String> emails,
+    List<String> links,
+  ) {
+    return Personal(
+      title: Injection.personalDataCubit.professionTitleController.text,
+      fullName: personalData.fullNameController.text,
+      birthday: personalData.birthDayController.text,
+      country: personalData.countryController.text,
+      zipCode: personalData.zipCodeController.text,
+      city: personalData.cityController.text,
+      street: personalData.streetController.text,
+      phones: phones,
+      emails: emails,
+      links: links,
+      summary: personalData.summaryController.text,
+      imagePath: Injection.imageCubit.imagePath,
+    );
+  }
 
   PreferredSize _bottomDivider() => PreferredSize(
         preferredSize: Size.fromHeight(4.0.h),
