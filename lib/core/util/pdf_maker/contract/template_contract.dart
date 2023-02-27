@@ -11,7 +11,6 @@ abstract class ResumeTemplateContract {
     String path = await DirectoryHelper.createFolderInAppDocDir(
       "resume_folder",
     );
-
     return filePath = "$path$pdfID.pdf";
   }
 

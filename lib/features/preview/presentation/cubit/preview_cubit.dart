@@ -11,11 +11,13 @@ class PreviewCubit extends Cubit<PreviewState> {
 
   ResumeTemplateContract selectedTemplate = ModernTemplate.instance;
 
-  void loadPreview() async {
+  Future loadPreview() async {
     emit(PreviewLoading());
+    selectedTemplate = Injection.resumeTemplateCubit.selectedTemplate;
+    print(selectedTemplate.filePath);
     if (selectedTemplate.filePath.isEmpty) {
       try {
-        var path = await createPdf("");
+        var path = await createPdf("preview");
         emit(PreviewLoaded(pdfFilePath: path));
       } on PlatformException {
         emit(PreviewLoadingError());
@@ -27,13 +29,10 @@ class PreviewCubit extends Cubit<PreviewState> {
 
   Future<String> createPdf(String pdfID) async {
     selectedTemplate.buildUpPDF();
-
     Uint8List pdfFile = await selectedTemplate.getcreatedPdf();
     String path = await selectedTemplate.getFilePathToSave(pdfID);
-
     final file = File(path);
     await file.writeAsBytes(pdfFile);
-
     return file.path;
   }
 }

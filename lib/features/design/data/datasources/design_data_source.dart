@@ -10,4 +10,9 @@ class DesignDataSource extends DesignDataSourceContract {
 
   @override
   List<ResumeTemplateContract> get fetchResumeTemplates => _resumeTemplateList;
+
+  @override
+  set setNewResumeTemplate(ResumeTemplateContract newResumeTemplate) {
+    _resumeTemplateList.add(newResumeTemplate);
+  }
 }

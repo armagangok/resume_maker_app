@@ -16,7 +16,6 @@ void setupUsecases() {
   getit.registerLazySingleton<HomeUsecase>(
     () => HomeUsecase(
       homeRepository: getit.get(),
-      
     ),
   );
 }
@@ -84,6 +83,6 @@ void setupViewmodels() {
   );
 
   getit.registerLazySingleton<ResumeTemplateCubit>(
-    () => ResumeTemplateCubit(designDataSource: getit()),
+    () => ResumeTemplateCubit(resumeTemplateSource: getit()),
   );
 }

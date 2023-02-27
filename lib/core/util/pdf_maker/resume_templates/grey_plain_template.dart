@@ -183,17 +183,18 @@ class GreyPlainTemplate extends ResumeTemplateContract {
             //           // referenceModel(referenceList: referenceDataList!),
             //         ],
             //       ),
-            sizedBox015,
-            // experienceList == null
-            //     ? SizedBox()
-            //     : pw.Column(
-            //         crossAxisAlignment: pw.CrossAxisAlignment.start,
-            //         children: [
-            //           head1Text("EXPERIENCE"),
-            //           customDivider(),
-            //           experienceWidget(experienceModel: experienceList!),
-            //         ],
-            //       ),
+            _pdfRepo.getUserData.experiences == null
+                ? pw.SizedBox()
+                : pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    children: [
+                      head1Text("EXPERIENCE"),
+                      customDivider(),
+                      experienceWidget(
+                        experienceList: _pdfRepo.getUserData.experiences!,
+                      ),
+                    ],
+                  ),
             // sizedBox015,
           ],
         ),

@@ -1,9 +1,12 @@
 import 'dart:typed_data';
 
+import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
 
-import '../../../export/export.dart';
 import '../components/pdf_components.dart';
+import '../contract/template_contract.dart';
+import '../repository/repo.dart';
 
 // const String path = 'assets/person.png';
 
@@ -27,7 +30,7 @@ class PeachPuffTemplate extends ResumeTemplateContract {
   final int resumeTemplateID = 3;
 
   final pdf = pw.Document();
-  List<pw.Widget> widgets = [];
+  final List<pw.Widget> _widgets = [];
 
   @override
   Future<Uint8List> getcreatedPdf() async {
@@ -45,7 +48,7 @@ class PeachPuffTemplate extends ResumeTemplateContract {
           icons: await PdfGoogleFonts.materialIcons(),
         ),
         build: (pw.Context context) {
-          return widgets;
+          return _widgets;
         },
       ),
     );
@@ -59,9 +62,6 @@ class PeachPuffTemplate extends ResumeTemplateContract {
       color: PdfColors.amber50,
       child: pw.Column(
         children: [
-          // _myrepo.getUserData.personal == null
-          //     ? SizedBox()
-          //     : getPersonImage1(_myrepo.getUserData.personal!.imagePath),
           pw.Expanded(
             child: pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -166,7 +166,7 @@ class PeachPuffTemplate extends ResumeTemplateContract {
 
   @override
   void buildUpPDF() {
-    widgets.add(
+    _widgets.add(
       pw.Row(
         children: [
           leftContainer(),

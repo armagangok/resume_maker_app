@@ -78,16 +78,6 @@ class _HomePageState extends State<HomePage> {
         );
 
   Widget _bodyWidget() {
-    // return getPdfFiles();
-
-// HomeInitial
-// HomeUserDataSavingFailure
-// HomeUserDataSaved
-// HomeUserDataDeleted
-// HomeUserDataDeleteFailure
-//  HomeUserDataFetched
-// HomeUserDataFetchFailure
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -117,8 +107,8 @@ class _HomePageState extends State<HomePage> {
                     child: Text("Please create a new resume for yourself!"),
                   );
                 } else {
-                  
                   for (var userDataModel in state.userDataList) {
+                    print(userDataModel.pdfPath);
                     widgetList.add(
                       Padding(
                         padding: EdgeInsets.all(5.h),

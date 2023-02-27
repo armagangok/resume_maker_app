@@ -23,7 +23,7 @@ class ModernTemplate extends ResumeTemplateContract {
   @override
   String filePath = "";
 
-  final PdfRepo _pdfRepo = PdfRepo.instance;
+  final _pdfRepo = PdfRepo.instance;
 
   final pdf = pw.Document();
 
@@ -156,7 +156,7 @@ class ModernTemplate extends ResumeTemplateContract {
         ),
       );
 
-  pw.Expanded rightContainer() {
+  pw.Widget rightContainer() {
     return pw.Expanded(
       child: pw.Container(
         padding: const pw.EdgeInsets.all(20),
@@ -166,18 +166,6 @@ class ModernTemplate extends ResumeTemplateContract {
           mainAxisAlignment: pw.MainAxisAlignment.start,
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
-            sizedBox015,
-            _pdfRepo.getUserData.personal == null
-                ? pw.SizedBox()
-                : pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      head1Text("ABOUT ME"),
-                      customDivider(),
-                      aboutMeText(
-                          aboutMeText: _pdfRepo.getUserData.personal!.summary!)
-                    ],
-                  ),
             sizedBox015,
             pw.Column(
               mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
@@ -239,43 +227,25 @@ class ModernTemplate extends ResumeTemplateContract {
 
   @override
   void buildUpPDF() {
-    pw.Row(children: [
-      leftContainer(),
-      rightContainer(),
-    ]);
+    _widgets.add(
+      buildSummaryText(),
+    );
+  }
+
+  pw.Widget buildSummaryText() {
+    print(_pdfRepo.getUserData.personal);
+    return _pdfRepo.getUserData.personal == null
+        ? pw.SizedBox()
+        : pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              sizedBox015,
+              head1Text("ABOUT ME"),
+              customDivider(),
+              aboutMeText(aboutMeText: _pdfRepo.getUserData.personal!.summary!)
+            ],
+          );
   }
 
   void buildRightContainer() {}
 }
-
-// "I have been learning and implementing Flutter for the last year. I recently use Feature Based Clean Architecture and Cubit state management to deal with my projects."
-
-// final file = File(filePath);
-// try {
-//   // await file.writeAsBytes(byteList);
-//   // await OpenFile.open(filePath);
-// } catch (e) {
-//   print("$e");
-// }
-
-// const String path = 'assets/person.png';
-
-// pw.ThemeData myTheme = pw.ThemeData.withFont(
-//   base: Font.ttf(
-//     await rootBundle.load("assets/fonts/Lato/Lato-Regular.ttf"),
-//   ),
-// );
-// _pdfRepo.referenceDataList == null
-//     ? SizedBox()
-//     : pw.Column(
-//         crossAxisAlignment: pw.CrossAxisAlignment.start,
-//         children: [
-//           head1Text("REFERENCE"),
-//           customDivider(),
-//           // referenceModel(referenceList: referenceDataList!),
-//         ],
-//       ),
-
-// _pdfRepo.getUserData.personal!.imagePath == null
-//     ? SizedBox()
-//     : getPersonImage1(_pdfRepo.getUserData.personal!.imagePath!),

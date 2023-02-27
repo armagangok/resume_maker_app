@@ -62,10 +62,15 @@ class _RootPageState extends State<RootPage> {
                   label: 'Export',
                 ),
               ],
-              onTap: (index) {
+              onTap: (index) async {
                 setState(() {
                   _selectedIndex = index;
                 });
+
+                if (_selectedIndex == 2) {
+                  await Injection.previewCubit.loadPreview();
+                  await PdfRepo.instance.initializeRepositories;
+                }
               },
             ),
           ],

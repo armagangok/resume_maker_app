@@ -2,19 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
 import '../../../../core/export/export.dart';
 
-class PreviewPage extends StatefulWidget {
+class PreviewPage extends StatelessWidget {
   const PreviewPage({super.key});
-
-  @override
-  State<PreviewPage> createState() => _PreviewPageState();
-}
-
-class _PreviewPageState extends State<PreviewPage> {
-  @override
-  void initState() {
-    Injection.previewCubit.loadPreview();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +37,7 @@ class _PreviewPageState extends State<PreviewPage> {
           if (state is PreviewLoading) {
             return _loadPreview;
           } else if (state is PreviewLoaded) {
+            print(state.pdfFilePath);
             return PdfView(
               path: state.pdfFilePath,
             );
