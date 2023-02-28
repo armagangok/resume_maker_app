@@ -1,23 +1,46 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'preview_cubit.dart';
 
-abstract class PreviewState {}
+abstract class PreviewState {
+  late final String _stateMessage;
 
-class PreviewInitial extends PreviewState {}
+  String get stateMessage;
+}
 
-class PreviewLoading extends PreviewState {}
+class PreviewInitial extends PreviewState {
+  @override
+  String get stateMessage => throw UnimplementedError();
+}
+
+class PreviewLoading extends PreviewState {
+  @override
+  String get stateMessage => _stateMessage;
+}
 
 class PreviewLoaded extends PreviewState {
-  @override
+  PreviewLoaded({
+    required String stateMessage,
+    required this.pdfFilePath,
+  }) {
+    _stateMessage = stateMessage;
+  }
+
   final String pdfFilePath;
 
-  static get stateMessage => "Preview loadded successfully";
-
-  PreviewLoaded({
-    required this.pdfFilePath,
-  });
+  @override
+  String get stateMessage => _stateMessage;
 }
 
 class PreviewLoadingError extends PreviewState {
-  static get stateMessage => "Error Occured while loading preview.";
+  @override
+  late final String _stateMessage;
+
+  PreviewLoadingError({
+    required String stateMessage,
+  }) {
+    _stateMessage = stateMessage;
+  }
+
+  @override
+  String get stateMessage => _stateMessage;
 }

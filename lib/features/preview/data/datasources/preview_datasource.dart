@@ -15,4 +15,12 @@ class PreviewDataSource extends PreviewDataSourceContract {
 
   @override
   Future<void> deleteFile() async {}
+
+  @override
+  Future<List<String>> fetchPreviewPdfFiles() async {
+    Directory directory = await DirectoryHelper.applicationDocumentsDirectory;
+    var filePathList = Directory(directory.path).listSync();
+
+    return ["filePathList"];
+  }
 }

@@ -5,15 +5,15 @@ part 'resume_template_state.dart';
 
 class ResumeTemplateCubit extends Cubit<ResumeTemplateState> {
   ResumeTemplateCubit({
-    required this.designDataSource,
+    required this.resumeTemplateSource,
   }) : super(ResumeTemplateInitial()) {
-    _resumeTemplateList = designDataSource.fetchResumeTemplates;
+    _resumeTemplateList = resumeTemplateSource.fetchResumeTemplates;
   }
 
   List<ResumeTemplateContract> _resumeTemplateList = [];
   List<ResumeTemplateContract> get resumeTemplateList => _resumeTemplateList;
 
-  late final DesignDataSourceContract designDataSource;
+  late final DesignDataSourceContract resumeTemplateSource;
 
   ResumeTemplateContract selectedTemplate = ModernTemplate.instance;
 

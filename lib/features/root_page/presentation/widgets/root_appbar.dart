@@ -1,7 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import 'package:resume_maker_app/core/util/logger.dart';
 import 'package:resume_maker_app/data/user_data_provider.dart';
 
 import '../../../../core/export/export.dart';
@@ -58,138 +57,20 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         title: "Warning",
         message: "Do you wish to save your changes?",
         dialogAction: () async {
-          var personalData = Injection.personalDataCubit;
-          List<String> phones = [];
-          List<String> emails = [];
-          List<String> links = [];
-          phones.add(personalData.phoneController.text);
-          emails.add(
-            personalData.linkController.text,
+          String pdfPathToSave = DateFormat('yyyy-MM-dd  kk:mm:ss').format(
+            DateTime.now(),
           );
-          links.add(
-            personalData.linkController.text,
-          );
-          for (NewItemModel phoneController
-              in Injection.phoneItemCubit.newItems) {
-            phones.add(phoneController.controller.text);
-          }
-          for (NewItemModel emailController
-              in Injection.emailItemCubit.newItems) {
-            emails.add(emailController.controller.text);
-          }
-          for (NewItemModel element in Injection.linkItemCubit.newItems) {
-            links.add(element.controller.text);
-          }
-          Personal personalDataModel = _preparePersonalData(
-            personalData,
-            phones,
-            emails,
-            links,
+          var encodedJson = await UserDataProvider.instance.prepareUserData(
+            pdfPathToSave: pdfPathToSave,
           );
 
-          List<Education> educationData = [];
+          LogHelper.shared.debugPrint(encodedJson);
 
-          for (var element in Injection.educationCubit.newItems) {
-            educationData.add(Education(
-              degree: element.degreeController!.text,
-              school: element.schoolController!.text,
-              university: element.universityController!.text,
-              startDate: element.startDateController!.text,
-              endDate: element.endDateController!.text,
-            ));
-          }
-
-          List<Language> languageData = [];
-          for (var element in Injection.languageCubit.newItems) {
-            languageData.add(
-              Language(
-                languageName: element.languageController!.text,
-                writing: element.writingSliderCubit!.getText,
-                reading: element.readingSliderCubit!.getText,
-                speaking: element.speakingSliderCubit!.getText,
-              ),
-            );
-          }
-
-          List<Skills> skillData = [];
-
-          for (var element in Injection.skillsCubit.newItems) {
-            var skillModel = Skills(
-              skillName: element.skillsController!.text,
-              description: "",
-            );
-            skillData.add(skillModel);
-          }
-
-          List<Experience> experiencesData = [];
-
-          for (var element in Injection.experienceCubit.newItems) {
-            var experienceModel = Experience(
-              company: element.companyNameController!.text,
-              jobDuties: element.jobDutiesController!.text,
-              jobTitle: element.jobTitleController!.text,
-              endDate: element.jobEndDateController!.text,
-              startDate: element.jobStartDateController!.text,
-            );
-            experiencesData.add(experienceModel);
-          }
-          List<Qualifications> qualificationData = [];
-
-          for (var element in Injection.qualificationsCubit.newItems) {
-            var qualificationModel = Qualifications(
-              title: element.jobTitleController!.text,
-              details: element.details!.text,
-            );
-            qualificationData.add(qualificationModel);
-          }
-
-          DateTime now = DateTime.now();
-          String pdfId = DateFormat('yyyy-MM-dd  kk:mm').format(now);
-
-          var pdfPathToSave = await Injection.previewCubit.createPdf(pdfId);
-
-          UserData userData = UserData(
-            personal: personalDataModel,
-            education: educationData,
-            languages: languageData,
-            skills: skillData,
-            experiences: experiencesData,
-            qualifications: qualificationData,
-            resumeTemplateID:
-                Injection.resumeTemplateCubit.selectedTemplate.resumeTemplateID,
-            pdfPath: pdfPathToSave,
-          );
-
-          UserDataProvider.setUserData = userData;
-
-          var encodedJson = json.encode(userData.toJson());
           await Injection.rootCubit.saveUserData(encodedJson);
           await Injection.homeCubit.fetchHomeUserData();
           Injection.navigator.navigaToClear(path: homePage);
         },
       );
-
-  Personal _preparePersonalData(
-    PersonalDataCubit personalData,
-    List<String> phones,
-    List<String> emails,
-    List<String> links,
-  ) {
-    return Personal(
-      title: Injection.personalDataCubit.professionTitleController.text,
-      fullName: personalData.fullNameController.text,
-      birthday: personalData.birthDayController.text,
-      country: personalData.countryController.text,
-      zipCode: personalData.zipCodeController.text,
-      city: personalData.cityController.text,
-      street: personalData.streetController.text,
-      phones: phones,
-      emails: emails,
-      links: links,
-      summary: personalData.summaryController.text,
-      imagePath: Injection.imageCubit.imagePath,
-    );
-  }
 
   PreferredSize _bottomDivider() => PreferredSize(
         preferredSize: Size.fromHeight(4.0.h),

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../core/export/export.dart';
 import '../widgets/root_appbar.dart';
@@ -62,24 +63,22 @@ class _RootPageState extends State<RootPage> {
                   label: 'Export',
                 ),
               ],
-              onTap: (index) {
+              onTap: (index) async {
                 setState(() {
                   _selectedIndex = index;
                 });
+
+                if (_selectedIndex == 2) {
+                  if (_selectedIndex == index) {
+                    String pdfId = DateFormat('yyyy-MM-dd  kk:mm:ss').format(
+                      DateTime.now(),
+                    );
+                    await Injection.previewCubit.loadPreview(pdfId: pdfId);
+                  }
+                }
               },
             ),
           ],
         ),
       );
 }
-
-// print(personalDataModel.birthday);
-// print(personalDataModel.city);
-// print(personalDataModel.country);
-// print(personalDataModel.fullName);
-// print(personalDataModel.emails);
-// print(personalDataModel.links);
-// print(personalDataModel.phones);
-// print(personalDataModel.street);
-// print(personalDataModel.title);
-// print(personalDataModel.summary);
