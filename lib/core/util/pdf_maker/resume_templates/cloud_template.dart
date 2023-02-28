@@ -24,11 +24,12 @@ class CloudTemplate extends ResumeTemplateContract {
   final int resumeTemplateID = 0;
 
   final List<pw.Widget> _widgets = [];
-  final pdf = pw.Document();
+
   final PdfRepo _pdfRepo = PdfRepo.instance;
 
   @override
-  Future<Uint8List> getcreatedPdf() async {
+  Future<Uint8List> getcreatedPdfAsUint8List() async {
+    final pdf = pw.Document();
     pdf.addPage(
       pw.MultiPage(
         pageFormat: PdfPageFormat.letter.copyWith(
@@ -50,6 +51,7 @@ class CloudTemplate extends ResumeTemplateContract {
 
   @override
   void buildUpPDF() {
+    _widgets.clear();
     var aboutmeWidget = _pdfRepo.getUserData.personal!.summary == null
         ? pw.SizedBox()
         : aboutMeText(aboutMeText: _pdfRepo.getUserData.personal!.summary!);
@@ -194,8 +196,7 @@ class CloudTemplate extends ResumeTemplateContract {
       _widgets.add(head1Text("EXPERIENCE"));
       _widgets.add(customDivider());
       _widgets.add(pw.SizedBox(height: height * 0.001));
-      var a =
-          experienceWidget(experienceList: _pdfRepo.getUserData.experiences!);
+      var a = experienceText(experienceList: _pdfRepo.getUserData.experiences!);
       _widgets.add(a);
     }
 

@@ -3,9 +3,6 @@ import 'dart:typed_data';
 import 'package:pdf/widgets.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:resume_maker_app/core/export/export.dart';
-import 'package:resume_maker_app/data/models/qualifications/qualifications.dart';
-import 'package:resume_maker_app/data/models/skills/skills.dart';
-import '../../../../data/models/experience/experience.dart';
 
 final width = PdfPageFormat.letter.availableWidth;
 final height = PdfPageFormat.letter.availableHeight;
@@ -196,7 +193,7 @@ pw.Widget languagesText({required List<Language> languageList}) {
   for (var languageModel in languageList) {
     column.children.add(
       sideTextBody(
-        "-${languageModel.languageName}\n${languageModel.speaking}, ${languageModel.reading}, ${languageModel.writing}",
+        "-${languageModel.languageName}\nSpeaking: ${languageModel.speaking}\nReading: ${languageModel.reading}\nWriting: ${languageModel.writing}\n",
       ),
     );
   }
@@ -204,9 +201,7 @@ pw.Widget languagesText({required List<Language> languageList}) {
   return column;
 }
 
-pw.Widget experienceWidget({
-  required List<Experience> experienceList,
-}) {
+pw.Widget experienceText({required List<Experience> experienceList}) {
   var column = pw.Column(
     crossAxisAlignment: pw.CrossAxisAlignment.start,
     children: [],

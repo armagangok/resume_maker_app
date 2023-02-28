@@ -1,53 +1,63 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: prefer_final_fields
+
 import 'dart:convert';
 
-import 'package:intl/intl.dart';
 import 'package:resume_maker_app/core/export/export.dart';
 
 class UserDataProvider {
-  UserDataProvider._() {
-    prepareUserData();
-  }
+  UserDataProvider._();
+  static final instance = UserDataProvider._();
 
-  static UserData _userData = const UserData();
-  static UserData get getUserData => _userData;
+  final _resumeTemplateCubit = Injection.resumeTemplateCubit;
+  final _personalDataCubit = Injection.personalDataCubit;
+  final _phoneItemCubit = Injection.phoneItemCubit;
+  final _emailItemCubit = Injection.emailItemCubit;
 
-  static Future<String> prepareUserData() async {
-    var personalData = Injection.personalDataCubit;
+  UserData _userData = const UserData();
+
+  UserData get getUserData => _userData;
+
+  Future<String> prepareUserData({required String pdfPathToSave}) async {
     List<String> phones = [];
     List<String> emails = [];
     List<String> links = [];
-    phones.add(personalData.phoneController.text);
-    emails.add(
-      personalData.linkController.text,
-    );
-    links.add(
-      personalData.linkController.text,
-    );
-    for (NewItemModel phoneController in Injection.phoneItemCubit.newItems) {
-      phones.add(phoneController.controller.text);
-    }
-    for (NewItemModel emailController in Injection.emailItemCubit.newItems) {
-      emails.add(emailController.controller.text);
-    }
-    for (NewItemModel element in Injection.linkItemCubit.newItems) {
-      links.add(element.controller.text);
-    }
+    List<Education> educationData = [];
+    List<Language> languageData = [];
+    List<Skills> skillData = [];
+    List<Experience> experiencesData = [];
+    List<Qualifications> qualificationData = [];
+
     Personal personalDataModel = Personal(
-      title: Injection.personalDataCubit.professionTitleController.text,
-      fullName: personalData.fullNameController.text,
-      birthday: personalData.birthDayController.text,
-      country: personalData.countryController.text,
-      zipCode: personalData.zipCodeController.text,
-      city: personalData.cityController.text,
-      street: personalData.streetController.text,
+      title: _personalDataCubit.professionTitleController.text,
+      fullName: _personalDataCubit.fullNameController.text,
+      birthday: _personalDataCubit.birthDayController.text,
+      country: _personalDataCubit.countryController.text,
+      zipCode: _personalDataCubit.zipCodeController.text,
+      city: _personalDataCubit.cityController.text,
+      street: _personalDataCubit.streetController.text,
       phones: phones,
       emails: emails,
       links: links,
-      summary: personalData.summaryController.text,
+      summary: _personalDataCubit.summaryController.text,
       imagePath: Injection.imageCubit.imagePath,
     );
 
-    List<Education> educationData = [];
+    for (NewItemModel phoneController in _phoneItemCubit.newItems) {
+      phones.add(phoneController.controller.text);
+    }
+
+    for (NewItemModel emailController in _emailItemCubit.newItems) {
+      emails.add(emailController.controller.text);
+    }
+
+    for (NewItemModel element in Injection.linkItemCubit.newItems) {
+      links.add(element.controller.text);
+    }
+
+    phones.add(_personalDataCubit.phoneController.text);
+    emails.add(_personalDataCubit.linkController.text);
+    links.add(_personalDataCubit.linkController.text);
 
     for (var element in Injection.educationCubit.newItems) {
       educationData.add(Education(
@@ -59,7 +69,6 @@ class UserDataProvider {
       ));
     }
 
-    List<Language> languageData = [];
     for (var element in Injection.languageCubit.newItems) {
       languageData.add(
         Language(
@@ -71,8 +80,6 @@ class UserDataProvider {
       );
     }
 
-    List<Skills> skillData = [];
-
     for (var element in Injection.skillsCubit.newItems) {
       var skillModel = Skills(
         skillName: element.skillsController!.text,
@@ -80,8 +87,6 @@ class UserDataProvider {
       );
       skillData.add(skillModel);
     }
-
-    List<Experience> experiencesData = [];
 
     for (var element in Injection.experienceCubit.newItems) {
       var experienceModel = Experience(
@@ -93,7 +98,6 @@ class UserDataProvider {
       );
       experiencesData.add(experienceModel);
     }
-    List<Qualifications> qualificationData = [];
 
     for (var element in Injection.qualificationsCubit.newItems) {
       var qualificationModel = Qualifications(
@@ -103,24 +107,18 @@ class UserDataProvider {
       qualificationData.add(qualificationModel);
     }
 
-    DateTime now = DateTime.now();
-    String pdfId = DateFormat('yyyy-MM-dd  kk:mm').format(now);
-
-    var pdfPathToSave = await Injection.previewCubit.createPdf(pdfId);
-
-    UserData userData = UserData(
+    _userData = UserData(
       personal: personalDataModel,
       education: educationData,
       languages: languageData,
       skills: skillData,
       experiences: experiencesData,
       qualifications: qualificationData,
-      resumeTemplateID:
-          Injection.resumeTemplateCubit.selectedTemplate.resumeTemplateID,
+      resumeTemplateID: _resumeTemplateCubit.selectedTemplate.resumeTemplateID,
       pdfPath: pdfPathToSave,
     );
 
-    var encodedJson = json.encode(userData.toJson());
+    var encodedJson = json.encode(_userData.toJson());
 
     return encodedJson;
   }

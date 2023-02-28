@@ -6,7 +6,7 @@ abstract class ResumeTemplateContract {
   late final String templateName;
   bool isSelected = false;
   String filePath = "";
-  Future<Uint8List> getcreatedPdf();
+  Future<Uint8List> getcreatedPdfAsUint8List();
   Future<String> getFilePathToSave(String pdfID) async {
     String path = await DirectoryHelper.createFolderInAppDocDir(
       "resume_folder",

@@ -25,13 +25,12 @@ class GreyPlainTemplate extends ResumeTemplateContract {
 
   final _pdfRepo = PdfRepo.instance;
 
-  final pdf = pw.Document();
-
   @override
   final int resumeTemplateID = 1;
 
   @override
-  Future<Uint8List> getcreatedPdf() async {
+  Future<Uint8List> getcreatedPdfAsUint8List() async {
+    final pdf = pw.Document();
     // pw.ThemeData myTheme = pw.ThemeData.withFont(
     //   base: Font.ttf(
     //     await rootBundle.load("assets/fonts/Lato/Lato-Regular.ttf"),
@@ -173,16 +172,7 @@ class GreyPlainTemplate extends ResumeTemplateContract {
                     ],
                   ),
             sizedBox015,
-            // _pdfRepo.referenceDataList == null
-            //     ? SizedBox()
-            //     : pw.Column(
-            //         crossAxisAlignment: pw.CrossAxisAlignment.start,
-            //         children: [
-            //           head1Text("REFERENCE"),
-            //           customDivider(),
-            //           // referenceModel(referenceList: referenceDataList!),
-            //         ],
-            //       ),
+        
             _pdfRepo.getUserData.experiences == null
                 ? pw.SizedBox()
                 : pw.Column(
@@ -190,7 +180,7 @@ class GreyPlainTemplate extends ResumeTemplateContract {
                     children: [
                       head1Text("EXPERIENCE"),
                       customDivider(),
-                      experienceWidget(
+                      experienceText(
                         experienceList: _pdfRepo.getUserData.experiences!,
                       ),
                     ],

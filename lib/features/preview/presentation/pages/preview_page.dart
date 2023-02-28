@@ -10,48 +10,60 @@ class PreviewPage extends StatelessWidget {
     return Scaffold(
       body: BlocConsumer<PreviewCubit, PreviewState>(
         bloc: Injection.previewCubit,
-        listener: (context, state) {
-          if (state is PreviewLoaded) {
-            context.showSnackBar(
-              SnackBar(
-                backgroundColor: primaryColor.withOpacity(0.5),
-                content: Text(
-                  PreviewLoaded.stateMessage,
-                  style: context.bodyLarge,
-                ),
-              ),
-            );
-          } else if (state is PreviewLoading) {
-            context.showSnackBar(
-              SnackBar(
-                backgroundColor: primaryColor.withOpacity(0.5),
-                content: Text(
-                  PreviewLoaded.stateMessage,
-                  style: context.bodyLarge,
-                ),
-              ),
-            );
-          }
-        },
+        listener: (context, state) => _listener(state, context),
         builder: (context, state) {
+          print(state);
           if (state is PreviewLoading) {
             return _loadPreview;
           } else if (state is PreviewLoaded) {
-            return PdfView(
-              path: state.pdfFilePath,
-            );
+            return _buildPdfView(state);
           } else if (state is PreviewLoadingError) {
             return _loadPreviewError;
           } else {
-            return const Text("");
+            return Text("${state.runtimeType}");
           }
         },
       ),
     );
   }
 
+  void _listener(PreviewState state, BuildContext context) {
+    if (state is PreviewLoaded) {
+      context.showSnackBar(
+        SnackBar(
+          backgroundColor: primaryColor.withOpacity(0.5),
+          content: Text(
+            state.stateMessage,
+            style: context.bodyLarge,
+          ),
+        ),
+      );
+    } else if (state is PreviewLoadingError) {
+      context.showSnackBar(
+        SnackBar(
+          backgroundColor: primaryColor.withOpacity(0.5),
+          content: Text(
+            state.stateMessage,
+            style: context.bodyLarge,
+          ),
+        ),
+      );
+    }
+  }
+
+  Widget _buildPdfView(PreviewLoaded state) {
+    return SizedBox(
+      height: 932.h,
+      width: 430.w,
+      child: PdfView(
+        path: state.pdfFilePath,
+      ),
+    );
+  }
+
   Widget get _loadPreviewError => Center(
-        child: Column(
+        child: ListView(
+          shrinkWrap: true,
           children: const [
             Icon(
               CupertinoIcons.exclamationmark_triangle,
@@ -63,11 +75,14 @@ class PreviewPage extends StatelessWidget {
       );
 
   Widget get _loadPreview => Center(
-        child: Column(
+        child: ListView(
+          shrinkWrap: true,
           children: const [
-            Text("Pdf Preview Is Being Loaded.."),
-            CircularProgressIndicator(
-              color: white,
+            Text("Pdf Preview Is Being Loaded..",textAlign: TextAlign.center,),
+            Center(
+              child: CircularProgressIndicator(
+                color: white,
+              ),
             ),
           ],
         ),

@@ -8,14 +8,7 @@ class PdfRepo {
 
   final UserDataUsecase usecase = UserDataUsecase.instance;
 
-  UserData get getUserData {
-    print(UserDataProvider.getUserData);
-    return UserDataProvider.getUserData;
-  }
-
-  void _userData() {
-    UserData model = UserDataProvider.getUserData;
-  }
+  UserData get getUserData => UserDataProvider.instance.getUserData;
 
   // Future<void> get initializeRepositories async {
   //   var a = UserDataProvider.getUserData;

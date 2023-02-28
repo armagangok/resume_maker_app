@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../core/export/export.dart';
-import '../viewmodels/color_picker/color_picker_cubit.dart';
 
 class ResumeColorItem extends StatelessWidget {
   const ResumeColorItem({
