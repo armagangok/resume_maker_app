@@ -37,7 +37,6 @@ class PreviewPage extends StatelessWidget {
           if (state is PreviewLoading) {
             return _loadPreview;
           } else if (state is PreviewLoaded) {
-            print(state.pdfFilePath);
             return PdfView(
               path: state.pdfFilePath,
             );

@@ -1,13 +1,8 @@
-// ignoreforfile: avoidprint
-
 import 'package:flutter/services.dart';
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:printing/printing.dart';
+import 'package:resume_maker_app/core/export/export.dart';
 
 import '../components/pdf_components.dart';
-import '../contract/template_contract.dart';
-import '../repository/repo.dart';
 
 class ModernTemplate extends ResumeTemplateContract {
   ModernTemplate._();
@@ -25,15 +20,12 @@ class ModernTemplate extends ResumeTemplateContract {
 
   final _pdfRepo = PdfRepo.instance;
 
-  final pdf = pw.Document();
-
-  final List<pw.Widget> _widgets = [];
-
   @override
   final int resumeTemplateID = 2;
 
   @override
   Future<Uint8List> getcreatedPdf() async {
+    final pdf = pw.Document();
     pdf.addPage(
       pw.MultiPage(
         pageFormat: PdfPageFormat.letter.copyWith(
@@ -50,7 +42,21 @@ class ModernTemplate extends ResumeTemplateContract {
           icons: await PdfGoogleFonts.materialIcons(),
         ),
         build: (pw.Context context) {
-          return _widgets;
+          return [
+            pw.Row(
+              children: [
+                leftContainer(),
+                pw.Column(children: [
+                  _pdfRepo.getUserData.personal != null
+                      ? contactText(
+                          personalModel: _pdfRepo.getUserData.personal!,
+                        )
+                      : pw.SizedBox(),
+                  buildSummaryText(),
+                ])
+              ],
+            ),
+          ];
         },
       ),
     );
@@ -226,14 +232,9 @@ class ModernTemplate extends ResumeTemplateContract {
   }
 
   @override
-  void buildUpPDF() {
-    _widgets.add(
-      buildSummaryText(),
-    );
-  }
+  void buildUpPDF() {}
 
   pw.Widget buildSummaryText() {
-    print(_pdfRepo.getUserData.personal);
     return _pdfRepo.getUserData.personal == null
         ? pw.SizedBox()
         : pw.Column(
@@ -246,6 +247,4 @@ class ModernTemplate extends ResumeTemplateContract {
             ],
           );
   }
-
-  void buildRightContainer() {}
 }

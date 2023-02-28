@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../core/export/export.dart';
+import '../../../../data/user_data_provider.dart';
 import '../widgets/root_appbar.dart';
 
 class RootPage extends StatefulWidget {
@@ -68,8 +69,9 @@ class _RootPageState extends State<RootPage> {
                 });
 
                 if (_selectedIndex == 2) {
+                  
                   await Injection.previewCubit.loadPreview();
-                  await PdfRepo.instance.initializeRepositories;
+                  // await PdfRepo.instance.initializeRepositories;
                 }
               },
             ),

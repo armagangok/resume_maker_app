@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 
 import '../../../../core/export/export.dart';
+import '../../../../data/user_data_provider.dart';
 
 part 'preview_state.dart';
 
@@ -14,16 +15,12 @@ class PreviewCubit extends Cubit<PreviewState> {
   Future loadPreview() async {
     emit(PreviewLoading());
     selectedTemplate = Injection.resumeTemplateCubit.selectedTemplate;
-    print(selectedTemplate.filePath);
-    if (selectedTemplate.filePath.isEmpty) {
-      try {
-        var path = await createPdf("preview");
-        emit(PreviewLoaded(pdfFilePath: path));
-      } on PlatformException {
-        emit(PreviewLoadingError());
-      }
-    } else {
-      emit(PreviewLoaded(pdfFilePath: selectedTemplate.filePath));
+    try {
+      await UserDataProvider.prepareUserData();
+      var path = await createPdf("preview");
+      emit(PreviewLoaded(pdfFilePath: path));
+    } on PlatformException {
+      emit(PreviewLoadingError());
     }
   }
 
