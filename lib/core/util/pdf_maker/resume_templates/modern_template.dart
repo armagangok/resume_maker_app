@@ -142,7 +142,7 @@ class ModernTemplate extends ResumeTemplateContract {
       : pw.SizedBox();
 
   pw.Widget qualificationWidget() =>
-      _pdfRepo.getUserData.qualifications != null ||
+      _pdfRepo.getUserData.qualifications == null ||
               _pdfRepo.getUserData.qualifications!.isEmpty
           ? pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
