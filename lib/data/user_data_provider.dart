@@ -18,7 +18,7 @@ class UserDataProvider {
 
   UserData get getUserData => _userData;
 
-  Future<String> prepareUserData({required String pdfPathToSave}) async {
+  void prepareUserData({required String pdfPathToSave}) {
     List<String> phones = [];
     List<String> emails = [];
     List<String> links = [];
@@ -117,9 +117,10 @@ class UserDataProvider {
       resumeTemplateID: _resumeTemplateCubit.selectedTemplate.resumeTemplateID,
       pdfPath: pdfPathToSave,
     );
+  }
 
+  encodeUserData() {
     var encodedJson = json.encode(_userData.toJson());
-
     return encodedJson;
   }
 }

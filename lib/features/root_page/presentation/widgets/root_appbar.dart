@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-import 'package:resume_maker_app/core/util/logger.dart';
 import 'package:resume_maker_app/data/user_data_provider.dart';
 
 import '../../../../core/export/export.dart';
@@ -57,14 +56,22 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         title: "Warning",
         message: "Do you wish to save your changes?",
         dialogAction: () async {
-          String pdfPathToSave = DateFormat('yyyy-MM-dd  kk:mm:ss').format(
+          String pdfName = DateFormat('yyyy-MM-dd  kk.mm.ss').format(
             DateTime.now(),
           );
-          var encodedJson = await UserDataProvider.instance.prepareUserData(
-            pdfPathToSave: pdfPathToSave,
+
+          UserDataProvider.instance.prepareUserData(
+            pdfPathToSave: "",
           );
 
-          LogHelper.shared.debugPrint(encodedJson);
+          var pdfPath = await Injection.previewCubit.createPdf(
+            fileName: pdfName,
+          );
+
+          UserDataProvider.instance.prepareUserData(
+            pdfPathToSave: pdfPath,
+          );
+          var encodedJson = UserDataProvider.instance.encodeUserData();
 
           await Injection.rootCubit.saveUserData(encodedJson);
           await Injection.homeCubit.fetchHomeUserData();
@@ -80,7 +87,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       );
 
-  GestureDetector _menuButton() => GestureDetector(
+  Widget _menuButton() => GestureDetector(
         onTap: () {},
         child: Icon(
           Icons.menu_rounded,

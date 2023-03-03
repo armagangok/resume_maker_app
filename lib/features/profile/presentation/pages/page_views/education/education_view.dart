@@ -20,11 +20,21 @@ class EducationView extends StatelessWidget {
           onTap: () {
             String itemId = Injection.educationCubit.getUniqeID();
             var educationModel = MultipleNewItem(
-              degreeController: TextEditingController(),
-              schoolController: TextEditingController(),
-              universityController: TextEditingController(),
-              startDateController: TextEditingController(),
-              endDateController: TextEditingController(),
+              degreeController: TextEditingController(
+                text: checkIfDebugMode(text: "License"),
+              ),
+              schoolController: TextEditingController(
+                text: checkIfDebugMode(),
+              ),
+              universityController: TextEditingController(
+                text: checkIfDebugMode(text: "Bursa Technical University"),
+              ),
+              startDateController: TextEditingController(
+                text: checkIfDebugMode(text: "2019"),
+              ),
+              endDateController: TextEditingController(
+                text: checkIfDebugMode(text: "2025"),
+              ),
               itemID: itemId,
               removeWidget: RemoveNewItemWidget(
                 itemID: itemId,

@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../core/export/export.dart';
 import '../widgets/root_appbar.dart';
@@ -69,12 +68,10 @@ class _RootPageState extends State<RootPage> {
                 });
 
                 if (_selectedIndex == 2) {
-                  if (_selectedIndex == index) {
-                    String pdfId = DateFormat('yyyy-MM-dd  kk:mm:ss').format(
-                      DateTime.now(),
-                    );
-                    await Injection.previewCubit.loadPreview(pdfId: pdfId);
-                  }
+                  
+                  await Injection.previewCubit.loadPreview(
+                    pdfId: "preview_pdf",
+                  );
                 }
               },
             ),

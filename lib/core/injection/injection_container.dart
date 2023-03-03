@@ -74,9 +74,9 @@ void setupViewmodels() {
   getit.registerLazySingleton<PreviewCubit>(
     () => PreviewCubit(),
   );
-  getit.registerLazySingleton<FileEntityCubit>(
-    () => FileEntityCubit(homeUsecase: getit.get()),
-  );
+  // getit.registerLazySingleton<FileEntityCubit>(
+  //   () => FileEntityCubit(homeUsecase: getit.get()),
+  // );
 
   getit.registerLazySingleton<HomeCubit>(
     () => HomeCubit(homeUsecase: getit.get()),

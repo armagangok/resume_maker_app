@@ -153,8 +153,8 @@ class PeachPuffTemplate extends ResumeTemplateContract {
   }
 
   @override
-  Future<String> getFilePathToSave(String pdfID) async {
-    return await super.getFilePathToSave(pdfID);
+  Future<String> getFilePathToSave({required String fileName}) async {
+    return await super.getFilePathToSave(fileName: fileName);
   }
 
   @override
