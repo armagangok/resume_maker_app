@@ -57,7 +57,6 @@ class ModernTemplate extends ResumeTemplateContract {
     _widgets.add(summaryWidget());
     _widgets.add(languageWidget());
     _widgets.add(experiencesWidget());
-
     _widgets.add(educationWidget());
     _widgets.add(qualificationWidget());
     _widgets.add(contactWidget());
@@ -141,24 +140,22 @@ class ModernTemplate extends ResumeTemplateContract {
         )
       : pw.SizedBox();
 
-  pw.Widget qualificationWidget() =>
-      _pdfRepo.getUserData.qualifications == null ||
-              _pdfRepo.getUserData.qualifications!.isEmpty
-          ? pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
+  pw.Widget qualificationWidget() => _pdfRepo.getUserData.qualifications != null
+      ? pw.Column(
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          children: [
+            pw.Row(
               children: [
-                pw.Row(
-                  children: [
-                    head1Text("QUALIFICATIONS"),
-                    customDivider(),
-                  ],
-                ),
-                qualificationsText(
-                  qualifications: _pdfRepo.getUserData.qualifications!,
-                )
+                head1Text("QUALIFICATIONS"),
+                customDivider(),
               ],
+            ),
+            qualificationsText(
+              qualifications: _pdfRepo.getUserData.qualifications!,
             )
-          : pw.SizedBox();
+          ],
+        )
+      : pw.SizedBox();
 
   pw.Widget skillWidget() => _pdfRepo.getUserData.skills == null ||
           _pdfRepo.getUserData.skills!.isEmpty

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:resume_maker_app/core/util/logger.dart';
 
 import '../../../../core/export/export.dart';
 import '../../../../data/user_data_provider.dart';
@@ -14,13 +13,14 @@ class PreviewCubit extends Cubit<PreviewState> {
   ResumeTemplateContract selectedTemplate = ModernTemplate.instance;
 
   Future loadPreview({required String pdfId}) async {
-    emit(PreviewLoading());
-    selectedTemplate = Injection.resumeTemplateCubit.selectedTemplate;
-
     try {
+      emit(PreviewLoading());
+
+      _selectTemplate();
       var pdfPathToSave = await _createPdf(pdfID: pdfId);
-      await UserDataProvider.instance
-          .prepareUserData(pdfPathToSave: pdfPathToSave);
+      await UserDataProvider.instance.prepareUserData(
+        pdfPathToSave: pdfPathToSave,
+      );
 
       emit(
         PreviewLoaded(
@@ -30,14 +30,16 @@ class PreviewCubit extends Cubit<PreviewState> {
       );
     } catch (e) {
       rethrow;
-      LogHelper.shared.debugPrint("$e");
-
       emit(
         PreviewLoadingError(
-          stateMessage: "Error occured while loading preview.",
+          stateMessage: "$e",
         ),
       );
     }
+  }
+
+  void _selectTemplate() {
+    selectedTemplate = Injection.resumeTemplateCubit.selectedTemplate;
   }
 
   Future<String> _createPdf({required String pdfID}) async {
@@ -46,6 +48,7 @@ class PreviewCubit extends Cubit<PreviewState> {
     String path = await selectedTemplate.getFilePathToSave(pdfID);
     final file = File(path);
     await file.writeAsBytes(pdfFile);
+
     return file.path;
   }
 }

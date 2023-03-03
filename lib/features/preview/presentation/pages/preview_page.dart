@@ -12,7 +12,6 @@ class PreviewPage extends StatelessWidget {
         bloc: Injection.previewCubit,
         listener: (context, state) => _listener(state, context),
         builder: (context, state) {
-          print(state);
           if (state is PreviewLoading) {
             return _loadPreview;
           } else if (state is PreviewLoaded) {
@@ -52,6 +51,7 @@ class PreviewPage extends StatelessWidget {
   }
 
   Widget _buildPdfView(PreviewLoaded state) {
+    print(state.pdfFilePath);
     return SizedBox(
       height: 932.h,
       width: 430.w,
@@ -64,12 +64,18 @@ class PreviewPage extends StatelessWidget {
   Widget get _loadPreviewError => Center(
         child: ListView(
           shrinkWrap: true,
-          children: const [
-            Icon(
-              CupertinoIcons.exclamationmark_triangle,
-              color: Colors.red,
+          children: [
+            Center(
+              child: Icon(
+                CupertinoIcons.exclamationmark_triangle,
+                color: Colors.red,
+                size: 70.h,
+              ),
             ),
-            Text("Error occurred while pdf preview loading.")
+            const Text(
+              "Error occurred while pdf preview loading.",
+              textAlign: TextAlign.center,
+            )
           ],
         ),
       );
@@ -78,7 +84,10 @@ class PreviewPage extends StatelessWidget {
         child: ListView(
           shrinkWrap: true,
           children: const [
-            Text("Pdf Preview Is Being Loaded..",textAlign: TextAlign.center,),
+            Text(
+              "Pdf Preview Is Being Loaded..",
+              textAlign: TextAlign.center,
+            ),
             Center(
               child: CircularProgressIndicator(
                 color: white,
