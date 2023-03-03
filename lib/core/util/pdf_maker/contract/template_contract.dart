@@ -7,11 +7,11 @@ abstract class ResumeTemplateContract {
   bool isSelected = false;
   String filePath = "";
   Future<Uint8List> getcreatedPdfAsUint8List();
-  Future<String> getFilePathToSave(String pdfID) async {
+  Future<String> getFilePathToSave({required String fileName}) async {
     String path = await DirectoryHelper.createFolderInAppDocDir(
       "resume_folder",
     );
-    return filePath = "$path$pdfID.pdf";
+    return filePath = "$path$fileName.pdf";
   }
 
   void buildUpPDF();

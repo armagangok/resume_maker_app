@@ -17,7 +17,12 @@ class PreviewCubit extends Cubit<PreviewState> {
       emit(PreviewLoading());
 
       _selectTemplate();
-      var pdfPathToSave = await _createPdf(pdfID: pdfId);
+      await UserDataProvider.instance.prepareUserData(
+        pdfPathToSave: "",
+      );
+
+      var pdfPathToSave = await _createPdf(fileName: pdfId);
+
       await UserDataProvider.instance.prepareUserData(
         pdfPathToSave: pdfPathToSave,
       );
@@ -29,7 +34,6 @@ class PreviewCubit extends Cubit<PreviewState> {
         ),
       );
     } catch (e) {
-      rethrow;
       emit(
         PreviewLoadingError(
           stateMessage: "$e",
@@ -42,10 +46,10 @@ class PreviewCubit extends Cubit<PreviewState> {
     selectedTemplate = Injection.resumeTemplateCubit.selectedTemplate;
   }
 
-  Future<String> _createPdf({required String pdfID}) async {
+  Future<String> _createPdf({required String fileName}) async {
     selectedTemplate.buildUpPDF();
     Uint8List pdfFile = await selectedTemplate.getcreatedPdfAsUint8List();
-    String path = await selectedTemplate.getFilePathToSave(pdfID);
+    String path = await selectedTemplate.getFilePathToSave(fileName: fileName);
     final file = File(path);
     await file.writeAsBytes(pdfFile);
 

@@ -5,7 +5,6 @@ import 'package:pdf/widgets.dart' as pw;
 import '../../../export/export.dart';
 import '../components/pdf_components.dart';
 
-// const String path = 'assets/person.png';
 
 class CloudTemplate extends ResumeTemplateContract {
   static final instance = CloudTemplate._();
@@ -214,7 +213,7 @@ class CloudTemplate extends ResumeTemplateContract {
   }
 
   @override
-  Future<String> getFilePathToSave(String pdfID) async {
-    return await super.getFilePathToSave(pdfID);
+  Future<String> getFilePathToSave({required String fileName}) async {
+    return await super.getFilePathToSave(fileName: fileName);
   }
 }
