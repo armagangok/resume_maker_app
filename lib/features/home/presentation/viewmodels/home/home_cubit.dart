@@ -40,6 +40,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> fetchHomeUserData() async {
+    emit(HomeUserDataFetching());
     var response = await UserDataUsecase.instance.fetchUserData();
 
     response.when(

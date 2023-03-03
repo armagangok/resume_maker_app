@@ -29,7 +29,7 @@ class Injection {
   static RootCubit get rootCubit => getit.call<RootCubit>();
   static HomeCubit get homeCubit => getit.call<HomeCubit>();
   static ResumeTemplateCubit get resumeTemplateCubit => getit();
-  static FileEntityCubit get fileEntityCubit => getit();
+  // static FileEntityCubit get fileEntityCubit => getit();
 
   static PersonalDataCubit get personalDataCubit =>
       getit.call<PersonalDataCubit>();

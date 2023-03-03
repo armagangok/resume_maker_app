@@ -15,11 +15,12 @@ class UserDataDeleteFailure extends RootState {}
 
 class UserDataFetched extends RootState {
   List<UserData> userDataList;
-  
+
   UserDataFetched({
     required this.userDataList,
   });
-  
 }
 
 class UserDataFetchFailure extends RootState {}
+
+

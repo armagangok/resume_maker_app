@@ -19,8 +19,15 @@ class QualificationsView extends StatelessWidget {
           onTap: () {
             String itemId = Injection.qualificationsCubit.getUniqeID();
             var qualification = QualificationModel(
-              details: TextEditingController(),
-              jobTitleController: TextEditingController(),
+              details: TextEditingController(
+                text: checkIfDebugMode(
+                  text:
+                      "Team Management · Programming · JSON · Riverpod · Clean Architecture · Git · Cubit · Figma · Object-Oriented Programming (OOP) · Flutter",
+                ),
+              ),
+              jobTitleController: TextEditingController(
+                text: checkIfDebugMode(text: "Mobile Application Developer"),
+              ),
               itemID: itemId,
               removeWidget: RemoveNewItemWidget(
                 itemID: itemId,

@@ -20,4 +20,7 @@ class HomeUserDataFetched extends HomeState {
   });
 }
 
+class HomeUserDataFetching extends HomeState {}
+class HomeUserDataSaving extends HomeState {}
+
 class HomeUserDataFetchFailure extends HomeState {}

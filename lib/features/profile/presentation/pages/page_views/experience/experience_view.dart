@@ -20,11 +20,23 @@ class ExperienceView extends StatelessWidget {
             String itemId = Injection.experienceCubit.getUniqeID();
             var widget = ExperienceModel(
               itemID: itemId,
-              companyNameController: TextEditingController(),
-              jobTitleController: TextEditingController(),
-              jobDutiesController: TextEditingController(),
-              jobStartDateController: TextEditingController(),
-              jobEndDateController: TextEditingController(),
+              companyNameController: TextEditingController(
+                text: checkIfDebugMode(text: "Brain Kingdom Trading"),
+              ),
+              jobTitleController: TextEditingController(
+                text: checkIfDebugMode(text: "Mobile Application Developer"),
+              ),
+              jobDutiesController: TextEditingController(
+                text: checkIfDebugMode(
+                    text:
+                        "Cubit, Bloc, get_it, UI implementations, and bug fixing in the Tubazy App."),
+              ),
+              jobStartDateController: TextEditingController(
+                text: checkIfDebugMode(text: "2022"),
+              ),
+              jobEndDateController: TextEditingController(
+                text: checkIfDebugMode(text: "2019"),
+              ),
               removeWidget: RemoveNewItemWidget(
                 itemID: itemId,
                 cubit: Injection.experienceCubit,

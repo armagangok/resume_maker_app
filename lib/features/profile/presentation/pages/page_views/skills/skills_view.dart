@@ -19,7 +19,9 @@ class SkillsView extends StatelessWidget {
           onTap: () {
             String itemId = Injection.skillsCubit.getUniqeID();
             var widget = SkillsModel(
-              skillsController: TextEditingController(),
+              skillsController: TextEditingController(
+                text: checkIfDebugMode(text: "Flutter"),
+              ),
               itemID: itemId,
               removeWidget: RemoveNewItemWidget(
                 itemID: itemId,
