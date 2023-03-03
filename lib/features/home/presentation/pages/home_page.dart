@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
 
 import '../../../../core/export/export.dart';
 
@@ -62,28 +62,19 @@ class _HomePageState extends State<HomePage> {
               child: Text("Please create a new resume for yourself!"),
             );
           } else {
-            List<Widget> pdfList = [];
-            for (var element in state.userDataList) {
-              print(element.pdfPath);
-              pdfList.add(
-                Padding(
-                  padding: EdgeInsets.all(8.w),
-                  child: PDFView(
-                    filePath: element.pdfPath ?? "",
-                  ),
+            return GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.725
                 ),
-              );
-            }
-            return GridView.custom(
-              shrinkWrap: true,
-              physics: const ClampingScrollPhysics(),
-              scrollDirection: Axis.vertical,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.7,
-              ),
-              childrenDelegate: SliverChildListDelegate.fixed(pdfList),
-            );
+                itemCount: state.userDataList.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: PdfView(
+                      path: state.userDataList[index].pdfPath ?? "",
+                    ),
+                  );
+                });
           }
         } else if (state is HomeUserDataFetching) {
           return Column(

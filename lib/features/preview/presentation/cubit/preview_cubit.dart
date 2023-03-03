@@ -17,13 +17,13 @@ class PreviewCubit extends Cubit<PreviewState> {
       emit(PreviewLoading());
 
       _selectTemplate();
-      await UserDataProvider.instance.prepareUserData(
+      UserDataProvider.instance.prepareUserData(
         pdfPathToSave: "",
       );
 
       var pdfPathToSave = await createPdf(fileName: pdfId);
 
-      await UserDataProvider.instance.prepareUserData(
+      UserDataProvider.instance.prepareUserData(
         pdfPathToSave: pdfPathToSave,
       );
 
