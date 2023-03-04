@@ -53,15 +53,11 @@ class PreviewPage extends StatelessWidget {
   }
 
   Widget _buildPdfView(PreviewLoaded state) {
-    File file = File(state.pdfFilePath);
     print(state.pdfFilePath);
     return SizedBox(
       height: 932.h,
       width: 430.w,
-      child: SfPdfViewer.file(file),
-      // PdfView(
-      //   path: ,
-      // ),
+      child: SfPdfViewer.file(File(state.pdfFilePath)),
     );
   }
 

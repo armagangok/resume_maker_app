@@ -23,6 +23,12 @@ class CloudTemplate extends ResumeTemplateContract {
 
   final List<pw.Widget> _widgets = [];
 
+  pw.Row row = pw.Row(
+    mainAxisAlignment: pw.MainAxisAlignment.start,
+    crossAxisAlignment: pw.CrossAxisAlignment.start,
+    children: [],
+  );
+
   final PdfRepo _pdfRepo = PdfRepo.instance;
 
   @override
@@ -35,6 +41,8 @@ class CloudTemplate extends ResumeTemplateContract {
           marginLeft: 20,
           marginRight: 20,
           marginBottom: 20,
+          width: width,
+          height: height,
         ),
         theme: pw.ThemeData.withFont(
           base: await PdfGoogleFonts.varelaRoundRegular(),
@@ -44,25 +52,14 @@ class CloudTemplate extends ResumeTemplateContract {
         build: (pw.Context context) => _widgets,
       ),
     );
+
     return await pdf.save();
   }
 
   @override
   void buildUpPDF() {
     _widgets.clear();
-    pw.Row row = pw.Row(
-      children: [],
-    );
-
-    pw.Column leftWidgets = pw.Column(
-      children: [],
-    );
-
-    pw.Column rightWidgets = pw.Column(
-      children: [],
-    );
-
-    // row.children.add(value);
+    row.children.clear();
 
     var aboutmeWidget = _pdfRepo.getUserData.personal!.summary == null
         ? pw.SizedBox()
@@ -159,72 +156,54 @@ class CloudTemplate extends ResumeTemplateContract {
             ),
           );
 
-    _widgets.add(
-      _pdfRepo.getUserData.personal == null
-          ? pw.SizedBox()
-          : pw.Row(
-              children: [
-                pw.SizedBox(width: 30.w),
-                pw.Expanded(
-                  child: pw.SizedBox(
-                    child: pw.Column(
-                      mainAxisAlignment: pw.MainAxisAlignment.start,
-                      crossAxisAlignment: pw.CrossAxisAlignment.start,
-                      children: [
-                        pw.FittedBox(
-                          child: nameText(
-                              _pdfRepo.getUserData.personal!.fullName!),
-                        ),
-                        sizedBox015,
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-    );
+    var nameWidget = _pdfRepo.getUserData.personal == null
+        ? pw.SizedBox()
+        : nameText(_pdfRepo.getUserData.personal!.fullName!);
 
     var qualificationsWidget = _pdfRepo.getUserData.qualifications == null
         ? pw.SizedBox()
-        : pw.Column(
-            children: [
-              pw.Text("QUALIFICATIONS"),
-              qualificationsText(
-                  qualifications: _pdfRepo.getUserData.qualifications!)
-            ],
-          );
+        : _pdfRepo.getUserData.qualifications!.isNotEmpty
+            ? pw.Column(
+                children: [
+                  pw.Text("QUALIFICATIONS"),
+                  qualificationsText(
+                    qualifications: _pdfRepo.getUserData.qualifications!,
+                  )
+                ],
+              )
+            : pw.SizedBox();
 
-    leftWidgets.children.add(contactContainer);
-    leftWidgets.children.add(sizedBox015);
-    leftWidgets.children.add(qualificationsWidget);
-
-    _widgets.add(leftWidgets);
-
-    _widgets.add(
-      pw.Column(
-        crossAxisAlignment: pw.CrossAxisAlignment.start,
+    var myWidget = pw.Container(
+      color: PdfColors.blue100,
+      width: width * 0.35 - 10,
+      height: 608.0,
+      child: pw.Column(
+        mainAxisAlignment: pw.MainAxisAlignment.start,
         children: [
-          head1Text("ABOUT ME"),
+          contactContainer,
+          sizedBox015,
+          qualificationsWidget,
+        ],
+      ),
+    );
+    var rightWidgets = pw.Container(
+      width: width * 0.65 - 10,
+      child: pw.Column(
+        mainAxisAlignment: pw.MainAxisAlignment.start,
+        children: [
+          nameWidget,
+          titleWidget,
           customDivider(),
+          head1Text("ABOUT ME"),
           aboutmeWidget,
         ],
       ),
     );
+    row.children.add(myWidget);
 
-    _widgets.add(educationContainer);
-    _widgets.add(languageContainer);
-    _widgets.add(skillsContainer);
-    _widgets.add(sizedBox015);
+    row.children.add(rightWidgets);
 
-    if (_pdfRepo.getUserData.experiences != null) {
-      _widgets.add(head1Text("EXPERIENCE"));
-      _widgets.add(customDivider());
-      _widgets.add(pw.SizedBox(height: height * 0.001));
-      var a = experienceText(experienceList: _pdfRepo.getUserData.experiences!);
-      _widgets.add(a);
-    }
-
-    _widgets.add(sizedBox015);
+    _widgets.add(row);
   }
 
   pw.BoxDecoration _blueBoxDecoration() {
@@ -236,6 +215,27 @@ class CloudTemplate extends ResumeTemplateContract {
       ),
     );
   }
+
+  pw.Widget summaryWidget() => _pdfRepo.getUserData.personal == null
+      ? pw.SizedBox()
+      : pw.Column(
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          children: [
+            sizedBox015,
+            head1Text("ABOUT ME"),
+            customDivider(),
+            aboutMeText(aboutMeText: _pdfRepo.getUserData.personal!.summary!)
+          ],
+        );
+
+  pw.Widget get titleWidget => _pdfRepo.getUserData.personal!.title == null
+      ? pw.SizedBox()
+      : pw.Text(
+          _pdfRepo.getUserData.personal!.title!,
+          style: const pw.TextStyle(
+            color: PdfColors.black,
+          ),
+        );
 
   @override
   Future<String> getFilePathToSave({required String fileName}) async {

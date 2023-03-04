@@ -44,17 +44,23 @@ class _HomePageState extends State<HomePage> {
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
         if (state is HomeUserDataDeleteFailure) {
-          context.showSnackBar(const SnackBar(
-            content: Text("Failed to delete user resume data."),
-          ));
+          context.showSnackBar(
+            const SnackBar(
+              content: Text("Failed to delete user resume data."),
+            ),
+          );
         } else if (state is HomeUserDataSaved) {
-          context.showSnackBar(const SnackBar(
-            content: Text("User resume data saved successfuly."),
-          ));
+          context.showSnackBar(
+            const SnackBar(
+              content: Text("User resume data saved successfuly."),
+            ),
+          );
         } else if (state is HomeUserDataSavingFailure) {
-          context.showSnackBar(const SnackBar(
-            content: Text("Failed to save user resume data."),
-          ));
+          context.showSnackBar(
+            const SnackBar(
+              content: Text("Failed to save user resume data."),
+            ),
+          );
         }
       },
       bloc: Injection.homeCubit,

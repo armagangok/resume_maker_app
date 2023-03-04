@@ -57,52 +57,48 @@ pw.Text aboutMeText({required String aboutMeText}) {
   );
 }
 
-pw.Widget nameText(String name) {
-  return pw.FittedBox(
-    child: pw.Text(
+pw.Widget nameText(String name) => pw.Text(
       name.toUpperCase(),
       style: pw.TextStyle(
         fontSize: 45,
         fontWeight: FontWeight.bold,
         fontBold: Font.helveticaBold(),
       ),
-      maxLines: 1,
-    ),
-  );
-}
+    );
 
 pw.Widget educationText({required List<Education> educationList}) {
   return pw.ListView.separated(
-      padding: pw.EdgeInsets.zero,
-      itemBuilder: (context, index) {
-        var educationModel = educationList[index];
-        return pw.Column(
-          crossAxisAlignment: pw.CrossAxisAlignment.start,
-          children: [
-            educationModel.university == null
-                ? pw.SizedBox()
-                : pw.Text(educationModel.university!),
-            educationModel.school == null
-                ? pw.SizedBox()
-                : pw.Text(educationModel.school!),
-            educationModel.startDate == null
-                ? pw.SizedBox()
-                : pw.Text(
-                    "Grade: ${educationModel.startDate!} - ${educationModel.endDate!}"),
-            // pw.Row(
-            //   children: [
-            //     pw.Text(
-            //       "Start Date: ${educationModel.schoolStartDate} - End Date: ${educationModel.schoolEndDate!.isEmpty ? "Present" : educationModel.schoolEndDate}",
-            //     ),
-            //   ],
-            // )
-          ],
-        );
-      },
-      separatorBuilder: (context, index) {
-        return pw.SizedBox(height: 10.h);
-      },
-      itemCount: educationList.length);
+    padding: pw.EdgeInsets.zero,
+    itemBuilder: (context, index) {
+      var educationModel = educationList[index];
+      return pw.Column(
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
+        children: [
+          educationModel.university == null
+              ? pw.SizedBox()
+              : pw.Text(educationModel.university!),
+          educationModel.school == null
+              ? pw.SizedBox()
+              : pw.Text(educationModel.school!),
+          educationModel.startDate == null
+              ? pw.SizedBox()
+              : pw.Text(
+                  "Grade: ${educationModel.startDate!} - ${educationModel.endDate!}"),
+          // pw.Row(
+          //   children: [
+          //     pw.Text(
+          //       "Start Date: ${educationModel.schoolStartDate} - End Date: ${educationModel.schoolEndDate!.isEmpty ? "Present" : educationModel.schoolEndDate}",
+          //     ),
+          //   ],
+          // )
+        ],
+      );
+    },
+    separatorBuilder: (context, index) {
+      return pw.SizedBox(height: 10.h);
+    },
+    itemCount: educationList.length,
+  );
 }
 
 pw.Widget contactText({required Personal personalModel}) {
