@@ -36,17 +36,18 @@ class CloudTemplate extends ResumeTemplateContract {
     final pdf = pw.Document();
     pdf.addPage(
       pw.MultiPage(
-        pageFormat: PdfPageFormat.letter.copyWith(
-          marginTop: 20,
-          marginLeft: 20,
-          marginRight: 20,
-          marginBottom: 20,
+        pageFormat: PdfPageFormat.a4.copyWith(
+          marginTop: 0,
+          marginLeft: 0,
+          marginRight: 0,
+          marginBottom: 0,
           width: width,
           height: height,
         ),
         theme: pw.ThemeData.withFont(
-          base: await PdfGoogleFonts.varelaRoundRegular(),
-          bold: await PdfGoogleFonts.varelaRoundRegular(),
+          base: await PdfGoogleFonts.poppinsMedium(),
+          bold: await PdfGoogleFonts.poppinsBold(),
+          italic: await PdfGoogleFonts.poppinsItalic(),
           icons: await PdfGoogleFonts.materialIcons(),
         ),
         build: (pw.Context context) => _widgets,
@@ -115,11 +116,10 @@ class CloudTemplate extends ResumeTemplateContract {
     var skillsContainer = _pdfRepo.getUserData.skills == null
         ? pw.SizedBox()
         : pw.Padding(
-            padding: pw.EdgeInsets.only(top: 20.h),
+            padding: pw.EdgeInsets.only(top: 0.h),
             child: pw.Container(
               decoration: _blueBoxDecoration(),
               width: double.infinity,
-              padding: pw.EdgeInsets.all(20.w),
               child: pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
@@ -139,18 +139,15 @@ class CloudTemplate extends ResumeTemplateContract {
     var contactContainer = _pdfRepo.getUserData.personal == null
         ? pw.SizedBox()
         : pw.Container(
-            padding: pw.EdgeInsets.all(20.w),
-            decoration: _blueBoxDecoration(),
-            width: double.infinity,
             child: pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
                 pw.Row(
                   children: [
-                    getIcon(0xe0ba),
                     head1Text("CONTACT"),
                   ],
                 ),
+                sizedBox015,
                 contactText(personalModel: _pdfRepo.getUserData.personal!),
               ],
             ),
@@ -164,8 +161,9 @@ class CloudTemplate extends ResumeTemplateContract {
         ? pw.SizedBox()
         : _pdfRepo.getUserData.qualifications!.isNotEmpty
             ? pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
-                  pw.Text("QUALIFICATIONS"),
+                  head1Text("QUALIFICATIONS"),
                   qualificationsText(
                     qualifications: _pdfRepo.getUserData.qualifications!,
                   )
@@ -175,19 +173,23 @@ class CloudTemplate extends ResumeTemplateContract {
 
     var myWidget = pw.Container(
       color: PdfColors.blue100,
-      width: width * 0.35 - 10,
-      height: 608.0,
+      width: width * 0.4,
+      height: 648,
       child: pw.Column(
         mainAxisAlignment: pw.MainAxisAlignment.start,
         children: [
           contactContainer,
           sizedBox015,
+          sizedBox015,
+          sizedBox015,
+          sizedBox015,
           qualificationsWidget,
         ],
       ),
     );
+
     var rightWidgets = pw.Container(
-      width: width * 0.65 - 10,
+      width: width * 0.6,
       child: pw.Column(
         mainAxisAlignment: pw.MainAxisAlignment.start,
         children: [
@@ -199,6 +201,7 @@ class CloudTemplate extends ResumeTemplateContract {
         ],
       ),
     );
+
     row.children.add(myWidget);
 
     row.children.add(rightWidgets);
@@ -207,6 +210,8 @@ class CloudTemplate extends ResumeTemplateContract {
   }
 
   pw.BoxDecoration _blueBoxDecoration() {
+    var a = Injection.colorPickerCubit.selectedColor;
+
     return pw.BoxDecoration(
       color: PdfColors.blue50,
       border: pw.Border.all(color: PdfColors.blue100),

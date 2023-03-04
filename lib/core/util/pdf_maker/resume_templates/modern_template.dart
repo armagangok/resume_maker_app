@@ -28,24 +28,25 @@ class ModernTemplate extends ResumeTemplateContract {
   @override
   Future<Uint8List> getcreatedPdfAsUint8List() async {
     final pdf = pw.Document();
+
     pdf.addPage(
       pw.MultiPage(
-        pageFormat: PdfPageFormat.letter.copyWith(
+        
+        pageFormat: PdfPageFormat.a4.copyWith(
           marginTop: 0,
           marginLeft: 0,
           marginRight: 0,
           marginBottom: 0,
           width: width,
           height: height,
+          
         ),
         theme: pw.ThemeData.withFont(
           base: await PdfGoogleFonts.varelaRoundRegular(),
           bold: await PdfGoogleFonts.varelaRoundRegular(),
           icons: await PdfGoogleFonts.materialIcons(),
         ),
-        build: (pw.Context context) {
-          return _widgets;
-        },
+        build: (pw.Context context) => _widgets,
       ),
     );
     return await pdf.save();

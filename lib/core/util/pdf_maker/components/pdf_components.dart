@@ -9,16 +9,6 @@ final height = PdfPageFormat.letter.availableHeight;
 
 Uint8List? uint8ListData;
 
-pw.Widget symmetricPadding(pw.Widget column) {
-  return pw.Padding(
-    padding: pw.EdgeInsets.symmetric(
-      horizontal: 20.w,
-      vertical: 20.w,
-    ),
-    child: column,
-  );
-}
-
 pw.Widget get sizedBox015 => pw.SizedBox(
       height: 10.h,
     );
@@ -26,6 +16,7 @@ pw.Widget get sizedBox015 => pw.SizedBox(
 pw.Widget head1Text(String text) {
   return pw.Text(
     text,
+    textAlign: TextAlign.left,
     style: pw.TextStyle(
       fontSize: 15,
       fontWeight: FontWeight.bold,
@@ -57,12 +48,14 @@ pw.Text aboutMeText({required String aboutMeText}) {
   );
 }
 
-pw.Widget nameText(String name) => pw.Text(
-      name.toUpperCase(),
-      style: pw.TextStyle(
-        fontSize: 45,
-        fontWeight: FontWeight.bold,
-        fontBold: Font.helveticaBold(),
+pw.Widget nameText(String name) => pw.FittedBox(
+      child: pw.Text(
+        name.toUpperCase(),
+        style: pw.TextStyle(
+          fontSize: 45,
+          fontWeight: FontWeight.bold,
+        ),
+        maxLines: 1,
       ),
     );
 
@@ -102,37 +95,86 @@ pw.Widget educationText({required List<Education> educationList}) {
 }
 
 pw.Widget contactText({required Personal personalModel}) {
-  return pw.Column(
-    crossAxisAlignment: pw.CrossAxisAlignment.start,
-    children: [
-      pw.ListView.builder(
-        itemBuilder: (context, index) {
-          return pw.Text(personalModel.emails![index]);
-        },
-        itemCount: personalModel.emails!.length,
-      ),
-      pw.ListView.builder(
-        itemBuilder: (context, index) {
-          return pw.Text(
-            personalModel.phones![index],
-            maxLines: 1,
-          );
-        },
-        itemCount: personalModel.phones!.length,
-      ),
-      pw.ListView.builder(
-        itemBuilder: (context, index) {
-          return pw.Text(
-            personalModel.links![index],
-            maxLines: 1,
-          );
-        },
-        itemCount: personalModel.links!.length,
-      ),
-      pw.Text(
-        "${personalModel.country}, ${personalModel.city} ${personalModel.street}, ${personalModel.zipCode}",
-      ),
-    ],
+  return pw.SizedBox(
+    child: pw.Wrap(
+      children: [
+        pw.ListView.builder(
+          itemBuilder: (context, index) {
+            return pw.Row(
+              children: [
+                getIcon(0xe0e6),
+                pw.SizedBox(
+                  width: width * 0.36,
+                  child: pw.Text(
+                    personalModel.emails![index],
+                    maxLines: 1,
+                    style: const pw.TextStyle(
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+          itemCount: personalModel.emails!.length,
+        ),
+        sizedBox015,
+        pw.ListView.builder(
+          itemBuilder: (context, index) {
+            return pw.Row(
+              children: [
+                getIcon(0xe325),
+                pw.SizedBox(
+                  width: width * 0.36,
+                  child: pw.Text(
+                    personalModel.phones![index],
+                    maxLines: 1,
+                    style: const pw.TextStyle(
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+          itemCount: personalModel.phones!.length,
+        ),
+        sizedBox015,
+        pw.ListView.builder(
+          itemBuilder: (context, index) {
+            return pw.Row(
+              children: [
+                getIcon(0xe157),
+                pw.SizedBox(
+                  width: width * 0.36,
+                  child: pw.Text(
+                    personalModel.links![index],
+                    maxLines: 1,
+                    style: const pw.TextStyle(
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+          itemCount: personalModel.links!.length,
+        ),
+        sizedBox015,
+        pw.Row(
+          children: [
+            getIcon(0xf05f),
+            pw.SizedBox(
+              width: width * 0.36,
+              child: pw.Text(
+                "${personalModel.country}, ${personalModel.city} ${personalModel.street}, ${personalModel.zipCode}",
+                style: const pw.TextStyle(fontSize: 10),
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
   );
 }
 
