@@ -83,11 +83,10 @@ dependencies:
   flutter_svg: ^2.0.0+1
   flutter_screenutil: ^5.6.1
   intl: ^0.18.0
-  pdf_viewer_plugin: ^2.0.1
   file_manager: ^1.0.1
   permission_handler: ^10.2.0
   path: ^1.8.2
-  # flutter_pdfview: ^1.2.5
+  syncfusion_flutter_pdfviewer: ^20.4.52
   
 
   

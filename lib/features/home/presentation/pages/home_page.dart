@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
-import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
+
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../../../../core/export/export.dart';
 
@@ -64,15 +67,12 @@ class _HomePageState extends State<HomePage> {
           } else {
             return GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.725
-                ),
+                    crossAxisCount: 2, childAspectRatio: 0.725),
                 itemCount: state.userDataList.length,
                 itemBuilder: (context, index) {
+                  File file = File(state.userDataList[index].pdfPath ?? "");
                   return Card(
-                    child: PdfView(
-                      path: state.userDataList[index].pdfPath ?? "",
-                    ),
+                    child: SfPdfViewer.file(file),
                   );
                 });
           }

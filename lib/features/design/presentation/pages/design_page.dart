@@ -1,36 +1,21 @@
 import '../../../../core/export/export.dart';
+import '../widgets/template_color_picker_widget.dart';
 
-class DesignPage extends StatefulWidget {
+class DesignPage extends StatelessWidget {
   const DesignPage({super.key});
 
-  @override
-  State<DesignPage> createState() => _DesignPageState();
-}
-
-class _DesignPageState extends State<DesignPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
         physics: const ClampingScrollPhysics(),
         shrinkWrap: true,
-        children: [
-          _colorPickerWidget(),
-          const CustomDivider(),
-          const ResumeTemplateBuilder(),
+        children: const [
+          TemplateColorPickerWidget(),
+          CustomDivider(),
+          ResumeTemplateBuilder(),
         ],
       ),
     );
   }
-
-  Widget _colorPickerWidget() => BlocBuilder<ColorPickerCubit, ColorPickerState>(
-      bloc: Injection.colorPickerCubit,
-      builder: (context, state) {
-        return CustomTabBarWidget(
-          itemCount: Injection.colorPickerCubit.resumeColors.length,
-          onTap: (int index) => Injection.colorPickerCubit.selectIndex(index),
-          itemList: Injection.colorPickerCubit.resumeColors,
-        );
-      },
-    );
 }

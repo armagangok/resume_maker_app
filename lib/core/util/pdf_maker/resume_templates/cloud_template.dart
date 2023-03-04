@@ -5,7 +5,6 @@ import 'package:pdf/widgets.dart' as pw;
 import '../../../export/export.dart';
 import '../components/pdf_components.dart';
 
-
 class CloudTemplate extends ResumeTemplateContract {
   static final instance = CloudTemplate._();
   CloudTemplate._();
@@ -51,6 +50,20 @@ class CloudTemplate extends ResumeTemplateContract {
   @override
   void buildUpPDF() {
     _widgets.clear();
+    pw.Row row = pw.Row(
+      children: [],
+    );
+
+    pw.Column leftWidgets = pw.Column(
+      children: [],
+    );
+
+    pw.Column rightWidgets = pw.Column(
+      children: [],
+    );
+
+    // row.children.add(value);
+
     var aboutmeWidget = _pdfRepo.getUserData.personal!.summary == null
         ? pw.SizedBox()
         : aboutMeText(aboutMeText: _pdfRepo.getUserData.personal!.summary!);
@@ -171,9 +184,21 @@ class CloudTemplate extends ResumeTemplateContract {
             ),
     );
 
-    _widgets.add(contactContainer);
+    var qualificationsWidget = _pdfRepo.getUserData.qualifications == null
+        ? pw.SizedBox()
+        : pw.Column(
+            children: [
+              pw.Text("QUALIFICATIONS"),
+              qualificationsText(
+                  qualifications: _pdfRepo.getUserData.qualifications!)
+            ],
+          );
 
-    _widgets.add(sizedBox015);
+    leftWidgets.children.add(contactContainer);
+    leftWidgets.children.add(sizedBox015);
+    leftWidgets.children.add(qualificationsWidget);
+
+    _widgets.add(leftWidgets);
 
     _widgets.add(
       pw.Column(

@@ -1,5 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
-import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../../../../core/export/export.dart';
 
 class PreviewPage extends StatelessWidget {
@@ -51,13 +53,15 @@ class PreviewPage extends StatelessWidget {
   }
 
   Widget _buildPdfView(PreviewLoaded state) {
+    File file = File(state.pdfFilePath);
     print(state.pdfFilePath);
     return SizedBox(
       height: 932.h,
       width: 430.w,
-      child: PdfView(
-        path: state.pdfFilePath,
-      ),
+      child: SfPdfViewer.file(file),
+      // PdfView(
+      //   path: ,
+      // ),
     );
   }
 

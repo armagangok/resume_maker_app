@@ -37,12 +37,12 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               widget: dialogWidget(),
             ),
             child: CircleAvatar(
+              radius: 20.h,
               backgroundColor: selectedItemColor,
-              child: Center(
+              child: const Center(
                 child: Icon(
                   CupertinoIcons.checkmark_alt,
                   color: white,
-                  size: 35.h,
                 ),
               ),
             ),
@@ -89,9 +89,15 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   Widget _menuButton() => GestureDetector(
         onTap: () {},
-        child: Icon(
-          Icons.menu_rounded,
-          size: 45.h,
+        child: Center(
+          child: CircleAvatar(
+            backgroundColor: selectedItemColor,
+            radius: 20.h,
+            child: const Icon(
+              Icons.menu_rounded,
+              color: white,
+            ),
+          ),
         ),
       );
 

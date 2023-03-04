@@ -30,7 +30,11 @@ class _RootPageState extends State<RootPage> {
     return Scaffold(
       appBar: const HomeAppBar(),
       bottomNavigationBar: _bottomNavBar(),
-      body: _widgetOptions.elementAt(_selectedIndex),
+      body: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: KPadding.width15,
+          ),
+          child: _widgetOptions.elementAt(_selectedIndex)),
     );
   }
 
@@ -68,7 +72,6 @@ class _RootPageState extends State<RootPage> {
                 });
 
                 if (_selectedIndex == 2) {
-                  
                   await Injection.previewCubit.loadPreview(
                     pdfId: "preview_pdf",
                   );
