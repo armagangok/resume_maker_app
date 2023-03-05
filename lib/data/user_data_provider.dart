@@ -56,7 +56,7 @@ class UserDataProvider {
     }
 
     phones.add(_personalDataCubit.phoneController.text);
-    emails.add(_personalDataCubit.linkController.text);
+    emails.add(_personalDataCubit.emailController.text);
     links.add(_personalDataCubit.linkController.text);
 
     for (var element in Injection.educationCubit.newItems) {

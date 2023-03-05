@@ -39,7 +39,6 @@ class ModernTemplate extends ResumeTemplateContract {
           marginBottom: 0,
           width: width,
           height: height,
-          
         ),
         theme: pw.ThemeData.withFont(
           base: await PdfGoogleFonts.varelaRoundRegular(),

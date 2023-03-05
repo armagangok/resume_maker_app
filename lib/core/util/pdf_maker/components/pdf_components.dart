@@ -19,7 +19,7 @@ pw.Widget head1Text(String text) {
     textAlign: TextAlign.left,
     style: pw.TextStyle(
       fontSize: 15,
-      fontWeight: FontWeight.bold,
+      // fontWeight: FontWeight.,
       fontBold: Font.helveticaBold(),
     ),
   );
@@ -45,6 +45,11 @@ pw.Divider customDivider() => pw.Divider(
 pw.Text aboutMeText({required String aboutMeText}) {
   return pw.Text(
     aboutMeText,
+    textAlign: TextAlign.left,
+    style: const pw.TextStyle(
+      color: PdfColors.grey800,
+      fontSize: 10,
+    ),
   );
 }
 
@@ -95,85 +100,137 @@ pw.Widget educationText({required List<Education> educationList}) {
 }
 
 pw.Widget contactText({required Personal personalModel}) {
-  return pw.SizedBox(
-    child: pw.Wrap(
-      children: [
-        pw.ListView.builder(
-          itemBuilder: (context, index) {
-            return pw.Row(
-              children: [
-                getIcon(0xe0e6),
-                pw.SizedBox(
-                  width: width * 0.36,
-                  child: pw.Text(
-                    personalModel.emails![index],
-                    maxLines: 1,
-                    style: const pw.TextStyle(
+  return pw.Column(
+    children: [
+      pw.ListView.builder(
+        itemBuilder: (context, index) {
+          return index == 0
+              ? pw.Column(
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  children: [
+                    pw.Row(
+                      children: [
+                        getIcon(0xe0e6),
+                        pw.Text(
+                          "Email Adress",
+                          style: pw.TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    emailItem(personalModel, index),
+                  ],
+                )
+              : emailItem(personalModel, index);
+        },
+        itemCount: personalModel.emails!.length,
+      ),
+      sizedBox015,
+      pw.ListView.builder(
+        itemBuilder: (context, index) {
+          return pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              pw.Row(
+                children: [
+                  getIcon(0xe325),
+                  pw.Text(
+                    "Phone Number",
+                    style: pw.TextStyle(
                       fontSize: 10,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-              ],
-            );
-          },
-          itemCount: personalModel.emails!.length,
-        ),
-        sizedBox015,
-        pw.ListView.builder(
-          itemBuilder: (context, index) {
-            return pw.Row(
-              children: [
-                getIcon(0xe325),
-                pw.SizedBox(
-                  width: width * 0.36,
-                  child: pw.Text(
-                    personalModel.phones![index],
-                    maxLines: 1,
-                    style: const pw.TextStyle(
-                      fontSize: 10,
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
-          itemCount: personalModel.phones!.length,
-        ),
-        sizedBox015,
-        pw.ListView.builder(
-          itemBuilder: (context, index) {
-            return pw.Row(
-              children: [
-                getIcon(0xe157),
-                pw.SizedBox(
-                  width: width * 0.36,
-                  child: pw.Text(
-                    personalModel.links![index],
-                    maxLines: 1,
-                    style: const pw.TextStyle(
-                      fontSize: 10,
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
-          itemCount: personalModel.links!.length,
-        ),
-        sizedBox015,
-        pw.Row(
-          children: [
-            getIcon(0xf05f),
-            pw.SizedBox(
-              width: width * 0.36,
-              child: pw.Text(
-                "${personalModel.country}, ${personalModel.city} ${personalModel.street}, ${personalModel.zipCode}",
-                style: const pw.TextStyle(fontSize: 10),
+                ],
               ),
+              pw.SizedBox(
+                width: width * 0.36,
+                child: pw.Text(
+                  personalModel.phones![index],
+                  maxLines: 1,
+                  style: const pw.TextStyle(
+                    fontSize: 10,
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+        itemCount: personalModel.phones!.length,
+      ),
+      sizedBox015,
+      pw.ListView.builder(
+        itemBuilder: (context, index) {
+          return index == 0
+              ? pw.Column(
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  children: [
+                    pw.Row(
+                      children: [
+                        getIcon(0xe157),
+                        pw.Text(
+                          "Links",
+                          style: pw.TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    _linkItem(personalModel, index),
+                  ],
+                )
+              : _linkItem(personalModel, index);
+        },
+        itemCount: personalModel.links!.length,
+      ),
+      sizedBox015,
+      pw.Column(
+        children: [
+          pw.Row(
+            children: [
+              getIcon(0xf05f),
+              pw.Text(
+                "Location",
+                style: pw.TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          pw.SizedBox(
+            width: width * 0.36,
+            child: pw.Text(
+              "${personalModel.country}, ${personalModel.city} ${personalModel.street}, ${personalModel.zipCode}",
+              style: const pw.TextStyle(fontSize: 10),
             ),
-          ],
+          ),
+        ],
+      ),
+    ],
+  );
+}
+
+pw.Widget _linkItem(Personal personalModel, int index) => pw.SizedBox(
+      width: width * 0.36,
+      child: pw.Text(
+        personalModel.links![index],
+        maxLines: 1,
+        style: const pw.TextStyle(
+          fontSize: 10,
         ),
-      ],
+      ),
+    );
+
+pw.Widget emailItem(Personal personalModel, int index) {
+  return pw.Text(
+    personalModel.emails![index],
+    maxLines: 1,
+    style: const pw.TextStyle(
+      fontSize: 10,
     ),
   );
 }
@@ -247,12 +304,8 @@ pw.Widget experienceText({required List<Experience> experienceList}) {
 
   for (var element in experienceList) {
     var item = pw.Container(
-      decoration: pw.BoxDecoration(
-        color: PdfColors.grey100,
-        border: pw.Border.all(color: PdfColors.grey200),
-        borderRadius: borderRadius6(),
-      ),
-      padding: pw.EdgeInsets.all(width * 0.015),
+      
+      
       width: double.infinity,
       child: pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -263,8 +316,18 @@ pw.Widget experienceText({required List<Experience> experienceList}) {
               fontWeight: pw.FontWeight.bold,
             ),
           ),
-          pw.Text("${element.jobTitle}"),
-          pw.Text("${element.jobDuties}"),
+          pw.Text(
+            "${element.jobTitle}",
+            style: const pw.TextStyle(
+              fontSize: 10,
+            ),
+          ),
+          pw.Text(
+            "${element.jobDuties}",
+            style: const pw.TextStyle(
+              fontSize: 10,
+            ),
+          ),
         ],
       ),
     );
@@ -389,17 +452,6 @@ pw.Widget whiteHeadContainer({required pw.Widget column}) {
     ),
     child: pw.Container(
       width: width * 0.38,
-
-      // decoration: const pw.BoxDecoration(
-      //   color: PdfColors.white,
-      //   borderRadius: pw.BorderRadius.all(
-      //     Radius.circular(3),
-      //   ),
-      // ),
-      // padding: pw.EdgeInsets.symmetric(
-      //   horizontal: width * 0.005,
-      //   vertical: width * 0.0025,
-      // ),
       child: column,
     ),
   );
@@ -415,3 +467,12 @@ pw.Widget getIcon(int codePoint) => pw.Padding(
         size: 15,
       ),
     );
+
+
+
+
+// decoration: pw.BoxDecoration(
+      //   color: PdfColors.grey100,
+      //   border: pw.Border.all(color: PdfColors.grey200),
+      //   borderRadius: borderRadius6(),
+      // ),

@@ -71,6 +71,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           UserDataProvider.instance.prepareUserData(
             pdfPathToSave: pdfPath,
           );
+
           var encodedJson = UserDataProvider.instance.encodeUserData();
 
           await Injection.rootCubit.saveUserData(encodedJson);

@@ -76,6 +76,7 @@ class _HomePageState extends State<HomePage> {
                     crossAxisCount: 2, childAspectRatio: 0.725),
                 itemCount: state.userDataList.length,
                 itemBuilder: (context, index) {
+                  print(state.userDataList[index].pdfPath);
                   File file = File(state.userDataList[index].pdfPath ?? "");
                   return Card(
                     child: SfPdfViewer.file(file),
