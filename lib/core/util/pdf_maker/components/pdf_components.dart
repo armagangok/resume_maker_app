@@ -4,8 +4,8 @@ import 'package:pdf/widgets.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:resume_maker_app/core/export/export.dart';
 
-final width = PdfPageFormat.letter.availableWidth;
-final height = PdfPageFormat.letter.availableHeight;
+final width = PdfPageFormat.a4.availableWidth;
+final height = PdfPageFormat.a4.availableHeight;
 
 Uint8List? uint8ListData;
 

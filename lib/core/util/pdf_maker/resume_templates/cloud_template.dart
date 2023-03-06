@@ -48,11 +48,6 @@ class CloudTemplate extends ResumeTemplateContract {
           base: await PdfGoogleFonts.varelaRoundRegular(),
           bold: await PdfGoogleFonts.varelaRoundRegular(),
           icons: await PdfGoogleFonts.materialIcons(),
-
-          // base: await PdfGoogleFonts.poppinsMedium(),
-          // bold: await PdfGoogleFonts.poppinsBold(),
-          // italic: await PdfGoogleFonts.poppinsItalic(),
-          // icons: await PdfGoogleFonts.materialIcons(),
         ),
         build: (pw.Context context) => _widgets,
       ),
@@ -75,9 +70,7 @@ class CloudTemplate extends ResumeTemplateContract {
         : pw.Padding(
             padding: pw.EdgeInsets.only(top: 20.h),
             child: pw.Container(
-              // decoration: _blueBoxDecoration(),
               width: double.infinity,
-              // padding: pw.EdgeInsets.all(20.w),
               child: pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
@@ -120,8 +113,6 @@ class CloudTemplate extends ResumeTemplateContract {
         : pw.Padding(
             padding: pw.EdgeInsets.only(top: 0.h),
             child: pw.Container(
-              // decoration: _blueBoxDecoration(),
-              // width: double.infinity,
               child: pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
