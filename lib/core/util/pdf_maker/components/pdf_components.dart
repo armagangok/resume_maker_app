@@ -56,9 +56,8 @@ pw.Text aboutMeText({required String aboutMeText}) {
 pw.Widget nameText(String name) => pw.FittedBox(
       child: pw.Text(
         name.toUpperCase(),
-        style: pw.TextStyle(
-          fontSize: 45,
-          fontWeight: FontWeight.bold,
+        style: const pw.TextStyle(
+          fontSize: 30,
         ),
         maxLines: 1,
       ),
@@ -287,10 +286,24 @@ pw.Widget languagesText({required List<Language> languageList}) {
   );
   for (var languageModel in languageList) {
     column.children.add(
-      sideTextBody(
-        "-${languageModel.languageName}\nSpeaking: ${languageModel.speaking}\nReading: ${languageModel.reading}\nWriting: ${languageModel.writing}\n",
+      pw.Builder(
+        builder: (context) {
+          return pw.Text(
+            "-${languageModel.languageName}",
+            style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                ),
+          );
+        },
       ),
     );
+    column.children.add(
+      sideTextBody(
+        "Speaking: ${languageModel.speaking}\nReading: ${languageModel.reading}\nWriting: ${languageModel.writing}\n",
+      ),
+    );
+    column.children.add(sizedBox015);
   }
 
   return column;
@@ -303,33 +316,31 @@ pw.Widget experienceText({required List<Experience> experienceList}) {
   );
 
   for (var element in experienceList) {
-    var item = pw.Container(
-      
-      
-      width: double.infinity,
-      child: pw.Column(
-        crossAxisAlignment: pw.CrossAxisAlignment.start,
-        children: [
-          pw.Text(
-            "${element.company}, ${2022} - ${element.endDate}",
-            style: pw.TextStyle(
-              fontWeight: pw.FontWeight.bold,
-            ),
+    var item = pw.Column(
+      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      children: [
+        pw.Text(
+          "${element.company}, ${2022} - ${element.endDate}",
+          style: pw.TextStyle(
+            fontWeight: pw.FontWeight.bold,
           ),
-          pw.Text(
-            "${element.jobTitle}",
-            style: const pw.TextStyle(
-              fontSize: 10,
-            ),
+        ),
+        pw.Row(children: [
+          pw.Container(width: 5, height: 5, color: PdfColors.black),
+          pw.SizedBox(width: 5),
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              pw.Text(
+                "${element.jobDuties}",
+                style: const pw.TextStyle(
+                  fontSize: 10,
+                ),
+              ),
+            ],
           ),
-          pw.Text(
-            "${element.jobDuties}",
-            style: const pw.TextStyle(
-              fontSize: 10,
-            ),
-          ),
-        ],
-      ),
+        ])
+      ],
     );
     column.children.add(item);
 

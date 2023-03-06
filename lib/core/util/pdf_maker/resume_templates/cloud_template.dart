@@ -45,10 +45,14 @@ class CloudTemplate extends ResumeTemplateContract {
           height: height,
         ),
         theme: pw.ThemeData.withFont(
-          base: await PdfGoogleFonts.poppinsMedium(),
-          bold: await PdfGoogleFonts.poppinsBold(),
-          italic: await PdfGoogleFonts.poppinsItalic(),
+          base: await PdfGoogleFonts.varelaRoundRegular(),
+          bold: await PdfGoogleFonts.varelaRoundRegular(),
           icons: await PdfGoogleFonts.materialIcons(),
+
+          // base: await PdfGoogleFonts.poppinsMedium(),
+          // bold: await PdfGoogleFonts.poppinsBold(),
+          // italic: await PdfGoogleFonts.poppinsItalic(),
+          // icons: await PdfGoogleFonts.materialIcons(),
         ),
         build: (pw.Context context) => _widgets,
       ),
@@ -62,18 +66,18 @@ class CloudTemplate extends ResumeTemplateContract {
     _widgets.clear();
     row.children.clear();
 
-    var aboutmeWidget = _pdfRepo.getUserData.personal!.summary == null
+    var aboutmeWidget = _pdfRepo.getUserData.personal!.summary!.isEmpty
         ? pw.SizedBox()
         : aboutMeText(aboutMeText: _pdfRepo.getUserData.personal!.summary!);
 
-    var educationContainer = _pdfRepo.getUserData.education == null
+    var educationContainer = _pdfRepo.getUserData.education!.isEmpty
         ? pw.SizedBox()
         : pw.Padding(
             padding: pw.EdgeInsets.only(top: 20.h),
             child: pw.Container(
-              decoration: _blueBoxDecoration(),
+              // decoration: _blueBoxDecoration(),
               width: double.infinity,
-              padding: pw.EdgeInsets.all(20.w),
+              // padding: pw.EdgeInsets.all(20.w),
               child: pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
@@ -111,13 +115,13 @@ class CloudTemplate extends ResumeTemplateContract {
             ),
           );
 
-    var skillsContainer = _pdfRepo.getUserData.skills == null
+    var skillsContainer = _pdfRepo.getUserData.skills!.isEmpty
         ? pw.SizedBox()
         : pw.Padding(
             padding: pw.EdgeInsets.only(top: 0.h),
             child: pw.Container(
-              decoration: _blueBoxDecoration(),
-              width: double.infinity,
+              // decoration: _blueBoxDecoration(),
+              // width: double.infinity,
               child: pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
@@ -155,17 +159,20 @@ class CloudTemplate extends ResumeTemplateContract {
         ? pw.SizedBox()
         : nameText(_pdfRepo.getUserData.personal!.fullName!);
 
-    var qualificationsWidget = _pdfRepo.getUserData.qualifications == null
+    var qualificationsWidget = _pdfRepo.getUserData.qualifications!.isEmpty
         ? pw.SizedBox()
         : _pdfRepo.getUserData.qualifications!.isNotEmpty
-            ? pw.Column(
-                crossAxisAlignment: pw.CrossAxisAlignment.start,
-                children: [
-                  head1Text("QUALIFICATIONS"),
-                  qualificationsText(
-                    qualifications: _pdfRepo.getUserData.qualifications!,
-                  )
-                ],
+            ? pw.Padding(
+                padding: const pw.EdgeInsets.all(10),
+                child: pw.Column(
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  children: [
+                    head1Text("QUALIFICATIONS"),
+                    qualificationsText(
+                      qualifications: _pdfRepo.getUserData.qualifications!,
+                    )
+                  ],
+                ),
               )
             : pw.SizedBox();
 
@@ -173,7 +180,7 @@ class CloudTemplate extends ResumeTemplateContract {
       padding: const pw.EdgeInsets.all(10),
       decoration: _blueBoxDecoration(),
       width: width * 0.4,
-      // height: 648,
+      height: 568,
       child: pw.Column(
         mainAxisAlignment: pw.MainAxisAlignment.start,
         children: [
@@ -187,46 +194,71 @@ class CloudTemplate extends ResumeTemplateContract {
       ),
     );
 
-    var rightWidgets = pw.Container(
-      padding: const pw.EdgeInsets.symmetric(horizontal: 10),
-      width: width * 0.6,
-      child: pw.Column(
-        mainAxisAlignment: pw.MainAxisAlignment.start,
-        crossAxisAlignment: pw.CrossAxisAlignment.start,
-        children: [
-          head1Text("ABOUT ME"),
-          aboutmeWidget,
-          sizedBox015,
-          experiencesWidget(),
-        ],
+    var rightColumn = pw.Column(
+      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+      children: [],
+    );
+
+    rightColumn.children.add(
+      aboutmeWidget,
+    );
+
+    rightColumn.children.add(
+      sizedBox015,
+    );
+
+    rightColumn.children.add(
+      sizedBox015,
+    );
+
+    rightColumn.children.add(
+      experiencesWidget(),
+    );
+
+    rightColumn.children.add(educationContainer);
+
+    rightColumn.children.add(sizedBox015);
+    rightColumn.children.add(sizedBox015);
+    rightColumn.children.add(skillsContainer);
+
+    _widgets.add(
+      pw.Padding(
+        padding: const pw.EdgeInsets.all(10),
+        child: pw.Container(
+          width: double.infinity,
+          decoration: pw.BoxDecoration(
+            border: pw.Border.all(
+              color: PdfColors.black,
+            ),
+          ),
+          child: pw.Column(
+            children: [
+              nameWidget,
+              titleWidget,
+            ],
+          ),
+        ),
       ),
     );
 
-    _widgets.add(pw.Padding(
-      padding: const pw.EdgeInsets.all(10),
-      child: pw.Container(
-        width: double.infinity,
-        decoration: pw.BoxDecoration(
-          border: pw.Border.all(
-            color: PdfColors.black,
-          ),
-        ),
-        child: pw.Column(
-          children: [
-            nameWidget,
-            titleWidget,
-          ],
-        ),
-      ),
-    ));
+    var a = _rightContainer(rightColumn);
 
     row.children.add(leftWidget);
-    row.children.add(rightWidgets);
+    row.children.add(a);
     _widgets.add(row);
+    _widgets.add(qualificationsWidget);
+  }
+
+  pw.Container _rightContainer(pw.Widget widget) {
+    return pw.Container(
+      padding: const pw.EdgeInsets.symmetric(horizontal: 10),
+      width: width * 0.6,
+      child: widget,
+    );
   }
 
   pw.BoxDecoration _blueBoxDecoration() {
-    var a = Injection.colorPickerCubit.selectedColor;
+    // var a = Injection.colorPickerCubit.selectedColor;
 
     return pw.BoxDecoration(
       color: PdfColors.grey100,
@@ -237,14 +269,12 @@ class CloudTemplate extends ResumeTemplateContract {
     );
   }
 
-  pw.Widget experiencesWidget() => _pdfRepo.getUserData.experiences == null ||
-          _pdfRepo.getUserData.experiences!.isEmpty
+  pw.Widget experiencesWidget() => _pdfRepo.getUserData.experiences!.isEmpty
       ? pw.SizedBox()
       : pw.Column(
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
             head1Text("WORK EXPERIENCE"),
-            // customDivider(),
             pw.SizedBox(height: 2.5),
             experienceText(
               experienceList: _pdfRepo.getUserData.experiences!,
@@ -252,7 +282,7 @@ class CloudTemplate extends ResumeTemplateContract {
           ],
         );
 
-  pw.Widget get titleWidget => _pdfRepo.getUserData.personal!.title == null
+  pw.Widget get titleWidget => _pdfRepo.getUserData.personal!.title!.isEmpty
       ? pw.SizedBox()
       : pw.Text(
           _pdfRepo.getUserData.personal!.title!,
