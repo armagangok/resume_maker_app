@@ -31,10 +31,11 @@ class _RootPageState extends State<RootPage> {
       appBar: const HomeAppBar(),
       bottomNavigationBar: _bottomNavBar(),
       body: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: KPadding.width15,
-          ),
-          child: _widgetOptions.elementAt(_selectedIndex)),
+        padding: EdgeInsets.symmetric(
+          horizontal: KPadding.width15,
+        ),
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
     );
   }
 

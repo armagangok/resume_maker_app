@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
       },
       bloc: Injection.homeCubit,
       builder: (context, state) {
-        if (state is HomeUserDataFetched) {
+        if (state is HomeUserDataFetched) {   
           if (state.userDataList.isEmpty) {
             return const Center(
               child: Text("Please create a new resume for yourself!"),

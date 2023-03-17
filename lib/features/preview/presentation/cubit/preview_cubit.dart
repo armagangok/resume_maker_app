@@ -52,7 +52,6 @@ class PreviewCubit extends Cubit<PreviewState> {
     String path = await selectedTemplate.getFilePathToSave(fileName: fileName);
     final file = File(path);
     await file.writeAsBytes(pdfFile);
-
     return file.path;
   }
 }
