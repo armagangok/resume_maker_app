@@ -16,28 +16,28 @@ class LanguageModel extends UserDataEntity {
   RemoveNewItemWidget? removeWidget;
 
   @override
-  final SliderWidget writingSlider;
+  final SliderWidget languageLevelSlider;
   @override
-  final SliderWidget readingSlider;
-  @override
-  final SliderWidget speakingSlider;
+  // final SliderWidget readingSlider;
+  // @override
+  // final SliderWidget speakingSlider;
 
   @override
-  final SliderCubit readingSliderCubit;
-  @override
-  final SliderCubit writingSliderCubit;
-  @override
-  final SliderCubit speakingSliderCubit;
+  final SliderCubit languageLevelSliderCubit;
+  // @override
+  // final SliderCubit writingSliderCubit;
+  // @override
+  // final SliderCubit speakingSliderCubit;
 
   LanguageModel({
     required this.languageController,
     required this.itemID,
     required this.removeWidget,
-    required this.writingSlider,
-    required this.readingSlider,
-    required this.speakingSlider,
-    required this.readingSliderCubit,
-    required this.writingSliderCubit,
-    required this.speakingSliderCubit,
+    required this.languageLevelSlider,
+    // required this.readingSlider,
+    // required this.speakingSlider,
+    required this.languageLevelSliderCubit,
+    // required this.writingSliderCubit,
+    // required this.speakingSliderCubit,
   });
 }

@@ -1,11 +1,8 @@
-
-
 import '../../core/export/export.dart';
 
-
-class UserDataEntity {  
+class UserDataEntity {
   final TextEditingController? degreeController;
-  final TextEditingController? schoolController;
+  final TextEditingController? majorController;
   final TextEditingController? universityController;
   final TextEditingController? startDateController;
   final TextEditingController? endDateController;
@@ -20,18 +17,15 @@ class UserDataEntity {
   final TextEditingController? jobEndDateController;
 
   final String? itemID;
-
   final Widget? removeWidget;
   final SliderWidget? speakingSlider;
   final SliderWidget? readingSlider;
-  final SliderWidget? writingSlider;
-  final SliderCubit? readingSliderCubit;
-  final SliderCubit? writingSliderCubit;
-  final SliderCubit? speakingSliderCubit;
+  final SliderWidget? languageLevelSlider;
+  final SliderCubit? languageLevelSliderCubit;
 
   UserDataEntity({
     this.degreeController,
-    this.schoolController,
+    this.majorController,
     this.universityController,
     this.startDateController,
     this.endDateController,
@@ -48,9 +42,7 @@ class UserDataEntity {
     this.removeWidget,
     this.speakingSlider,
     this.readingSlider,
-    this.writingSlider,
-    this.readingSliderCubit,
-    this.writingSliderCubit,
-    this.speakingSliderCubit,
+    this.languageLevelSlider,
+    this.languageLevelSliderCubit,
   });
 }

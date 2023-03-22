@@ -14,7 +14,7 @@ class DataCategoryPageView extends StatelessWidget {
         builder: (context, state) {
           return PageView.builder(
             physics: const NeverScrollableScrollPhysics(),
-            controller: Injection.profileCubit.controller,
+            controller: Injection.profileCubit.pageController,
             itemBuilder: (context, position) {
               return Injection.profileCubit.widgets[position];
             },

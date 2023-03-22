@@ -7,7 +7,7 @@ part 'education.g.dart';
 abstract class Education with _$Education {
   const factory Education({
     String? degree,
-    String? school,
+    String? major,
     String? university,
     String? startDate,
     String? endDate,

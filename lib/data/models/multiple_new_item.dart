@@ -5,7 +5,7 @@ class MultipleNewItem extends UserDataEntity {
   @override
   final TextEditingController degreeController;
   @override
-  final TextEditingController schoolController;
+  final TextEditingController majorController;
   @override
   final TextEditingController universityController;
   @override
@@ -19,7 +19,7 @@ class MultipleNewItem extends UserDataEntity {
 
   MultipleNewItem({
     required this.degreeController,
-    required this.schoolController,
+    required this.majorController,
     required this.universityController,
     required this.startDateController,
     required this.endDateController,

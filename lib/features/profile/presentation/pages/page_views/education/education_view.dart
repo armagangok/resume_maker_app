@@ -2,7 +2,6 @@
 
 import '../../../../../../core/export/export.dart';
 
-import '../../../../../../core/widget/buttons/add_new_item.dart';
 import '../../../../../../data/models/multiple_new_item.dart';
 import 'widget/education_item_builder.dart';
 import '../../../widgets/remove_new_item.dart';
@@ -23,8 +22,8 @@ class EducationView extends StatelessWidget {
               degreeController: TextEditingController(
                 text: checkIfDebugMode(text: "License"),
               ),
-              schoolController: TextEditingController(
-                text: checkIfDebugMode(),
+              majorController: TextEditingController(
+                text: checkIfDebugMode(text: "Mechatronics Engineering"),
               ),
               universityController: TextEditingController(
                 text: checkIfDebugMode(text: "Bursa Technical University"),

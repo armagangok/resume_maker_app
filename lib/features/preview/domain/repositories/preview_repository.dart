@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
+import 'package:resume_maker_app/core/error/custom_failure.dart';
+
 import '../../../../core/export/export.dart';
 
 class PreviewRepository {
@@ -21,7 +23,7 @@ class PreviewRepository {
 
       return Result.success(response);
     } on CustomException catch (e) {
-      return Result.failure(_exceptionHandler.handleException(e));
+      return Result.failure(CustomFailure(message: "$e"));
     }
   }
 }

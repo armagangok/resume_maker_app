@@ -13,7 +13,7 @@ part 'profile_state.dart';
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(ProfileInitial());
 
-  final controller = PageController();
+  final pageController = PageController();
 
   void selectCategory(int index) {
     for (var element in categoryList) {
@@ -21,9 +21,9 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
     categoryList[index].model.isSelected = true;
 
-    controller.page;
+    pageController.page;
 
-    controller.animateToPage(
+    pageController.animateToPage(
       index,
       duration: const Duration(milliseconds: 500),
       curve: Curves.decelerate,

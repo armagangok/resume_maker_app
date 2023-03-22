@@ -34,6 +34,7 @@ class PreviewCubit extends Cubit<PreviewState> {
         ),
       );
     } catch (e) {
+      rethrow;
       emit(
         PreviewLoadingError(
           stateMessage: "$e",

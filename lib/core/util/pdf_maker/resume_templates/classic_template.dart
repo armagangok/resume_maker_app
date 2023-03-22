@@ -37,16 +37,16 @@ class ClassicTemplate extends ResumeTemplateContract {
     pdf.addPage(
       pw.MultiPage(
         pageFormat: PdfPageFormat.a4.copyWith(
-          marginTop: 0,
-          marginLeft: 0,
-          marginRight: 0,
-          marginBottom: 0,
+          marginTop: 25,
+          marginLeft: 25,
+          marginRight: 25,
+          marginBottom: 10,
           width: width,
           height: height,
         ),
         theme: pw.ThemeData.withFont(
-          base: await PdfGoogleFonts.varelaRoundRegular(),
-          bold: await PdfGoogleFonts.varelaRoundRegular(),
+          base: await PdfGoogleFonts.poppinsMedium(),
+          bold: await PdfGoogleFonts.poppinsBold(),
           icons: await PdfGoogleFonts.materialIcons(),
         ),
         build: (pw.Context context) => _widgets,
@@ -61,9 +61,11 @@ class ClassicTemplate extends ResumeTemplateContract {
     _widgets.clear();
     row.children.clear();
 
-    var aboutmeWidget = _pdfRepo.getUserData.personal!.summary!.isEmpty
+    var summaryWidget = _pdfRepo.getUserData.personal!.summary!.isEmpty
         ? pw.SizedBox()
-        : aboutMeText(aboutMeText: _pdfRepo.getUserData.personal!.summary!);
+        : aboutMeText(
+            aboutMeText: _pdfRepo.getUserData.personal!.summary!,
+          );
 
     var educationContainer = _pdfRepo.getUserData.education!.isEmpty
         ? pw.SizedBox()
@@ -102,7 +104,8 @@ class ClassicTemplate extends ResumeTemplateContract {
                       head1Text("LANGUAGES"),
                     ],
                   ),
-                  languagesText(languageList: _pdfRepo.getUserData.languages!),
+                  languagesText(
+                      languageList: _pdfRepo.getUserData.languages ?? []),
                 ],
               ),
             ),
@@ -120,7 +123,7 @@ class ClassicTemplate extends ResumeTemplateContract {
                     mainAxisAlignment: pw.MainAxisAlignment.start,
                     children: [
                       getIcon(0xe8d0),
-                      head1Text("SKILLS"),
+                      head1Text("TECHNICAL SKILLS"),
                     ],
                   ),
                   skillText(skills: _pdfRepo.getUserData.skills!),
@@ -135,12 +138,6 @@ class ClassicTemplate extends ResumeTemplateContract {
             child: pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
-                pw.Row(
-                  children: [
-                    head1Text("CONTACT"),
-                  ],
-                ),
-                sizedBox015,
                 contactText(personalModel: _pdfRepo.getUserData.personal!),
               ],
             ),
@@ -148,7 +145,9 @@ class ClassicTemplate extends ResumeTemplateContract {
 
     var nameWidget = _pdfRepo.getUserData.personal == null
         ? pw.SizedBox()
-        : nameText(_pdfRepo.getUserData.personal!.fullName!);
+        : nameText(
+            _pdfRepo.getUserData.personal!.fullName!,
+          );
 
     var qualificationsWidget = _pdfRepo.getUserData.qualifications!.isEmpty
         ? pw.SizedBox()
@@ -167,26 +166,64 @@ class ClassicTemplate extends ResumeTemplateContract {
               )
             : pw.SizedBox();
 
-    pw.Widget first = pw.Row(
+    pw.Widget nameNumberMailWidget = pw.Row(
+      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
       children: [
         pw.Row(
           children: [
             nameWidget,
-            
+            pw.SizedBox(width: 10),
+            pw.Text(
+              _pdfRepo.getUserData.personal!.phone!,
+              maxLines: 1,
+              style: const pw.TextStyle(
+                color: PdfColors.black,
+              ),
+            ),
           ],
+        ),
+        pw.Text(
+          _pdfRepo.getUserData.personal!.email!,
+          maxLines: 1,
+          style: const pw.TextStyle(
+            color: PdfColors.black,
+          ),
         ),
       ],
     );
+
+    pw.Widget titleWidget = pw.Text(
+      _pdfRepo.getUserData.personal!.title!,
+      style: pw.TextStyle(
+        fontWeight: pw.FontWeight.bold,
+      ),
+    );
+
+    // pw.Widget summaryWidget = pw.Text(_pdfRepo.getUserData.personal!.summary!);
+
+    _widgets.add(nameNumberMailWidget);
+    _widgets.add(titleWidget);
+    _widgets.add(customDivider());
+    _widgets.add(sizedBox015);
+    _widgets.add(summaryWidget);
+    _widgets.add(sizedBox015);
+    _widgets.add(contactContainer);
+    _widgets.add(educationContainer);
+    _widgets.add(languageContainer);
+    _widgets.add(sizedBox015);
+    _widgets.add(skillsContainer);
+    _widgets.add(sizedBox015);
+    _widgets.add(experiencesWidget());
   }
 
 // var a = Injection.colorPickerCubit.selectedColor;
-  pw.BoxDecoration _blueBoxDecoration() => pw.BoxDecoration(
-        color: PdfColors.grey100,
-        border: pw.Border.all(color: PdfColors.grey200),
-        borderRadius: const pw.BorderRadius.all(
-          pw.Radius.circular(2),
-        ),
-      );
+  // pw.BoxDecoration _blueBoxDecoration() => pw.BoxDecoration(
+  //       color: PdfColors.grey100,
+  //       border: pw.Border.all(color: PdfColors.grey200),
+  //       borderRadius: const pw.BorderRadius.all(
+  //         pw.Radius.circular(2),
+  //       ),
+  //     );
 
   pw.Widget experiencesWidget() => _pdfRepo.getUserData.experiences!.isEmpty
       ? pw.SizedBox()
@@ -194,7 +231,6 @@ class ClassicTemplate extends ResumeTemplateContract {
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
             head1Text("WORK EXPERIENCE"),
-            pw.SizedBox(height: 2.5),
             experienceText(
               experienceList: _pdfRepo.getUserData.experiences!,
             ),
