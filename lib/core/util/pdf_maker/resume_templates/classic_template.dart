@@ -213,7 +213,7 @@ class ClassicTemplate extends ResumeTemplateContract {
     _widgets.add(sizedBox015);
     _widgets.add(skillsContainer);
     _widgets.add(sizedBox015);
-    _widgets.add(experiencesWidget());
+    experiencesWidget();
   }
 
 // var a = Injection.colorPickerCubit.selectedColor;
@@ -225,17 +225,72 @@ class ClassicTemplate extends ResumeTemplateContract {
   //       ),
   //     );
 
-  pw.Widget experiencesWidget() => _pdfRepo.getUserData.experiences!.isEmpty
-      ? pw.SizedBox()
-      : pw.Column(
-          crossAxisAlignment: pw.CrossAxisAlignment.start,
-          children: [
-            head1Text("WORK EXPERIENCE"),
-            experienceText(
-              experienceList: _pdfRepo.getUserData.experiences!,
-            ),
-          ],
-        );
+  void experiencesWidget() {
+    _pdfRepo.getUserData.experiences!.isEmpty
+        ? pw.SizedBox()
+        : pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [],
+          );
+
+    if (_pdfRepo.getUserData.experiences != null) {
+      if (_pdfRepo.getUserData.experiences!.isNotEmpty) {
+        _widgets.add(head1Text("WORK EXPERIENCE"));
+
+        for (var element in _pdfRepo.getUserData.experiences!) {
+          var item = pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              pw.Row(
+                
+                children: [
+                  pw.Text(
+                    "${element.company}",
+                    style: pw.TextStyle(
+                      fontSize: 10,
+                      fontWeight: pw.FontWeight.bold,
+                    ),
+                  ),
+                  pw.SizedBox(
+                    width: 30,
+                  ),
+                  pw.Text(
+                    "${element.startDate} - ${element.endDate}",
+                    style: const pw.TextStyle(fontSize: 10),
+                  ),
+                ],
+              ),
+              pw.Row(
+                children: [
+                  pw.Container(
+                    width: 5,
+                    height: 5,
+                    color: PdfColors.black,
+                  ),
+                  pw.SizedBox(width: 5),
+                  pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    children: [
+                      pw.Text(
+                        "${element.jobDuties}",
+                        style: const pw.TextStyle(
+                          fontSize: 9,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              )
+            ],
+          );
+          _widgets.add(item);
+          _widgets.add(
+            pw.SizedBox(height: 4),
+          );
+        }
+      }
+    }
+  }
 
   pw.Widget get titleWidget => _pdfRepo.getUserData.personal!.title!.isEmpty
       ? pw.SizedBox()
