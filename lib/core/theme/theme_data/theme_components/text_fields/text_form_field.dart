@@ -22,7 +22,7 @@ InputDecorationTheme inputDecoration() {
     ),
     hintStyle: GoogleFonts.aBeeZee(
       color: iconColor.withOpacity(0.9),
-      fontSize: 16,
+      fontSize: 13,
       fontWeight: FontWeight.lerp(
         FontWeight.w100,
         FontWeight.w100,

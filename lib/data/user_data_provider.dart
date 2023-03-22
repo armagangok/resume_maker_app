@@ -11,17 +11,21 @@ class UserDataProvider {
 
   final _resumeTemplateCubit = Injection.resumeTemplateCubit;
   final _personalDataCubit = Injection.personalDataCubit;
-  final _phoneItemCubit = Injection.phoneItemCubit;
-  final _emailItemCubit = Injection.emailItemCubit;
 
-  UserData _userData = const UserData();
+  UserData _userData = const UserData(
+    personal: Personal(),
+    education: [],
+    languages: [],
+    qualifications: [],
+    skills: [],
+    experiences: [],
+    pdfPath: "",
+    resumeTemplateID: 0,
+  );
 
   UserData get getUserData => _userData;
 
   void prepareUserData({required String pdfPathToSave}) {
-    List<String> phones = [];
-    List<String> emails = [];
-    List<String> links = [];
     List<Education> educationData = [];
     List<Language> languageData = [];
     List<Skills> skillData = [];
@@ -36,33 +40,17 @@ class UserDataProvider {
       zipCode: _personalDataCubit.zipCodeController.text,
       city: _personalDataCubit.cityController.text,
       street: _personalDataCubit.streetController.text,
-      phones: phones,
-      emails: emails,
-      links: links,
+      phone: _personalDataCubit.phoneController.text,
+      email: _personalDataCubit.emailController.text,
+      link: _personalDataCubit.linkController.text,
       summary: _personalDataCubit.summaryController.text,
       imagePath: Injection.imageCubit.imagePath,
     );
 
-    for (NewItemModel phoneController in _phoneItemCubit.newItems) {
-      phones.add(phoneController.controller.text);
-    }
-
-    for (NewItemModel emailController in _emailItemCubit.newItems) {
-      emails.add(emailController.controller.text);
-    }
-
-    for (NewItemModel element in Injection.linkItemCubit.newItems) {
-      links.add(element.controller.text);
-    }
-
-    phones.add(_personalDataCubit.phoneController.text);
-    emails.add(_personalDataCubit.linkController.text);
-    links.add(_personalDataCubit.linkController.text);
-
     for (var element in Injection.educationCubit.newItems) {
       educationData.add(Education(
         degree: element.degreeController!.text,
-        school: element.schoolController!.text,
+        major: element.majorController!.text,
         university: element.universityController!.text,
         startDate: element.startDateController!.text,
         endDate: element.endDateController!.text,
@@ -73,9 +61,9 @@ class UserDataProvider {
       languageData.add(
         Language(
           languageName: element.languageController!.text,
-          writing: element.writingSliderCubit!.getText,
-          reading: element.readingSliderCubit!.getText,
-          speaking: element.speakingSliderCubit!.getText,
+          // writing: element.writingSliderCubit!.getText,
+          languageLevel: element.languageLevelSliderCubit!.getText,
+          // speaking: element.speakingSliderCubit!.getText,
         ),
       );
     }

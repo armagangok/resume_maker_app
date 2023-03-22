@@ -1,10 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import '../../../../../../core/export/export.dart';
-import '../../../../../../core/widget/buttons/add_new_item.dart';
-
-import 'components/profile_picture_widget.dart';
-import '../../../widgets/single_new_item_builder.dart';
 
 class PersonalView extends StatelessWidget {
   const PersonalView({super.key});
@@ -14,8 +10,10 @@ class PersonalView extends StatelessWidget {
     return ListView(
       shrinkWrap: true,
       children: [
-        SizedBox(height: KPadding.height20,),
-        const ProfilePictureWidget(),
+        SizedBox(
+          height: KPadding.height10,
+        ),
+        // const ProfilePictureWidget(),
         SizedBox(height: KPadding.width20),
         SizedBox(
           child: UnderlinedTextField(
@@ -67,41 +65,19 @@ class PersonalView extends StatelessWidget {
             controller: Injection.personalDataCubit.phoneController,
           ),
         ),
-        SingleNewItemBuilder(
-          cubit: Injection.phoneItemCubit,
-          hintText: 'Phone',
-        ),
-        NewItemWidget(
-          onTap: () => Injection.phoneItemCubit.addNewItem(),
-        ),
+
         SizedBox(height: 3 * KPadding.width20),
         UnderlinedTextField(
           hintText: "E-mail",
           controller: Injection.personalDataCubit.emailController,
         ),
-        SingleNewItemBuilder(
-          cubit: Injection.emailItemCubit,
-          hintText: "E-mail",
-        ),
-        NewItemWidget(
-          onTap: () {
-            Injection.emailItemCubit.addNewItem();
-          },
-        ),
+
         SizedBox(height: 3 * KPadding.width20),
         UnderlinedTextField(
           hintText: "Link",
           controller: Injection.personalDataCubit.linkController,
         ),
-        SingleNewItemBuilder(
-          cubit: Injection.linkItemCubit,
-          hintText: "Link",
-        ),
-        NewItemWidget(
-          onTap: () {
-            Injection.linkItemCubit.addNewItem();
-          },
-        ),
+
         SizedBox(height: 3 * KPadding.width20),
         UnderlinedTextField(
           heigth: null,

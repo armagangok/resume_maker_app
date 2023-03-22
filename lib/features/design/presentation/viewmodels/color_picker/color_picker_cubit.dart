@@ -5,8 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../widgets/item.dart';
 
-
-
 part 'color_picker_state.dart';
 
 class ColorPickerCubit extends Cubit<ColorPickerState> {
@@ -20,12 +18,13 @@ class ColorPickerCubit extends Cubit<ColorPickerState> {
     emit(ColorPickerInitial());
   }
 
-  get selectedColor {
+  Color get selectedColor {
     for (var element in resumeColors) {
       if (element.colorModel.isSelected) {
         return element.colorModel.color;
       }
     }
+    return const Color(0x000000ff);
   }
 
   List<ResumeColorItem> resumeColors = [

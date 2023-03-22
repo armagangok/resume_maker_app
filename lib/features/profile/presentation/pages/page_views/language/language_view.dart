@@ -1,5 +1,4 @@
 import '../../../../../../core/export/export.dart';
-import '../../../../../../core/widget/buttons/add_new_item.dart';
 import '../../../../data/models/lang_model.dart';
 import '../../../widgets/remove_new_item.dart';
 
@@ -16,29 +15,17 @@ class LanguageView extends StatelessWidget {
           onTap: () {
             String itemId = Injection.languageCubit.getUniqeID();
 
-            SliderCubit readingCubit = SliderCubit();
-            SliderCubit writingCubit = SliderCubit();
-            SliderCubit speakingCubit = SliderCubit();
+            SliderCubit languageLevelSliderCubit = SliderCubit();
 
             var languageModel = LanguageModel(
-              readingSliderCubit: readingCubit,
-              writingSliderCubit: writingCubit,
-              speakingSliderCubit: speakingCubit,
+              languageLevelSliderCubit: languageLevelSliderCubit,
               languageController: TextEditingController(
                 text: checkIfDebugMode(text: "English"),
               ),
               itemID: itemId,
-              readingSlider: SliderWidget(
-                title: "Reading",
-                cubit: readingCubit,
-              ),
-              writingSlider: SliderWidget(
-                title: "Writing",
-                cubit: writingCubit,
-              ),
-              speakingSlider: SliderWidget(
-                title: "Speaking",
-                cubit: speakingCubit,
+              languageLevelSlider: SliderWidget(
+                title: "Level",
+                cubit: languageLevelSliderCubit,
               ),
               removeWidget: RemoveNewItemWidget(
                 itemID: itemId,

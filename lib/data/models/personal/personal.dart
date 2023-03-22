@@ -15,9 +15,9 @@ abstract class Personal with _$Personal {
     String? street,
     String? summary,
     String? imagePath,
-    List<String>? phones,
-    List<String>? emails,
-    List<String>? links,
+    String? phone,
+    String? email,
+    String? link,
   }) = _Personal;
 
   factory Personal.fromJson(Map<String, dynamic> json) =>

@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
-import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
+
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../../../../core/export/export.dart';
 
@@ -41,22 +44,28 @@ class _HomePageState extends State<HomePage> {
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
         if (state is HomeUserDataDeleteFailure) {
-          context.showSnackBar(const SnackBar(
-            content: Text("Failed to delete user resume data."),
-          ));
+          context.showSnackBar(
+            const SnackBar(
+              content: Text("Failed to delete user resume data."),
+            ),
+          );
         } else if (state is HomeUserDataSaved) {
-          context.showSnackBar(const SnackBar(
-            content: Text("User resume data saved successfuly."),
-          ));
+          context.showSnackBar(
+            const SnackBar(
+              content: Text("User resume data saved successfuly."),
+            ),
+          );
         } else if (state is HomeUserDataSavingFailure) {
-          context.showSnackBar(const SnackBar(
-            content: Text("Failed to save user resume data."),
-          ));
+          context.showSnackBar(
+            const SnackBar(
+              content: Text("Failed to save user resume data."),
+            ),
+          );
         }
       },
       bloc: Injection.homeCubit,
       builder: (context, state) {
-        if (state is HomeUserDataFetched) {
+        if (state is HomeUserDataFetched) {   
           if (state.userDataList.isEmpty) {
             return const Center(
               child: Text("Please create a new resume for yourself!"),
@@ -64,15 +73,13 @@ class _HomePageState extends State<HomePage> {
           } else {
             return GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.725
-                ),
+                    crossAxisCount: 2, childAspectRatio: 0.725),
                 itemCount: state.userDataList.length,
                 itemBuilder: (context, index) {
+                  print(state.userDataList[index].pdfPath);
+                  File file = File(state.userDataList[index].pdfPath ?? "");
                   return Card(
-                    child: PdfView(
-                      path: state.userDataList[index].pdfPath ?? "",
-                    ),
+                    child: SfPdfViewer.file(file),
                   );
                 });
           }

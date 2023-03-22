@@ -38,7 +38,6 @@ class CustomContainer extends StatelessWidget {
             ? [
                 const BoxShadow(
                   // color: Colors.grey.withOpacity(0.5),
-
                   spreadRadius: 0,
                   blurRadius: 3,
                   offset: Offset(3, 3), // changes position of shadow

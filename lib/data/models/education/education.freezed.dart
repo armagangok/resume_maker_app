@@ -21,7 +21,7 @@ Education _$EducationFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Education {
   String? get degree => throw _privateConstructorUsedError;
-  String? get school => throw _privateConstructorUsedError;
+  String? get major => throw _privateConstructorUsedError;
   String? get university => throw _privateConstructorUsedError;
   String? get startDate => throw _privateConstructorUsedError;
   String? get endDate => throw _privateConstructorUsedError;
@@ -39,7 +39,7 @@ abstract class $EducationCopyWith<$Res> {
   @useResult
   $Res call(
       {String? degree,
-      String? school,
+      String? major,
       String? university,
       String? startDate,
       String? endDate});
@@ -59,7 +59,7 @@ class _$EducationCopyWithImpl<$Res, $Val extends Education>
   @override
   $Res call({
     Object? degree = freezed,
-    Object? school = freezed,
+    Object? major = freezed,
     Object? university = freezed,
     Object? startDate = freezed,
     Object? endDate = freezed,
@@ -69,9 +69,9 @@ class _$EducationCopyWithImpl<$Res, $Val extends Education>
           ? _value.degree
           : degree // ignore: cast_nullable_to_non_nullable
               as String?,
-      school: freezed == school
-          ? _value.school
-          : school // ignore: cast_nullable_to_non_nullable
+      major: freezed == major
+          ? _value.major
+          : major // ignore: cast_nullable_to_non_nullable
               as String?,
       university: freezed == university
           ? _value.university
@@ -98,7 +98,7 @@ abstract class _$$_EducationCopyWith<$Res> implements $EducationCopyWith<$Res> {
   @useResult
   $Res call(
       {String? degree,
-      String? school,
+      String? major,
       String? university,
       String? startDate,
       String? endDate});
@@ -116,7 +116,7 @@ class __$$_EducationCopyWithImpl<$Res>
   @override
   $Res call({
     Object? degree = freezed,
-    Object? school = freezed,
+    Object? major = freezed,
     Object? university = freezed,
     Object? startDate = freezed,
     Object? endDate = freezed,
@@ -126,9 +126,9 @@ class __$$_EducationCopyWithImpl<$Res>
           ? _value.degree
           : degree // ignore: cast_nullable_to_non_nullable
               as String?,
-      school: freezed == school
-          ? _value.school
-          : school // ignore: cast_nullable_to_non_nullable
+      major: freezed == major
+          ? _value.major
+          : major // ignore: cast_nullable_to_non_nullable
               as String?,
       university: freezed == university
           ? _value.university
@@ -150,11 +150,7 @@ class __$$_EducationCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Education implements _Education {
   const _$_Education(
-      {this.degree,
-      this.school,
-      this.university,
-      this.startDate,
-      this.endDate});
+      {this.degree, this.major, this.university, this.startDate, this.endDate});
 
   factory _$_Education.fromJson(Map<String, dynamic> json) =>
       _$$_EducationFromJson(json);
@@ -162,7 +158,7 @@ class _$_Education implements _Education {
   @override
   final String? degree;
   @override
-  final String? school;
+  final String? major;
   @override
   final String? university;
   @override
@@ -172,7 +168,7 @@ class _$_Education implements _Education {
 
   @override
   String toString() {
-    return 'Education(degree: $degree, school: $school, university: $university, startDate: $startDate, endDate: $endDate)';
+    return 'Education(degree: $degree, major: $major, university: $university, startDate: $startDate, endDate: $endDate)';
   }
 
   @override
@@ -181,7 +177,7 @@ class _$_Education implements _Education {
         (other.runtimeType == runtimeType &&
             other is _$_Education &&
             (identical(other.degree, degree) || other.degree == degree) &&
-            (identical(other.school, school) || other.school == school) &&
+            (identical(other.major, major) || other.major == major) &&
             (identical(other.university, university) ||
                 other.university == university) &&
             (identical(other.startDate, startDate) ||
@@ -192,7 +188,7 @@ class _$_Education implements _Education {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, degree, school, university, startDate, endDate);
+      Object.hash(runtimeType, degree, major, university, startDate, endDate);
 
   @JsonKey(ignore: true)
   @override
@@ -211,7 +207,7 @@ class _$_Education implements _Education {
 abstract class _Education implements Education {
   const factory _Education(
       {final String? degree,
-      final String? school,
+      final String? major,
       final String? university,
       final String? startDate,
       final String? endDate}) = _$_Education;
@@ -222,7 +218,7 @@ abstract class _Education implements Education {
   @override
   String? get degree;
   @override
-  String? get school;
+  String? get major;
   @override
   String? get university;
   @override

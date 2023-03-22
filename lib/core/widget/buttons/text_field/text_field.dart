@@ -24,6 +24,7 @@ class UnderlinedTextField extends StatelessWidget {
     return SizedBox(
       height: heigth?.h,
       child: TextField(
+        style: context.bodyMedium,
         textAlignVertical: TextAlignVertical.top,
         // scrollPadding: EdgeInsets.zero,
         controller: controller,
@@ -59,8 +60,9 @@ class RemovableTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 40,
+      height: 40.h,
       child: TextField(
+        style: context.bodyMedium,
         textAlignVertical: TextAlignVertical.top,
         // scrollPadding: EdgeInsets.zero,
         controller: controller,

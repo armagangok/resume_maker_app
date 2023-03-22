@@ -21,9 +21,7 @@ Language _$LanguageFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Language {
   String? get languageName => throw _privateConstructorUsedError;
-  String? get writing => throw _privateConstructorUsedError;
-  String? get reading => throw _privateConstructorUsedError;
-  String? get speaking => throw _privateConstructorUsedError;
+  String? get languageLevel => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,11 +34,7 @@ abstract class $LanguageCopyWith<$Res> {
   factory $LanguageCopyWith(Language value, $Res Function(Language) then) =
       _$LanguageCopyWithImpl<$Res, Language>;
   @useResult
-  $Res call(
-      {String? languageName,
-      String? writing,
-      String? reading,
-      String? speaking});
+  $Res call({String? languageName, String? languageLevel});
 }
 
 /// @nodoc
@@ -57,26 +51,16 @@ class _$LanguageCopyWithImpl<$Res, $Val extends Language>
   @override
   $Res call({
     Object? languageName = freezed,
-    Object? writing = freezed,
-    Object? reading = freezed,
-    Object? speaking = freezed,
+    Object? languageLevel = freezed,
   }) {
     return _then(_value.copyWith(
       languageName: freezed == languageName
           ? _value.languageName
           : languageName // ignore: cast_nullable_to_non_nullable
               as String?,
-      writing: freezed == writing
-          ? _value.writing
-          : writing // ignore: cast_nullable_to_non_nullable
-              as String?,
-      reading: freezed == reading
-          ? _value.reading
-          : reading // ignore: cast_nullable_to_non_nullable
-              as String?,
-      speaking: freezed == speaking
-          ? _value.speaking
-          : speaking // ignore: cast_nullable_to_non_nullable
+      languageLevel: freezed == languageLevel
+          ? _value.languageLevel
+          : languageLevel // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -89,11 +73,7 @@ abstract class _$$_LanguageCopyWith<$Res> implements $LanguageCopyWith<$Res> {
       __$$_LanguageCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String? languageName,
-      String? writing,
-      String? reading,
-      String? speaking});
+  $Res call({String? languageName, String? languageLevel});
 }
 
 /// @nodoc
@@ -108,26 +88,16 @@ class __$$_LanguageCopyWithImpl<$Res>
   @override
   $Res call({
     Object? languageName = freezed,
-    Object? writing = freezed,
-    Object? reading = freezed,
-    Object? speaking = freezed,
+    Object? languageLevel = freezed,
   }) {
     return _then(_$_Language(
       languageName: freezed == languageName
           ? _value.languageName
           : languageName // ignore: cast_nullable_to_non_nullable
               as String?,
-      writing: freezed == writing
-          ? _value.writing
-          : writing // ignore: cast_nullable_to_non_nullable
-              as String?,
-      reading: freezed == reading
-          ? _value.reading
-          : reading // ignore: cast_nullable_to_non_nullable
-              as String?,
-      speaking: freezed == speaking
-          ? _value.speaking
-          : speaking // ignore: cast_nullable_to_non_nullable
+      languageLevel: freezed == languageLevel
+          ? _value.languageLevel
+          : languageLevel // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -136,8 +106,7 @@ class __$$_LanguageCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Language implements _Language {
-  const _$_Language(
-      {this.languageName, this.writing, this.reading, this.speaking});
+  const _$_Language({this.languageName, this.languageLevel});
 
   factory _$_Language.fromJson(Map<String, dynamic> json) =>
       _$$_LanguageFromJson(json);
@@ -145,15 +114,11 @@ class _$_Language implements _Language {
   @override
   final String? languageName;
   @override
-  final String? writing;
-  @override
-  final String? reading;
-  @override
-  final String? speaking;
+  final String? languageLevel;
 
   @override
   String toString() {
-    return 'Language(languageName: $languageName, writing: $writing, reading: $reading, speaking: $speaking)';
+    return 'Language(languageName: $languageName, languageLevel: $languageLevel)';
   }
 
   @override
@@ -163,16 +128,13 @@ class _$_Language implements _Language {
             other is _$_Language &&
             (identical(other.languageName, languageName) ||
                 other.languageName == languageName) &&
-            (identical(other.writing, writing) || other.writing == writing) &&
-            (identical(other.reading, reading) || other.reading == reading) &&
-            (identical(other.speaking, speaking) ||
-                other.speaking == speaking));
+            (identical(other.languageLevel, languageLevel) ||
+                other.languageLevel == languageLevel));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, languageName, writing, reading, speaking);
+  int get hashCode => Object.hash(runtimeType, languageName, languageLevel);
 
   @JsonKey(ignore: true)
   @override
@@ -190,21 +152,14 @@ class _$_Language implements _Language {
 
 abstract class _Language implements Language {
   const factory _Language(
-      {final String? languageName,
-      final String? writing,
-      final String? reading,
-      final String? speaking}) = _$_Language;
+      {final String? languageName, final String? languageLevel}) = _$_Language;
 
   factory _Language.fromJson(Map<String, dynamic> json) = _$_Language.fromJson;
 
   @override
   String? get languageName;
   @override
-  String? get writing;
-  @override
-  String? get reading;
-  @override
-  String? get speaking;
+  String? get languageLevel;
   @override
   @JsonKey(ignore: true)
   _$$_LanguageCopyWith<_$_Language> get copyWith =>

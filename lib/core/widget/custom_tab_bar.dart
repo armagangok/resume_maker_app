@@ -30,6 +30,7 @@ class _CustomTabBarWidgetState extends State<CustomTabBarWidget> {
       height: 65.h,
       child: Center(
         child: ListView.separated(
+           physics: const BouncingScrollPhysics(),
           addAutomaticKeepAlives: false,
           addRepaintBoundaries: false,
           scrollDirection: Axis.horizontal,

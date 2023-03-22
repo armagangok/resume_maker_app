@@ -7,9 +7,7 @@ part 'language.g.dart';
 abstract class Language with _$Language {
   const factory Language({
     String? languageName,
-    String? writing,
-    String? reading,
-    String? speaking,
+    String? languageLevel,
   }) = _Language;
 
   factory Language.fromJson(Map<String, dynamic> json) =>

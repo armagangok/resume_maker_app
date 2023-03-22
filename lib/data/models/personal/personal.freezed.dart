@@ -29,9 +29,9 @@ mixin _$Personal {
   String? get street => throw _privateConstructorUsedError;
   String? get summary => throw _privateConstructorUsedError;
   String? get imagePath => throw _privateConstructorUsedError;
-  List<String>? get phones => throw _privateConstructorUsedError;
-  List<String>? get emails => throw _privateConstructorUsedError;
-  List<String>? get links => throw _privateConstructorUsedError;
+  String? get phone => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
+  String? get link => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,9 +54,9 @@ abstract class $PersonalCopyWith<$Res> {
       String? street,
       String? summary,
       String? imagePath,
-      List<String>? phones,
-      List<String>? emails,
-      List<String>? links});
+      String? phone,
+      String? email,
+      String? link});
 }
 
 /// @nodoc
@@ -81,9 +81,9 @@ class _$PersonalCopyWithImpl<$Res, $Val extends Personal>
     Object? street = freezed,
     Object? summary = freezed,
     Object? imagePath = freezed,
-    Object? phones = freezed,
-    Object? emails = freezed,
-    Object? links = freezed,
+    Object? phone = freezed,
+    Object? email = freezed,
+    Object? link = freezed,
   }) {
     return _then(_value.copyWith(
       title: freezed == title
@@ -122,18 +122,18 @@ class _$PersonalCopyWithImpl<$Res, $Val extends Personal>
           ? _value.imagePath
           : imagePath // ignore: cast_nullable_to_non_nullable
               as String?,
-      phones: freezed == phones
-          ? _value.phones
-          : phones // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      emails: freezed == emails
-          ? _value.emails
-          : emails // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      links: freezed == links
-          ? _value.links
-          : links // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      link: freezed == link
+          ? _value.link
+          : link // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -155,9 +155,9 @@ abstract class _$$_PersonalCopyWith<$Res> implements $PersonalCopyWith<$Res> {
       String? street,
       String? summary,
       String? imagePath,
-      List<String>? phones,
-      List<String>? emails,
-      List<String>? links});
+      String? phone,
+      String? email,
+      String? link});
 }
 
 /// @nodoc
@@ -180,9 +180,9 @@ class __$$_PersonalCopyWithImpl<$Res>
     Object? street = freezed,
     Object? summary = freezed,
     Object? imagePath = freezed,
-    Object? phones = freezed,
-    Object? emails = freezed,
-    Object? links = freezed,
+    Object? phone = freezed,
+    Object? email = freezed,
+    Object? link = freezed,
   }) {
     return _then(_$_Personal(
       title: freezed == title
@@ -221,18 +221,18 @@ class __$$_PersonalCopyWithImpl<$Res>
           ? _value.imagePath
           : imagePath // ignore: cast_nullable_to_non_nullable
               as String?,
-      phones: freezed == phones
-          ? _value._phones
-          : phones // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      emails: freezed == emails
-          ? _value._emails
-          : emails // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      links: freezed == links
-          ? _value._links
-          : links // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      link: freezed == link
+          ? _value.link
+          : link // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -250,12 +250,9 @@ class _$_Personal implements _Personal {
       this.street,
       this.summary,
       this.imagePath,
-      final List<String>? phones,
-      final List<String>? emails,
-      final List<String>? links})
-      : _phones = phones,
-        _emails = emails,
-        _links = links;
+      this.phone,
+      this.email,
+      this.link});
 
   factory _$_Personal.fromJson(Map<String, dynamic> json) =>
       _$$_PersonalFromJson(json);
@@ -278,39 +275,16 @@ class _$_Personal implements _Personal {
   final String? summary;
   @override
   final String? imagePath;
-  final List<String>? _phones;
   @override
-  List<String>? get phones {
-    final value = _phones;
-    if (value == null) return null;
-    if (_phones is EqualUnmodifiableListView) return _phones;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  final List<String>? _emails;
+  final String? phone;
   @override
-  List<String>? get emails {
-    final value = _emails;
-    if (value == null) return null;
-    if (_emails is EqualUnmodifiableListView) return _emails;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  final List<String>? _links;
+  final String? email;
   @override
-  List<String>? get links {
-    final value = _links;
-    if (value == null) return null;
-    if (_links is EqualUnmodifiableListView) return _links;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
+  final String? link;
 
   @override
   String toString() {
-    return 'Personal(title: $title, fullName: $fullName, birthday: $birthday, country: $country, zipCode: $zipCode, city: $city, street: $street, summary: $summary, imagePath: $imagePath, phones: $phones, emails: $emails, links: $links)';
+    return 'Personal(title: $title, fullName: $fullName, birthday: $birthday, country: $country, zipCode: $zipCode, city: $city, street: $street, summary: $summary, imagePath: $imagePath, phone: $phone, email: $email, link: $link)';
   }
 
   @override
@@ -330,27 +304,15 @@ class _$_Personal implements _Personal {
             (identical(other.summary, summary) || other.summary == summary) &&
             (identical(other.imagePath, imagePath) ||
                 other.imagePath == imagePath) &&
-            const DeepCollectionEquality().equals(other._phones, _phones) &&
-            const DeepCollectionEquality().equals(other._emails, _emails) &&
-            const DeepCollectionEquality().equals(other._links, _links));
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.link, link) || other.link == link));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      title,
-      fullName,
-      birthday,
-      country,
-      zipCode,
-      city,
-      street,
-      summary,
-      imagePath,
-      const DeepCollectionEquality().hash(_phones),
-      const DeepCollectionEquality().hash(_emails),
-      const DeepCollectionEquality().hash(_links));
+  int get hashCode => Object.hash(runtimeType, title, fullName, birthday,
+      country, zipCode, city, street, summary, imagePath, phone, email, link);
 
   @JsonKey(ignore: true)
   @override
@@ -377,9 +339,9 @@ abstract class _Personal implements Personal {
       final String? street,
       final String? summary,
       final String? imagePath,
-      final List<String>? phones,
-      final List<String>? emails,
-      final List<String>? links}) = _$_Personal;
+      final String? phone,
+      final String? email,
+      final String? link}) = _$_Personal;
 
   factory _Personal.fromJson(Map<String, dynamic> json) = _$_Personal.fromJson;
 
@@ -402,11 +364,11 @@ abstract class _Personal implements Personal {
   @override
   String? get imagePath;
   @override
-  List<String>? get phones;
+  String? get phone;
   @override
-  List<String>? get emails;
+  String? get email;
   @override
-  List<String>? get links;
+  String? get link;
   @override
   @JsonKey(ignore: true)
   _$$_PersonalCopyWith<_$_Personal> get copyWith =>

@@ -26,7 +26,7 @@ class EducationNewItemBuilder extends StatelessWidget {
                   UnderlinedTextField(
                     hintText: "School",
                     controller: Injection
-                        .educationCubit.newItems[index].schoolController!,
+                        .educationCubit.newItems[index].majorController!,
                   ),
                   UnderlinedTextField(
                     hintText: "University",

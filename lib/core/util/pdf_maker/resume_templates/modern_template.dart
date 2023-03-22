@@ -28,9 +28,11 @@ class ModernTemplate extends ResumeTemplateContract {
   @override
   Future<Uint8List> getcreatedPdfAsUint8List() async {
     final pdf = pw.Document();
+
     pdf.addPage(
       pw.MultiPage(
-        pageFormat: PdfPageFormat.letter.copyWith(
+        
+        pageFormat: PdfPageFormat.a4.copyWith(
           marginTop: 0,
           marginLeft: 0,
           marginRight: 0,
@@ -43,9 +45,7 @@ class ModernTemplate extends ResumeTemplateContract {
           bold: await PdfGoogleFonts.varelaRoundRegular(),
           icons: await PdfGoogleFonts.materialIcons(),
         ),
-        build: (pw.Context context) {
-          return _widgets;
-        },
+        build: (pw.Context context) => _widgets,
       ),
     );
     return await pdf.save();
@@ -54,6 +54,7 @@ class ModernTemplate extends ResumeTemplateContract {
   @override
   void buildUpPDF() {
     _widgets.clear();
+    _widgets.add(nameWidget());
     _widgets.add(summaryWidget());
     _widgets.add(languageWidget());
     _widgets.add(experiencesWidget());
@@ -110,19 +111,19 @@ class ModernTemplate extends ResumeTemplateContract {
           ],
         );
 
-  pw.Widget nameWidget() => _pdfRepo.getUserData.personal!.fullName == null ||
-          _pdfRepo.getUserData.personal!.fullName!.isEmpty
-      ? pw.SizedBox()
-      : pw.FittedBox(
-          child: pw.Text(
+  pw.Widget nameWidget() {
+    print(_pdfRepo.getUserData.personal!.fullName);
+    return _pdfRepo.getUserData.personal!.fullName!.isEmpty
+        ? pw.SizedBox()
+        : pw.Text(
             _pdfRepo.getUserData.personal!.fullName!,
             style: const pw.TextStyle(
               color: PdfColors.white,
               fontSize: 35,
             ),
             maxLines: 1,
-          ),
-        );
+          );
+  }
 
   pw.Widget contactWidget() => _pdfRepo.getUserData.personal != null
       ? pw.Column(

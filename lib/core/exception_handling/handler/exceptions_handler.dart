@@ -17,12 +17,12 @@ class ExceptionHandler {
       },
       deletingCustomException: () {
         return CustomFailure(
-          message: "Oh! We couldn't delete this favorite.",
+          message: "Oh! We couldn't delete this resume.",
         );
       },
       unknownRemoteException: () {
         return CustomFailure(
-          message: "Oh! Something went wrong with the internet:(",
+          message: "Oh! Something went wrong with the internet :(",
         );
       },
       noInternetException: () {

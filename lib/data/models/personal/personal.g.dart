@@ -16,12 +16,9 @@ _$_Personal _$$_PersonalFromJson(Map<String, dynamic> json) => _$_Personal(
       street: json['street'] as String?,
       summary: json['summary'] as String?,
       imagePath: json['imagePath'] as String?,
-      phones:
-          (json['phones'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      emails:
-          (json['emails'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      links:
-          (json['links'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      phone: json['phone'] as String?,
+      email: json['email'] as String?,
+      link: json['link'] as String?,
     );
 
 Map<String, dynamic> _$$_PersonalToJson(_$_Personal instance) =>
@@ -35,7 +32,7 @@ Map<String, dynamic> _$$_PersonalToJson(_$_Personal instance) =>
       'street': instance.street,
       'summary': instance.summary,
       'imagePath': instance.imagePath,
-      'phones': instance.phones,
-      'emails': instance.emails,
-      'links': instance.links,
+      'phone': instance.phone,
+      'email': instance.email,
+      'link': instance.link,
     };

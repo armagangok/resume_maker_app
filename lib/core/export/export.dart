@@ -71,3 +71,4 @@ export '/features/profile/presentation/pages/page_views/personal/cubit/personal_
 export '/features/profile/presentation/pages/profile_page.dart';
 export '/features/profile/presentation/widgets/slider_widget.dart';
 export '/features/root_page/presentation/cubit/root_cubit.dart';
+export '/core/widget/buttons/add_new_item.dart';
