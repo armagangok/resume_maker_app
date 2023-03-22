@@ -1,9 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import '../../../../../../core/export/export.dart';
-import '../../../../../../core/widget/buttons/add_new_item.dart';
 
-import 'components/profile_picture_widget.dart';
+
 import '../../../widgets/single_new_item_builder.dart';
 
 class PersonalView extends StatelessWidget {
@@ -14,8 +13,10 @@ class PersonalView extends StatelessWidget {
     return ListView(
       shrinkWrap: true,
       children: [
-        SizedBox(height: KPadding.height20,),
-        const ProfilePictureWidget(),
+        SizedBox(
+          height: KPadding.height10,
+        ),
+        // const ProfilePictureWidget(),
         SizedBox(height: KPadding.width20),
         SizedBox(
           child: UnderlinedTextField(

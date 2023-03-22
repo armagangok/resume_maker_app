@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:path/path.dart';
 
 import '../../../../core/export/export.dart';
+import '../../../../core/widget/stroke_text.dart';
 
 class ResumeTemplateBuilder extends StatelessWidget {
   const ResumeTemplateBuilder({
@@ -33,47 +35,52 @@ class ResumeTemplateBuilder extends StatelessWidget {
     );
   }
 
-  Widget _resumeItem(int index) => Padding(
-        padding: EdgeInsets.all(5.0.w),
-        child: Stack(
-          children: [
-            GestureDetector(
-              onTap: () {
-                Injection.resumeTemplateCubit.selectTemplate(index);
-              },
-              child: Container(
-                height: 300.h,
-                color: Injection.colorPickerCubit.selectedColor,
-                child: Center(
-                  child: Text(
-                    Injection.resumeTemplateCubit.resumeTemplateList[index]
-                        .templateName,
-                  ),
-                ),
-              ),
-            ),
-            Visibility(
-              visible: Injection
-                  .resumeTemplateCubit.resumeTemplateList[index].isSelected,
-              child: Positioned(
-                bottom: 5.w,
-                right: 5.w,
-                child: CircleAvatar(
-                  radius: 19.h,
-                  backgroundColor: Colors.white,
-                  child: CircleAvatar(
-                    backgroundColor: selectedItemColor,
-                    radius: 18.h,
-                    child: Icon(
-                      CupertinoIcons.checkmark_alt,
-                      size: 25.h,
-                      color: white,
+  Widget _resumeItem(int index) => Builder(
+    builder: (context) {
+      return Padding(
+            padding: EdgeInsets.all(5.0.w),
+            child: Stack(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Injection.resumeTemplateCubit.selectTemplate(index);
+                  },
+                  child: Container(
+                    height: 300.h,
+                    color: Injection.colorPickerCubit.selectedColor,
+                    child: Center(
+                      child: StrokeText(
+                        text: Injection.resumeTemplateCubit.resumeTemplateList[index]
+                            .templateName,
+                            style: context.bodyLarge,
+                      ),
                     ),
                   ),
                 ),
-              ),
+                Visibility(
+                  visible: Injection
+                      .resumeTemplateCubit.resumeTemplateList[index].isSelected,
+                  child: Positioned(
+                    bottom: 5.w,
+                    right: 5.w,
+                    child: CircleAvatar(
+                      radius: 19.h,
+                      backgroundColor: Colors.white,
+                      child: CircleAvatar(
+                        backgroundColor: selectedItemColor,
+                        radius: 18.h,
+                        child: Icon(
+                          CupertinoIcons.checkmark_alt,
+                          size: 25.h,
+                          color: white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      );
+          );
+    }
+  );
 }

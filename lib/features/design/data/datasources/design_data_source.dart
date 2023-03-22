@@ -4,10 +4,10 @@ import '../../../../core/export/export.dart';
 
 class DesignDataSource extends DesignDataSourceContract {
   final List<ResumeTemplateContract> _resumeTemplateList = [
-    ModernTemplate.instance,
-    CloudTemplate.instance,
-    GreyPlainTemplate.instance,
-    PeachPuffTemplate.instance,
+    // ModernTemplate.instance,
+    // CloudTemplate.instance,
+    // GreyPlainTemplate.instance,
+    // PeachPuffTemplate.instance,
     ClassicTemplate.instance,
   ];
 

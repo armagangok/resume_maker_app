@@ -13,7 +13,7 @@ class ClassicTemplate extends ResumeTemplateContract {
   final String templateName = 'Classic Template';
 
   @override
-  bool isSelected = false;
+  bool isSelected = true;
 
   @override
   String filePath = "";

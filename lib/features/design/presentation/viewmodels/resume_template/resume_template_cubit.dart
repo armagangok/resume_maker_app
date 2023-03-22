@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:resume_maker_app/core/util/pdf_maker/resume_templates/classic_template.dart';
+
 import '../../../../../core/export/export.dart';
 
 part 'resume_template_state.dart';
@@ -15,7 +17,7 @@ class ResumeTemplateCubit extends Cubit<ResumeTemplateState> {
 
   late final DesignDataSourceContract resumeTemplateSource;
 
-  ResumeTemplateContract selectedTemplate = ModernTemplate.instance;
+  ResumeTemplateContract selectedTemplate = ClassicTemplate.instance;
 
   void selectTemplate(int index) {
     for (var element in _resumeTemplateList) {
