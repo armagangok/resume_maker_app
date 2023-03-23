@@ -2,9 +2,9 @@ import 'package:resume_maker_app/core/util/hive/hive_helper.dart';
 import 'package:resume_maker_app/core/util/hive/hive_keys.dart';
 import 'package:resume_maker_app/core/util/logger.dart';
 
-class UserDataServiceImp {
-  UserDataServiceImp._();
-  static final instance = UserDataServiceImp._();
+class UserDataSourceImp {
+  UserDataSourceImp._();
+  static final instance = UserDataSourceImp._();
 
   Future<void> saveUserData(String userData) async {
     var response = await HiveHelper.shared.addData<String>(
@@ -16,7 +16,8 @@ class UserDataServiceImp {
   }
 
   Future<dynamic> fetchUserData() async {
-    var response = await HiveHelper.shared.getAll<String>(HiveBoxes.userDataBox);
+    var response =
+        await HiveHelper.shared.getAll<String>(HiveBoxes.userDataBox);
 
     LogHelper.shared.debugPrint("$response");
     return response;

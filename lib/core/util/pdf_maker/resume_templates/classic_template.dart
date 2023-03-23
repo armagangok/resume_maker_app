@@ -242,7 +242,6 @@ class ClassicTemplate extends ResumeTemplateContract {
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
               pw.Row(
-                
                 children: [
                   pw.Text(
                     "${element.company}",
@@ -251,9 +250,7 @@ class ClassicTemplate extends ResumeTemplateContract {
                       fontWeight: pw.FontWeight.bold,
                     ),
                   ),
-                  pw.SizedBox(
-                    width: 30,
-                  ),
+                  pw.SizedBox(width: 30),
                   pw.Text(
                     "${element.startDate} - ${element.endDate}",
                     style: const pw.TextStyle(fontSize: 10),

@@ -1,5 +1,5 @@
 import 'package:resume_maker_app/core/error/custom_failure.dart';
-import 'package:resume_maker_app/data/services/user_data_service.dart';
+import 'package:resume_maker_app/data/datasources/user_datasource.dart';
 
 import '../../core/result_types/result/result.dart';
 
@@ -7,7 +7,7 @@ class UserDataRepository {
   UserDataRepository._();
   static final instance = UserDataRepository._();
 
-  final _userDataService = UserDataServiceImp.instance;
+  final _userDataService = UserDataSourceImp.instance;
 
   Future<Result<bool>> saveUserData(String userData) async {
     try {

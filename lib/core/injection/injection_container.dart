@@ -1,6 +1,5 @@
 import 'package:get_it/get_it.dart';
 
-import '../../features/home/presentation/viewmodels/file_entity/file_entity_cubit.dart';
 import '../export/export.dart';
 
 final getit = GetIt.instance;
@@ -74,9 +73,6 @@ void setupViewmodels() {
   getit.registerLazySingleton<PreviewCubit>(
     () => PreviewCubit(),
   );
-  // getit.registerLazySingleton<FileEntityCubit>(
-  //   () => FileEntityCubit(homeUsecase: getit.get()),
-  // );
 
   getit.registerLazySingleton<HomeCubit>(
     () => HomeCubit(homeUsecase: getit.get()),

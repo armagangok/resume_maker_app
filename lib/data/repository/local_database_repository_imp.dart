@@ -3,15 +3,13 @@ import 'package:resume_maker_app/core/error/custom_failure.dart';
 import '../../core/result_types/result/result.dart';
 import '../../core/util/hive/hive_helper.dart';
 import '../../core/util/logger.dart';
-import '../contracts/database_contract.dart';
 
-class LocalDatabaseRepositoryImp extends DatabaseContract {
+class LocalDatabaseRepositoryImp {
   LocalDatabaseRepositoryImp._();
   static final instance = LocalDatabaseRepositoryImp._();
 
   final HiveHelper _hiveHelper = HiveHelper.shared;
 
-  @override
   Future<Result<dynamic>> fetchData<T>({
     required String boxName,
   }) async {
@@ -31,7 +29,6 @@ class LocalDatabaseRepositoryImp extends DatabaseContract {
     }
   }
 
-  @override
   Future<Result<bool>> deleteData<T>({
     required int index,
     required String boxName,
@@ -49,7 +46,6 @@ class LocalDatabaseRepositoryImp extends DatabaseContract {
     }
   }
 
-  @override
   Future<Result<bool>> saveData<T>({
     required dataModel,
     required String boxName,
@@ -66,7 +62,6 @@ class LocalDatabaseRepositoryImp extends DatabaseContract {
     }
   }
 
-  @override
   Future<void> updateData<T>({
     required newDataModel,
     required String boxName,
