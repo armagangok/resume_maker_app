@@ -23,7 +23,7 @@ class GreyPlainTemplate extends ResumeTemplateContract {
   @override
   String filePath = "";
 
-  final _pdfRepo = PdfRepo.instance;
+  final _pdfRepo = PdfRepository.instance;
 
   @override
   final int resumeTemplateID = 1;

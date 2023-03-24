@@ -1,5 +1,6 @@
-import 'package:resume_maker_app/core/export/export.dart';
-import 'package:resume_maker_app/features/home/presentation/viewmodels/file_entity/file_entity_cubit.dart';
+
+
+import '../export/export.dart';
 
 class Injection {
   Injection._();
@@ -14,8 +15,7 @@ class Injection {
   static final _experienceCubit = MultipleItemCubit();
 
   static NavigationContract get navigator => getit.call<NavigationContract>();
-  static ColorPickerCubit get colorPickerCubit =>
-      getit.call<ColorPickerCubit>();
+  static ColorPickerCubit get colorPickerCubit => getit.call<ColorPickerCubit>();
   static PreviewCubit get previewCubit => getit.call<PreviewCubit>();
   static ProfileCubit get profileCubit => getit.call<ProfileCubit>();
   static NewItemCubit get phoneItemCubit => _phoneItemCubit;
@@ -28,10 +28,7 @@ class Injection {
   static MultipleItemCubit get experienceCubit => _experienceCubit;
   static RootCubit get rootCubit => getit.call<RootCubit>();
   static HomeCubit get homeCubit => getit.call<HomeCubit>();
-  static ResumeTemplateCubit get resumeTemplateCubit => getit();
-  // static FileEntityCubit get fileEntityCubit => getit();
-
-  static PersonalDataCubit get personalDataCubit =>
-      getit.call<PersonalDataCubit>();
+  static ResumeTemplateCubit get resumeTemplateCubit => getit.call<ResumeTemplateCubit>();
+  static PersonalDataCubit get personalDataCubit => getit.call<PersonalDataCubit>();
   static ImageCubit get imageCubit => getit.call<ImageCubit>();
 }

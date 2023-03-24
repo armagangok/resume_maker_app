@@ -1,13 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:resume_maker_app/features/home/presentation/pages/home_page.dart';
+import 'package:resume_maker_app/core/export/export.dart';
 
-import '../../features/design/presentation/pages/design_page.dart';
-import '../../features/export/presentation/pages/export_page.dart';
-import '../../features/preview/presentation/pages/preview_page.dart';
-import '../../features/profile/presentation/pages/profile_page.dart';
-import '../../features/root_page/presentation/pages/root_page.dart';
-import '../../features/splash/presentation/pages/splash_page.dart';
-import 'constant/routes.dart';
+
+
 
 class NavigationRoute {
   static final NavigationRoute _instance = NavigationRoute._init();

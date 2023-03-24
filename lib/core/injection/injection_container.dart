@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
 
-import '../../features/home/presentation/viewmodels/file_entity/file_entity_cubit.dart';
+import '../../domain/repositories/home_repository.dart';
 import '../export/export.dart';
 
 final getit = GetIt.instance;
@@ -10,6 +10,7 @@ void initDependencies() {
   setupDataSources();
   setupUsecases();
   setupRepositories();
+  setupDataProviders();
 }
 
 void setupUsecases() {
@@ -34,6 +35,7 @@ void setupDataSources() {
   getit.registerLazySingleton<DesignDataSourceContract>(
     () => DesignDataSource(),
   );
+
   getit.registerLazySingleton<HomeDataSourceContract>(
     () => HomeDataSource(),
   );
@@ -57,7 +59,8 @@ void setupViewmodels() {
     () => MultipleItemCubit(),
   );
   getit.registerLazySingleton<PersonalDataCubit>(
-    () => PersonalDataCubit(),
+    () => PersonalDataCubit(
+    ),
   );
 
   getit.registerLazySingleton<ImageCubit>(
@@ -74,9 +77,6 @@ void setupViewmodels() {
   getit.registerLazySingleton<PreviewCubit>(
     () => PreviewCubit(),
   );
-  // getit.registerLazySingleton<FileEntityCubit>(
-  //   () => FileEntityCubit(homeUsecase: getit.get()),
-  // );
 
   getit.registerLazySingleton<HomeCubit>(
     () => HomeCubit(homeUsecase: getit.get()),
@@ -85,4 +85,10 @@ void setupViewmodels() {
   getit.registerLazySingleton<ResumeTemplateCubit>(
     () => ResumeTemplateCubit(resumeTemplateSource: getit()),
   );
+}
+
+
+
+void setupDataProviders() {
+  
 }

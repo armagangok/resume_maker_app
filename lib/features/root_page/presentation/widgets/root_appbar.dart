@@ -60,7 +60,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             DateTime.now(),
           );
 
-          UserDataProvider.instance.prepareUserData(
+          UserDataProvider.prepareUserData(
             pdfPathToSave: "",
           );
 
@@ -68,11 +68,11 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             fileName: pdfName,
           );
 
-          UserDataProvider.instance.prepareUserData(
+          UserDataProvider.prepareUserData(
             pdfPathToSave: pdfPath,
           );
 
-          var encodedJson = UserDataProvider.instance.encodeUserData();
+          var encodedJson = UserDataProvider.encodeUserData();
 
           await Injection.rootCubit.saveUserData(encodedJson);
           await Injection.homeCubit.fetchHomeUserData();
