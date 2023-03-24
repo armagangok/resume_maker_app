@@ -7,7 +7,7 @@ import 'package:resume_maker_app/core/export/export.dart';
 
 import '../components/pdf_components.dart';
 import '../contract/template_contract.dart';
-import '../repository/repo.dart';
+import '../repository/pdf_repository.dart';
 
 // const String path = 'assets/person.png';
 

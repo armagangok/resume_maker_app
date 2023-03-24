@@ -39,6 +39,7 @@ class PreviewCubit extends Cubit<PreviewState> {
           stateMessage: "$e",
         ),
       );
+      rethrow;
     }
   }
 

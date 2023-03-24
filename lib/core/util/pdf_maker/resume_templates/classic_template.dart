@@ -143,10 +143,10 @@ class ClassicTemplate extends ResumeTemplateContract {
             ),
           );
 
-    var nameWidget = _pdfRepo.getUserData.personal == null
+    var nameWidget = _pdfRepo.getUserData.personal!.fullName!.isEmpty 
         ? pw.SizedBox()
         : nameText(
-            _pdfRepo.getUserData.personal!.fullName!,
+            _pdfRepo.getUserData.personal!.fullName ?? "",
           );
 
     var qualificationsWidget = _pdfRepo.getUserData.qualifications!.isEmpty
@@ -199,8 +199,6 @@ class ClassicTemplate extends ResumeTemplateContract {
       ),
     );
 
-    // pw.Widget summaryWidget = pw.Text(_pdfRepo.getUserData.personal!.summary!);
-
     _widgets.add(nameNumberMailWidget);
     _widgets.add(titleWidget);
     _widgets.add(customDivider());
@@ -215,15 +213,6 @@ class ClassicTemplate extends ResumeTemplateContract {
     _widgets.add(sizedBox015);
     experiencesWidget();
   }
-
-// var a = Injection.colorPickerCubit.selectedColor;
-  // pw.BoxDecoration _blueBoxDecoration() => pw.BoxDecoration(
-  //       color: PdfColors.grey100,
-  //       border: pw.Border.all(color: PdfColors.grey200),
-  //       borderRadius: const pw.BorderRadius.all(
-  //         pw.Radius.circular(2),
-  //       ),
-  //     );
 
   void experiencesWidget() {
     _pdfRepo.getUserData.experiences!.isEmpty

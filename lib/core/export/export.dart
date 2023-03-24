@@ -27,7 +27,7 @@ export '/core/util/directory_helper/directory_helper.dart';
 export '/core/util/hive/hive_helper.dart';
 export '/core/util/hive/hive_keys.dart';
 export '/core/util/pdf_maker/contract/template_contract.dart';
-export '/core/util/pdf_maker/repository/repo.dart';
+export '../util/pdf_maker/repository/pdf_repository.dart';
 export '/core/util/pdf_maker/resume_templates/cloud_template.dart';
 export '/core/util/pdf_maker/resume_templates/grey_plain_template.dart';
 export '/core/util/pdf_maker/resume_templates/modern_template.dart';
