@@ -19,7 +19,7 @@ class ClassicTemplate extends ResumeTemplateContract {
   String filePath = "";
 
   @override
-  final int resumeTemplateID = 0;
+  final int resumeTemplateID = 5;
 
   final List<pw.Widget> _widgets = [];
 
@@ -29,7 +29,7 @@ class ClassicTemplate extends ResumeTemplateContract {
     children: [],
   );
 
-  final PdfRepo _pdfRepo = PdfRepo.instance;
+  final PdfRepository _pdfRepo = PdfRepository.instance;
 
   @override
   Future<Uint8List> getcreatedPdfAsUint8List() async {

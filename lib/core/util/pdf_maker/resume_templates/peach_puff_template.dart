@@ -16,7 +16,7 @@ class PeachPuffTemplate extends ResumeTemplateContract {
 
   static final instance = PeachPuffTemplate._();
 
-  final _myrepo = PdfRepo.instance;
+  final _myrepo = PdfRepository.instance;
 
   @override
   final String templateName = "Peach Puff Template";

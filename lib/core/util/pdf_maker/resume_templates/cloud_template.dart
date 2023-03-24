@@ -29,7 +29,7 @@ class CloudTemplate extends ResumeTemplateContract {
     children: [],
   );
 
-  final PdfRepo _pdfRepo = PdfRepo.instance;
+  final PdfRepository _pdfRepo = PdfRepository.instance;
 
   @override
   Future<Uint8List> getcreatedPdfAsUint8List() async {
