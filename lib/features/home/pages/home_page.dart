@@ -2,9 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
-import '../../../../core/export/export.dart';
+import '/core/export/export.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,7 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    Injection.homeCubit.fetchHomeUserData();
+    Injection.homeCubit.fetchUserData();
     super.initState();
   }
 
@@ -84,12 +83,12 @@ class _HomePageState extends State<HomePage> {
       itemCount: state.userDataList.length,
       itemBuilder: (context, index) {
         File file = File(state.userDataList[index].pdfPath ?? "");
-        return _gridItem(file, context, state.userDataList[index]);
+        return _gridItem(file, context, state.userDataList[index] ,index);
       },
     );
   }
 
-  Column _gridItem(File file, BuildContext contex, UserData userData) {
+  Column _gridItem(File file, BuildContext contex, UserData userData,int index) {
     return Column(
       children: [
         Expanded(
@@ -109,41 +108,55 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             _editButton(userData),
-            _deleteButton(context),
+            _deleteButton(index),
           ],
         ),
       ],
     );
   }
 
-  InkWell _deleteButton(BuildContext context) {
-    return InkWell(
-      onTap: () async {
-        await context.cupertinoDialog(
-          widget: IosChoiceDialog(
-            title: "Are you sure?",
-            message: "Resume will be deleted forever.",
-            dialogAction: () {},
+  Widget _deleteButton(int index) => Builder(
+      builder: (context) {
+        return InkWell(
+          onTap: () async => await context.cupertinoDialog(
+              widget: IosChoiceDialog(
+                title: "Are you sure?",
+                message: "Resume will be deleted forever.",
+                action1: DialogAction(actionText: "Delete", action: ()async{
+                  await Injection.homeCubit.deleteUserData(index);
+                  Injection.navigator.pop();
+                }),
+                action2: DialogAction(
+                  actionText: "", 
+                action: () {
+
+                },
+                ),
+                action3: DialogAction(
+                  actionText: "Get Back", 
+                  action: (){},
+                  ),
+
+              ),
+            ),
+          child: Column(
+            children: [
+              const Icon(
+                CupertinoIcons.trash_fill,
+                color: deleteRedColor,
+              ),
+              _itemText("Delete"),
+            ],
           ),
         );
-      },
-      child: Column(
-        children: [
-          const Icon(
-            CupertinoIcons.trash_fill,
-            color: deleteRedColor,
-          ),
-          _itemText("Delete"),
-        ],
-      ),
+      }
     );
-  }
 
   InkWell _editButton(UserData userData) {
     return InkWell(
       onTap: () async {
-        // Injection.userDataProvider.setUserData(userData);
-        await Injection.navigator.navigaToClear(path: rootPage);
+        SavedResumeDataProvider.shared.setupControllers(userData);
+        Injection.navigator.navigateTo(path: rootPage);
       },
       child: Column(
         children: [
@@ -166,3 +179,5 @@ class _HomePageState extends State<HomePage> {
         SnackBar(content: Text(text)),
       );
 }
+
+

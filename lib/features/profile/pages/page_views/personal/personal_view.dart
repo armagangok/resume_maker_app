@@ -19,7 +19,7 @@ class PersonalView extends StatelessWidget {
           child: UnderlinedTextField(
             hintText: "Profession Title",
             helperText: "Example: Software Developer",
-            controller: Injection.personalDataCubit.professionController,
+            controller: Injection.personalDataCubit.title,
           ),
         ),
         SizedBox(

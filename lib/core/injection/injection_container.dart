@@ -19,6 +19,9 @@ void setupUsecases() {
       homeRepository: getit.get(),
     ),
   );
+  getit.registerLazySingleton<UserDataUsecase>(
+    () => UserDataUsecase.instance,
+  );
 }
 
 void setupRepositories() {

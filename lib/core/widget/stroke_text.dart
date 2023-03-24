@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:resume_maker_app/core/extension/context_extension.dart';
+
+import '/core/extension/context_extension.dart';
 
 class StrokeText extends StatelessWidget {
   const StrokeText({
@@ -29,7 +30,7 @@ class StrokeText extends StatelessWidget {
             foreground: Paint()
               ..style = PaintingStyle.stroke
               ..strokeWidth = 2
-              ..color = Color.fromARGB(255, 188, 188, 188),
+              ..color = const Color.fromARGB(255, 188, 188, 188),
           ),
         ),
         // Solid text as fill.

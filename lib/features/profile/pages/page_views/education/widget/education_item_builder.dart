@@ -44,7 +44,7 @@ class EducationNewItemBuilder extends StatelessWidget {
                         .educationCubit.newItems[index].endDateController!,
                   ),
                   SizedBox(height: KPadding.height5),
-                  Injection.educationCubit.newItems[index].removeWidget!,
+                  Injection.educationCubit.newItems[index].removeWidget ?? const SizedBox(),
                 ],
               ),
             ),

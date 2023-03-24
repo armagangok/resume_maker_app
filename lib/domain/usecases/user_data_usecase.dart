@@ -9,15 +9,13 @@ class UserDataUsecase {
 
   final _repo = UserDataRepository.instance;
 
-  Future<Result< dynamic>> fetchUserData() async {
+  Future<Result<List<String>>> fetchUserData() async {
     var response = await _repo.fetchUserData();
-
     return response;
   }
 
-  Future<Result<dynamic>> deleteUserData(int index) async {
+  Future<Result> deleteUserData(int index) async {
     var response = await _repo.deleteUserData(index);
-
     return response;
   }
 

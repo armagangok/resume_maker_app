@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-import 'package:resume_maker_app/data/user_data_provider.dart';
 
 import '../../../../core/export/export.dart';
 
@@ -53,10 +52,11 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   IosChoiceDialog dialogWidget() => IosChoiceDialog(
-        title: "Warning",
+    title: "Warning",
         message: "Do you wish to save your changes?",
-        dialogAction: () async {
-          String pdfName = DateFormat('yyyy-MM-dd  kk.mm.ss').format(
+    action1: DialogAction(actionText: "Save", 
+    action: ()async{
+       String pdfName = DateFormat('yyyy-MM-dd  kk.mm.ss').format(
             DateTime.now(),
           );
 
@@ -75,9 +75,25 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           var encodedJson = UserDataProvider.encodeUserData();
 
           await Injection.rootCubit.saveUserData(encodedJson);
-          await Injection.homeCubit.fetchHomeUserData();
+          await Injection.homeCubit.fetchUserData();
           Injection.navigator.navigaToClear(path: homePage);
-        },
+
+    }
+  ),
+
+  action2: DialogAction(actionText:"Don't Save", action: (){
+    Injection.navigator.navigaToClear(path: homePage);
+  }),
+
+  action3: DialogAction(
+    actionText: "Get Back",
+    action: () {
+      Injection.navigator.pop();
+    },
+  ),
+        
+        
+        
       );
 
   PreferredSize _bottomDivider() => PreferredSize(

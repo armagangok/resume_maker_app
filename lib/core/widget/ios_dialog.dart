@@ -1,8 +1,8 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:resume_maker_app/core/injection/injection_service.dart';
-import 'package:resume_maker_app/core/navigation/constant/routes.dart';
+
 import 'package:resume_maker_app/core/theme/constants/colors.dart';
 
 import '../extension/context_extension.dart';
@@ -123,14 +123,22 @@ import '../extension/context_extension.dart';
 class IosChoiceDialog extends StatelessWidget {
   const IosChoiceDialog({
     Key? key,
+
+    required this.action1,
+    required this.action2,
+    required this.action3,
     required this.title,
     required this.message,
-    required this.dialogAction,
+    
   }) : super(key: key);
+
+  final DialogAction? action1;
+  final DialogAction? action2;
+  final DialogAction? action3;
 
   final String title;
   final String message;
-  final Function dialogAction;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -149,65 +157,64 @@ class IosChoiceDialog extends StatelessWidget {
             warningText(context),
             SizedBox(height: context.height(0.02)),
             messageText(context),
-            const Divider(
-              height: 0,
-              thickness: 1.5,
-            ),
-
-            IntrinsicHeight(
-              child: _dialogButton(
-                text: "Save Changes",
-                onTap: () => dialogAction(),
-              ),
-            ),
-
-            const Divider(
-              height: 0,
-              thickness: 1.5,
-            ),
-
-            IntrinsicHeight(
-              child: _dialogButton(
-                text: "Don't Save",
-                onTap: () => Injection.navigator.navigaToClear(path: homePage),
-                color: Colors.red,
-              ),
-            ),
-
-            const Divider(
-              height: 0,
-              thickness: 1.5,
-            ),
-
-            IntrinsicHeight(
-              child: _dialogButton(
-                text: "Get Back",
-                onTap: () => Injection.navigator.pop(),
-                color: Colors.red,
-              ),
-            ),
-
-            // IntrinsicHeight(
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //     children: [
-            //       _dialogButton(
-            //         text: "Discard",
-            //         onTap: () => navigation.getBack(),
-            //         color: Colors.red,
-            //       ),
-            //       const VerticalDivider(
-            //         width: 0,
-            //         thickness: 1.5,
-            //       ),
-            //     ],
-            //   ),
-            // ),
+            action1 != null ? _action1() : const SizedBox(),
+            action2 != null ? _action2() : const SizedBox(),
+            action3 != null ? _action3() : const SizedBox(),
+                        
           ],
         ),
       ),
     );
   }
+
+  Widget _action3() => Column(
+            children: [
+              const Divider(
+                height: 0,
+                thickness: 1.5,
+              ),
+
+              IntrinsicHeight(
+                child: _dialogButton(
+                  text: action3!.actionText,
+                  onTap: () => action3!.action(),
+                  color: Colors.red,
+                ),
+              ),
+            ],
+          );
+
+  Widget _action1() => Column(
+            children: [
+              const Divider(
+                height: 0,
+                thickness: 1.5,
+              ),
+              IntrinsicHeight(
+                child: _dialogButton(
+                  text: action1!.actionText,
+                  onTap: () => action1!.action(),
+                ),
+              ),
+            ],
+          );
+
+  Widget _action2() => Column(
+            children: [
+              const Divider(
+                height: 0,
+                thickness: 1.5,
+              ),
+
+              IntrinsicHeight(
+                child: _dialogButton(
+                  text: action2!.actionText,
+                  onTap: () => action1!.action(),
+                  color: Colors.red,
+                ),
+              ),
+            ],
+          );
 
   Padding messageText(BuildContext context) => Padding(
         padding: EdgeInsets.only(bottom: context.height(0.02)),
@@ -248,4 +255,15 @@ class IosChoiceDialog extends StatelessWidget {
           ),
         ),
       );
+}
+
+
+class DialogAction {
+  final String actionText;
+  final Function action;
+
+  DialogAction({
+    required this.actionText,
+    required this.action,
+  });
 }

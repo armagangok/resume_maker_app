@@ -31,7 +31,7 @@ class UserDataProvider {
     List<Qualifications> qualificationData = [];
 
     Personal personalDataModel = Personal(
-      title: _personalDataCubit.professionController.text,
+      title: _personalDataCubit.title.text,
       fullName: _personalDataCubit.fullNameController.text,
       birthday: _personalDataCubit.birthDayController.text,
       country: _personalDataCubit.countryController.text,
