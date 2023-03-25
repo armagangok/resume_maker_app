@@ -9,8 +9,6 @@ class HomeDataSource extends HomeDataSourceContract {
 
     var filePathList = Directory(directory.path).listSync();
 
-    print(filePathList);
-
     return filePathList;
   }
 }

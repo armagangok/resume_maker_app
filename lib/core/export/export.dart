@@ -63,6 +63,7 @@ export '/features/design/pages/design_page.dart';
 export '/features/design/viewmodels/color_picker/color_picker_cubit.dart';
 export '/features/design/viewmodels/resume_template/resume_template_cubit.dart';
 export '/features/design/widgets/resume_list_view.dart';
+export '/features/export/cubit/export_cubit.dart';
 export '/features/export/pages/export_page.dart';
 export '/features/home/pages/home_page.dart';
 export '/features/home/viewmodels/home/home_cubit.dart';

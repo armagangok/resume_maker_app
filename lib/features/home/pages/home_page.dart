@@ -1,7 +1,7 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
-
 
 import '/core/export/export.dart';
 
@@ -64,11 +64,11 @@ class _HomePageState extends State<HomePage> {
           return Column(
             children: const [
               Text("PDF Data fetching, please wait."),
-              CircularProgressIndicator(),
+              CupertinoActivityIndicator(),
             ],
           );
         } else {
-          return const Text("data");
+          return const Text("");
         }
       },
     );
@@ -83,12 +83,18 @@ class _HomePageState extends State<HomePage> {
       itemCount: state.userDataList.length,
       itemBuilder: (context, index) {
         File file = File(state.userDataList[index].pdfPath ?? "");
-        return _gridItem(file, context, state.userDataList[index] ,index);
+
+        return _gridItem(file, context, state.userDataList[index], index);
       },
     );
   }
 
-  Column _gridItem(File file, BuildContext contex, UserData userData,int index) {
+  Column _gridItem(
+    File file,
+    BuildContext contex,
+    UserData userData,
+    int index,
+  ) {
     return Column(
       children: [
         Expanded(
@@ -115,25 +121,49 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _deleteButton(int index) => Builder(
-      builder: (context) {
+  Widget _deleteButton(int index) => Builder(builder: (context) {
         return InkWell(
           onTap: () async => await context.cupertinoDialog(
-              widget: IosChoiceDialog(
-                title: "Are you sure?",
-                message: "Resume will be deleted forever.",
-                action1: DialogAction(actionText: "Delete", action: ()async{
-                  await Injection.homeCubit.deleteUserData(index);
-                  Injection.navigator.pop();
-                }),
-                action3: DialogAction(
-                  actionText: "Get Back", 
-                  action: () {
-                    Injection.navigator.pop();
-                  },
+            widget: Center(
+              child: Padding(
+                padding: EdgeInsets.all(KPadding.height30),
+                child: CupertinoActionSheet(
+                  title: Text(
+                    "Are you sure to delete?",
+                    style: context.titleMedium,
+                  ),
+                  message: const Text(
+                    "Resume will be deleted forever.",
+                  ),
+                  actions: [
+                    CupertinoActionSheetAction(
+                      onPressed: () async {
+                        await Injection.homeCubit.deleteUserData(index);
+                        Injection.navigator.pop();
+                      },
+                      child: Text(
+                        "Delete",
+                        style: context.bodyMedium.copyWith(
+                          color: deleteRedColor,
+                        ),
+                      ),
+                    ),
+                    CupertinoActionSheetAction(
+                      onPressed: () {
+                        Injection.navigator.pop();
+                      },
+                      child: Text(
+                        "Discard",
+                        style: context.bodyMedium.copyWith(
+                          color: selectedItemColor,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
+          ),
           child: Column(
             children: [
               const Icon(
@@ -144,8 +174,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         );
-      }
-    );
+      });
 
   InkWell _editButton(UserData userData) {
     return InkWell(
@@ -153,35 +182,39 @@ class _HomePageState extends State<HomePage> {
         // SavedResumeDataProvider.shared.setupControllers(userData);
         // Injection.navigator.navigateTo(path: rootPage);
         context.cupertinoDialog(
-          
-          widget:  Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CupertinoActionSheet(
-              
-              actions: [
-                CupertinoActionSheetAction(
-                  onPressed: () => Injection.navigator.pop(), 
-                  child: Text("OK",style: context.bodyMedium.copyWith(
-                    color: Colors.white
+          widget: Center(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 5,
+                sigmaY: 5,
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(KPadding.height30),
+                child: CupertinoActionSheet(
+                  actions: [
+                    CupertinoActionSheetAction(
+                      onPressed: () => Injection.navigator.pop(),
+                      child: Text(
+                        "OK",
+                        style: context.bodyMedium
+                            .copyWith(color: selectedItemColor),
+                      ),
                     ),
+                  ],
+                  title: Text(
+                    "Message from developer!",
+                    style: context.titleMedium,
+                    textAlign: TextAlign.center,
                   ),
-                ),
-                
-              ],
-              title: Text(
-                "Message from developer!",
-                style: context.titleMedium,
-                textAlign: TextAlign.center,
-                ),
-              message: const Text(
-                "Edit resume feature will be enabled very soon! We are grateful for your understanding.",
-                textAlign: TextAlign.center,
+                  message: const Text(
+                    "Edit resume feature will be enabled very soon! We are grateful for your understanding.",
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
             ),
           ),
-      );
+        );
       },
       child: Column(
         children: [
@@ -204,5 +237,3 @@ class _HomePageState extends State<HomePage> {
         SnackBar(content: Text(text)),
       );
 }
-
-

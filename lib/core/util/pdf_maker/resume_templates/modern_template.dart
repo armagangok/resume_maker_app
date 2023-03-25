@@ -15,7 +15,7 @@ class ModernTemplate extends ResumeTemplateContract {
   get templateName => 'Modern Template';
 
   @override
-  bool isSelected = true;
+  bool isSelected = false;
 
   @override
   String filePath = "";
@@ -31,7 +31,6 @@ class ModernTemplate extends ResumeTemplateContract {
 
     pdf.addPage(
       pw.MultiPage(
-        
         pageFormat: PdfPageFormat.a4.copyWith(
           marginTop: 0,
           marginLeft: 0,
@@ -112,7 +111,6 @@ class ModernTemplate extends ResumeTemplateContract {
         );
 
   pw.Widget nameWidget() {
-    print(_pdfRepo.getUserData.personal!.fullName);
     return _pdfRepo.getUserData.personal!.fullName!.isEmpty
         ? pw.SizedBox()
         : pw.Text(
