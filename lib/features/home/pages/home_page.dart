@@ -126,17 +126,12 @@ class _HomePageState extends State<HomePage> {
                   await Injection.homeCubit.deleteUserData(index);
                   Injection.navigator.pop();
                 }),
-                action2: DialogAction(
-                  actionText: "", 
-                action: () {
-
-                },
-                ),
                 action3: DialogAction(
                   actionText: "Get Back", 
-                  action: (){},
-                  ),
-
+                  action: () {
+                    Injection.navigator.pop();
+                  },
+                ),
               ),
             ),
           child: Column(
@@ -155,8 +150,38 @@ class _HomePageState extends State<HomePage> {
   InkWell _editButton(UserData userData) {
     return InkWell(
       onTap: () async {
-        SavedResumeDataProvider.shared.setupControllers(userData);
-        Injection.navigator.navigateTo(path: rootPage);
+        // SavedResumeDataProvider.shared.setupControllers(userData);
+        // Injection.navigator.navigateTo(path: rootPage);
+        context.cupertinoDialog(
+          
+          widget:  Center(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CupertinoActionSheet(
+              
+              actions: [
+                CupertinoActionSheetAction(
+                  onPressed: () => Injection.navigator.pop(), 
+                  child: Text("OK",style: context.bodyMedium.copyWith(
+                    color: Colors.white
+                    ),
+                  ),
+                ),
+                
+              ],
+              title: Text(
+                "Message from developer!",
+                style: context.titleMedium,
+                textAlign: TextAlign.center,
+                ),
+              message: const Text(
+                "Edit resume feature will be enabled very soon! We are grateful for your understanding.",
+                textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ),
+      );
       },
       child: Column(
         children: [

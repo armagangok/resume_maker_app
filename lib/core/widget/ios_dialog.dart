@@ -124,9 +124,9 @@ class IosChoiceDialog extends StatelessWidget {
   const IosChoiceDialog({
     Key? key,
 
-    required this.action1,
-    required this.action2,
-    required this.action3,
+     this.action1,
+     this.action2,
+     this.action3,
     required this.title,
     required this.message,
     
@@ -209,7 +209,7 @@ class IosChoiceDialog extends StatelessWidget {
               IntrinsicHeight(
                 child: _dialogButton(
                   text: action2!.actionText,
-                  onTap: () => action1!.action(),
+                  onTap: () => action2!.action(),
                   color: Colors.red,
                 ),
               ),

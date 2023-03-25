@@ -86,26 +86,3 @@ class RemoveNewItemWidget extends StatelessWidget {
     }
   }
 }
-
-
-
-        // UnderlinedTextField(
-        //   hintText: "Degree",
-        //   controller: TextEditingController(),
-        // ),
-        // UnderlinedTextField(
-        //   hintText: "School",
-        //   controller: TextEditingController(),
-        // ),
-        // UnderlinedTextField(
-        //   hintText: "University",
-        //   controller: TextEditingController(),
-        // ),
-        // UnderlinedTextField(
-        //   hintText: "Start Date",
-        //   controller: TextEditingController(),
-        // ),
-        // UnderlinedTextField(
-        //   hintText: "End Date",
-        //   controller: TextEditingController(),
-        // ),

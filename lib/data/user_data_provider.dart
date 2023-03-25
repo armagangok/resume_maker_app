@@ -46,13 +46,15 @@ class UserDataProvider {
     );
 
     for (var element in Injection.educationCubit.newItems) {
-      educationData.add(Education(
-        degree: element.degreeController!.text,
-        major: element.majorController!.text,
-        university: element.universityController!.text,
-        startDate: element.startDateController!.text,
-        endDate: element.endDateController!.text,
-      ));
+      educationData.add(
+        Education(
+          degree: element.degreeController!.text,
+          major: element.majorController!.text,
+          university: element.universityController!.text,
+          startDate: element.startDateController!.text,
+          endDate: element.endDateController!.text,
+        ),
+      );
     }
 
     for (var element in Injection.languageCubit.newItems) {

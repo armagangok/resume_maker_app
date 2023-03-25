@@ -54,9 +54,10 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   IosChoiceDialog dialogWidget() => IosChoiceDialog(
     title: "Warning",
         message: "Do you wish to save your changes?",
-    action1: DialogAction(actionText: "Save", 
-    action: ()async{
-       String pdfName = DateFormat('yyyy-MM-dd  kk.mm.ss').format(
+    action1: DialogAction(
+      actionText: "Save", 
+      action: () async {
+          String pdfName = DateFormat('yyyy-MM-dd  kk.mm.ss').format(
             DateTime.now(),
           );
 
@@ -77,24 +78,24 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           await Injection.rootCubit.saveUserData(encodedJson);
           await Injection.homeCubit.fetchUserData();
           Injection.navigator.navigaToClear(path: homePage);
+      }
+    ),
 
-    }
-  ),
+    action2: DialogAction(
+      actionText:"Don't Save", 
+      action: () {
+        Injection.navigator.navigaToClear(path: homePage);
+      }
+    ),
 
-  action2: DialogAction(actionText:"Don't Save", action: (){
-    Injection.navigator.navigaToClear(path: homePage);
-  }),
-
-  action3: DialogAction(
-    actionText: "Get Back",
-    action: () {
-      Injection.navigator.pop();
-    },
-  ),
+    action3: DialogAction(
+      actionText: "Get Back",
+      action: () {
+        Injection.navigator.pop();
+      },
+    ),
         
-        
-        
-      );
+  );
 
   PreferredSize _bottomDivider() => PreferredSize(
         preferredSize: Size.fromHeight(4.0.h),
