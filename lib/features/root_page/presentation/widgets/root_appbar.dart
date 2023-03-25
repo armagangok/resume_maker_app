@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-import 'package:resume_maker_app/data/user_data_provider.dart';
 
 import '../../../../core/export/export.dart';
 
@@ -52,33 +51,75 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  IosChoiceDialog dialogWidget() => IosChoiceDialog(
-        title: "Warning",
-        message: "Do you wish to save your changes?",
-        dialogAction: () async {
-          String pdfName = DateFormat('yyyy-MM-dd  kk.mm.ss').format(
-            DateTime.now(),
-          );
+  Widget dialogWidget() => Builder(builder: (context) {
+        return Center(
+          child: Padding(
+            padding: EdgeInsets.all(30.0.w),
+            child: CupertinoActionSheet(
+              title: Text(
+                "Warning",
+                style: context.bodyMedium,
+              ),
+              message: Text(
+                "Do you wish to save your changes?",
+                style: context.bodySmall
+                    .copyWith(color: const Color.fromARGB(255, 164, 164, 164)),
+              ),
+              actions: [
+                CupertinoActionSheetAction(
+                  onPressed: () async {
+                    String pdfName = DateFormat('yyyy-MM-dd  kk.mm.ss').format(
+                      DateTime.now(),
+                    );
 
-          UserDataProvider.prepareUserData(
-            pdfPathToSave: "",
-          );
+                    UserDataProvider.prepareUserData(
+                      pdfPathToSave: "",
+                    );
 
-          var pdfPath = await Injection.previewCubit.createPdf(
-            fileName: pdfName,
-          );
+                    var pdfPath = await Injection.previewCubit.createPdf(
+                      fileName: pdfName,
+                    );
 
-          UserDataProvider.prepareUserData(
-            pdfPathToSave: pdfPath,
-          );
+                    UserDataProvider.prepareUserData(
+                      pdfPathToSave: pdfPath,
+                    );
 
-          var encodedJson = UserDataProvider.encodeUserData();
+                    var encodedJson = UserDataProvider.encodeUserData();
 
-          await Injection.rootCubit.saveUserData(encodedJson);
-          await Injection.homeCubit.fetchHomeUserData();
-          Injection.navigator.navigaToClear(path: homePage);
-        },
-      );
+                    await Injection.rootCubit.saveUserData(encodedJson);
+                    await Injection.homeCubit.fetchUserData();
+                    Injection.navigator.navigaToClear(path: homePage);
+                  },
+                  child: Text(
+                    "Save",
+                    style: context.bodyMedium.copyWith(
+                      color: selectedItemColor,
+                    ),
+                  ),
+                ),
+                CupertinoActionSheetAction(
+                  onPressed: () {
+                    Injection.navigator.navigaToClear(path: homePage);
+                  },
+                  child: Text(
+                    "Don't Save",
+                    style: context.bodyMedium.copyWith(color: deleteRedColor),
+                  ),
+                ),
+                CupertinoActionSheetAction(
+                  onPressed: () {
+                    Injection.navigator.pop();
+                  },
+                  child: Text(
+                    "Get Back",
+                    style: context.bodyMedium.copyWith(color: deleteRedColor),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      });
 
   PreferredSize _bottomDivider() => PreferredSize(
         preferredSize: Size.fromHeight(4.0.h),

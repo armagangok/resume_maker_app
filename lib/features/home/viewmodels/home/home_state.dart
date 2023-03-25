@@ -10,6 +10,8 @@ class HomeUserDataSaved extends HomeState {}
 
 class HomeUserDataDeleted extends HomeState {}
 
+class HomeUserDataDeleting extends HomeState {}
+
 class HomeUserDataDeleteFailure extends HomeState {}
 
 class HomeUserDataFetched extends HomeState {

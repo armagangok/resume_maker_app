@@ -1,16 +1,15 @@
 import '/core/export/export.dart';
+part 'education_state.dart';
 
-part 'multiple_item_state.dart';
-
-class MultipleItemCubit extends Cubit<MultipleItemState> {
-  MultipleItemCubit() : super(MultipleItemInitial());
+class EducationCubit extends Cubit<EducationState> {
+  EducationCubit() : super(EducationInitial());
 
   List<UserDataEntity> newItems = [];
 
   void addNewItem(UserDataEntity data) {
     newItems.add(data);
 
-    emit(MultipleItemAdded());
+    emit(EducationAdded());
   }
 
   String getUniqeID() {
@@ -23,7 +22,7 @@ class MultipleItemCubit extends Cubit<MultipleItemState> {
       (element) => element.itemID == id,
     );
 
-    emit(MultipleItemRemoved());
+    emit(EducationRemoved());
   }
 
   bool checkIfOnlyUp(index) {

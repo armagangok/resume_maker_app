@@ -19,6 +19,9 @@ void setupUsecases() {
       homeRepository: getit.get(),
     ),
   );
+  getit.registerLazySingleton<UserDataUsecase>(
+    () => UserDataUsecase.instance,
+  );
 }
 
 void setupRepositories() {
@@ -59,8 +62,7 @@ void setupViewmodels() {
     () => MultipleItemCubit(),
   );
   getit.registerLazySingleton<PersonalDataCubit>(
-    () => PersonalDataCubit(
-    ),
+    () => PersonalDataCubit(),
   );
 
   getit.registerLazySingleton<ImageCubit>(
@@ -85,10 +87,10 @@ void setupViewmodels() {
   getit.registerLazySingleton<ResumeTemplateCubit>(
     () => ResumeTemplateCubit(resumeTemplateSource: getit()),
   );
+
+  getit.registerLazySingleton<ExportCubit>(
+    () => ExportCubit(),
+  );
 }
 
-
-
-void setupDataProviders() {
-  
-}
+void setupDataProviders() {}

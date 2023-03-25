@@ -1,10 +1,9 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
-
-import '../../../../core/export/export.dart';
+import '/core/export/export.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,7 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    Injection.homeCubit.fetchHomeUserData();
+    Injection.homeCubit.fetchUserData();
     super.initState();
   }
 
@@ -65,11 +64,11 @@ class _HomePageState extends State<HomePage> {
           return Column(
             children: const [
               Text("PDF Data fetching, please wait."),
-              CircularProgressIndicator(),
+              CupertinoActivityIndicator(),
             ],
           );
         } else {
-          return const Text("data");
+          return const Text("");
         }
       },
     );
@@ -84,12 +83,18 @@ class _HomePageState extends State<HomePage> {
       itemCount: state.userDataList.length,
       itemBuilder: (context, index) {
         File file = File(state.userDataList[index].pdfPath ?? "");
-        return _gridItem(file, context, state.userDataList[index]);
+
+        return _gridItem(file, context, state.userDataList[index], index);
       },
     );
   }
 
-  Column _gridItem(File file, BuildContext contex, UserData userData) {
+  Column _gridItem(
+    File file,
+    BuildContext contex,
+    UserData userData,
+    int index,
+  ) {
     return Column(
       children: [
         Expanded(
@@ -109,41 +114,107 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             _editButton(userData),
-            _deleteButton(context),
+            _deleteButton(index),
           ],
         ),
       ],
     );
   }
 
-  InkWell _deleteButton(BuildContext context) {
-    return InkWell(
-      onTap: () async {
-        await context.cupertinoDialog(
-          widget: IosChoiceDialog(
-            title: "Are you sure?",
-            message: "Resume will be deleted forever.",
-            dialogAction: () {},
+  Widget _deleteButton(int index) => Builder(builder: (context) {
+        return InkWell(
+          onTap: () async => await context.cupertinoDialog(
+            widget: Center(
+              child: Padding(
+                padding: EdgeInsets.all(KPadding.height30),
+                child: CupertinoActionSheet(
+                  title: Text(
+                    "Are you sure to delete?",
+                    style: context.titleMedium,
+                  ),
+                  message: const Text(
+                    "Resume will be deleted forever.",
+                  ),
+                  actions: [
+                    CupertinoActionSheetAction(
+                      onPressed: () async {
+                        await Injection.homeCubit.deleteUserData(index);
+                        Injection.navigator.pop();
+                      },
+                      child: Text(
+                        "Delete",
+                        style: context.bodyMedium.copyWith(
+                          color: deleteRedColor,
+                        ),
+                      ),
+                    ),
+                    CupertinoActionSheetAction(
+                      onPressed: () {
+                        Injection.navigator.pop();
+                      },
+                      child: Text(
+                        "Discard",
+                        style: context.bodyMedium.copyWith(
+                          color: selectedItemColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          child: Column(
+            children: [
+              const Icon(
+                CupertinoIcons.trash_fill,
+                color: deleteRedColor,
+              ),
+              _itemText("Delete"),
+            ],
           ),
         );
-      },
-      child: Column(
-        children: [
-          const Icon(
-            CupertinoIcons.trash_fill,
-            color: deleteRedColor,
-          ),
-          _itemText("Delete"),
-        ],
-      ),
-    );
-  }
+      });
 
   InkWell _editButton(UserData userData) {
     return InkWell(
       onTap: () async {
-        // Injection.userDataProvider.setUserData(userData);
-        await Injection.navigator.navigaToClear(path: rootPage);
+        // SavedResumeDataProvider.shared.setupControllers(userData);
+        // Injection.navigator.navigateTo(path: rootPage);
+        context.cupertinoDialog(
+          widget: Center(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 5,
+                sigmaY: 5,
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(KPadding.height30),
+                child: CupertinoActionSheet(
+                  actions: [
+                    CupertinoActionSheetAction(
+                      onPressed: () => Injection.navigator.pop(),
+                      child: Text(
+                        "OK",
+                        style: context.bodyMedium
+                            .copyWith(color: selectedItemColor),
+                      ),
+                    ),
+                  ],
+                  title: Text(
+                    "Message from developer!",
+                    style: context.titleMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                  message: const Text(
+                    "Edit resume feature will be enabled very soon! We are grateful for your understanding.",
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
       },
       child: Column(
         children: [

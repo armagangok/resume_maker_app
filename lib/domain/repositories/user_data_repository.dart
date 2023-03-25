@@ -7,7 +7,7 @@ class UserDataRepository {
   UserDataRepository._();
   static final instance = UserDataRepository._();
 
-  final _userDataService = UserDataSourceImp.instance;
+  final _userDataService = UserDataSource.instance;
 
   Future<Result<bool>> saveUserData(String userData) async {
     try {
@@ -18,7 +18,7 @@ class UserDataRepository {
     }
   }
 
-  Future<Result<dynamic>> fetchUserData() async {
+  Future<Result<List<String>>> fetchUserData() async {
     try {
       var response = await _userDataService.fetchUserData();
       return Result.success(response);
@@ -27,10 +27,10 @@ class UserDataRepository {
     }
   }
 
-  Future<Result<bool>> deleteUserData(int index) async {
+  Future<Result> deleteUserData(int index) async {
     try {
       await _userDataService.deleteUserData(index);
-      return const Result.success(true);
+      return const Result.success(null);
     } catch (e) {
       return Result.failure(CustomFailure(message: "message"));
     }

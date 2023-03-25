@@ -166,11 +166,7 @@ pw.Widget skillText({required List<Skills> skills}) {
   );
   for (var index = 0; index < skills.length; index++) {
     column.children.add(sideTextBody(skills[index].skillName!));
-    // if (index != skills.length - 1) {
-    //   column.children.add(pw.Text(", "));
-    // }
   }
-
   return column;
 }
 
@@ -268,11 +264,9 @@ pw.Widget experienceText({required List<Experience> experienceList}) {
   return column;
 }
 
-pw.BorderRadius borderRadius6() {
-  return const pw.BorderRadius.all(
+pw.BorderRadius borderRadius6() => const pw.BorderRadius.all(
     Radius.circular(6),
   );
-}
 
 
 dynamic checkIfNull(dynamic data) => data ?? pw.SizedBox();

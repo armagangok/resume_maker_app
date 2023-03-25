@@ -44,15 +44,11 @@ class RootCubit extends Cubit<RootState> {
     response.when(
       success: (data) {
         List<UserData> userDataList = [];
-        if (data != null) {
-          for (var element in data as List<String>) {
+        for (var element in data) {
             var model = UserData.fromJson(jsonDecode(element));
             userDataList.add(model);
           }
           emit(UserDataFetched(userDataList: userDataList));
-        } else {
-          emit(UserDataFetched(userDataList: userDataList));
-        }
       },
       failure: (failure) {
         emit(UserDataFetchFailure());

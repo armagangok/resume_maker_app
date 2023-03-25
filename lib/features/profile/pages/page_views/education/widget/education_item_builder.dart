@@ -1,4 +1,4 @@
-import '../../../../../../../core/export/export.dart';
+import '/core/export/export.dart';
 
 class EducationNewItemBuilder extends StatelessWidget {
   const EducationNewItemBuilder({
@@ -14,44 +14,41 @@ class EducationNewItemBuilder extends StatelessWidget {
             physics: const ClampingScrollPhysics(),
             shrinkWrap: true,
             itemCount: Injection.educationCubit.newItems.length,
-            itemBuilder: (context, index) => Padding(
+            itemBuilder: (context, index) {
+              var newItem = Injection.educationCubit.newItems[index];
+              return Padding(
               padding: getPadding(index),
               child: Column(
                 children: [
                   UnderlinedTextField(
                     hintText: "Degree",
-                    controller: Injection
-                        .educationCubit.newItems[index].degreeController!,
+                    controller: newItem.degreeController!,
                   ),
                   UnderlinedTextField(
                     hintText: "School",
-                    controller: Injection
-                        .educationCubit.newItems[index].majorController!,
+                    controller: newItem.majorController!,
                   ),
                   UnderlinedTextField(
                     hintText: "University",
-                    controller: Injection
-                        .educationCubit.newItems[index].universityController!,
+                    controller: newItem.universityController!,
                   ),
                   UnderlinedTextField(
                     hintText: "Start Date",
-                    controller: Injection
-                        .educationCubit.newItems[index].startDateController!,
+                    controller: newItem.startDateController!,
                   ),
                   UnderlinedTextField(
                     hintText: "End Date",
-                    controller: Injection
-                        .educationCubit.newItems[index].endDateController!,
+                    controller: newItem.endDateController!,
                   ),
                   SizedBox(height: KPadding.height5),
-                  Injection.educationCubit.newItems[index].removeWidget!,
+                  newItem.removeWidget ?? const SizedBox(),
                 ],
               ),
-            ),
+            );
+            },
           );
         },
       );
 
-  EdgeInsets getPadding(int index) =>
-      index != 0 ? EdgeInsets.only(top: KPadding.height30) : EdgeInsets.zero;
+  EdgeInsets getPadding(int index) => index != 0 ? EdgeInsets.only(top: KPadding.height30) : EdgeInsets.zero;
 }
