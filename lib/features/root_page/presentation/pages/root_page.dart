@@ -51,7 +51,6 @@ class _RootPageState extends State<RootPage> {
                 currentIndex: _selectedIndex,
                 showSelectedLabels: true,
                 showUnselectedLabels: true,
-                
                 items: const [
                   BottomNavigationBarItem(
                     icon: Icon(CupertinoIcons.photo_on_rectangle),
@@ -75,6 +74,10 @@ class _RootPageState extends State<RootPage> {
                     _selectedIndex = index;
                   });
 
+                  if (index == 0 || index == 2 || index == 3) {
+                    Injection.profileCubit.selectCategory(0);
+                  }
+
                   if (_selectedIndex == 2) {
                     await Injection.previewCubit.loadPreview(
                       pdfId: "preview_pdf",
@@ -82,7 +85,6 @@ class _RootPageState extends State<RootPage> {
                   }
 
                   if (_selectedIndex == 3) {
-                    
                     await Injection.exportCubit.exportPdf();
                   }
                 },

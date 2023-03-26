@@ -19,9 +19,11 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _userDataTabBar() => CustomTabBarWidget(
-        itemList: Injection.profileCubit.categoryList,
-        onTap: (int index) => Injection.profileCubit.selectCategory(index),
-        itemCount: Injection.profileCubit.categoryList.length,
-      );
+  Widget _userDataTabBar() {
+    return CustomTabBarWidget(
+      itemList: Injection.profileCubit.categoryList,
+      onTap: (int index) => Injection.profileCubit.selectCategory(index),
+      itemCount: Injection.profileCubit.categoryList.length,
+    );
+  }
 }
