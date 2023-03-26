@@ -23,8 +23,7 @@ mixin _$UserData {
   Personal? get personal => throw _privateConstructorUsedError;
   List<Education>? get education => throw _privateConstructorUsedError;
   List<Language>? get languages => throw _privateConstructorUsedError;
-  List<Qualifications>? get qualifications =>
-      throw _privateConstructorUsedError;
+  List<Voluntary>? get qualifications => throw _privateConstructorUsedError;
   List<Skills>? get skills => throw _privateConstructorUsedError;
   List<Experience>? get experiences => throw _privateConstructorUsedError;
   String? get pdfPath => throw _privateConstructorUsedError;
@@ -45,7 +44,7 @@ abstract class $UserDataCopyWith<$Res> {
       {Personal? personal,
       List<Education>? education,
       List<Language>? languages,
-      List<Qualifications>? qualifications,
+      List<Voluntary>? qualifications,
       List<Skills>? skills,
       List<Experience>? experiences,
       String? pdfPath,
@@ -92,7 +91,7 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
       qualifications: freezed == qualifications
           ? _value.qualifications
           : qualifications // ignore: cast_nullable_to_non_nullable
-              as List<Qualifications>?,
+              as List<Voluntary>?,
       skills: freezed == skills
           ? _value.skills
           : skills // ignore: cast_nullable_to_non_nullable
@@ -136,7 +135,7 @@ abstract class _$$_UserDataCopyWith<$Res> implements $UserDataCopyWith<$Res> {
       {Personal? personal,
       List<Education>? education,
       List<Language>? languages,
-      List<Qualifications>? qualifications,
+      List<Voluntary>? qualifications,
       List<Skills>? skills,
       List<Experience>? experiences,
       String? pdfPath,
@@ -182,7 +181,7 @@ class __$$_UserDataCopyWithImpl<$Res>
       qualifications: freezed == qualifications
           ? _value._qualifications
           : qualifications // ignore: cast_nullable_to_non_nullable
-              as List<Qualifications>?,
+              as List<Voluntary>?,
       skills: freezed == skills
           ? _value._skills
           : skills // ignore: cast_nullable_to_non_nullable
@@ -210,7 +209,7 @@ class _$_UserData implements _UserData {
       {this.personal,
       final List<Education>? education,
       final List<Language>? languages,
-      final List<Qualifications>? qualifications,
+      final List<Voluntary>? qualifications,
       final List<Skills>? skills,
       final List<Experience>? experiences,
       this.pdfPath,
@@ -246,9 +245,9 @@ class _$_UserData implements _UserData {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<Qualifications>? _qualifications;
+  final List<Voluntary>? _qualifications;
   @override
-  List<Qualifications>? get qualifications {
+  List<Voluntary>? get qualifications {
     final value = _qualifications;
     if (value == null) return null;
     if (_qualifications is EqualUnmodifiableListView) return _qualifications;
@@ -339,7 +338,7 @@ abstract class _UserData implements UserData {
       {final Personal? personal,
       final List<Education>? education,
       final List<Language>? languages,
-      final List<Qualifications>? qualifications,
+      final List<Voluntary>? qualifications,
       final List<Skills>? skills,
       final List<Experience>? experiences,
       final String? pdfPath,
@@ -354,7 +353,7 @@ abstract class _UserData implements UserData {
   @override
   List<Language>? get languages;
   @override
-  List<Qualifications>? get qualifications;
+  List<Voluntary>? get qualifications;
   @override
   List<Skills>? get skills;
   @override

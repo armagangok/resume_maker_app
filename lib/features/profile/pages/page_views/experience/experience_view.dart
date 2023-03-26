@@ -1,9 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:resume_maker_app/data/entities/entity.dart';
 
 import '../../../../../../core/export/export.dart';
-import '../../../../../../core/widget/buttons/add_new_item.dart';
-import '../../../widgets/remove_new_item.dart';
 import 'widget/experience_item_builder.dart';
 
 class ExperienceView extends StatelessWidget {
@@ -21,21 +18,21 @@ class ExperienceView extends StatelessWidget {
             var widget = ExperienceModel(
               itemID: itemId,
               companyNameController: TextEditingController(
-                text: checkIfDebugMode(text: "Brain Kingdom Trading"),
+                text: kDebugMode ? "Brain Kingdom Trading" : null,
               ),
               jobTitleController: TextEditingController(
-                text: checkIfDebugMode(text: "Mobile Application Developer"),
+                text: kDebugMode ? "Mobile Application Developer" : null,
               ),
               jobDutiesController: TextEditingController(
-                text: checkIfDebugMode(
-                    text:
-                        "Cubit, Bloc, get_it, UI implementations, and bug fixing in the Tubazy App."),
+                text: kDebugMode
+                    ? "Cubit, Bloc, get_it, UI implementations, and bug fixing in the Tubazy App."
+                    : null,
               ),
               jobStartDateController: TextEditingController(
-                text: checkIfDebugMode(text: "2022"),
+                text: kDebugMode ? "2022" : null,
               ),
               jobEndDateController: TextEditingController(
-                text: checkIfDebugMode(text: "2019"),
+                text: kDebugMode ? "2019" : null,
               ),
               removeWidget: RemoveNewItemWidget(
                 itemID: itemId,

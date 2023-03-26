@@ -58,7 +58,7 @@ class ModernTemplate extends ResumeTemplateContract {
     _widgets.add(languageWidget());
     _widgets.add(experiencesWidget());
     _widgets.add(educationWidget());
-    _widgets.add(qualificationWidget());
+    // _widgets.add(voluntaryText(voluntary: ));
     _widgets.add(contactWidget());
     _widgets.add(skillWidget());
   }
@@ -139,7 +139,7 @@ class ModernTemplate extends ResumeTemplateContract {
         )
       : pw.SizedBox();
 
-  pw.Widget qualificationWidget() => _pdfRepo.getUserData.qualifications != null
+  pw.Widget voluntaryWidget() => _pdfRepo.getUserData.qualifications != null
       ? pw.Column(
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
@@ -149,8 +149,8 @@ class ModernTemplate extends ResumeTemplateContract {
                 customDivider(),
               ],
             ),
-            qualificationsText(
-              qualifications: _pdfRepo.getUserData.qualifications!,
+            voluntaryText(
+              voluntary: _pdfRepo.getUserData.qualifications!,
             )
           ],
         )

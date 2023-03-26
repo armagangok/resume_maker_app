@@ -25,7 +25,7 @@ class _LanguageNewItemBuilderState extends State<LanguageNewItemBuilder> {
               child: Column(
                 children: [
                   UnderlinedTextField(
-                    hintText: "Language",
+                    labelText: "Language",
                     controller: Injection
                         .languageCubit.newItems[index].languageController!,
                   ),

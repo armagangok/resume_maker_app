@@ -18,7 +18,7 @@ class LanguageView extends StatelessWidget {
             var languageModel = LanguageModel(
               languageLevelSliderCubit: languageLevelSliderCubit,
               languageController: TextEditingController(
-                text: checkIfDebugMode(text: "English"),
+                text: kDebugMode ? "English" : null,
               ),
               itemID: itemId,
               languageLevelSlider: SliderWidget(

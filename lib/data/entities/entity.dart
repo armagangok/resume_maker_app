@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import '../../core/export/export.dart';
 
 class UserDataEntity {
@@ -12,9 +13,11 @@ class UserDataEntity {
   final TextEditingController? companyNameController;
   final TextEditingController? jobTitleController;
   final TextEditingController? jobDutiesController;
-  final TextEditingController? details;
+  final TextEditingController? description;
   final TextEditingController? jobStartDateController;
   final TextEditingController? jobEndDateController;
+  final TextEditingController? voluntaryTitle;
+  final TextEditingController? voluntaryDescription;
 
   final String? itemID;
   final Widget? removeWidget;
@@ -35,9 +38,11 @@ class UserDataEntity {
     this.companyNameController,
     this.jobTitleController,
     this.jobDutiesController,
-    this.details,
+    this.description,
     this.jobStartDateController,
     this.jobEndDateController,
+    this.voluntaryTitle,
+    this.voluntaryDescription,
     this.itemID,
     this.removeWidget,
     this.speakingSlider,

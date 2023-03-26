@@ -26,31 +26,31 @@ class _ExperienceNewItemBuilderState extends State<ExperienceNewItemBuilder> {
               child: Column(
                 children: [
                   UnderlinedTextField(
-                    hintText: "Company",
+                    labelText: "Company",
                     controller: Injection
                         .experienceCubit.newItems[index].companyNameController!,
                   ),
                   SizedBox(height: KPadding.height5),
                   UnderlinedTextField(
-                    hintText: "Job Title",
+                    labelText: "Job Title",
                     controller: Injection
                         .experienceCubit.newItems[index].jobTitleController!,
                   ),
                   SizedBox(height: KPadding.height5),
                   UnderlinedTextField(
-                    hintText: "Job Duties",
+                    labelText: "Job Duties",
                     controller: Injection
                         .experienceCubit.newItems[index].jobDutiesController!,
                   ),
                   SizedBox(height: KPadding.height5),
                   UnderlinedTextField(
-                    hintText: "Start Date",
+                    labelText: "Start Date",
                     controller: Injection.experienceCubit.newItems[index]
                         .jobStartDateController!,
                   ),
                   SizedBox(height: KPadding.height5),
                   UnderlinedTextField(
-                    hintText: "End Date",
+                    labelText: "End Date",
                     controller: Injection
                         .experienceCubit.newItems[index].jobEndDateController!,
                   ),

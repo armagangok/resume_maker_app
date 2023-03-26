@@ -11,9 +11,11 @@ class ScreenUtilHelper {
   static ScreenUtilInit screenUtilInit(MaterialApp materialApp) {
     return ScreenUtilInit(
       designSize: const Size(430, 932),
-      minTextAdapt: false,
+      minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context, child) => materialApp,
+      builder: (_, widget) {
+        return materialApp;
+      },
     );
   }
 }

@@ -159,8 +159,8 @@ class CloudTemplate extends ResumeTemplateContract {
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
                   children: [
                     head1Text("QUALIFICATIONS"),
-                    qualificationsText(
-                      qualifications: _pdfRepo.getUserData.qualifications!,
+                    voluntaryText(
+                      voluntary: _pdfRepo.getUserData.qualifications!,
                     )
                   ],
                 ),

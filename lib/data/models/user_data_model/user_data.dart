@@ -16,7 +16,7 @@ abstract class UserData with _$UserData {
     Personal? personal,
     List<Education>? education,
     List<Language>? languages,
-    List<Qualifications>? qualifications,
+    List<Voluntary>? qualifications,
     List<Skills>? skills,
     List<Experience>? experiences,
     String? pdfPath,

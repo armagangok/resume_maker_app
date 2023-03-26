@@ -1,20 +1,19 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 
-import '../../../export/export.dart';
+import '../../export/export.dart';
 
 class UnderlinedTextField extends StatelessWidget {
-  final String hintText;
+  final String labelText;
   final TextEditingController controller;
-  String? helperText;
+
   final int? maxLines;
   final double? heigth;
 
-  UnderlinedTextField({
+  const UnderlinedTextField({
     Key? key,
-    required this.hintText,
+    required this.labelText,
     required this.controller,
-    this.helperText,
     this.maxLines = 1,
     this.heigth = 45,
   }) : super(key: key);
@@ -32,11 +31,22 @@ class UnderlinedTextField extends StatelessWidget {
         maxLines: maxLines,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(
-            vertical: 12.h,
+            vertical: 8.h,
             horizontal: 0,
           ),
-          hintText: hintText,
-          helperText: helperText,
+          labelText: labelText,
+          floatingLabelStyle: context.bodySmall.copyWith(
+            fontSize: 15,
+            color: const Color.fromARGB(
+              255,
+              130,
+              130,
+              130,
+            ),
+          ),
+          // hintStyle: const TextStyle(
+          //   color: Colors.white,
+          // ), // inactive label text color
         ),
       ),
     );
@@ -47,9 +57,9 @@ class RemovableTextField extends StatelessWidget {
   final String hintText;
   final TextEditingController controller;
   final Function onTapRemoveButton;
-  String? helperText;
+  final String? helperText;
 
-  RemovableTextField({
+  const RemovableTextField({
     Key? key,
     required this.hintText,
     required this.controller,

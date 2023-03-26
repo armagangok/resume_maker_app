@@ -1,25 +1,23 @@
-import 'package:google_fonts/google_fonts.dart';
-
 import '../../../../export/export.dart';
 
 BottomNavigationBarThemeData bottomNavBarThemeData() =>
     BottomNavigationBarThemeData(
-      selectedIconTheme: IconThemeData(
+      selectedIconTheme: const IconThemeData(
         color: selectedItemColor,
-        size: 33.sp,
+        size: 33,
       ),
-      unselectedIconTheme: IconThemeData(
+      unselectedIconTheme: const IconThemeData(
         color: iconColor,
-        size: 25.sp,
+        size: 25,
       ),
       selectedLabelStyle: GoogleFonts.poppins(
         color: selectedItemColor,
-        fontSize: 13.sp,
+        fontSize: 13,
       ),
       unselectedItemColor: iconColor,
       unselectedLabelStyle: GoogleFonts.poppins(
         color: selectedItemColor,
-        fontSize: 13.sp,
+        fontSize: 13,
       ),
       selectedItemColor: selectedItemColor,
     );

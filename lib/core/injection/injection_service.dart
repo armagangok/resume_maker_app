@@ -25,7 +25,7 @@ class Injection {
   static MultipleItemCubit get skillsCubit => _skillsCubit;
   static MultipleItemCubit get languageCubit => _languageCubit;
   static MultipleItemCubit get educationCubit => _educationCubit;
-  static MultipleItemCubit get qualificationsCubit => _qualificationCubit;
+  static MultipleItemCubit get voluntaryCubit => _qualificationCubit;
   static MultipleItemCubit get experienceCubit => _experienceCubit;
   static RootCubit get rootCubit => getit.call<RootCubit>();
   static HomeCubit get homeCubit => getit.call<HomeCubit>();

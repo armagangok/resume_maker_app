@@ -1,37 +1,35 @@
 import '../../../../../../../core/export/export.dart';
-import '../../../../../../../data/entities/entity.dart';
-import '../../../../widgets/remove_new_item.dart';
 
-class QualificationsNewItemBuilder extends StatelessWidget {
-  const QualificationsNewItemBuilder({
+class VoluntaryNewItemBuilder extends StatelessWidget {
+  const VoluntaryNewItemBuilder({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) =>
       BlocBuilder<MultipleItemCubit, MultipleItemState>(
-        bloc: Injection.qualificationsCubit,
+        bloc: Injection.voluntaryCubit,
         builder: (context, state) {
           return ListView.builder(
             physics: const ClampingScrollPhysics(),
             shrinkWrap: true,
-            itemCount: Injection.qualificationsCubit.newItems.length,
+            itemCount: Injection.voluntaryCubit.newItems.length,
             itemBuilder: (context, index) => Padding(
               padding: getPadding(index),
               child: Column(
                 children: [
                   UnderlinedTextField(
-                    hintText: "Job Title",
-                    controller: Injection.qualificationsCubit.newItems[index]
-                        .jobTitleController!,
+                    labelText: "Title",
+                    controller: Injection
+                        .voluntaryCubit.newItems[index].voluntaryTitle!,
                   ),
                   UnderlinedTextField(
-                    hintText: "Details",
-                    controller:
-                        Injection.qualificationsCubit.newItems[index].details!,
+                    labelText: "Details",
+                    controller: Injection
+                        .voluntaryCubit.newItems[index].voluntaryDescription!,
                   ),
                   SizedBox(height: KPadding.height5),
-                  Injection.qualificationsCubit.newItems[index].removeWidget!,
+                  Injection.voluntaryCubit.newItems[index].removeWidget!,
                 ],
               ),
             ),
@@ -49,7 +47,7 @@ class QualificationModel extends UserDataEntity {
   @override
   final TextEditingController? schoolController;
   @override
-  final TextEditingController? details;
+  final TextEditingController? description;
   @override
   final String? itemID;
   @override
@@ -58,7 +56,7 @@ class QualificationModel extends UserDataEntity {
   QualificationModel({
     required this.title,
     required this.schoolController,
-    required this.details,
+    required this.description,
     required this.itemID,
     required this.removeWidget,
   });

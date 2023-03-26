@@ -40,7 +40,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     CategoryTextWidget(
       model: ResumeDataCategoryModel(
         isSelected: false,
-        categoryName: "Qualifications",
+        categoryName: "Voluntary",
       ),
     ),
     CategoryTextWidget(
@@ -66,7 +66,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   List<Widget> widgets = const [
     PersonalView(),
     EducationView(),
-    QualificationsView(),
+    VoluntaryView(),
     SkillsView(),
     LanguageView(),
     ExperienceView(),

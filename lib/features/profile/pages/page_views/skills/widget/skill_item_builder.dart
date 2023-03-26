@@ -19,8 +19,9 @@ class SkillsNewItemBuilder extends StatelessWidget {
               child: Column(
                 children: [
                   UnderlinedTextField(
-                    hintText: "Skill",
-                    controller: Injection.skillsCubit.newItems[index].skillsController!,
+                    labelText: "Skill",
+                    controller:
+                        Injection.skillsCubit.newItems[index].skillsController!,
                   ),
                   SizedBox(height: KPadding.height5),
                   Injection.skillsCubit.newItems[index].removeWidget!,

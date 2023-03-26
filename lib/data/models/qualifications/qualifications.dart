@@ -4,12 +4,12 @@ part 'qualifications.freezed.dart';
 part 'qualifications.g.dart';
 
 @freezed
-abstract class Qualifications with _$Qualifications {
-  const factory Qualifications({
-    String? title,
-    String? details,
-  }) = _Qualifications;
+abstract class Voluntary with _$Voluntary {
+  const factory Voluntary({
+    String? voluntaryTitle,
+    String? voluntaryDescription,
+  }) = _Voluntary;
 
-  factory Qualifications.fromJson(Map<String, dynamic> json) =>
-      _$QualificationsFromJson(json);
+  factory Voluntary.fromJson(Map<String, dynamic> json) =>
+      _$VoluntaryFromJson(json);
 }

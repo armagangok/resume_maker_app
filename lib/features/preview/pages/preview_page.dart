@@ -87,7 +87,7 @@ class PreviewPage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             Center(
-              child: CircularProgressIndicator(
+              child: CupertinoActivityIndicator(
                 color: white,
               ),
             ),

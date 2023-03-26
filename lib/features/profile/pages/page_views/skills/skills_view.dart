@@ -1,9 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:resume_maker_app/data/entities/entity.dart';
 
 import '../../../../../../core/export/export.dart';
-import '../../../../../../core/widget/buttons/add_new_item.dart';
-import '../../../widgets/remove_new_item.dart';
 import 'widget/skill_item_builder.dart';
 
 class SkillsView extends StatelessWidget {
@@ -20,7 +17,7 @@ class SkillsView extends StatelessWidget {
             String itemId = Injection.skillsCubit.getUniqeID();
             var widget = SkillsModel(
               skillsController: TextEditingController(
-                text: checkIfDebugMode(text: "Flutter"),
+                text: kDebugMode ? "Flutter" : null,
               ),
               itemID: itemId,
               removeWidget: RemoveNewItemWidget(

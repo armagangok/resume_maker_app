@@ -4,8 +4,8 @@ import 'package:pdf/widgets.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:resume_maker_app/core/export/export.dart';
 
-final width = PdfPageFormat.a4.availableWidth;
-final height = PdfPageFormat.a4.availableHeight;
+double width = PdfPageFormat.a4.width;
+double height = PdfPageFormat.a4.height;
 
 Uint8List? uint8ListData;
 
@@ -20,6 +20,7 @@ pw.Widget head1Text(String text) => pw.Text(
         fontSize: 12.5,
         // fontWeight: FontWeight.,
         fontWeight: pw.FontWeight.bold,
+        color: PdfColor.fromInt(Injection.colorPickerCubit.selectedColor.value),
       ),
     );
 
@@ -166,24 +167,40 @@ pw.Widget emailItem(Personal personalModel, int index) => pw.Text(
     );
 
 pw.Widget skillText({required List<Skills> skills}) {
-  var column = pw.Column(
+  var column = pw.Row(
     children: [],
   );
   for (var index = 0; index < skills.length; index++) {
-    column.children.add(sideTextBody(skills[index].skillName!));
+    column.children.add(
+      sideTextBody(skills[index].skillName!),
+    );
+
+    if (index != skills.length - 1) {
+      column.children.add(pw.Text(", "));
+    } else {}
   }
   return column;
 }
 
-pw.Widget qualificationsText({required List<Qualifications> qualifications}) {
+pw.Widget voluntaryText({required List<Voluntary> voluntary}) {
   var column = pw.Wrap(
     children: [],
   );
-  for (var index = 0; index < qualifications.length; index++) {
-    column.children.add(sideTextBody(qualifications[index].title!));
-    column.children.add(sideTextBody(qualifications[index].details!));
+  for (var index = 0; index < voluntary.length; index++) {
+    column.children.add(
+      sideTextBody(
+        voluntary[index].voluntaryTitle!,
+      ),
+    );
+    column.children.add(
+      sideTextBody(
+        voluntary[index].voluntaryDescription!,
+      ),
+    );
+    if (voluntary.length - 1 != index) {
+      column.children.add(pw.SizedBox(height: 15));
+    }
   }
-
   return column;
 }
 

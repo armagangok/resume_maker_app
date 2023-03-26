@@ -6,14 +6,13 @@ part of 'qualifications.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Qualifications _$$_QualificationsFromJson(Map<String, dynamic> json) =>
-    _$_Qualifications(
-      title: json['title'] as String?,
-      details: json['details'] as String?,
+_$_Voluntary _$$_VoluntaryFromJson(Map<String, dynamic> json) => _$_Voluntary(
+      voluntaryTitle: json['voluntaryTitle'] as String?,
+      voluntaryDescription: json['voluntaryDescription'] as String?,
     );
 
-Map<String, dynamic> _$$_QualificationsToJson(_$_Qualifications instance) =>
+Map<String, dynamic> _$$_VoluntaryToJson(_$_Voluntary instance) =>
     <String, dynamic>{
-      'title': instance.title,
-      'details': instance.details,
+      'voluntaryTitle': instance.voluntaryTitle,
+      'voluntaryDescription': instance.voluntaryDescription,
     };

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:resume_maker_app/core/theme/theme_data/theme_components/text_fields/text_form_field.dart';
+import 'theme_components/text_fields/text_form_field.dart';
 
 import '../constants/colors.dart';
 import 'color/color.dart';

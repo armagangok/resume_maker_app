@@ -17,7 +17,7 @@ _$_UserData _$$_UserDataFromJson(Map<String, dynamic> json) => _$_UserData(
           ?.map((e) => Language.fromJson(e as Map<String, dynamic>))
           .toList(),
       qualifications: (json['qualifications'] as List<dynamic>?)
-          ?.map((e) => Qualifications.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Voluntary.fromJson(e as Map<String, dynamic>))
           .toList(),
       skills: (json['skills'] as List<dynamic>?)
           ?.map((e) => Skills.fromJson(e as Map<String, dynamic>))

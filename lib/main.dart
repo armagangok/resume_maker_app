@@ -6,13 +6,15 @@ import './core/export/export.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await ScreenUtil.ensureScreenSize();
+
+  ScreenUtilHelper.ensureInitialized();
   var status = await Permission.storage.status;
 
   if (!status.isGranted) {
     await Permission.storage.request();
   }
-
-  ScreenUtilHelper.ensureInitialized();
 
   initDependencies();
 

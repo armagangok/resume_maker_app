@@ -14,34 +14,33 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Qualifications _$QualificationsFromJson(Map<String, dynamic> json) {
-  return _Qualifications.fromJson(json);
+Voluntary _$VoluntaryFromJson(Map<String, dynamic> json) {
+  return _Voluntary.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Qualifications {
-  String? get title => throw _privateConstructorUsedError;
-  String? get details => throw _privateConstructorUsedError;
+mixin _$Voluntary {
+  String? get voluntaryTitle => throw _privateConstructorUsedError;
+  String? get voluntaryDescription => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $QualificationsCopyWith<Qualifications> get copyWith =>
+  $VoluntaryCopyWith<Voluntary> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $QualificationsCopyWith<$Res> {
-  factory $QualificationsCopyWith(
-          Qualifications value, $Res Function(Qualifications) then) =
-      _$QualificationsCopyWithImpl<$Res, Qualifications>;
+abstract class $VoluntaryCopyWith<$Res> {
+  factory $VoluntaryCopyWith(Voluntary value, $Res Function(Voluntary) then) =
+      _$VoluntaryCopyWithImpl<$Res, Voluntary>;
   @useResult
-  $Res call({String? title, String? details});
+  $Res call({String? voluntaryTitle, String? voluntaryDescription});
 }
 
 /// @nodoc
-class _$QualificationsCopyWithImpl<$Res, $Val extends Qualifications>
-    implements $QualificationsCopyWith<$Res> {
-  _$QualificationsCopyWithImpl(this._value, this._then);
+class _$VoluntaryCopyWithImpl<$Res, $Val extends Voluntary>
+    implements $VoluntaryCopyWith<$Res> {
+  _$VoluntaryCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -51,55 +50,54 @@ class _$QualificationsCopyWithImpl<$Res, $Val extends Qualifications>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? title = freezed,
-    Object? details = freezed,
+    Object? voluntaryTitle = freezed,
+    Object? voluntaryDescription = freezed,
   }) {
     return _then(_value.copyWith(
-      title: freezed == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
+      voluntaryTitle: freezed == voluntaryTitle
+          ? _value.voluntaryTitle
+          : voluntaryTitle // ignore: cast_nullable_to_non_nullable
               as String?,
-      details: freezed == details
-          ? _value.details
-          : details // ignore: cast_nullable_to_non_nullable
+      voluntaryDescription: freezed == voluntaryDescription
+          ? _value.voluntaryDescription
+          : voluntaryDescription // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_QualificationsCopyWith<$Res>
-    implements $QualificationsCopyWith<$Res> {
-  factory _$$_QualificationsCopyWith(
-          _$_Qualifications value, $Res Function(_$_Qualifications) then) =
-      __$$_QualificationsCopyWithImpl<$Res>;
+abstract class _$$_VoluntaryCopyWith<$Res> implements $VoluntaryCopyWith<$Res> {
+  factory _$$_VoluntaryCopyWith(
+          _$_Voluntary value, $Res Function(_$_Voluntary) then) =
+      __$$_VoluntaryCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? title, String? details});
+  $Res call({String? voluntaryTitle, String? voluntaryDescription});
 }
 
 /// @nodoc
-class __$$_QualificationsCopyWithImpl<$Res>
-    extends _$QualificationsCopyWithImpl<$Res, _$_Qualifications>
-    implements _$$_QualificationsCopyWith<$Res> {
-  __$$_QualificationsCopyWithImpl(
-      _$_Qualifications _value, $Res Function(_$_Qualifications) _then)
+class __$$_VoluntaryCopyWithImpl<$Res>
+    extends _$VoluntaryCopyWithImpl<$Res, _$_Voluntary>
+    implements _$$_VoluntaryCopyWith<$Res> {
+  __$$_VoluntaryCopyWithImpl(
+      _$_Voluntary _value, $Res Function(_$_Voluntary) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? title = freezed,
-    Object? details = freezed,
+    Object? voluntaryTitle = freezed,
+    Object? voluntaryDescription = freezed,
   }) {
-    return _then(_$_Qualifications(
-      title: freezed == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
+    return _then(_$_Voluntary(
+      voluntaryTitle: freezed == voluntaryTitle
+          ? _value.voluntaryTitle
+          : voluntaryTitle // ignore: cast_nullable_to_non_nullable
               as String?,
-      details: freezed == details
-          ? _value.details
-          : details // ignore: cast_nullable_to_non_nullable
+      voluntaryDescription: freezed == voluntaryDescription
+          ? _value.voluntaryDescription
+          : voluntaryDescription // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -107,62 +105,66 @@ class __$$_QualificationsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Qualifications implements _Qualifications {
-  const _$_Qualifications({this.title, this.details});
+class _$_Voluntary implements _Voluntary {
+  const _$_Voluntary({this.voluntaryTitle, this.voluntaryDescription});
 
-  factory _$_Qualifications.fromJson(Map<String, dynamic> json) =>
-      _$$_QualificationsFromJson(json);
+  factory _$_Voluntary.fromJson(Map<String, dynamic> json) =>
+      _$$_VoluntaryFromJson(json);
 
   @override
-  final String? title;
+  final String? voluntaryTitle;
   @override
-  final String? details;
+  final String? voluntaryDescription;
 
   @override
   String toString() {
-    return 'Qualifications(title: $title, details: $details)';
+    return 'Voluntary(voluntaryTitle: $voluntaryTitle, voluntaryDescription: $voluntaryDescription)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Qualifications &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.details, details) || other.details == details));
+            other is _$_Voluntary &&
+            (identical(other.voluntaryTitle, voluntaryTitle) ||
+                other.voluntaryTitle == voluntaryTitle) &&
+            (identical(other.voluntaryDescription, voluntaryDescription) ||
+                other.voluntaryDescription == voluntaryDescription));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, title, details);
+  int get hashCode =>
+      Object.hash(runtimeType, voluntaryTitle, voluntaryDescription);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_QualificationsCopyWith<_$_Qualifications> get copyWith =>
-      __$$_QualificationsCopyWithImpl<_$_Qualifications>(this, _$identity);
+  _$$_VoluntaryCopyWith<_$_Voluntary> get copyWith =>
+      __$$_VoluntaryCopyWithImpl<_$_Voluntary>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_QualificationsToJson(
+    return _$$_VoluntaryToJson(
       this,
     );
   }
 }
 
-abstract class _Qualifications implements Qualifications {
-  const factory _Qualifications({final String? title, final String? details}) =
-      _$_Qualifications;
+abstract class _Voluntary implements Voluntary {
+  const factory _Voluntary(
+      {final String? voluntaryTitle,
+      final String? voluntaryDescription}) = _$_Voluntary;
 
-  factory _Qualifications.fromJson(Map<String, dynamic> json) =
-      _$_Qualifications.fromJson;
+  factory _Voluntary.fromJson(Map<String, dynamic> json) =
+      _$_Voluntary.fromJson;
 
   @override
-  String? get title;
+  String? get voluntaryTitle;
   @override
-  String? get details;
+  String? get voluntaryDescription;
   @override
   @JsonKey(ignore: true)
-  _$$_QualificationsCopyWith<_$_Qualifications> get copyWith =>
+  _$$_VoluntaryCopyWith<_$_Voluntary> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -17,38 +17,39 @@ class EducationNewItemBuilder extends StatelessWidget {
             itemBuilder: (context, index) {
               var newItem = Injection.educationCubit.newItems[index];
               return Padding(
-              padding: getPadding(index),
-              child: Column(
-                children: [
-                  UnderlinedTextField(
-                    hintText: "Degree",
-                    controller: newItem.degreeController!,
-                  ),
-                  UnderlinedTextField(
-                    hintText: "School",
-                    controller: newItem.majorController!,
-                  ),
-                  UnderlinedTextField(
-                    hintText: "University",
-                    controller: newItem.universityController!,
-                  ),
-                  UnderlinedTextField(
-                    hintText: "Start Date",
-                    controller: newItem.startDateController!,
-                  ),
-                  UnderlinedTextField(
-                    hintText: "End Date",
-                    controller: newItem.endDateController!,
-                  ),
-                  SizedBox(height: KPadding.height5),
-                  newItem.removeWidget ?? const SizedBox(),
-                ],
-              ),
-            );
+                padding: getPadding(index),
+                child: Column(
+                  children: [
+                    UnderlinedTextField(
+                      labelText: "Degree",
+                      controller: newItem.degreeController!,
+                    ),
+                    UnderlinedTextField(
+                      labelText: "School",
+                      controller: newItem.majorController!,
+                    ),
+                    UnderlinedTextField(
+                      labelText: "University",
+                      controller: newItem.universityController!,
+                    ),
+                    UnderlinedTextField(
+                      labelText: "Start Date",
+                      controller: newItem.startDateController!,
+                    ),
+                    UnderlinedTextField(
+                      labelText: "End Date",
+                      controller: newItem.endDateController!,
+                    ),
+                    SizedBox(height: KPadding.height5),
+                    newItem.removeWidget ?? const SizedBox(),
+                  ],
+                ),
+              );
             },
           );
         },
       );
 
-  EdgeInsets getPadding(int index) => index != 0 ? EdgeInsets.only(top: KPadding.height30) : EdgeInsets.zero;
+  EdgeInsets getPadding(int index) =>
+      index != 0 ? EdgeInsets.only(top: KPadding.height30) : EdgeInsets.zero;
 }

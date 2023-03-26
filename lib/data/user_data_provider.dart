@@ -3,9 +3,7 @@ import 'dart:convert';
 import 'package:resume_maker_app/core/export/export.dart';
 
 class UserDataProvider {
-
   UserDataProvider._();
-  
 
   static final _resumeTemplateCubit = Injection.resumeTemplateCubit;
   static final _personalDataCubit = Injection.personalDataCubit;
@@ -28,7 +26,7 @@ class UserDataProvider {
     List<Language> languageData = [];
     List<Skills> skillData = [];
     List<Experience> experiencesData = [];
-    List<Qualifications> qualificationData = [];
+    List<Voluntary> qualificationData = [];
 
     Personal personalDataModel = Personal(
       title: _personalDataCubit.title.text,
@@ -85,10 +83,10 @@ class UserDataProvider {
       experiencesData.add(experienceModel);
     }
 
-    for (var element in Injection.qualificationsCubit.newItems) {
-      var qualificationModel = Qualifications(
-        title: element.jobTitleController!.text,
-        details: element.details!.text,
+    for (var element in Injection.voluntaryCubit.newItems) {
+      var qualificationModel = Voluntary(
+        voluntaryTitle: element.voluntaryTitle!.text,
+        voluntaryDescription: element.voluntaryDescription!.text,
       );
       qualificationData.add(qualificationModel);
     }
@@ -104,5 +102,6 @@ class UserDataProvider {
       pdfPath: pdfPathToSave,
     );
   }
-static  String encodeUserData() => json.encode(userData.toJson());
+
+  static String encodeUserData() => json.encode(userData.toJson());
 }

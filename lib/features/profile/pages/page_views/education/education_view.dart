@@ -18,19 +18,19 @@ class EducationView extends StatelessWidget {
             String itemId = Injection.educationCubit.getUniqeID();
             var educationModel = MultipleNewItem(
               degreeController: TextEditingController(
-                text: checkIfDebugMode(text: "License"),
+                text: kDebugMode ? "License" : null,
               ),
               majorController: TextEditingController(
-                text: checkIfDebugMode(text: "Mechatronics Engineering"),
+                text: kDebugMode ? "Mechatronics Engineering" : null,
               ),
               universityController: TextEditingController(
-                text: checkIfDebugMode(text: "Bursa Technical University"),
+                text: kDebugMode ? "Bursa Technical University" : null,
               ),
               startDateController: TextEditingController(
-                text: checkIfDebugMode(text: "2019"),
+                text: kDebugMode ? "2019" : null,
               ),
               endDateController: TextEditingController(
-                text: checkIfDebugMode(text: "2025"),
+                text: kDebugMode ? "2025" : null,
               ),
               itemID: itemId,
               removeWidget: RemoveNewItemWidget(
