@@ -1,27 +1,25 @@
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../constants/colors.dart';
+import '../../../../export/export.dart';
 
 BottomNavigationBarThemeData bottomNavBarThemeData() =>
     BottomNavigationBarThemeData(
-      selectedIconTheme: const IconThemeData(
+      selectedIconTheme: IconThemeData(
         color: selectedItemColor,
-        size: 32
+        size: 33.sp,
       ),
-      unselectedIconTheme: const IconThemeData(
+      unselectedIconTheme: IconThemeData(
         color: iconColor,
-        size: 25,
+        size: 25.sp,
       ),
       selectedLabelStyle: GoogleFonts.poppins(
         color: selectedItemColor,
-        fontWeight: FontWeight.normal,
-        fontSize: 14,
+        fontSize: 13.sp,
       ),
       unselectedItemColor: iconColor,
       unselectedLabelStyle: GoogleFonts.poppins(
         color: selectedItemColor,
-        fontSize: 12,
+        fontSize: 13.sp,
       ),
       selectedItemColor: selectedItemColor,
     );
