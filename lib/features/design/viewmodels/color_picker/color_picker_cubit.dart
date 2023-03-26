@@ -18,8 +18,6 @@ class ColorPickerCubit extends Cubit<ColorPickerState> {
     emit(ColorPickerInitial());
   }
 
-  
-
   Color get selectedColor {
     for (var element in resumeColors) {
       if (element.colorModel.isSelected) {
@@ -32,14 +30,14 @@ class ColorPickerCubit extends Cubit<ColorPickerState> {
   List<ResumeColorItem> resumeColors = [
     ResumeColorItem(
       colorModel: ResumeColorModel(
-        color: Colors.grey,
-        isSelected: true,
+        color: const Color.fromARGB(248, 208, 208, 255),
+        isSelected: false,
       ),
     ),
     ResumeColorItem(
       colorModel: ResumeColorModel(
-        color: const Color(0xffFF9E9E),
-        isSelected: false,
+        color: const Color(0xff343859),
+        isSelected: true,
       ),
     ),
     ResumeColorItem(
@@ -50,85 +48,25 @@ class ColorPickerCubit extends Cubit<ColorPickerState> {
     ),
     ResumeColorItem(
       colorModel: ResumeColorModel(
-        color: const Color(0xffFF9E9E),
+        color: const Color.fromARGB(255, 2, 134, 0),
         isSelected: false,
       ),
     ),
     ResumeColorItem(
       colorModel: ResumeColorModel(
-        color: const Color(0xff343859),
+        color: const Color.fromARGB(255, 0, 105, 89),
         isSelected: false,
       ),
     ),
     ResumeColorItem(
       colorModel: ResumeColorModel(
-        color: const Color(0xff91F48F),
+        color: const Color.fromARGB(255, 0, 19, 228),
         isSelected: false,
       ),
     ),
     ResumeColorItem(
       colorModel: ResumeColorModel(
-        color: const Color(0xffFFF599),
-        isSelected: false,
-      ),
-    ),
-    ResumeColorItem(
-      colorModel: ResumeColorModel(
-        color: const Color(0xff9EFFFF),
-        isSelected: false,
-      ),
-    ),
-    ResumeColorItem(
-      colorModel: ResumeColorModel(
-        color: const Color(0xffFFF599),
-        isSelected: false,
-      ),
-    ),
-    ResumeColorItem(
-      colorModel: ResumeColorModel(
-        color: const Color(0xffB69CFF),
-        isSelected: false,
-      ),
-    ),
-    ResumeColorItem(
-      colorModel: ResumeColorModel(
-        color: const Color(0xffFFF599),
-        isSelected: false,
-      ),
-    ),
-    ResumeColorItem(
-      colorModel: ResumeColorModel(
-        color: const Color(0xff9a32d2),
-        isSelected: false,
-      ),
-    ),
-    ResumeColorItem(
-      colorModel: ResumeColorModel(
-        color: const Color.fromARGB(248, 0, 97, 11),
-        isSelected: false,
-      ),
-    ),
-    ResumeColorItem(
-      colorModel: ResumeColorModel(
-        color: const Color.fromARGB(248, 255, 228, 183),
-        isSelected: false,
-      ),
-    ),
-    ResumeColorItem(
-      colorModel: ResumeColorModel(
-        color: const Color.fromARGB(248, 96, 0, 0),
-        isSelected: false,
-      ),
-    ),
-    ResumeColorItem(
-      colorModel: ResumeColorModel(
-        color: const Color.fromARGB(248, 208, 208, 255),
-        isSelected: false,
-      ),
-    ),
-    ResumeColorItem(
-      colorModel: ResumeColorModel(
-        color: const Color.fromARGB(248, 208, 208, 255),
+        color: const Color.fromARGB(255, 93, 0, 200),
         isSelected: false,
       ),
     ),

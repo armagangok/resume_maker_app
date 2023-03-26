@@ -67,10 +67,7 @@ class ColorTabBarWidget extends StatefulWidget {
 }
 
 class _ColorTabBarWidgetState extends State<ColorTabBarWidget> {
-  @override
-  void initState() {
-    super.initState();
-  }
+  Color _currentColor = Colors.red;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +81,7 @@ class _ColorTabBarWidgetState extends State<ColorTabBarWidget> {
           scrollDirection: Axis.horizontal,
           itemCount: widget.itemCount,
           itemBuilder: (context, index) => InkWell(
-            onTap: () => widget.itemList[index] == widget.itemList.last
+            onTap: () => widget.itemList[index] == widget.itemList.first
                 ? {
                     showDialog(
                       context: context,
@@ -95,7 +92,6 @@ class _ColorTabBarWidgetState extends State<ColorTabBarWidget> {
                             child: ColorPicker(
                               pickerColor: _currentColor,
                               onColorChanged: _onColorChanged,
-                              showLabel: true,
                               pickerAreaHeightPercent: 0.8,
                             ),
                           ),
@@ -110,7 +106,7 @@ class _ColorTabBarWidgetState extends State<ColorTabBarWidget> {
                     ),
                   }
                 : widget.onTap(index),
-            child: widget.itemList[index] == widget.itemList.last
+            child: widget.itemList[index] == widget.itemList.first
                 ? Container(
                     width: 50.h,
                     height: 50.h,
@@ -141,14 +137,13 @@ class _ColorTabBarWidgetState extends State<ColorTabBarWidget> {
     );
   }
 
-  Color _currentColor = Colors.red;
-
   void _onColorChanged(Color color) {
     setState(() {
       _currentColor = color;
     });
 
-    Injection.colorPickerCubit.resumeColors[widget.itemCount-1].colorModel.color = _currentColor;
-    Injection.colorPickerCubit.selectIndex(widget.itemCount-1);
+    Injection.colorPickerCubit.resumeColors[0].colorModel
+        .color = _currentColor;
+    Injection.colorPickerCubit.selectIndex(0);
   }
 }

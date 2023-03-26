@@ -1,5 +1,3 @@
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-
 import '/core/export/export.dart';
 
 class TemplateColorPickerWidget extends StatefulWidget {
@@ -13,8 +11,6 @@ class TemplateColorPickerWidget extends StatefulWidget {
 }
 
 class _TemplateColorPickerWidgetState extends State<TemplateColorPickerWidget> {
-
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ColorPickerCubit, ColorPickerState>(
