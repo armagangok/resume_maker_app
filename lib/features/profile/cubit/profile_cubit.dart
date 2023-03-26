@@ -13,8 +13,6 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
     categoryList[index].model.isSelected = true;
 
-    pageController.page;
-
     pageController.animateToPage(
       index,
       duration: const Duration(milliseconds: 500),

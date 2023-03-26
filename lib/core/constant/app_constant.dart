@@ -1,1 +1,1 @@
-const kDebugMode = false;
+const kDebugMode = true;
