@@ -16,6 +16,7 @@ class Injection {
 
   static NavigationContract get navigator => getit.call<NavigationContract>();
   static ColorPickerCubit get colorPickerCubit => getit.call<ColorPickerCubit>();
+  
   static PreviewCubit get previewCubit => getit.call<PreviewCubit>();
   static ProfileCubit get profileCubit => getit.call<ProfileCubit>();
   static NewItemCubit get phoneItemCubit => _phoneItemCubit;

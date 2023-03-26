@@ -47,11 +47,16 @@ pw.Text aboutMeText({required String aboutMeText}) => pw.Text(
     ),
   );
 
+
+
+
+
 pw.Widget nameText(String name) => pw.FittedBox(
       child: pw.Text(
         name.toUpperCase(),
-        style: const pw.TextStyle(
+        style:  pw.TextStyle(
           fontSize: 20,
+          color: PdfColor.fromInt(Injection.colorPickerCubit.selectedColor.value),
         ),
         maxLines: 1,
       ),

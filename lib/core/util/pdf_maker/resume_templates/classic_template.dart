@@ -143,6 +143,8 @@ class ClassicTemplate extends ResumeTemplateContract {
             ),
           );
 
+          PdfColor _getColorFromDesign() => PdfColor.fromInt(Injection.colorPickerCubit.selectedColor.value);
+
     var nameWidget = _pdfRepo.getUserData.personal!.fullName!.isEmpty 
         ? pw.SizedBox()
         : nameText(
@@ -291,4 +293,6 @@ class ClassicTemplate extends ResumeTemplateContract {
   Future<String> getFilePathToSave({required String fileName}) async {
     return await super.getFilePathToSave(fileName: fileName);
   }
+
+  
 }

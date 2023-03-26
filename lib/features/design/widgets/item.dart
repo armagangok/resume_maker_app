@@ -43,8 +43,8 @@ class ResumeColorItem extends StatelessWidget {
 }
 
 class ResumeColorModel {
-  bool isSelected;
-  final Color color;
+   bool isSelected;
+   Color color;
 
   ResumeColorModel({
     required this.color,

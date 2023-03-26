@@ -18,6 +18,8 @@ class ColorPickerCubit extends Cubit<ColorPickerState> {
     emit(ColorPickerInitial());
   }
 
+  
+
   Color get selectedColor {
     for (var element in resumeColors) {
       if (element.colorModel.isSelected) {
@@ -115,6 +117,12 @@ class ColorPickerCubit extends Cubit<ColorPickerState> {
     ResumeColorItem(
       colorModel: ResumeColorModel(
         color: const Color.fromARGB(248, 96, 0, 0),
+        isSelected: false,
+      ),
+    ),
+    ResumeColorItem(
+      colorModel: ResumeColorModel(
+        color: const Color.fromARGB(248, 208, 208, 255),
         isSelected: false,
       ),
     ),
