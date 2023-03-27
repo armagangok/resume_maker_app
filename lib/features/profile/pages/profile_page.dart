@@ -1,10 +1,14 @@
-import '../../../../core/export/export.dart';
-
+import '/core/export/export.dart';
 import '../widgets/data_category_pageview.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +26,9 @@ class ProfilePage extends StatelessWidget {
   Widget _userDataTabBar() {
     return CustomTabBarWidget(
       itemList: Injection.profileCubit.categoryList,
-      onTap: (int index) => Injection.profileCubit.selectCategory(index),
+      onTap: (int index) async => await Injection.profileCubit.selectCategory(
+        index,
+      ),
       itemCount: Injection.profileCubit.categoryList.length,
     );
   }

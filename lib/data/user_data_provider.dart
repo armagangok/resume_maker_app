@@ -40,7 +40,7 @@ class UserDataProvider {
       email: _personalDataCubit.emailController.text,
       link: _personalDataCubit.linkController.text,
       summary: _personalDataCubit.summaryController.text,
-      imagePath: Injection.imageCubit.imagePath,
+      // imagePath: Injection.imageCubit.imagePath,
     );
 
     for (var element in Injection.educationCubit.newItems) {

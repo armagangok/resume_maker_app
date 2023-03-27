@@ -5,8 +5,6 @@ PODS:
   - Flutter (1.0.0)
   - flutter_document_picker (0.0.1):
     - Flutter
-  - image_picker_ios (0.0.1):
-    - Flutter
   - open_file (0.0.1):
     - Flutter
   - path_provider_foundation (0.0.1):
@@ -26,7 +24,6 @@ DEPENDENCIES:
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - Flutter (from `Flutter`)
   - flutter_document_picker (from `.symlinks/plugins/flutter_document_picker/ios`)
-  - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - open_file (from `.symlinks/plugins/open_file/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
@@ -45,8 +42,6 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_document_picker:
     :path: ".symlinks/plugins/flutter_document_picker/ios"
-  image_picker_ios:
-    :path: ".symlinks/plugins/image_picker_ios/ios"
   open_file:
     :path: ".symlinks/plugins/open_file/ios"
   path_provider_foundation:
@@ -64,7 +59,6 @@ SPEC CHECKSUMS:
   connectivity_plus: 413a8857dd5d9f1c399a39130850d02fe0feaf7e
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_document_picker: 109ba1c4622e6e62bfced17c22ff544a9a3541f4
-  image_picker_ios: b786a5dcf033a8336a657191401bfdf12017dabb
   open_file: 02eb5cb6b21264bd3a696876f5afbfb7ca4f4b7d
   path_provider_foundation: 37748e03f12783f9de2cb2c4eadfaa25fe6d4852
   permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce

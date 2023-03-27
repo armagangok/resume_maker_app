@@ -65,9 +65,9 @@ void setupViewmodels() {
     () => PersonalDataCubit(),
   );
 
-  getit.registerLazySingleton<ImageCubit>(
-    () => ImageCubit(),
-  );
+  // getit.registerLazySingleton<ImageCubit>(
+  //   () => ImageCubit(),
+  // );
   getit.registerLazySingleton<RootCubit>(
     () => RootCubit(),
   );

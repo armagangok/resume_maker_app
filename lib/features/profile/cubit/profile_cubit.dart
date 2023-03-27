@@ -7,13 +7,20 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   final pageController = PageController();
 
-  void selectCategory(int index) {
+  void reset() {
+    for (var element in categoryList) {
+      element.model.isSelected = false;
+    }
+    categoryList[0].model.isSelected = true;
+  }
+
+  Future<void> selectCategory(int index) async {
     for (var element in categoryList) {
       element.model.isSelected = false;
     }
     categoryList[index].model.isSelected = true;
 
-    pageController.animateToPage(
+    await pageController.animateToPage(
       index,
       duration: const Duration(milliseconds: 500),
       curve: Curves.decelerate,

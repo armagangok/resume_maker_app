@@ -18,7 +18,6 @@ class PersonalView extends StatelessWidget {
         SizedBox(
           child: UnderlinedTextField(
             labelText: "Profession Title",
-            
             controller: Injection.personalDataCubit.title,
           ),
         ),

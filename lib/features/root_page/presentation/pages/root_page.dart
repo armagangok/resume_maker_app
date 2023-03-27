@@ -74,13 +74,19 @@ class _RootPageState extends State<RootPage> {
                     _selectedIndex = index;
                   });
 
+                  if (_selectedIndex == 0) {
+                    Injection.profileCubit.reset();
+                  }
+
                   if (_selectedIndex == 2) {
+                    Injection.profileCubit.reset();
                     await Injection.previewCubit.loadPreview(
                       pdfId: "preview_pdf",
                     );
                   }
 
                   if (_selectedIndex == 3) {
+                    Injection.profileCubit.reset();
                     await Injection.exportCubit.exportPdf();
                   }
                 },
