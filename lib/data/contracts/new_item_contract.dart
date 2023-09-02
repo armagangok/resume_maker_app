@@ -1,5 +1,4 @@
 import '../../core/export/export.dart';
-import '../models/single_new_item_model.dart';
 
 abstract class NewItemContract extends Cubit {
   List<NewItemModel> newItems = [];

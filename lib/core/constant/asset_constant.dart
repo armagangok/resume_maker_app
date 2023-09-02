@@ -3,3 +3,4 @@ const eyeIcon = "assets/svg/Eye.svg";
 const okIcon = "assets/svg/Ok.svg";
 const exprotIcon = "assets/svg/Send File.svg";
 const menuIcon = "assets/svg/Xbox Menu.svg";
+const appIcon = "assets/resumeIcon.jpg";

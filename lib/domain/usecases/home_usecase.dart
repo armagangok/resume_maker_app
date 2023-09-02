@@ -3,11 +3,10 @@ import 'package:resume_maker_app/core/export/export.dart';
 class HomeUsecase {
   const HomeUsecase({
     Key? key,
-    required HomeRepositoryContract homeRepository,
-  })  : _homeRepository = homeRepository,
-        super();
+    // required HomeRepositoryContract homeRepository,
+  });
 
-  final HomeRepositoryContract _homeRepository;
+  // final HomeRepositoryContract _homeRepository;
 
   // Future<Result<List<FileSystemEntity>>> fetchFileEntityList() async {
   //   var response = await _homeRepository.fetchFileEntityList();

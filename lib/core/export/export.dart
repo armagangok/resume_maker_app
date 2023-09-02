@@ -82,7 +82,6 @@ export '/features/profile/pages/page_views/language/widget/language_item_builder
 export '/features/profile/pages/page_views/personal/cubit/image_picker/image_cubit.dart';
 export '/features/profile/pages/page_views/personal/cubit/personal_data/personal_data_cubit.dart';
 export '/features/profile/pages/page_views/personal/personal_view.dart';
-export '../../features/profile/pages/page_views/voluntary/voluntary_view.dart';
 export '/features/profile/pages/page_views/skills/skills_view.dart';
 export '/features/profile/pages/profile_page.dart';
 export '/features/profile/widgets/data_category_item.dart';
@@ -91,5 +90,6 @@ export '/features/profile/widgets/slider_widget.dart';
 export '/features/root_page/presentation/cubit/root_cubit.dart';
 export '/features/root_page/presentation/pages/root_page.dart';
 export '/features/splash/pages/splash_page.dart';
+export '/features/profile/pages/page_views/voluntary/voluntary_view.dart';
 export '../util/pdf_maker/repository/pdf_repository.dart';
 export '../widget/text_field/text_field.dart';

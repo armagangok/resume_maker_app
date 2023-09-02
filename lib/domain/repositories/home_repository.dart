@@ -8,13 +8,11 @@ class HomeRepository extends HomeRepositoryContract {
   HomeRepository({
     required HomeDataSourceContract homeDataSourceContract,
     required ExceptionHandler exceptionHandler,
-  })  : _exceptionHandler = exceptionHandler,
-        _homeDataSourceContract = homeDataSourceContract;
+  }) : _homeDataSourceContract = homeDataSourceContract;
 
   final HomeDataSourceContract _homeDataSourceContract;
-  final ExceptionHandler _exceptionHandler;
+  // final ExceptionHandler _exceptionHandler;
 
-  @override
   Future<Result<List<FileSystemEntity>>> fetchFileEntityList() async {
     try {
       var response = await _homeDataSourceContract.fetchFileEntityList();

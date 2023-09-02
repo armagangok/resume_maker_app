@@ -15,9 +15,7 @@ void initDependencies() {
 
 void setupUsecases() {
   getit.registerLazySingleton<HomeUsecase>(
-    () => HomeUsecase(
-      homeRepository: getit.get(),
-    ),
+    () => HomeUsecase(),
   );
   getit.registerLazySingleton<UserDataUsecase>(
     () => UserDataUsecase.instance,

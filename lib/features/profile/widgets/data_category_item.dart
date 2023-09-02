@@ -1,5 +1,4 @@
-import 'package:resume_maker_app/core/export/export.dart';
-import 'package:resume_maker_app/data/models/data_tabbar_model.dart';
+import '/core/export/export.dart';
 
 class CategoryTextWidget extends StatelessWidget {
   const CategoryTextWidget({

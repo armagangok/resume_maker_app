@@ -143,8 +143,8 @@ class ClassicTemplate extends ResumeTemplateContract {
             ),
           );
 
-    PdfColor _getColorFromDesign() =>
-        PdfColor.fromInt(Injection.colorPickerCubit.selectedColor.value);
+    // PdfColor _getColorFromDesign() =>
+    //     PdfColor.fromInt(Injection.colorPickerCubit.selectedColor.value);
 
     var nameWidget = _pdfRepo.getUserData.personal!.fullName!.isEmpty
         ? pw.SizedBox()
@@ -155,21 +155,21 @@ class ClassicTemplate extends ResumeTemplateContract {
     var voluntaryWidget = _pdfRepo.getUserData.qualifications!.isEmpty
         ? pw.SizedBox()
         : _pdfRepo.getUserData.qualifications!.isNotEmpty
-            ?  pw.Column(
-                  crossAxisAlignment: pw.CrossAxisAlignment.start,
-                  children: [
-                    pw.Row(
-                      mainAxisAlignment: pw.MainAxisAlignment.start,
-                      children: [
-                        getIcon(0xea70),
-                        head1Text("VOLUNTARY"),
-                      ],
-                    ),
-                    voluntaryText(
-                      voluntary: _pdfRepo.getUserData.qualifications!,
-                    )
-                  ],
-                )
+            ? pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment.start,
+                    children: [
+                      getIcon(0xea70),
+                      head1Text("VOLUNTARY"),
+                    ],
+                  ),
+                  voluntaryText(
+                    voluntary: _pdfRepo.getUserData.qualifications!,
+                  )
+                ],
+              )
             : pw.SizedBox();
 
     pw.Widget nameNumberMailWidget = pw.Row(

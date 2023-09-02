@@ -1,13 +1,9 @@
 import 'dart:typed_data';
 
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:printing/printing.dart';
 import 'package:resume_maker_app/core/export/export.dart';
 
 import '../components/pdf_components.dart';
-import '../contract/template_contract.dart';
-import '../repository/pdf_repository.dart';
 
 // const String path = 'assets/person.png';
 
@@ -37,7 +33,7 @@ class PeachPuffTemplate extends ResumeTemplateContract {
     final pdf = pw.Document();
     pdf.addPage(
       pw.MultiPage(
-         pageFormat: PdfPageFormat.letter.copyWith(
+        pageFormat: PdfPageFormat.letter.copyWith(
           marginTop: 0,
           marginLeft: 0,
           marginRight: 0,
@@ -109,7 +105,6 @@ class PeachPuffTemplate extends ResumeTemplateContract {
                       skillText(skills: _myrepo.getUserData.skills!),
                     ],
                   ),
-            
             _myrepo.getUserData.personal == null
                 ? pw.SizedBox()
                 : pw.Column(

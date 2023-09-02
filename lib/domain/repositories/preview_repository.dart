@@ -1,9 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
-import 'package:resume_maker_app/core/error/custom_failure.dart';
-
-import '../../core/export/export.dart';
+import '/core/error/custom_failure.dart';
+import '/core/export/export.dart';
 
 class PreviewRepository {
   PreviewRepository({
@@ -11,11 +10,11 @@ class PreviewRepository {
     required ExceptionHandler exceptionHandler,
   }) {
     _previewDataSource = previewDataSource;
-    _exceptionHandler = exceptionHandler;
+    // _exceptionHandler = exceptionHandler;
   }
 
   late final PreviewDataSource _previewDataSource;
-  late final ExceptionHandler _exceptionHandler;
+  // late final ExceptionHandler _exceptionHandler;
 
   Future<Result<List<FileSystemEntity>>> fetchFileEntityList() async {
     try {

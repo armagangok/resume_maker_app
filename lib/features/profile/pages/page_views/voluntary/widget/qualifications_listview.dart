@@ -44,7 +44,7 @@ class VoluntaryNewItemBuilder extends StatelessWidget {
 class QualificationModel extends UserDataEntity {
   @override
   final TextEditingController? title;
-  @override
+  
   final TextEditingController? schoolController;
   @override
   final TextEditingController? description;

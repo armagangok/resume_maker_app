@@ -18,8 +18,8 @@ class PreviewDataSource extends PreviewDataSourceContract {
 
   @override
   Future<List<String>> fetchPreviewPdfFiles() async {
-    Directory directory = await DirectoryHelper.applicationDocumentsDirectory;
-    var filePathList = Directory(directory.path).listSync();
+    // Directory directory = await DirectoryHelper.applicationDocumentsDirectory;
+    // var filePathList = Directory(directory.path).listSync();
 
     return ["filePathList"];
   }

@@ -1,8 +1,4 @@
-
-
-import '../../../../core/export/export.dart';
-import '../../../../data/entities/entity.dart';
-
+import '/core/export/export.dart';
 
 class LanguageModel extends UserDataEntity {
   @override
