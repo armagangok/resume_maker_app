@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:resume_maker_app/data/entities/entity.dart';
+import '../../core/export/export.dart';
 
 class MultipleNewItem extends UserDataEntity {
   @override

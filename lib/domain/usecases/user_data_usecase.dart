@@ -1,6 +1,6 @@
-import 'package:resume_maker_app/domain/repositories/user_data_repository.dart';
 
 import '../../core/result_types/result/result.dart';
+import '../repositories/user_data_repository.dart';
 
 class UserDataUsecase {
   UserDataUsecase._();

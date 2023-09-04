@@ -27,10 +27,10 @@ class ExportPage extends StatelessWidget {
   }
 
   Center _loadingWidget() {
-    return Center(
+    return const Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
+        children: [
           CupertinoActivityIndicator(),
           Text("PDF file is loading, please wait..."),
         ],
@@ -44,9 +44,10 @@ class ExportPage extends StatelessWidget {
     );
   }
 
-  Center _exportLoaded(BuildContext context, ExportLoaded state) {
-    return const Center(
-      child: Text("PDF created successfuly!"),
-    );
-  }
+  Widget _exportLoaded(BuildContext context, ExportLoaded state) => Center(
+        child: Text(
+          "PDF created successfuly!",
+          style: context.headlineMedium,
+        ),
+      );
 }

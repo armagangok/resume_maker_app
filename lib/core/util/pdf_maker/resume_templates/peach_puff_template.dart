@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:pdf/widgets.dart' as pw;
-import 'package:resume_maker_app/core/export/export.dart';
 
+import '../../../export/export.dart';
 import '../components/pdf_components.dart';
 
 // const String path = 'assets/person.png';
@@ -86,8 +86,7 @@ class PeachPuffTemplate extends ResumeTemplateContract {
                           head1Text("LANGUAGES"),
                         ],
                       ),
-                      languagesText(
-                          languageList: _myrepo.getUserData.languages!),
+                      languagesText(languageList: _myrepo.getUserData.languages!),
                       sizedBox015,
                     ],
                   ),
@@ -126,9 +125,7 @@ class PeachPuffTemplate extends ResumeTemplateContract {
         mainAxisAlignment: pw.MainAxisAlignment.start,
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
-          _myrepo.getUserData.personal == null
-              ? pw.SizedBox()
-              : nameText(_myrepo.getUserData.personal!.fullName!),
+          _myrepo.getUserData.personal == null ? pw.SizedBox() : nameText(_myrepo.getUserData.personal!.fullName!),
           sizedBox015,
           _myrepo.getUserData.personal == null
               ? pw.SizedBox()

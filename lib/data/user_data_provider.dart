@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:resume_maker_app/core/export/export.dart';
+import '../core/export/export.dart';
 
 class UserDataProvider {
   UserDataProvider._();

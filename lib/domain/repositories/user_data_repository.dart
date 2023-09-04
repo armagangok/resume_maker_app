@@ -1,7 +1,7 @@
-import 'package:resume_maker_app/core/error/custom_failure.dart';
-import 'package:resume_maker_app/data/datasources/user_datasource.dart';
-
-import '../../core/result_types/result/result.dart';
+import '/core/error/custom_failure.dart';
+import '/core/export/export.dart';
+import '/core/result_types/result/result.dart';
+import '/data/datasources/user_datasource.dart';
 
 class UserDataRepository {
   UserDataRepository._();

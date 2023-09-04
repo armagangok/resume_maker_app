@@ -28,7 +28,7 @@ class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const HomeAppBar(),
+      appBar: const RootAppBar(),
       bottomNavigationBar: _bottomNavBar(),
       body: Padding(
         padding: EdgeInsets.symmetric(

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '/core/export/export.dart';
 
 class PreviewPage extends StatelessWidget {

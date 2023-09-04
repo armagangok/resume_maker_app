@@ -2,7 +2,9 @@ import 'dart:typed_data';
 
 import 'package:pdf/widgets.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:resume_maker_app/core/export/export.dart';
+
+
+import '../../../export/export.dart';
 
 double width = PdfPageFormat.a4.width;
 double height = PdfPageFormat.a4.height;

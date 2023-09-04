@@ -1,18 +1,18 @@
 import 'package:flutter/services.dart';
-import 'package:open_file/open_file.dart';
-import 'package:resume_maker_app/core/error/custom_failure.dart';
-import 'package:resume_maker_app/core/result_types/result/result.dart';
+import 'package:open_filex/open_filex.dart';
+
+import '../error/custom_failure.dart';
+import '../export/export.dart';
 
 class LauncherHelper {
-  LauncherHelper._();
+  const LauncherHelper._();
   static Future<Result> launchFile(String filePath) async {
     try {
-      var result = await OpenFile.open(filePath);
+      var result = await OpenFilex.open(filePath);
       return Result.success(result.message);
     } on PlatformException catch (e) {
       return Result.failure(
-        CustomFailure(
-            message: e.message ?? "Error occured while launcinh PDF file."),
+        CustomFailure(message: e.message ?? "Error occured while launcinh PDF file."),
       );
     }
   }

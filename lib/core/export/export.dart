@@ -3,10 +3,8 @@ export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:flutter_riverpod/flutter_riverpod.dart';
 export 'package:flutter_screenutil/flutter_screenutil.dart';
 export 'package:google_fonts/google_fonts.dart';
-export 'package:path_provider/path_provider.dart';
 export 'package:pdf/pdf.dart';
 export 'package:printing/printing.dart';
-export 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 export '/core/constant/app_constant.dart';
 export '/core/constant/asset_constant.dart';

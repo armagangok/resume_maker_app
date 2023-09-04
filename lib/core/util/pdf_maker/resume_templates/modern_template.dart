@@ -1,7 +1,8 @@
 import 'package:flutter/services.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:resume_maker_app/core/export/export.dart';
 
+
+import '../../../export/export.dart';
 import '../components/pdf_components.dart';
 
 class ModernTemplate extends ResumeTemplateContract {
